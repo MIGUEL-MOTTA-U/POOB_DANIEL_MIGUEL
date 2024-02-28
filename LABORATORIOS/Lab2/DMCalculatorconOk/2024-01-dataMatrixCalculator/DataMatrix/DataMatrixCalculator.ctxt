@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=DataMatrixCalculator
+comment0.text=\ Data\ Matrix\ Calculator\r\n\ \r\n\ @author\ CIS\ 2024-01\r\n
+comment1.params=
+comment1.target=DataMatrixCalculator()
+comment2.params=name\ values
+comment2.target=void\ assign(java.lang.String,\ java.lang.String[][])
+comment2.text=\r\n\ Assign\ a\ matrix\ to\ a\ variable\r\n\ @param\ name\ of\ the\ matrix\r\n\ @param\ values\ to\ assign\ to\ the\ Matrix\r\n
+comment3.params=
+comment3.target=java.lang.String[]\ variables()
+comment3.text=\r\n\ This\ Method\ consults\ all\ the\ Matrices\ in\ the\ calculator\ and\ return\ an\ array\ of\ their\ variables.\r\n\ return\ variables,\ an\ array\ with\ all\ the\ variables\ of\ the\ calculator\ (all\ the\ matrices)\r\n
+comment4.params=a\ unary\ b
+comment4.target=void\ assign(java.lang.String,\ char,\ java.lang.String)
+comment4.text=\r\n\ This\ method\ assigns\ a\ value\ to\ matrix\ a,\ according\ to\ the\ unary\ operation,\ it\ will\ assign\ the\ Transpose\ Matrix,\ or\ the\ shape.\r\n\ @param\ a,\ the\ Matrix\ A\ where\ it\ saves\ the\ answer.\r\n\ @param\ unary,\ the\ operation,\ perhaps\ s(hape)\ or\ r(eshape)\r\n\ @param\ b,\ the\ Matrix\ in\ The\ array\ on\ which\ the\ operation\ is\ performed.\r\n
+comment5.params=name\ row\ column
+comment5.target=java.lang.String\ consult(java.lang.String,\ int,\ int)
+comment5.text=\r\n\ Consult\ the\ value\ of\ a\ variable\ of\ a\ given\ Matrix\r\n\ @param\ name,\ the\ name\ of\ the\ Matrix\r\n\ @param\ row,\ the\ position\ of\ the\ Matrix\ row\r\n\ @param\ column,\ the\ position\ of\ the\ Matrix\ column\r\n\ returns\ the\ String\ of\ the\ variable\ if\ its\ found,\ "Not\ found"\ otherwise.\r\n
+comment6.params=a\ b\ sBinary\ c
+comment6.target=void\ assign(java.lang.String,\ java.lang.String,\ char,\ java.lang.String)
+comment6.text=\r\n\ This\ method\ gets\ two\ Matrices\ b,\ c\ and\ according\ to\ an\ operation\ 'sBinary'\ it\ saves\ the\ result\ in\ the\ matrix\ a.\r\n\ @param\ a,\ the\ Matrix\ A\r\n\ @param\ b,\ the\ Matrix\ B\r\n\ @param\ c,\ the\ Matrix\ C\r\n\ @param\ sBinary,\ the\ operation\:\ '+'\ or\ '-'\r\n
+comment7.params=variable
+comment7.target=java.lang.String\ toString(java.lang.String)
+comment7.text=\r\n\ This\ method\ takes\ the\ given\ name\ of\ a\ Matrix\ from\ the\ collection\ of\ matrices\ and\ returns\ it\ as\ an\ String.\r\n\ @param\ variables,\ is\ the\ name\ of\ the\ Matrix\r\n\ returns\ the\ Matrix\ as\ a\ String\r\n
+comment8.params=
+comment8.target=boolean\ ok()
+numComments=9

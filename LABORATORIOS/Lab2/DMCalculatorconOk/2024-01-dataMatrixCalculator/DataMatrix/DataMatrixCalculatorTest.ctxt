@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.target=DataMatrixCalculatorTest
+comment0.text=\r\n\ The\ test\ class\ DataMatrixCalculatorTest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ beforeClass()
+comment2.params=
+comment2.target=void\ before()
+comment3.params=
+comment3.target=void\ shouldRepresentAMatrixAsAString()
+comment4.params=
+comment4.target=void\ shouldShowASpecificValue()
+comment5.params=
+comment5.target=void\ shouldAddMatrices()
+comment6.params=
+comment6.target=void\ shouldSubMatrices()
+comment7.params=
+comment7.target=void\ shouldTheStatusOfAOperation()
+comment8.params=
+comment8.target=void\ shouldShowShapeAndReshape()
+numComments=9

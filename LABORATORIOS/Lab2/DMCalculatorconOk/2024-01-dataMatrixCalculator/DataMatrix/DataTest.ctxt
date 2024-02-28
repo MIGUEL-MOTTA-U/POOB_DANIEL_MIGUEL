@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=DataTest
+comment1.params=
+comment1.target=void\ beforeClass()
+comment2.params=
+comment2.target=void\ before()
+comment3.params=
+comment3.target=void\ shouldCreateData()
+comment4.params=
+comment4.target=void\ shouldRepresentADataAsAString()
+comment5.params=
+comment5.target=void\ shouldKnowWhenTwoBooleansAreEquals()
+comment6.params=
+comment6.target=void\ shouldKnowWhenTwoNumbersAreEquals()
+comment7.params=
+comment7.target=void\ shouldKnowWhenTwoCharactersAreEquals()
+numComments=8
