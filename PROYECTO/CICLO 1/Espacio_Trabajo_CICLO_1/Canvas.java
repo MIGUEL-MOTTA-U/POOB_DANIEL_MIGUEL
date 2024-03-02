@@ -151,6 +151,11 @@ public class Canvas{
             graphic.setColor(Color.black);
     }
 
+    public ArrayList<String> getColors(){
+        ArrayList<String> colors = new ArrayList<>(Arrays.asList("red", "black", "blue", "yellow", "green", "magenta", "white", "gray", "orange", "purple", "brown", "cyan", "darkgreen"));
+        return colors;
+    }
+
     /**
      * Wait for a specified number of milliseconds before finishing.
      * This provides an easy way to specify a small delay which can be

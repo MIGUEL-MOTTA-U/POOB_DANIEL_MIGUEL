@@ -1,6 +1,4 @@
 import java.util.HashMap;
-import java.awt.geom.Line2D;
-import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 
@@ -21,6 +19,15 @@ public class SpiderWeb
      */
     public SpiderWeb(int strands, int radio){
         web = new Web(strands, radio);
+        spider = new Spider();
+    }
+
+    public SpiderWeb(int strands, int favorite, int[][] bridges){
+        web = new Web(strands, 300);
+        web.addSpot(favorite);
+        for(int i = 0; i < bridges.length; i++){
+            web.addBridge(bridges[i][0], bridges[i][1]);
+        }
         spider = new Spider();
     }
 

@@ -1,6 +1,5 @@
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
-import java.awt.geom.Line2D;
 import java.util.HashMap;
 import java.util.ArrayList;
 
@@ -25,7 +24,7 @@ public class Spider
     public Spider(){
         canvas = Canvas.getCanvas();
         body = new Ellipse2D.Double(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
-        this.strand = 0;
+        this.strand = 1;
         this.distance = 0;
         lastPath = new ArrayList<>();
         makeVisible();

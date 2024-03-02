@@ -1,6 +1,8 @@
 import java.util.HashMap;
-import java.awt.geom.Line2D;
 import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import java.util.Random;
+
 
 /**
  * Create the web.
@@ -15,7 +17,7 @@ public class Web
     private HashMap<String, Spot> spots;
     private int numStrands;
     private int radio;
-    
+
     private Canvas canvas;
 
     /**
@@ -38,10 +40,10 @@ public class Web
     private void addStrands(){
         double angle = Math.toRadians((double) 360 / this.numStrands);
         double angleStrand = 0;
-        for(int i = 0; i < this.numStrands; i++){
+        for(int i = 1; i <= this.numStrands; i++){
             Strand strand = new Strand(this.radio, angleStrand);
             this.strands.put(i, strand);
-            angleStrand += angle;
+            angleStrand -= angle;
         }
     }
     
@@ -56,13 +58,33 @@ public class Web
             JOptionPane.showMessageDialog(null, "Ya existe un puente con el mismo color");
         }else{
             if(distance <= this.radio){
-                int finalStrand = (firstStrand == this.numStrands - 1) ? 0 : firstStrand + 1;
+                int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
                 Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand);
                 bridge.addBridge(this.strands, firstStrand, finalStrand);
                 bridges.put(color, bridge);
             }else{
                 JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
             }
+        }
+    }
+
+    public void addBridge(int distance, int firstStrand){
+        ArrayList<String> colors = canvas.getColors();
+        Random random = new Random();
+        String color = "";
+
+        do{
+            int indexRandom = random.nextInt(colors.size());
+            color = colors.get(indexRandom);
+        }while(this.spots.containsKey(color));
+
+        if(distance <= this.radio){
+            int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
+            Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand);
+            bridge.addBridge(this.strands, firstStrand, finalStrand);
+            bridges.put(color, bridge);
+        }else{
+            JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
         }
     }
     
@@ -102,6 +124,21 @@ public class Web
             Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2());
             spots.put(color, spot);
         }
+    }
+
+    public void addSpot(int strand){
+        ArrayList<String> colors = canvas.getColors();
+        Random random = new Random();
+        String color = "";
+
+        do{
+            int indexRandom = random.nextInt(colors.size());
+            color = colors.get(indexRandom);
+        }while(this.spots.containsKey(color));
+
+        Strand selectedStrand = strands.get(strand);
+        Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2());
+        spots.put(color, spot);
     }
     
     /**
