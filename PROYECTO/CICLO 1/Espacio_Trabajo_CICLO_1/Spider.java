@@ -2,6 +2,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Write a description of class Spider here.
@@ -15,6 +16,7 @@ public class Spider
     private int strand = 0;
     private int distance = 0;
     private ArrayList<Integer> lastPath;
+    private HashMap<String, Bridge> usedBridges;
     
     private Canvas canvas;
 
@@ -27,6 +29,7 @@ public class Spider
         this.strand = 1;
         this.distance = 0;
         lastPath = new ArrayList<>();
+        usedBridges = new HashMap<>();
         makeVisible();
     }
     
@@ -40,6 +43,7 @@ public class Spider
         this.strand = strand;
         this.distance = 0;
         this.lastPath.clear();
+        this.usedBridges.clear();
     }
     
     /**
@@ -74,6 +78,7 @@ public class Spider
                 moveSpider(x0, y0, x1, y1);
                 moveSpider(x1, y1, x2, y2);
                 this.distance = bridge.getDistance();
+                usedBridges.put(bridge.getColor(), bridge);
                 x0 = x2;
                 y0 = y2;
             }
@@ -151,6 +156,32 @@ public class Spider
             output[i] = lastPath.get(i);
         }
         return output;
+    }
+
+    /**
+     * Return the bridges that the spider didn't use
+     * @param bridges   the existing bridges in the web
+     * @return  the bridges that the spider didn't use
+     */
+    public String[] unusedBridges(HashMap<String, Bridge> bridges){
+        HashMap<String, Bridge> unusedBridges = new HashMap<>();
+
+        for(Map.Entry<String, Bridge> entry : bridges.entrySet()){
+            String key = entry.getKey();
+            Bridge bridge = entry.getValue();
+            if(!this.usedBridges.containsKey(key)){
+                unusedBridges.put(key, bridge);
+            }
+        }
+
+        String[] output = new String[unusedBridges.size()];
+        int i = 0;
+        for(String color : unusedBridges.keySet()){
+            output[i] = color;
+            i += 1;
+        }
+        
+        return output; 
     }
 
     /**

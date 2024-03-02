@@ -57,6 +57,14 @@ public class Bridge
         output[3] = this.body.getY2();
         return output; 
     }
+
+    /**
+     * Return the distance
+     * @return  the distance from the center to the bridge
+     */
+    public String getColor(){
+        return this.color;
+    }
     
     /**
      * Return the distance

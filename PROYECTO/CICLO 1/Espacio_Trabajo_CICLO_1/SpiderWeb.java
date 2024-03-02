@@ -143,6 +143,11 @@ public class SpiderWeb
     public double[] spot(String color){
         return web.spot(color);
     }
+
+    public String[] unusedBridges(){
+        HashMap<String, Bridge> bridges = web.getBridges();
+        return spider.unusedBridges(bridges);
+    }
     
     /**
      * Make the objects visible. If it was already visible, do nothing.
