@@ -24,6 +24,14 @@ public class Spot
         body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);        
         makeVisible();
     }
+
+    public String getColor(){
+        return this.color;
+    }
+
+    public int getStrand(){
+        return this.strand;
+    }
     
     /**
      * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)

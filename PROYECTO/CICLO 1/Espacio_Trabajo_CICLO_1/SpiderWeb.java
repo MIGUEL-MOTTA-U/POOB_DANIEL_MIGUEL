@@ -33,8 +33,8 @@ public class SpiderWeb
 
     /**
      * Add a bridge to the web
-     * @param   color       The color of the bridge. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color       The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      * @param   distance    the distance from the center to the bridge
      * @param   firstStrand the strand where the bridge begin
      */
@@ -44,8 +44,8 @@ public class SpiderWeb
     
     /**
      * Change the distance of the bridge
-     * @param   color       The color of the bridge. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color       The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      * @param   distance    the new distance from the center to the bridge
      */
     public void relocateBridge(String color, int distance){
@@ -54,8 +54,8 @@ public class SpiderWeb
     
     /**
      * Remove a bridge
-     * @param   color   The color of the bridge. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color   The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      */
     public void delBridge(String color){
         web.delBridge(color);
@@ -63,8 +63,8 @@ public class SpiderWeb
     
     /**
      * Add a spot to the web
-     * @param   color   The color of the spot. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color   The color of the spot. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      * @param   strand  where the spot is locate
      */
     public void addSpot(String color, int strand){
@@ -73,8 +73,8 @@ public class SpiderWeb
     
     /**
      * Remove a spot from the web
-     * @param   color   The color of the spot. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color   The color of the spot. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      */
     public void delSpot(String color){
         web.delSpot(color);
@@ -118,8 +118,8 @@ public class SpiderWeb
     
     /**
      * Return the coordenates of the bridge, (Xo,Yo) & (Xf,Yf)
-     * @param   color   the color of the bridge. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color   the color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      * @return  the coordenates of the bridge
      */
     public double[] bridge(String color){
@@ -136,14 +136,28 @@ public class SpiderWeb
     
     /**
      * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)
-     * @param   color   the color of the spot. Valid colors are "red", "yellow", "blue", "green", "magenta", "black", "gray", "orange", "purple", "brown",
-     * "cyan" and "darkgreen
+     * @param   color   the color of the spot. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
      * @return  the coordenates of the spot
      */
     public double[] spot(String color){
         return web.spot(color);
     }
 
+    /**
+     * Return the spots that the spider can reach
+     * @return  the spots color that the spider can reach
+     */
+    public String[] reachableSpots(){
+        HashMap<String, Bridge> bridges = web.getBridges();
+        HashMap<String, Spot> spots = web.getSpots();
+        return spider.reachableSpots(bridges, spots);
+    }
+
+    /**
+     * Return the bridges that the spider didn't use
+     * @return  the bridges color that the spider didn't use
+     */
     public String[] unusedBridges(){
         HashMap<String, Bridge> bridges = web.getBridges();
         return spider.unusedBridges(bridges);

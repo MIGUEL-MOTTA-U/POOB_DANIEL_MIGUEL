@@ -133,8 +133,6 @@ public class Canvas{
             graphic.setColor(Color.green);
         else if(colorString.equals("magenta"))
             graphic.setColor(Color.magenta);
-        else if(colorString.equals("white"))
-            graphic.setColor(Color.white);
         else if(colorString.equals("gray"))
             graphic.setColor(Color.gray);
         else if(colorString.equals("orange"))
@@ -147,12 +145,18 @@ public class Canvas{
             graphic.setColor(Color.cyan);
         else if(colorString.equals("darkgreen"))
             graphic.setColor(new Color(0, 100, 0));
+        else if (colorString.equals("aquamarine")) // Añadir aquamarine
+            graphic.setColor(new Color(127, 255, 212));
+        else if (colorString.equals("lavender")) // Añadir lavender
+            graphic.setColor(new Color(230, 230, 250));
+        else if (colorString.equals("salmon")) // Añadir salmon
+            graphic.setColor(new Color(250, 128, 114));
         else
             graphic.setColor(Color.black);
     }
 
     public ArrayList<String> getColors(){
-        ArrayList<String> colors = new ArrayList<>(Arrays.asList("red", "black", "blue", "yellow", "green", "magenta", "white", "gray", "orange", "purple", "brown", "cyan", "darkgreen"));
+        ArrayList<String> colors = new ArrayList<>(Arrays.asList("red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", "darkgreen", "aquamarine", "lavender", "salmon"));
         return colors;
     }
 

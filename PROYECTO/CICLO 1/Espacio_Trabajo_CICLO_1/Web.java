@@ -68,6 +68,11 @@ public class Web
         }
     }
 
+    /**
+     * Add a bridge to the web with a random color
+     * @param   distance    the distance from the center to the bridge
+     * @param   firstStrand the strand where the bridge begin
+     */
     public void addBridge(int distance, int firstStrand){
         ArrayList<String> colors = canvas.getColors();
         Random random = new Random();
@@ -126,6 +131,10 @@ public class Web
         }
     }
 
+    /**
+     * Add a spot to the web with a random color
+     * @param   strand  where the spot is locate
+     */
     public void addSpot(int strand){
         ArrayList<String> colors = canvas.getColors();
         Random random = new Random();
@@ -223,6 +232,14 @@ public class Web
      */
     public HashMap<String, Bridge> getBridges(){
         return this.bridges;
+    }
+
+    /**
+     * Return the existing spots in the web
+     * @return  a hashMap with the existing spots in the web
+     */
+    public HashMap<String, Spot> getSpots(){
+        return this.spots;
     }
     
     /**

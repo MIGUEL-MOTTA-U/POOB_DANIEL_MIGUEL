@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Write a description of class Spider here.
+ * Create a spider.
  * 
- * @author (your name) 
+ * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
 public class Spider
@@ -159,9 +159,54 @@ public class Spider
     }
 
     /**
+     * Return the spots that the spider can reach
+     * @param bridges   the existing bridges in the web
+     * @param spots     the existing spots in the web
+     * @return          the spots color that the spider can reach
+     */
+    public String[] reachableSpots(HashMap<String, Bridge> bridges, HashMap<String, Spot> spots){
+        String[] reachableSpots = new String[1];
+        Bridge bridge;
+        int tempStrand = this.strand;
+        int distance = this.distance;
+        
+        do{
+            bridge = bridgeToGo(bridges);
+            if(bridge != null){
+                if(bridge.getInicialStrand() == this.strand){
+                    this.strand = bridge.getFinalStrand();
+                }else{
+                    this.strand = bridge.getInicialStrand();
+                }
+                this.distance = bridge.getDistance();
+            }
+        }while(bridge != null);
+        
+        reachableSpots[0] = spotInStrand(this.strand, spots);
+        this.strand = tempStrand;
+        this.distance = distance;
+        return reachableSpots;
+    }
+
+    /**
+     * Return the color of the spot that is on the strand
+     * @param strand    the last strand where the spider ends after walking
+     * @param spots     the existing spots in the web
+     * @return          the color of the spot that is on the strand
+     */
+    private String spotInStrand(int strand, HashMap<String, Spot> spots){
+        for(Spot spot : spots.values()){
+            if(spot.getStrand() == strand){
+                return spot.getColor();
+            }
+        }
+        return null;
+    }
+
+    /**
      * Return the bridges that the spider didn't use
      * @param bridges   the existing bridges in the web
-     * @return  the bridges that the spider didn't use
+     * @return  the bridges color that the spider didn't use
      */
     public String[] unusedBridges(HashMap<String, Bridge> bridges){
         HashMap<String, Bridge> unusedBridges = new HashMap<>();
@@ -180,7 +225,7 @@ public class Spider
             output[i] = color;
             i += 1;
         }
-        
+
         return output; 
     }
 
