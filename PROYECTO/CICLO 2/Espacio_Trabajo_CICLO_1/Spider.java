@@ -147,6 +147,14 @@ public class Spider
     }
     
     /**
+     * This method returns the distance of the spider respect the origin.
+     * returns the distance of the spider respect the origin.
+     */
+    public int getDistance(){
+        return this.distance;
+    }
+    
+    /**
      * Return the path along wich the spider walked
      * @return  the strands where the spider walked
      */ 

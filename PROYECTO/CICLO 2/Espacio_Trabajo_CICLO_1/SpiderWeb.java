@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
  * 
  * @author Daniel Diaz && Miguel Motta
  * 
- * @version (a version number or a date)
+ * @version (2.3.3.24)
  */
 public class SpiderWeb
 {
@@ -21,7 +21,15 @@ public class SpiderWeb
         web = new Web(strands, radio);
         spider = new Spider();
     }
-
+    
+    /**
+     * Constructor for creating a SpiderWeb object.
+     * 
+     * @param strands   The total number of strands in the spider web.
+     * @param favorite  The index of the spider's favorite spot on the web.
+     * @param bridges   A 2D array representing the connections between spots on the web. 
+     * Each element is an array of two integers representing the indices of the spots connected by a bridge.
+     */
     public SpiderWeb(int strands, int favorite, int[][] bridges){
         web = new Web(strands, 300);
         web.addSpot(favorite);
@@ -30,7 +38,30 @@ public class SpiderWeb
         }
         spider = new Spider();
     }
-
+    
+    /**
+     * This Method adds an strand to the SpiderWeb
+     */
+    public void addStrand(){
+        this.makeInvisible();
+        spider = new Spider();
+        web.addOneStrand();
+        web.makeVisible();
+    }
+    
+    /**
+     * Method to expand the radius of the web.
+     * @param percentage, the expansion factor.
+     */
+    public void enlarge(int percentage){
+        this.makeInvisible();
+        web.enlarge(percentage);
+        if (spider.getDistance() != 0){
+            this.spiderWalk(true);
+        }
+        this.makeVisible();
+    }
+    
     /**
      * Add a bridge to the web
      * @param   color       The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 

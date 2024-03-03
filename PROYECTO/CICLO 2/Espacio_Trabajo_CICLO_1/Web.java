@@ -2,6 +2,7 @@ import java.util.HashMap;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Map;
 
 
 /**
@@ -17,7 +18,6 @@ public class Web
     private HashMap<String, Spot> spots;
     private int numStrands;
     private int radio;
-
     private Canvas canvas;
 
     /**
@@ -44,6 +44,57 @@ public class Web
             Strand strand = new Strand(this.radio, angleStrand);
             this.strands.put(i, strand);
             angleStrand -= angle;
+        }
+    }
+    
+    /**
+     * Add an strand to the web and update the relation of spots and bridges with their respective strands.
+     */
+    public void addOneStrand(){
+
+        this.strands.clear();
+        this.numStrands ++;
+        addStrands();
+        for (Map.Entry<String, Bridge> element : bridges.entrySet()){
+            Bridge b = element.getValue();
+            int firstStrand = b.getInicialStrand();
+            String color = element.getKey();
+            int distance = b.getDistance();
+            this.bridges.remove(color); // Uptdate the bridge
+            this.addBridge(color, distance, firstStrand);
+        }
+        for (Map.Entry<String, Spot> element : spots.entrySet()){
+            Spot s = element.getValue();
+            String color = element.getKey();
+            int strand = s.getStrand();
+            this.spots.remove(color); // Update the spot
+            this.addSpot(color, strand);
+        }
+    }
+    
+    /**
+     * This method expand the web by a given percentage.
+     * @param percentage, the expansion relation
+     */
+    public void enlarge(int percentage){
+        this.makeInvisible();
+        this.strands.clear();
+        this.radio+= percentage*radio/100;
+        addStrands();
+        for (Map.Entry<String, Bridge> element : bridges.entrySet()){
+            Bridge b = element.getValue();
+            int firstStrand = b.getInicialStrand();
+            String color = element.getKey();
+            int distance = b.getDistance();
+            this.bridges.remove(color); // Uptdate the bridge
+            this.addBridge(color, distance, firstStrand);
+        }
+        for (Map.Entry<String, Spot> element : spots.entrySet()){
+            Spot s = element.getValue();
+            String color = element.getKey();
+            int strand = s.getStrand();
+            this.spots.remove(color); // Update the spot
+            this.addSpot(color, strand);
         }
     }
     
