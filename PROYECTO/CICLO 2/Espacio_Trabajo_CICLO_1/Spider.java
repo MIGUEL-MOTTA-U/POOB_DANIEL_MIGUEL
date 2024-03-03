@@ -177,7 +177,7 @@ public class Spider
         Bridge bridge;
         int tempStrand = this.strand;
         int distance = this.distance;
-        
+            
         do{
             bridge = bridgeToGo(bridges);
             if(bridge != null){
@@ -196,7 +196,7 @@ public class Spider
         return reachableSpots;
     }
 
-    /**
+    /*
      * Return the color of the spot that is on the strand
      * @param strand    the last strand where the spider ends after walking
      * @param spots     the existing spots in the web
