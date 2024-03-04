@@ -40,13 +40,47 @@ public class SpiderWeb
     }
     
     /**
+     * This  method returns the number of strands of the SpiaderWeb
+     * @return the number of strands of strands of the SpiaderWeb
+     */
+    public int getStrandsNumber(){
+        return web.getStrands().size();
+    }
+    
+    
+    /**
+     * This  method returns the number of bridges of the SpiaderWeb
+     * @return the number of strands of bridges of the SpiaderWeb
+     */
+    public int getBridges(){
+        return web.getBridges().size();
+    }
+    
+    /**
+     * This  method returns the number of spots of the SpiaderWeb
+     * @return the number of strands of spots of the SpiaderWeb
+     */
+    public int getSpots(){
+        return web.getSpots().size();
+    }
+    
+    /**
+     * This  method returns the length of strands of the SpiaderWeb
+     * @return the length of strands from SpiderWeb
+     */
+    public int getStrandLength(){
+        return web.getRadio();
+    }
+    
+    
+    /**
      * This Method adds an strand to the SpiderWeb
      */
     public void addStrand(){
         this.makeInvisible();
         spider = new Spider();
         web.addOneStrand();
-        web.makeVisible();
+        this.makeVisible();
     }
     
     /**
@@ -61,6 +95,7 @@ public class SpiderWeb
         }
         this.makeVisible();
     }
+    
     
     /**
      * Add a bridge to the web

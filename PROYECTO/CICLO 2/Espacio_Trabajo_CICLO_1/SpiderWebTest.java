@@ -204,4 +204,44 @@ public class SpiderWebTest{
         expected = new String[]{null};
         assertNotEquals(spiderWeb.reachableSpots(), expected);
     }
+    
+    
+     @Test
+    public void accordingDCShouldExpand(){
+        
+        int originalL =  spiderWeb.getStrandLength();
+        spiderWeb.enlarge(50);
+        assertEquals((spiderWeb.getStrandLength()), originalL + 50*originalL/100);
+        
+        originalL =  spiderWeb.getStrandLength();
+        spiderWeb.enlarge(87);
+        assertEquals((spiderWeb.getStrandLength()), originalL + 87*originalL/100);
+        
+        originalL =  spiderWeb.getStrandLength();
+        spiderWeb.enlarge(50);
+        assertNotEquals((spiderWeb.getStrandLength()), originalL);
+        
+        originalL =  spiderWeb.getStrandLength();
+        spiderWeb.enlarge(87);
+        assertNotEquals((spiderWeb.getStrandLength()), originalL);
+    }
+    
+    @Test
+    public void accordingDCShouldAddStrand(){
+        int originalStrands = 20;
+        for (int i = 1; i<= 5; i++){
+            spiderWeb.addStrand();
+            assertEquals(spiderWeb.getStrandsNumber(),20+i);
+            assertEquals(spiderWeb.getBridges(),6);
+            assertEquals(spiderWeb.getSpots(),3);
+        }
+        
+        for (int i = 1; i<= 5; i++){
+            int strands = spiderWeb.getStrandsNumber();
+            spiderWeb.addStrand();
+            assertNotEquals(spiderWeb.getStrandsNumber(),strands);
+            assertNotEquals(spiderWeb.getBridges(),6+i);
+            assertNotEquals(spiderWeb.getSpots(),3+i);
+        }
+    }
 }

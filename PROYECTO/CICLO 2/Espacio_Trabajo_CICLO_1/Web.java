@@ -33,7 +33,7 @@ public class Web
         
         addStrands();
     }
-
+    
     /*
      * Create the web
      */
@@ -48,28 +48,20 @@ public class Web
     }
     
     /**
+         * This method returns the value of the radio, the length.
+         */
+        public int getRadio(){
+            return this.radio;
+        }
+    
+    /**
      * Add an strand to the web and update the relation of spots and bridges with their respective strands.
      */
     public void addOneStrand(){
-
         this.strands.clear();
         this.numStrands ++;
         addStrands();
-        for (Map.Entry<String, Bridge> element : bridges.entrySet()){
-            Bridge b = element.getValue();
-            int firstStrand = b.getInicialStrand();
-            String color = element.getKey();
-            int distance = b.getDistance();
-            this.bridges.remove(color); // Uptdate the bridge
-            this.addBridge(color, distance, firstStrand);
-        }
-        for (Map.Entry<String, Spot> element : spots.entrySet()){
-            Spot s = element.getValue();
-            String color = element.getKey();
-            int strand = s.getStrand();
-            this.spots.remove(color); // Update the spot
-            this.addSpot(color, strand);
-        }
+        recalculateWeb();
     }
     
     /**
@@ -77,23 +69,31 @@ public class Web
      * @param percentage, the expansion relation
      */
     public void enlarge(int percentage){
-        this.makeInvisible();
         this.strands.clear();
         this.radio+= percentage*radio/100;
         addStrands();
-        for (Map.Entry<String, Bridge> element : bridges.entrySet()){
+        recalculateWeb();
+    }
+    
+    /*
+     * This private method recreates the web according to the new specifications.
+     */
+    private void recalculateWeb(){
+        HashMap<String, Bridge> copyBridges = new HashMap<>(this.bridges);
+        HashMap<String, Spot> copySpots = new HashMap<>(this.spots);
+        this.spots.clear();
+        this.bridges.clear();
+        for (Map.Entry<String, Bridge> element : copyBridges.entrySet()){
             Bridge b = element.getValue();
             int firstStrand = b.getInicialStrand();
             String color = element.getKey();
             int distance = b.getDistance();
-            this.bridges.remove(color); // Uptdate the bridge
             this.addBridge(color, distance, firstStrand);
         }
-        for (Map.Entry<String, Spot> element : spots.entrySet()){
+        for (Map.Entry<String, Spot> element : copySpots.entrySet()){
             Spot s = element.getValue();
             String color = element.getKey();
             int strand = s.getStrand();
-            this.spots.remove(color); // Update the spot
             this.addSpot(color, strand);
         }
     }
