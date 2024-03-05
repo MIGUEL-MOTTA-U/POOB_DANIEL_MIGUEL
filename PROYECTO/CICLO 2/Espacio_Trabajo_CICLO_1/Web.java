@@ -207,6 +207,7 @@ public class Web
      */
     public void delSpot(String color){
         Spot spot = spots.get(color);
+        spot.makeInvisible();
         spot = null;
         spots.remove(color);
     }
