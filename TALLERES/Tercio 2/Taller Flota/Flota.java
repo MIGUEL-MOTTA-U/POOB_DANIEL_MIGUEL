@@ -39,4 +39,14 @@ public class Flota {
         }
         return res;
     }
+
+    public boolean esBuenAtaque(int longitud, int latitud){
+        boolean res = false;
+        ArrayList<Maquina> eliminarMaquinas = this.seranDestruidas(longitud, latitud);
+        if(!maquinas.isEmpty()){
+            maquinas.removeAll(eliminarMaquinas);
+            res = true;
+        }
+        return res;
+    }
 }
