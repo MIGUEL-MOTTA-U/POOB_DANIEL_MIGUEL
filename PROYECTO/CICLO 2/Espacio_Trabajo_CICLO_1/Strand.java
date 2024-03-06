@@ -73,7 +73,7 @@ public class Strand
     }
 
     /**
-     * Make visible the spider
+     * Make visible the strand
      */
     public void makeVisible(){
         this.isVisible = true;
@@ -81,7 +81,7 @@ public class Strand
     }
     
     /**
-     * Make invisible the spider
+     * Make invisible the strand
      */
     public void makeInvisible(){
         erase();

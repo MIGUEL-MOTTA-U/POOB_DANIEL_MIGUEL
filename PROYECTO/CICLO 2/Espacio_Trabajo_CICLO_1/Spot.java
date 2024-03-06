@@ -68,7 +68,7 @@ public class Spot
     }
 
     /**
-     * Make visible the spider
+     * Make visible the spot
      */
     public void makeVisible(){
         this.isVisible = true;
@@ -76,7 +76,7 @@ public class Spot
     }
     
     /**
-     * Make invisible the spider
+     * Make invisible the spot
      */
     public void makeInvisible(){
         erase();

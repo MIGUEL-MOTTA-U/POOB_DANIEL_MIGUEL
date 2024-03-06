@@ -122,7 +122,7 @@ public class Bridge
     }
 
     /**
-     * Make visible the spider
+     * Make visible the bridge
      */
     public void makeVisible(){
         this.isVisible = true;
@@ -130,7 +130,7 @@ public class Bridge
     }
     
     /**
-     * Make invisible the spider
+     * Make invisible the bridge
      */
     public void makeInvisible(){
         erase();

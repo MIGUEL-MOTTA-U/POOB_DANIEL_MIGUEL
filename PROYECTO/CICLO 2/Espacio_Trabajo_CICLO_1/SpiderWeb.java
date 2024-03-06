@@ -232,18 +232,18 @@ public class SpiderWeb
      * Make the objects visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
+        this.isVisible = true;
         web.makeVisible();
         spider.makeVisible();
-        this.isVisible = true;
     }
     
     /**
      * Make the objects invisible. If it was already visible, do nothing.
      */
     public void makeInvisible(){
-        this.isVisible = false;
         web.makeInvisible();
         spider.makeInvisible();
+        this.isVisible = false;
     }
     
     /**
