@@ -8,10 +8,15 @@ public class Avion extends Maquina{
     
     @Override
     public boolean seraDestruida(int longitud, int latitud){
-        boolean res = false;
-        if(!enAire){
-            res = super.seraDestruida(longitud, latitud);
-        }
-        return res;
+        return (!enAire) ? super.seraDestruida(longitud, latitud) : false;
+    }
+
+    @Override
+    public boolean esDebil(){
+        return (piloto == null) ? true : false;
+    }
+
+    public boolean getEnAire(){
+        return this.enAire;
     }
 }

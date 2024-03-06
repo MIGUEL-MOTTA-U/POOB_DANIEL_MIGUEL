@@ -1,6 +1,6 @@
  
 
-public class Maquina {
+public abstract class Maquina {
     private Ubicacion ubicacion;
     
     public void alNorte(){
@@ -14,4 +14,6 @@ public class Maquina {
     public boolean seraDestruida(int longitud, int latitud){
         return (ubicacion.mismaUbicacion(longitud, latitud)) ? true : false;
     }
+
+    public abstract boolean esDebil();
 }

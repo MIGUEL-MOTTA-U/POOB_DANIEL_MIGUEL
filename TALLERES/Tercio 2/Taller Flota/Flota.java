@@ -29,4 +29,14 @@ public class Flota {
         }
         return res;
     }
+
+    public ArrayList<Maquina> maquinasDebiles(){
+        ArrayList<Maquina> res = new ArrayList<>();
+        for(Maquina maquina : maquinas){
+            if(maquina.esDebil()){
+                res.add(maquina);
+            }
+        }
+        return res;
+    }
 }
