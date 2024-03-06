@@ -49,4 +49,19 @@ public class Flota {
         }
         return res;
     }
+
+    public void ataquen(int lon, int lat){
+        int dLon = 0;
+        int dLat = 0;
+        for(Maquina maquina : maquinas){
+            if (!maquina.esDebil()) {
+                int maxDistance = Math.max(lon, lat); 
+                for (int i = 0; i <= maxDistance; i++) {
+                    dLon = (i <= lon) ? i : 0;
+                    dLat = (i <= lat) ? i : 0; 
+                    this.avance(dLon, dLat);
+                }
+            }
+        }
+    }
 }
