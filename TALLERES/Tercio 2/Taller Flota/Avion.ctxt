@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.target=Avion
+comment1.params=longitud\ latitud
+comment1.target=boolean\ seraDestruida(int,\ int)
+numComments=2
