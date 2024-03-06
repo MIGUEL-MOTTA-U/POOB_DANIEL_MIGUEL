@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Web
 comment0.text=\r\n\ Create\ the\ web.\r\n\ \r\n\ @author\ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=strands\ radio
-comment1.target=Web(int,\ int)
+comment1.params=strands\ radio\ isVisible
+comment1.target=Web(int,\ int,\ boolean)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Web\r\n
 comment10.params=color
 comment10.target=void\ delBridge(java.lang.String)

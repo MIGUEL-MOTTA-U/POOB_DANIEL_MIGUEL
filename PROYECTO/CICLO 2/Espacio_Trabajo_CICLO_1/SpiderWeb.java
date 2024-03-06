@@ -13,13 +13,15 @@ public class SpiderWeb
 {
     private Web web;
     private Spider spider;
+    public boolean isVisible;
 
     /**
      * Constructor for objects of class SpiderWeb
      */
     public SpiderWeb(int strands, int radio){
-        web = new Web(strands, radio);
-        spider = new Spider();
+        this.isVisible = true;
+        web = new Web(strands, radio, this.isVisible);
+        spider = new Spider(this.isVisible);
     }
     
     /**
@@ -31,12 +33,13 @@ public class SpiderWeb
      * Each element is an array of two integers representing the indices of the spots connected by a bridge.
      */
     public SpiderWeb(int strands, int favorite, int[][] bridges){
-        web = new Web(strands, 300);
+        this.isVisible = true;
+        web = new Web(strands, 300, this.isVisible);
         web.addSpot(favorite);
         for(int i = 0; i < bridges.length; i++){
             web.addBridge(bridges[i][0], bridges[i][1]);
         }
-        spider = new Spider();
+        spider = new Spider(this.isVisible);
     }
     
     /**
@@ -77,10 +80,8 @@ public class SpiderWeb
      * This Method adds an strand to the SpiderWeb
      */
     public void addStrand(){
-        this.makeInvisible();
-        spider = new Spider();
+        spider = new Spider(this.isVisible);
         web.addOneStrand();
-        this.makeVisible();
     }
     
     /**
@@ -88,12 +89,10 @@ public class SpiderWeb
      * @param percentage, the expansion factor.
      */
     public void enlarge(int percentage){
-        this.makeInvisible();
         web.enlarge(percentage);
         if (spider.getDistance() != 0){
             this.spiderWalk(true);
         }
-        this.makeVisible();
     }
     
     
@@ -235,12 +234,14 @@ public class SpiderWeb
     public void makeVisible(){
         web.makeVisible();
         spider.makeVisible();
+        this.isVisible = true;
     }
     
     /**
      * Make the objects invisible. If it was already visible, do nothing.
      */
     public void makeInvisible(){
+        this.isVisible = false;
         web.makeInvisible();
         spider.makeInvisible();
     }

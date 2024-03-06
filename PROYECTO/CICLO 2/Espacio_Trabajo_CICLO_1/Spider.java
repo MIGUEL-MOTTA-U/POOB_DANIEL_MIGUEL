@@ -17,20 +17,22 @@ public class Spider
     private int distance = 0;
     private ArrayList<Integer> lastPath;
     private HashMap<String, Bridge> usedBridges;
+    private boolean isVisible;
     
     private Canvas canvas;
 
     /**
      * Constructor for objects of class Spider
      */
-    public Spider(){
+    public Spider(boolean isVisible){
         canvas = Canvas.getCanvas();
         body = new Ellipse2D.Double(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
         this.strand = 1;
         this.distance = 0;
         lastPath = new ArrayList<>();
         usedBridges = new HashMap<>();
-        makeVisible();
+        this.isVisible = isVisible;
+        draw();
     }
     
     /**
@@ -39,7 +41,7 @@ public class Spider
      */
     public void spiderSit(int strand){
         this.body.setFrame(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
-        makeVisible();
+        draw();
         this.strand = strand;
         this.distance = 0;
         this.lastPath.clear();
@@ -99,7 +101,7 @@ public class Spider
             Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
             this.body.setFrame(point.getX() - 7.5, point.getY() - 7.5, 15, 15);
             canvas.wait(16);
-            makeVisible();
+            draw();
         }
     }
     
@@ -237,17 +239,40 @@ public class Spider
         return output; 
     }
 
+    /*
+     * Draw the spider with current specifications on screen.
+     */
+    private void draw(){
+        if(isVisible){
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, "black", body);
+            canvas.wait(10);
+        }
+    }
+
+    /*
+     * Erase the spider on screen.
+     */
+    private void erase(){
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.erase(this);
+        }
+    }
+
     /**
      * Make visible the spider
      */
     public void makeVisible(){
-        canvas.draw(body, "black", body);
+        this.isVisible = true;
+        draw();
     }
     
     /**
      * Make invisible the spider
      */
     public void makeInvisible(){
-        canvas.erase(body);
+        erase();
+        this.isVisible = false;
     }
 }

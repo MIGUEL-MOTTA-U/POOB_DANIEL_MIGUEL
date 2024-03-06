@@ -18,18 +18,21 @@ public class Web
     private HashMap<String, Spot> spots;
     private int numStrands;
     private int radio;
+    private boolean isVisible;
+
     private Canvas canvas;
 
     /**
      * Constructor for objects of class Web
      */
-    public Web(int strands, int radio){
+    public Web(int strands, int radio, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.strands = new HashMap<>();
         this.bridges = new HashMap<>();
         this.spots = new HashMap<>();
         this.numStrands = strands;
         this.radio = radio;
+        this.isVisible = isVisible;
         
         addStrands();
     }
@@ -41,7 +44,7 @@ public class Web
         double angle = Math.toRadians((double) 360 / this.numStrands);
         double angleStrand = 0;
         for(int i = 1; i <= this.numStrands; i++){
-            Strand strand = new Strand(this.radio, angleStrand);
+            Strand strand = new Strand(this.radio, angleStrand, this.isVisible);
             this.strands.put(i, strand);
             angleStrand -= angle;
         }
@@ -110,7 +113,7 @@ public class Web
         }else{
             if(distance <= this.radio){
                 int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
-                Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand);
+                Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
                 bridge.addBridge(this.strands, firstStrand, finalStrand);
                 bridges.put(color, bridge);
             }else{
@@ -136,7 +139,7 @@ public class Web
 
         if(distance <= this.radio){
             int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
-            Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand);
+            Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
             bridge.addBridge(this.strands, firstStrand, finalStrand);
             bridges.put(color, bridge);
         }else{
@@ -177,7 +180,7 @@ public class Web
             JOptionPane.showMessageDialog(null, "Ya existe un spot con el mismo color");
         }else{
             Strand selectedStrand = strands.get(strand);
-            Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2());
+            Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             spots.put(color, spot);
         }
     }
@@ -197,7 +200,7 @@ public class Web
         }while(this.spots.containsKey(color));
 
         Strand selectedStrand = strands.get(strand);
-        Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2());
+        Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
         spots.put(color, spot);
     }
     
@@ -298,6 +301,7 @@ public class Web
      * Make the objects visible. If it was already visible, do nothing.
      */
     public void makeVisible(){
+        this.isVisible = true;
         for(Strand strand : strands.values()){
             strand.makeVisible();
         }
@@ -322,5 +326,6 @@ public class Web
         for(Spot spot : spots.values()){
             spot.makeInvisible();
         }
+        this.isVisible = false;
     }
 }

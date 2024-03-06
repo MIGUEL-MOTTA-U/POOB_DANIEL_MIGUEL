@@ -15,7 +15,12 @@ public class SpiderWebTest{
     
     @BeforeClass
     public static void beforeClass(){
+    }
+    
+    @Before
+    public void before(){
         spiderWeb = new SpiderWeb(20, 400);
+        spiderWeb.makeInvisible();
         spiderWeb.addBridge("blue", 80, 1);
         spiderWeb.addBridge("red", 130, 2);
         spiderWeb.addBridge("magenta", 200, 3);
@@ -25,11 +30,6 @@ public class SpiderWebTest{
         spiderWeb.addSpot("yellow", 2);
         spiderWeb.addSpot("aquamarine", 4);
         spiderWeb.addSpot("brown", 20);
-    }
-    
-    @Before
-    public void before(){
-        spiderWeb.spiderSit(1);
     }
     
     @Test

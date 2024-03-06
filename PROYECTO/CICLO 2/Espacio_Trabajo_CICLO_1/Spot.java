@@ -11,18 +11,20 @@ public class Spot
     private String color;
     private int strand;
     private Ellipse2D.Double body;
+    private boolean isVisible;
     
     Canvas canvas;
 
     /**
      * Constructor for objects of class Spot
      */
-    public Spot(String color, int strand, double xPosition, double yPosition){
+    public Spot(String color, int strand, double xPosition, double yPosition, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.color = color;
         this.strand = strand;
         body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);        
-        makeVisible();
+        this.isVisible = isVisible;
+        draw();
     }
 
     public String getColor(){
@@ -44,17 +46,40 @@ public class Spot
         return output;  
     }
     
+   /*
+     * Draw the spot with current specifications on screen.
+     */
+    private void draw(){
+        if(isVisible){
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, color, body);
+            canvas.wait(10);
+        }
+    }
+
+    /*
+     * Erase the spot on screen.
+     */
+    private void erase(){
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.erase(this);
+        }
+    }
+
     /**
-     * Make visible the spot
+     * Make visible the spider
      */
     public void makeVisible(){
-        canvas.draw(body, this.color, body);
+        this.isVisible = true;
+        draw();
     }
     
     /**
-     * Make invisible the spot
+     * Make invisible the spider
      */
     public void makeInvisible(){
-        canvas.erase(body);
+        erase();
+        this.isVisible = false;
     }
 }

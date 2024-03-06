@@ -14,18 +14,20 @@ public class Bridge
     private int inicialStrand;
     private int finalStrand;
     private Line2D.Double body;
+    private boolean isVisible;
     
     private Canvas canvas;
 
     /**
      * Constructor for objects of class Bridge
      */
-    public Bridge(String color, int distance, int inicialStrand, int finalStrand){
+    public Bridge(String color, int distance, int inicialStrand, int finalStrand, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.color = color;
         this.distance = distance;
         this.inicialStrand = inicialStrand;
         this.finalStrand = finalStrand;
+        this.isVisible = isVisible;
     }
 
     /**
@@ -42,7 +44,7 @@ public class Bridge
         double x2 = this.distance * Math.cos(lastStrand.getAngle());
         double y2 = this.distance * Math.sin(lastStrand.getAngle());
         body = new Line2D.Double(canvas.getCenterX() + x1, canvas.getCenterY() + y1, canvas.getCenterX() + x2, canvas.getCenterY() + y2);
-        canvas.draw(body, color, body);
+        draw();
     }
     
     /**
@@ -98,17 +100,40 @@ public class Bridge
         return this.body;
     }
         
+    /*
+     * Draw the bridge with current specifications on screen.
+     */
+    private void draw(){
+        if(isVisible){
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, color, body);
+            canvas.wait(10);
+        }
+    }
+
+    /*
+     * Erase the bridge on screen.
+     */
+    private void erase(){
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.erase(this);
+        }
+    }
+
     /**
-     * Make visible the bridge
+     * Make visible the spider
      */
     public void makeVisible(){
-        canvas.draw(body, this.color, body);
+        this.isVisible = true;
+        draw();
     }
     
     /**
-     * Make invisible the bridge
+     * Make invisible the spider
      */
     public void makeInvisible(){
-        canvas.erase(body);
+        erase();
+        this.isVisible = false;
     }
 }

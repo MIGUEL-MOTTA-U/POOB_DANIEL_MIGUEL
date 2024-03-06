@@ -10,15 +10,17 @@ public class Strand
 {
     private double angle;
     private Line2D.Double body;
+    private boolean isVisible;
     
     private Canvas canvas;
 
     /**
      * Constructor for objects of class Strand
      */
-    public Strand(int radio, double angle){
+    public Strand(int radio, double angle, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.angle = angle;
+        this.isVisible = isVisible;
         
         addStrand(radio);
     }
@@ -30,7 +32,7 @@ public class Strand
         double x = radio * Math.cos(this.angle);
         double y = radio * Math.sin(this.angle);
         this.body = new Line2D.Double(canvas.getCenterX(), canvas.getCenterY(), canvas.getCenterX() + x, canvas.getCenterY() + y);
-        makeVisible();
+        draw();
     }
     
     /**
@@ -49,17 +51,40 @@ public class Strand
         return this.body;
     }
     
+    /*
+     * Draw the spider with current specifications on screen.
+     */
+    private void draw(){
+        if(isVisible){
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, "gray", body);
+            canvas.wait(10);
+        }
+    }
+
+    /*
+     * Erase the spider on screen.
+     */
+    private void erase(){
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.erase(this);
+        }
+    }
+
     /**
-     * Make visible the strand
+     * Make visible the spider
      */
     public void makeVisible(){
-        canvas.draw(body, "gray", body);
+        this.isVisible = true;
+        draw();
     }
     
     /**
-     * Make invisible the strand
+     * Make invisible the spider
      */
     public void makeInvisible(){
-        canvas.erase(body);
+        erase();
+        this.isVisible = false;
     }
 }
