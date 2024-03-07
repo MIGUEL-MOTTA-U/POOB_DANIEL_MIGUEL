@@ -14,7 +14,6 @@ public class SpiderWeb
     private Web web;
     private Spider spider;
     public boolean isVisible;
-
     /**
      * Constructor for objects of class SpiderWeb
      */
@@ -43,38 +42,12 @@ public class SpiderWeb
     }
     
     /**
-     * This  method returns the number of strands of the SpiaderWeb
-     * @return the number of strands of strands of the SpiaderWeb
+     * Returns the web of the Spider web.
+     * @return the web of Spider Web
      */
-    public int getStrandsNumber(){
-        return web.getStrands().size();
+    public Web getWeb(){
+        return this.web;
     }
-    
-    
-    /**
-     * This  method returns the number of bridges of the SpiaderWeb
-     * @return the number of strands of bridges of the SpiaderWeb
-     */
-    public int getBridges(){
-        return web.getBridges().size();
-    }
-    
-    /**
-     * This  method returns the number of spots of the SpiaderWeb
-     * @return the number of strands of spots of the SpiaderWeb
-     */
-    public int getSpots(){
-        return web.getSpots().size();
-    }
-    
-    /**
-     * This  method returns the length of strands of the SpiaderWeb
-     * @return the length of strands from SpiderWeb
-     */
-    public int getStrandLength(){
-        return web.getRadio();
-    }
-    
     
     /**
      * This Method adds an strand to the SpiderWeb
@@ -253,4 +226,6 @@ public class SpiderWeb
         JOptionPane.showMessageDialog(null, "Gracias por usar nuestro simulador", "Simulacion finalizada", JOptionPane.INFORMATION_MESSAGE);
         System.exit(0);
     }
+    
+    
 }

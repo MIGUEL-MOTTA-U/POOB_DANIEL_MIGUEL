@@ -12,6 +12,7 @@ import org.junit.Test;
  */
 public class SpiderWebTest{
     private static SpiderWeb spiderWeb;
+    private static Web myWeb;
     
     @BeforeClass
     public static void beforeClass(){
@@ -20,6 +21,7 @@ public class SpiderWebTest{
     @Before
     public void before(){
         spiderWeb = new SpiderWeb(20, 400);
+        myWeb = spiderWeb.getWeb();
         spiderWeb.makeInvisible();
         spiderWeb.addBridge("blue", 80, 1);
         spiderWeb.addBridge("red", 130, 2);
@@ -205,25 +207,24 @@ public class SpiderWebTest{
         assertNotEquals(spiderWeb.reachableSpots(), expected);
     }
     
-    
-     @Test
+    @Test
     public void accordingDCShouldExpand(){
         
-        int originalL =  spiderWeb.getStrandLength();
-        spiderWeb.enlarge(50);
-        assertEquals((spiderWeb.getStrandLength()), originalL + 50*originalL/100);
+        int originalL =  myWeb.getRadio();
+        myWeb.enlarge(50);
+        assertEquals((myWeb.getRadio()), originalL + 50*originalL/100);
         
-        originalL =  spiderWeb.getStrandLength();
-        spiderWeb.enlarge(87);
-        assertEquals((spiderWeb.getStrandLength()), originalL + 87*originalL/100);
+        originalL =  myWeb.getRadio();
+        myWeb.enlarge(87);
+        assertEquals((myWeb.getRadio()), originalL + 87*originalL/100);
         
-        originalL =  spiderWeb.getStrandLength();
-        spiderWeb.enlarge(50);
-        assertNotEquals((spiderWeb.getStrandLength()), originalL);
+        originalL =  myWeb.getRadio();
+        myWeb.enlarge(50);
+        assertNotEquals((myWeb.getRadio()), originalL);
         
-        originalL =  spiderWeb.getStrandLength();
-        spiderWeb.enlarge(87);
-        assertNotEquals((spiderWeb.getStrandLength()), originalL);
+        originalL =  myWeb.getRadio();
+        myWeb.enlarge(87);
+        assertNotEquals((myWeb.getRadio()), originalL);
     }
     
     @Test
@@ -231,17 +232,18 @@ public class SpiderWebTest{
         int originalStrands = 20;
         for (int i = 1; i<= 5; i++){
             spiderWeb.addStrand();
-            assertEquals(spiderWeb.getStrandsNumber(),20+i);
-            assertEquals(spiderWeb.getBridges(),6);
-            assertEquals(spiderWeb.getSpots(),3);
+            assertEquals(myWeb.getStrands().size(),20+i);
+            assertEquals(myWeb.getBridges().size(),6);
+            assertEquals(myWeb.getSpots().size(),3);
         }
         
         for (int i = 1; i<= 5; i++){
-            int strands = spiderWeb.getStrandsNumber();
+            int strands = myWeb.getStrands().size();
             spiderWeb.addStrand();
-            assertNotEquals(spiderWeb.getStrandsNumber(),strands);
-            assertNotEquals(spiderWeb.getBridges(),6+i);
-            assertNotEquals(spiderWeb.getSpots(),3+i);
+            assertNotEquals(myWeb.getStrands().size(),strands);
+            assertNotEquals(myWeb.getBridges(),6+i);
+            assertNotEquals(myWeb.getSpots(),3+i);
         }
     }
+    
 }
