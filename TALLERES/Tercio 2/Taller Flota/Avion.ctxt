@@ -2,4 +2,8 @@
 comment0.target=Avion
 comment1.params=longitud\ latitud
 comment1.target=boolean\ seraDestruida(int,\ int)
-numComments=2
+comment2.params=
+comment2.target=boolean\ esDebil()
+comment3.params=
+comment3.target=boolean\ getEnAire()
+numComments=4

@@ -6,4 +6,6 @@ comment2.params=DLon\ DLat
 comment2.target=void\ avance(int,\ int)
 comment3.params=longitud\ latitud
 comment3.target=boolean\ seraDestruida(int,\ int)
-numComments=4
+comment4.params=
+comment4.target=boolean\ esDebil()
+numComments=5
