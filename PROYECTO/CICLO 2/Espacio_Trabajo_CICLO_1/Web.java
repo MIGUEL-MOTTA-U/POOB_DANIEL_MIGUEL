@@ -79,7 +79,7 @@ public class Web
     }
     
     /*
-     * This private method recreates the web according to the new specifications.
+     * Recreates the web according to the new specifications.
      */
     private void recalculateWeb(){
         HashMap<String, Bridge> copyBridges = new HashMap<>(this.bridges);
@@ -113,9 +113,14 @@ public class Web
         }else{
             if(distance <= this.radio){
                 int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
-                Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
-                bridge.addBridge(this.strands, firstStrand, finalStrand);
-                bridges.put(color, bridge);
+                boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
+                if(!contiguo){
+                    Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
+                    bridge.addBridge(this.strands, firstStrand, finalStrand);
+                    bridges.put(color, bridge);
+                }else{
+                    JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
             }
@@ -137,14 +142,25 @@ public class Web
             color = colors.get(indexRandom);
         }while(this.spots.containsKey(color));
 
-        if(distance <= this.radio){
-            int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
-            Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
-            bridge.addBridge(this.strands, firstStrand, finalStrand);
-            bridges.put(color, bridge);
-        }else{
-            JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
+        addBridge(color, distance, firstStrand);
+    }
+
+    /*
+     * Verify if exists contiguos bridges.
+     */
+    private boolean contiguosBridges(int distance, int firstStrand, int finalStrand){
+        for(Bridge b: bridges.values()){
+            int bDistance = b.getDistance();
+            int bInicialStrand = b.getInicialStrand();
+            int bFinalStrand = b.getFinalStrand();
+
+            if((bDistance == distance) && ((bInicialStrand == firstStrand || bInicialStrand == finalStrand) ||
+            (bFinalStrand == firstStrand || bFinalStrand == finalStrand))){
+                return true;
+            }
         }
+
+        return false;
     }
     
     /**
