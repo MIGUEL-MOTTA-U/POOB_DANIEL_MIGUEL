@@ -168,6 +168,7 @@ public class Spider
         for(int i = 0; i < lastPath.size(); i++){
             output[i] = lastPath.get(i);
         }
+        this.ok = true;
         return output;
     }
 
@@ -238,7 +239,7 @@ public class Spider
             output[i] = color;
             i += 1;
         }
-
+        this.ok = true;
         return output; 
     }
 

@@ -60,10 +60,15 @@ public class Web
      * Add an strand to the web and update the relation of spots and bridges with their respective strands.
      */
     public void addOneStrand(){
-        this.strands.clear();
-        this.numStrands ++;
-        addStrands();
-        recalculateWeb();
+        if(this.radio > 0 && this.numStrands > 0 && this.numStrands <= 360){
+            
+            this.strands.clear();
+            this.numStrands ++;
+            addStrands();
+            recalculateWeb();
+        } else {
+                this.ok = false;
+            }
     }
     
     /**
@@ -71,10 +76,15 @@ public class Web
      * @param percentage, the expansion relation
      */
     public void enlarge(int percentage){
-        this.strands.clear();
-        this.radio += percentage * radio/100;
-        addStrands();
-        recalculateWeb();
+        if(percentage >0){
+            this.strands.clear();
+            this.radio += percentage * radio/100;
+            addStrands();
+            recalculateWeb();
+            this.ok = true;
+        } else {
+            this.ok = false;
+        }
     }
     
     /*
@@ -172,10 +182,15 @@ public class Web
      * @param   distance    the new distance from the center to the bridge
      */
     public void relocateBridge(String color, int distance){
-        Bridge bridge = bridges.get(color);
-        int firstStrand = bridge.getInicialStrand();
-        delBridge(color);
-        addBridge(color, distance, firstStrand);
+        if (bridges.containsKey(color) && this.radio >= distance && distance > 0){
+            Bridge bridge = bridges.get(color);
+            int firstStrand = bridge.getInicialStrand();
+            delBridge(color);
+            addBridge(color, distance, firstStrand);
+            this.ok = true;
+        } else{
+            this.ok = false;
+        }
     }
     
     /**
@@ -196,13 +211,12 @@ public class Web
     }
     
     /**
-     * Add a spot to the web
+     * Add a spot to the web.
      * @param   color   The color of the spot
      * @param   strand  where the spot is locate
      */
     public void addSpot(String color, int strand){
-        if(this.spots.containsKey(color)){
-            JOptionPane.showMessageDialog(null, "Ya existe un spot con el mismo color");
+        if(this.spots.containsKey(color) || strand <0 || strand >= strands.size()){
             this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
@@ -220,12 +234,10 @@ public class Web
         ArrayList<String> colors = canvas.getColors();
         Random random = new Random();
         String color = "";
-
         do{
             int indexRandom = random.nextInt(colors.size());
             color = colors.get(indexRandom);
         }while(this.spots.containsKey(color));
-
         addSpot(color, strand);
     }
     
@@ -268,9 +280,11 @@ public class Web
     public double[] bridge(String color){
         Bridge bridge = bridges.get(color);
         if(bridge != null){
+            this.ok = true;
             return bridge.bridge();
         }else{
             JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
+            this.ok = false;
             return null;
         }
     }
@@ -297,9 +311,11 @@ public class Web
     public double[] spot(String color){
         Spot spot = spots.get(color);
         if(spot != null){
+            this.ok = true;
             return spot.spot();
         }else{
             JOptionPane.showMessageDialog(null, "No existe un spot con ese color");
+            this.ok = false;
             return null;
         }
     }
