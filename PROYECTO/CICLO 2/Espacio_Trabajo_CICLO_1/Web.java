@@ -216,7 +216,7 @@ public class Web
      * @param   strand  where the spot is locate
      */
     public void addSpot(String color, int strand){
-        if(this.spots.containsKey(color) || strand <0 || strand >= strands.size()){
+        if(this.spots.containsKey(color) || strand <0 || strand > strands.size()){
             this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
