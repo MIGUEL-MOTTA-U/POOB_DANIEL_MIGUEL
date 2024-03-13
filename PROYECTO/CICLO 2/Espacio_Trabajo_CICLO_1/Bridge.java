@@ -61,8 +61,8 @@ public class Bridge
     }
 
     /**
-     * Return the distance
-     * @return  the distance from the center to the bridge
+     * Return the color of the bridge
+     * @return  the color of the bridge
      */
     public String getColor(){
         return this.color;

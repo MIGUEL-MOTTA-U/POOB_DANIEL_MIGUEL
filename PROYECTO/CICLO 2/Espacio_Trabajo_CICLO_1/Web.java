@@ -19,6 +19,7 @@ public class Web
     private int numStrands;
     private int radio;
     private boolean isVisible;
+    private boolean ok;
 
     private Canvas canvas;
 
@@ -26,15 +27,20 @@ public class Web
      * Constructor for objects of class Web
      */
     public Web(int strands, int radio, boolean isVisible){
-        canvas = Canvas.getCanvas();
-        this.strands = new HashMap<>();
-        this.bridges = new HashMap<>();
-        this.spots = new HashMap<>();
-        this.numStrands = strands;
-        this.radio = radio;
-        this.isVisible = isVisible;
-        
-        addStrands();
+        if(strands > 0){
+            canvas = Canvas.getCanvas();
+            this.strands = new HashMap<>();
+            this.bridges = new HashMap<>();
+            this.spots = new HashMap<>();
+            this.numStrands = strands;
+            this.radio = radio;
+            this.isVisible = isVisible;
+            this.ok = true;
+            addStrands();
+        }else{
+            JOptionPane.showMessageDialog(null, "El numero de hebras debe ser mayor a 0");
+            this.ok = false;
+        }
     }
     
     /*
@@ -51,13 +57,6 @@ public class Web
     }
     
     /**
-         * This method returns the value of the radio, the length.
-         */
-        public int getRadio(){
-            return this.radio;
-        }
-    
-    /**
      * Add an strand to the web and update the relation of spots and bridges with their respective strands.
      */
     public void addOneStrand(){
@@ -68,12 +67,12 @@ public class Web
     }
     
     /**
-     * This method expand the web by a given percentage.
+     * Expand the web by a given percentage.
      * @param percentage, the expansion relation
      */
     public void enlarge(int percentage){
         this.strands.clear();
-        this.radio+= percentage*radio/100;
+        this.radio += percentage * radio/100;
         addStrands();
         recalculateWeb();
     }
@@ -110,6 +109,7 @@ public class Web
     public void addBridge(String color, int distance, int firstStrand){
         if(this.bridges.containsKey(color)){
             JOptionPane.showMessageDialog(null, "Ya existe un puente con el mismo color");
+            this.ok = false;
         }else{
             if(distance <= this.radio){
                 int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
@@ -118,11 +118,14 @@ public class Web
                     Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
                     bridge.addBridge(this.strands, firstStrand, finalStrand);
                     bridges.put(color, bridge);
+                    this.ok = true;
                 }else{
                     JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
+                    this.ok = false;
                 }
             }else{
                 JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
+                this.ok = false;
             }
         }
     }
@@ -181,9 +184,15 @@ public class Web
      */
     public void delBridge(String color){
         Bridge bridge = bridges.get(color);
-        bridge.makeInvisible();
-        bridge = null;
-        bridges.remove(color);
+        if(bridge != null){
+            bridge.makeInvisible();
+            bridge = null;
+            bridges.remove(color);
+            this.ok = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
+            this.ok = false;
+        }
     }
     
     /**
@@ -194,10 +203,12 @@ public class Web
     public void addSpot(String color, int strand){
         if(this.spots.containsKey(color)){
             JOptionPane.showMessageDialog(null, "Ya existe un spot con el mismo color");
+            this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
             Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             spots.put(color, spot);
+            this.ok = true;
         }
     }
 
@@ -215,9 +226,7 @@ public class Web
             color = colors.get(indexRandom);
         }while(this.spots.containsKey(color));
 
-        Strand selectedStrand = strands.get(strand);
-        Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
-        spots.put(color, spot);
+        addSpot(color, strand);
     }
     
     /**
@@ -226,9 +235,15 @@ public class Web
      */
     public void delSpot(String color){
         Spot spot = spots.get(color);
-        spot.makeInvisible();
-        spot = null;
-        spots.remove(color);
+        if(spot != null){
+            spot.makeInvisible();
+            spot = null;
+            spots.remove(color);
+            this.ok = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "No existe un spot con ese color");
+            this.ok = false;
+        }
     }
     
     /**
@@ -311,6 +326,38 @@ public class Web
      */
     public HashMap<String, Spot> getSpots(){
         return this.spots;
+    }
+
+    /**
+     * Returns the numbre of strands
+     * @return   the number of strands on the web
+     */
+    public int getNumStrands(){
+        return this.numStrands;
+    }
+
+    /**
+     * Returns the value of the radio, the length.
+     * @return   the radio of the web
+     */
+    public int getRadio(){
+        return this.radio;
+    }
+
+    /**
+     * Return the status of the web
+     * @return  if an action could be completed
+     */
+    public boolean getOk(){
+        return this.ok;
+    }
+
+    /**
+     * Change the status of the web
+     * @param   ok    the new status of the web
+     */
+    public void setOk(boolean ok){
+        this.ok = ok;
     }
     
     /**

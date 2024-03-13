@@ -27,13 +27,6 @@ public class Spot
         draw();
     }
 
-    public String getColor(){
-        return this.color;
-    }
-
-    public int getStrand(){
-        return this.strand;
-    }
     
     /**
      * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)
@@ -45,8 +38,24 @@ public class Spot
         output[1] = this.body.getX();
         return output;  
     }
+
+    /**
+     * Return the color of the spot
+     * @return  the color of the spot
+     */
+    public String getColor(){
+        return this.color;
+    }
+
+    /**
+     * Return the strand of the spot
+     * @return  the strand where is locate the spot
+     */
+    public int getStrand(){
+        return this.strand;
+    }
     
-   /*
+    /*
      * Draw the spot with current specifications on screen.
      */
     private void draw(){

@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Map;
 
+import javax.swing.JOptionPane;
+
 /**
  * Create a spider.
  * 
@@ -18,6 +20,7 @@ public class Spider
     private ArrayList<Integer> lastPath;
     private HashMap<String, Bridge> usedBridges;
     private boolean isVisible;
+    private boolean ok;
     
     private Canvas canvas;
 
@@ -32,6 +35,7 @@ public class Spider
         lastPath = new ArrayList<>();
         usedBridges = new HashMap<>();
         this.isVisible = isVisible;
+        this.ok = true;
         draw();
     }
     
@@ -39,13 +43,19 @@ public class Spider
      * Seat the spider in the center with reference to a specific strand
      * @param   strand  the strand to wich the spider will refer
      */
-    public void spiderSit(int strand){
-        this.body.setFrame(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
-        draw();
-        this.strand = strand;
-        this.distance = 0;
-        this.lastPath.clear();
-        this.usedBridges.clear();
+    public void spiderSit(int strand, int numStrands){
+        if(strand > 0 && strand <= numStrands){
+            this.body.setFrame(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
+            draw();
+            this.strand = strand;
+            this.distance = 0;
+            this.lastPath.clear();
+            this.usedBridges.clear();
+            this.ok = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Hebra fuera del rango");
+                    this.ok = false;
+        }
     }
     
     /**
@@ -87,6 +97,7 @@ public class Spider
         }while(bridge != null);
         
         moveSpider(x0, y0, strands.get(this.strand).getBody().getX2(), strands.get(this.strand).getBody().getY2());
+        this.ok = true;
     }
     
     /*
@@ -146,14 +157,6 @@ public class Spider
         }
         
         return (selectedBridge != null) ? selectedBridge : null;
-    }
-    
-    /**
-     * This method returns the distance of the spider respect the origin.
-     * returns the distance of the spider respect the origin.
-     */
-    public int getDistance(){
-        return this.distance;
     }
     
     /**
@@ -237,6 +240,30 @@ public class Spider
         }
 
         return output; 
+    }
+
+    /**
+     * This method returns the distance of the spider respect the origin.
+     * returns the distance of the spider respect the origin.
+     */
+    public int getDistance(){
+        return this.distance;
+    }
+
+    /**
+     * Return the status of the spider
+     * @return  if an action could be completed
+     */
+    public boolean getOk(){
+        return this.ok;
+    }
+
+    /**
+     * Change the status of the spider
+     * @param   ok    the new status of the spider
+     */
+    public void setOk(boolean ok){
+        this.ok = ok;
     }
 
     /*

@@ -33,7 +33,7 @@ public class SpiderWeb
      */
     public SpiderWeb(int strands, int favorite, int[][] bridges){
         this.isVisible = true;
-        web = new Web(strands, 300, this.isVisible);
+        web = new Web(strands, 350, this.isVisible);
         web.addSpot(favorite);
         for(int i = 0; i < bridges.length; i++){
             web.addBridge(bridges[i][0], bridges[i][1]);
@@ -123,7 +123,8 @@ public class SpiderWeb
      * @param   strand  the strand to wich the spider will refer
      */
     public void spiderSit(int strand){
-        spider.spiderSit(strand);
+        int numStrands = web.getNumStrands();
+        spider.spiderSit(strand, numStrands);
     }
     
     /**
@@ -217,6 +218,18 @@ public class SpiderWeb
         web.makeInvisible();
         spider.makeInvisible();
         this.isVisible = false;
+    }
+
+    /**
+     * Return the status of the simulation
+     * @return  if an action could be completed
+     */
+    public boolean ok(){
+        boolean webOk = web.getOk();
+        boolean spiderOk = spider.getOk();
+        web.setOk(true);
+        spider.setOk(true);
+        return (webOk == false || spiderOk == false) ? false : true ;
     }
     
     /**
