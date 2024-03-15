@@ -235,14 +235,6 @@ public class SpiderWebTest{
     
     @Test
     public void accordingDCShouldAddBridge(){
-        /*
-           spiderWeb.addBridge("blue", 80, 1);
-        spiderWeb.addBridge("red", 130, 2);
-        spiderWeb.addBridge("magenta", 200, 3);
-        spiderWeb.addBridge("green", 230, 2);
-        spiderWeb.addBridge("orange", 270, 1);
-        spiderWeb.addBridge("cyan", 50, 19);
-           */
         spiderWeb.addBridge("blue", 20,20);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
@@ -295,6 +287,61 @@ public class SpiderWebTest{
     
     @Test
     public void accordingDCShouldAddSpot(){
-        
+        spiderWeb.addSpot("brown", 17);
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addSpot("black", 100);
+        assertEquals(spiderWeb.ok(), false);
+        int begin = spiderWeb.spots().length;
+        spiderWeb.addSpot("black", 19);
+        assertEquals(spiderWeb.spots().length,begin+1);
+        begin+=1;
+        spiderWeb.addSpot("cyan", 17);
+        assertEquals(spiderWeb.spots().length,begin+1);
+        begin+=1;
+        spiderWeb.delSpot("cyan");
+        spiderWeb.delSpot("black");
     }
+    
+    @Test
+    public void accordingDCShouldDelSpot(){
+        spiderWeb.delSpot("black");
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addSpot("cyan", 17);
+        spiderWeb.delSpot("cyan");
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.addSpot("black", 17);
+        spiderWeb.delSpot("black");
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.addSpot("green", 17);
+        spiderWeb.delSpot("green");
+        assertEquals(spiderWeb.ok(), true);
+    }
+    
+    @Test
+    public void accordingDCShouldSitSpider(){
+        spiderWeb.spiderSit(0);
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.spiderSit(555);
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.spiderSit(5);
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.spiderSit(5);
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.spiderSit(15);
+        assertEquals(spiderWeb.ok(), true);
+    }
+    
+    @Test 
+    public void accordingDCShouldSpiderWalk(){
+        spiderWeb.spiderWalk(true);
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.spiderSit(15);
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.spiderWalk(true);
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.spiderWalk(false);
+        assertEquals(spiderWeb.ok(), true);
+    }
+    
+    
 }
