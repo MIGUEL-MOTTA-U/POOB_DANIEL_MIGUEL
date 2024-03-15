@@ -233,4 +233,68 @@ public class SpiderWebTest{
         }
     }
     
+    @Test
+    public void accordingDCShouldAddBridge(){
+        /*
+           spiderWeb.addBridge("blue", 80, 1);
+        spiderWeb.addBridge("red", 130, 2);
+        spiderWeb.addBridge("magenta", 200, 3);
+        spiderWeb.addBridge("green", 230, 2);
+        spiderWeb.addBridge("orange", 270, 1);
+        spiderWeb.addBridge("cyan", 50, 19);
+           */
+        spiderWeb.addBridge("blue", 20,20);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addBridge("black",80,1);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addBridge("black", 701,1);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addBridge("black", 100,25);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addBridge("black", 50,1000);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), false);
+        spiderWeb.addBridge("black", 75,15);
+        spiderWeb.makeInvisible();
+        assertEquals(spiderWeb.ok(), true);
+        spiderWeb.delBridge("black");
+    }
+    
+    @Test
+    public void accordingDCShouldDelBridge(){
+        spiderWeb.addBridge("black", 75,15);
+        spiderWeb.delBridge("black");
+        assertEquals(true, spiderWeb.ok());
+        spiderWeb.delBridge("black");
+        assertEquals(false, spiderWeb.ok());
+        spiderWeb.addBridge("black", 75,15);
+        spiderWeb.delBridge("black");
+        assertEquals(true, spiderWeb.ok());
+        spiderWeb.addBridge("yellow",100,12);
+        spiderWeb.delBridge("yellow");
+        assertEquals(true, spiderWeb.ok());
+    }
+    
+    @Test
+    public void accordignDCShouldrelocateBridge(){
+        spiderWeb.addBridge("black", 100,14);
+        spiderWeb.relocateBridge("black", 50);
+        assertEquals(true, spiderWeb.ok());
+        spiderWeb.relocateBridge("black", 100);
+        assertEquals(true, spiderWeb.ok());
+        spiderWeb.addBridge("black", 100,14);
+        spiderWeb.relocateBridge("black", 701);
+        assertEquals(false, spiderWeb.ok());
+        spiderWeb.relocateBridge("black", -50);
+        assertEquals(false, spiderWeb.ok());        
+    }
+    
+    @Test
+    public void accordingDCShouldAddSpot(){
+        
+    }
 }

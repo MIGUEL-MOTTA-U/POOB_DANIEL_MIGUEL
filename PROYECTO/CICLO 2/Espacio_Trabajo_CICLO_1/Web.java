@@ -117,8 +117,7 @@ public class Web
      * @param   firstStrand the strand where the bridge begin
      */
     public void addBridge(String color, int distance, int firstStrand){
-        if(this.bridges.containsKey(color)){
-            JOptionPane.showMessageDialog(null, "Ya existe un puente con el mismo color");
+        if(this.bridges.containsKey(color) || distance < 0 || firstStrand <= 0 || firstStrand > this.numStrands ){
             this.ok = false;
         }else{
             if(distance <= this.radio){
