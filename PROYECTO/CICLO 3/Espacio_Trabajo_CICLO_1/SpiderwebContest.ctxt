@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=SpiderwebContest
+comment0.text=\r\n\ The\ SpiderwebContest\ class\ is\ intended\ to\ evaluate\ the\ algorithm\ for\ solving\ the\ Spider\ Walk\ problem.\ \r\n\ It\ uses\ the\ SpiderWeb\ class\ to\ simulate\ the\ solution.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ &\ Miguel\ Motta)\ \r\n\ @version\ (Version\ C3\ 15/03/2024)\r\n
+comment1.params=strands\ favorite\ bridges
+comment1.target=int[]\ solve(int,\ int,\ int[][])
+comment1.text=\r\n\ This\ method\ solves\ the\ problem,\ figuring\ out\ the\ minimum\ number\ of\ bridges\ needed\ to\ add\ to\ reach\ the\ desire\ point.\r\n\ @param\ strands\ \r\n\ @param\ favorite\r\n\ @param\ favorite\r\n
+numComments=2
