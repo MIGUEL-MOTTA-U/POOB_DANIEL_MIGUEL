@@ -13,7 +13,8 @@ public class SpiderWeb
 {
     private Web web;
     private Spider spider;
-    public boolean isVisible;
+    private boolean isVisible;
+    
     /**
      * Constructor for objects of class SpiderWeb
      */

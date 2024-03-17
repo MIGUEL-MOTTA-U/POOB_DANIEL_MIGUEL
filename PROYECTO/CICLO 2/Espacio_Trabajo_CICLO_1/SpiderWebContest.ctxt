@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=SpiderWebContest
+comment0.text=\r\n\ Resolve\ the\ marathon\ problem\ and\ use\ SpiderWeb\ to\ simulate.\r\n\ \r\n\ @author\ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n\ \r\n\ @version\ (2.3.3.24)\r\n
+comment1.params=strands\ favorite\ bridges
+comment1.target=int[]\ solve(int,\ int,\ int[][])
+comment2.params=strands\ favorite\ bridges\ strand
+comment2.target=void\ simulate(int,\ int,\ int[][],\ int)
+numComments=3
