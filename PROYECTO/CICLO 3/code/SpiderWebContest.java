@@ -24,11 +24,24 @@ public class SpiderWebContest {
     }
 
     public static void simulate(int strands, int favorite, int[][] bridges, int strand){
-        Spider spider = new Spider(false);
-        ArrayList<int[]> bridgesToAdd = spider.bridgesToAdd(strands, favorite, bridges, strand);
-        for(int[] b : bridgesToAdd){
-            System.out.println("[" + b[0] + ", " + b[1] + "]");
+        Spider s = new Spider(false);
+        ArrayList<int[]> bridgesToAdd = s.bridgesToAdd(strands, favorite, bridges, strand);
+        
+        int[][] totalBridges = new int[bridges.length + bridgesToAdd.size()][2];
+        
+        for (int i = 0; i < bridges.length; i++) {
+            totalBridges[i] = bridges[i];
         }
+        
+        int index = bridges.length;
+        for (int[] bridge : bridgesToAdd) {
+            totalBridges[index] = bridge;
+            index++;
+        }
+
+        SpiderWeb spiderWeb = new SpiderWeb(strands, favorite, totalBridges);
+        spiderWeb.spiderSit(strand);
+        spiderWeb.spiderWalk(true);
     }
 
 }

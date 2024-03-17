@@ -117,24 +117,28 @@ public class Web
      * @param   firstStrand the strand where the bridge begin
      */
     public void addBridge(String color, int distance, int firstStrand){
-        if(this.bridges.containsKey(color) || distance < 0 || firstStrand <= 0 || firstStrand > this.numStrands ){
-            this.ok = false;
+        if(color == null){
+            addBridge(distance, firstStrand);
         }else{
-            if(distance <= this.radio){
-                int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
-                boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
-                if(!contiguo){
-                    Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
-                    bridge.addBridge(this.strands, firstStrand, finalStrand);
-                    bridges.put(color, bridge);
-                    this.ok = true;
+            if(this.bridges.containsKey(color) || distance < 0 || firstStrand <= 0 || firstStrand > this.numStrands ){
+                this.ok = false;
+            }else{
+                if(distance <= this.radio){
+                    int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
+                    boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
+                    if(!contiguo){
+                        Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
+                        bridge.addBridge(this.strands, firstStrand, finalStrand);
+                        bridges.put(color, bridge);
+                        this.ok = true;
+                    }else{
+                        JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
+                        this.ok = false;
+                    }
                 }else{
-                    JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
+                    JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
                     this.ok = false;
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
-                this.ok = false;
             }
         }
     }
