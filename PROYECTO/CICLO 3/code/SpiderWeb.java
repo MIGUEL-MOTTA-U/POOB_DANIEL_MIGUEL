@@ -26,7 +26,6 @@ public class SpiderWeb
     
     /**
      * Constructor for creating a SpiderWeb object.
-     * 
      * @param strands   The total number of strands in the spider web.
      * @param favorite  The index of the spider's favorite spot on the web.
      * @param bridges   A 2D array representing the connections between spots on the web. 

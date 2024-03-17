@@ -19,12 +19,16 @@ public class SpiderWebContest {
             output[i] = b;
             i += 1;
         }
-        System.out.println(output);;
+        
         return output;
     }
 
     public static void simulate(int strands, int favorite, int[][] bridges, int strand){
-        
+        Spider spider = new Spider(false);
+        ArrayList<int[]> bridgesToAdd = spider.bridgesToAdd(strands, favorite, bridges, strand);
+        for(int[] b : bridgesToAdd){
+            System.out.println("[" + b[0] + ", " + b[1] + "]");
+        }
     }
 
 }

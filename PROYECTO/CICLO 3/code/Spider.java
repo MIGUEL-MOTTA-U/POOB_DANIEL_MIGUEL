@@ -41,7 +41,8 @@ public class Spider
     
     /**
      * Seat the spider in the center with reference to a specific strand
-     * @param   strand  the strand to wich the spider will refer
+     * @param   strand      the strand to wich the spider will refer
+     * @param   numStrands  the number of strand existing on the web    
      */
     public void spiderSit(int strand, int numStrands){
         if(strand > 0 && strand <= numStrands){
@@ -102,10 +103,6 @@ public class Spider
     
     /*
      * Move the spider trough a line
-     * @param   x1  the starting x position
-     * @param   y1  the starting y position
-     * @param   x2  the x position of arrival
-     * @param   y2  the x position of arrival
      */
     private void moveSpider(double x1, double y1, double x2, double y2){
         for(double i = 0; i <= 1; i += 0.01){
@@ -118,12 +115,6 @@ public class Spider
     
     /*
      * Return a point belonging to the line
-     * @param   x1  the initial x point
-     * @param   y1  the initial y point
-     * @param   x2  the final x point
-     * @param   y2  the final y point
-     * @param   t   the parameter of the parameterization
-     * @return  a point belonging to the line
      */
     private Point2D.Double parameterizedSegment(double x1, double y1, double x2, double y2, double t){
         double x = x1 + t * (x2 - x1);
@@ -133,8 +124,6 @@ public class Spider
     
     /*
      * Return the bridge closest to the spider
-     * @param   bridges   the existing bridges in the web
-     * @return  the bridge closest to the spider
      */
     private Bridge bridgeToGo(HashMap<String, Bridge> bridges){
         ArrayList<Bridge> bridgesInStrand = new ArrayList<>();
@@ -204,9 +193,6 @@ public class Spider
 
     /*
      * Return the color of the spot that is on the strand
-     * @param strand    the last strand where the spider ends after walking
-     * @param spots     the existing spots in the web
-     * @return          the color of the spot that is on the strand
      */
     private String spotInStrand(int strand, HashMap<String, Spot> spots){
         for(Spot spot : spots.values()){
@@ -245,41 +231,56 @@ public class Spider
 
     /**
      * Return the minimum number of bridges to add for each strand to reach the spot
-     * @param   bridges     the existing bridges in the web
-     * @param   favorite    the existing spots in the web
-     * @param   strands    the number of strands in the web
+     * @param   bridges     the strand where the spot is located
+     * @param   favorite    the strand where the spot is located
+     * @param   strands     the number of strands in the web
      * @return  the minimum number of bridges to add
      */
     public ArrayList<Integer> minBridgesToAdd(int[][] bridges, int favorite, int strands){
         ArrayList<Integer> numBridges = new ArrayList<>();
         int originalStrand = this.strand;
         int leftBridges; int rightBridges;
-
+        
         for(int i = 1; i <= strands; i++){
             this.strand = i;
-            leftBridges = addBridgesLeft(bridges, favorite, strands);
-            rightBridges = addBridgesRight(bridges, favorite, strands);
+            leftBridges = addBridgesLeft(bridges, favorite, strands).size();
+            rightBridges = addBridgesRight(bridges, favorite, strands).size();
             numBridges.add((leftBridges < rightBridges) ? leftBridges : rightBridges);
         }
-
+        
         this.strand = originalStrand;
         return numBridges;
+    }
+    
+    /**
+     * Return the bridges to add on the web to reach the spot
+     * @param strands   the number of strands in the web
+     * @param favorite  the strand where the spot is locate
+     * @param bridges   the existing bridges in the web
+     * @param strand    the strand where the spider start
+     * @return  the bridges to add on the web
+     */
+    public ArrayList<int[]> bridgesToAdd(int strands, int favorite, int[][] bridges, int strand){
+        int originalStrand = this.strand;
+        ArrayList<int[]> leftBridges; ArrayList<int[]> rightBridges;
+        this.strand = strand;
+        leftBridges = addBridgesLeft(bridges, favorite, strands);
+        rightBridges = addBridgesRight(bridges, favorite, strands);
+        this.strand = originalStrand;
+        return (leftBridges.size() <= rightBridges.size()) ? leftBridges : rightBridges;
     }
 
     /*
      * Return the number of bridges to be added on the left for each strand to reach the spot
-     * @param   bridges     the existing bridges in the web
-     * @param   favorite    the strand where the spot is locate
-     * @param   numStrands  the number of strands in the web
-     * @return  the number of bridges to add
      */
-    private int addBridgesLeft(int[][] bridges, int favorite, int strands){
-        int cont = 0;
-        int originalStrand = this.strand;
-        int originalDistance = this.distance;
+    private ArrayList<int[]> addBridgesLeft(int[][] bridges, int favorite, int strands){
+        int newDistance = 0;
+        ArrayList<int[]> bridgesToAdd = new ArrayList<>();
+        int originalStrand = this.strand; int originalDistance = this.distance;
         int[] bridge = bridgeToGo(bridges, strands);
-
+        
         while(!reachSpot(bridge, favorite)){
+            newDistance = distanceBridgeAdded(true, bridge, bridges, strands);
             if(bridge != null){
                 int inicialStrand = bridge[1];
                 int finalStrand = (inicialStrand == strands) ? 1 : inicialStrand + 1;
@@ -287,36 +288,45 @@ public class Spider
                     this.strand = finalStrand;
                     this.distance = bridge[0];
                 }else{
-                    cont += 1;
+                    bridgesToAdd.add(new int[]{newDistance, this.strand});
                     this.strand = (this.strand == strands) ? 1 : this.strand + 1;
+                    this.distance = newDistance;
                 }
             }else{
-                cont += 1;
+                bridgesToAdd.add(new int[]{newDistance, this.strand});
                 this.strand = (this.strand == strands) ? 1 : this.strand + 1;
+                this.distance = newDistance;
             }
             bridge = bridgeToGo(bridges, strands);
         }
+        
+        newDistance = (this.strand != favorite) ? this.distance + ((350 - this.distance) / 2) : newDistance;
+        for(int[] b : bridges){
+            int finalStrand = (b[1] == strands) ? 1 : b[1] + 1;
+            newDistance = ((b[1] == favorite || finalStrand == favorite) && b[0] == newDistance) ? newDistance + 10 : newDistance;
+        }
+        if(this.strand == favorite + 1){
+            bridgesToAdd.add(new int[]{newDistance, this.strand - 1});
+        }else if(this.strand == favorite - 1){
+            bridgesToAdd.add(new int[]{newDistance, this.strand});       
+        }
 
-        cont = (this.strand != favorite) ? cont + 1 : cont;
         this.strand = originalStrand;
         this.distance = originalDistance;
-        return cont;
+        return bridgesToAdd;
     }
     
     /*
-     * Return the number of bridges to be added on the right for each strand to reach the spot
-     * @param   bridges     the existing bridges in the web
-     * @param   favorite    the strand where the spot is locate
-     * @param   numStrands  the number of strands in the web
-     * @return  the number of bridges to add
-     */
-    private int addBridgesRight(int[][] bridges, int favorite, int strands){
-        int cont = 0;
-        int originalStrand = this.strand;
-        int originalDistance = this.distance;
+    * Return the number of bridges to be added on the right for each strand to reach the spot
+    */
+    private ArrayList<int[]> addBridgesRight(int[][] bridges, int favorite, int strands){
+        int newDistance = 0;
+        ArrayList<int[]> bridgesToAdd = new ArrayList<>();
+        int originalStrand = this.strand; int originalDistance = this.distance;
         int[] bridge = bridgeToGo(bridges, strands);
-
+        
         while(!reachSpot(bridge, favorite)){
+            newDistance = distanceBridgeAdded(false, bridge, bridges, strands);
             if(bridge != null){
                 int inicialStrand = bridge[1];
                 int finalStrand = (inicialStrand == strands) ? 1 : inicialStrand + 1;
@@ -324,27 +334,77 @@ public class Spider
                     this.strand = inicialStrand;
                     this.distance = bridge[0];
                 }else{
-                    cont += 1;
                     this.strand = (this.strand == 1) ? strands : this.strand - 1;
+                    bridgesToAdd.add(new int[]{newDistance, this.strand});    
+                    this.distance = newDistance;            
                 }
             }else{
-                cont += 1;
                 this.strand = (this.strand == 1) ? strands : this.strand - 1;
+                bridgesToAdd.add(new int[]{newDistance, this.strand});    
+                this.distance = newDistance;            
             }
             bridge = bridgeToGo(bridges, strands);
         }
 
-        cont = (this.strand != favorite) ? cont + 1 : cont;
+        newDistance = (this.strand != favorite) ? this.distance + ((350 - this.distance) / 2) : newDistance;
+        for(int[] b : bridges){
+            int finalStrand = (b[1] == strands) ? 1 : b[1] + 1;
+            newDistance = ((b[1] == favorite || finalStrand == favorite) && b[0] == newDistance) ? newDistance + 10 : newDistance;
+        }
+        if(this.strand == favorite + 1){
+            bridgesToAdd.add(new int[]{newDistance, this.strand - 1});
+        }else if(this.strand == favorite - 1){
+            bridgesToAdd.add(new int[]{newDistance, this.strand});       
+        }
         this.strand = originalStrand;
         this.distance = originalDistance;
-        return cont;
+        return bridgesToAdd;
+    }
+
+    /*
+     * Return the distance of the bridge to add
+     */
+    private int distanceBridgeAdded(boolean left, int[] bridge, int[][] bridges, int strands){
+        int newDistance = 0;
+        int[] bridgeNextSrand;
+        int originalStrand = this.strand;
+        if(left){
+            if(bridge != null){
+                if(bridge[1] != this.strand){
+                    newDistance = this.distance + ((bridge[0] - this.distance) / 2);
+                }
+            }else{
+                this.strand = (this.strand == strands) ? 1 : this.strand + 1;
+                bridgeNextSrand = bridgeToGo(bridges, strands);
+                if(bridgeNextSrand != null){
+                    newDistance = this.distance + ((bridgeNextSrand[0] - this.distance) / 2);
+                }else{
+                    newDistance = this.distance + 10;
+                }
+            }
+        }else{
+            if(bridge != null){
+                int finalStrand = (bridge[1] == strands) ? 1 : bridge[1] + 1;
+                if(finalStrand != this.strand){
+                    newDistance = this.distance + ((bridge[0] - this.distance) / 2);
+                }
+            }else{
+                this.strand = (this.strand == 1) ? strands : this.strand - 1;
+                bridgeNextSrand = bridgeToGo(bridges, strands);
+                if(bridgeNextSrand != null){
+                    newDistance = this.distance + ((bridgeNextSrand[0] - this.distance) / 2);
+                }else{
+                    newDistance = this.distance + 10;
+                }
+            }
+        }
+
+        this.strand = originalStrand;
+        return newDistance;
     }
 
     /*
      * Check if the spot is reachable from the point where the spider is located
-     * @param   bridgeToGo  the bridge over which the spider must cross
-     * @param   spot        the strand where the spot is locate
-     * @return  if the spot is reachable
      */
     private boolean reachSpot(int[] bridgeToGo, int favorite){
         return (bridgeToGo == null && (this.strand >= favorite - 1 && this.strand <= favorite + 1)) ? true : false;
@@ -352,8 +412,6 @@ public class Spider
 
     /*
      * Return the bridge closest to the spider
-     * @param   bridges   the existing bridges in the web
-     * @return  the bridge closest to the spider
      */
     private int[] bridgeToGo(int[][] bridges, int strands){
         ArrayList<int[]> bridgesInStrand = new ArrayList<>();
@@ -382,7 +440,7 @@ public class Spider
 
     /**
      * This method returns the distance of the spider respect the origin.
-     * returns the distance of the spider respect the origin.
+     * @return  the distance of the spider respect the origin.
      */
     public int getDistance(){
         return this.distance;
