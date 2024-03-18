@@ -39,6 +39,8 @@ public class SpiderWebContest {
             index++;
         }
 
+        System.out.println(totalBridges.length);
+
         SpiderWeb spiderWeb = new SpiderWeb(strands, favorite, totalBridges);
         spiderWeb.spiderSit(strand);
         spiderWeb.spiderWalk(true);

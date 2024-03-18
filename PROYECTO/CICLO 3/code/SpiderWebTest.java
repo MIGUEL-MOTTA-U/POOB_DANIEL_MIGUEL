@@ -68,19 +68,24 @@ public class SpiderWebTest{
         int[] expected = {1, 2, 3, 4};
         spiderWeb.spiderWalk(true);
         assertArrayEquals(spiderWeb.spiderLastPath(), expected);
+        //
         spiderWeb.spiderSit(4);
         expected = new int[]{4, 3, 2, 1};
         spiderWeb.spiderWalk(true);
         assertArrayEquals(spiderWeb.spiderLastPath(), expected);
+        //
         spiderWeb.spiderSit(3);
         expected = new int[]{3, 2, 3};
         spiderWeb.spiderWalk(true);
         assertArrayEquals(spiderWeb.spiderLastPath(), expected);
         
+        
+        //
         spiderWeb.spiderSit(20);
         expected = new int[]{19, 20};
         spiderWeb.spiderWalk(true);
         assertNotEquals(spiderWeb.spiderLastPath(), expected);
+        //
         spiderWeb.spiderSit(2);
         expected = new int[]{2, 1};
         spiderWeb.spiderWalk(true);
@@ -133,12 +138,10 @@ public class SpiderWebTest{
     @Test
     public void accordingDCShouldShowAllTheSpots(){
         //
-        String[] expected = {"yellow", "aquamarine", "brown"};
-        
-        //assertArrayEquals(spiderWeb.spots(), expected);
+        String[] expected = {"aquamarine", "yellow", "brown"};
+        assertArrayEquals(spiderWeb.spots(), expected);
         //
         spiderWeb.delSpot("aquamarine");
-        
         expected = new String[]{"yellow", "brown"};
         assertArrayEquals(spiderWeb.spots(), expected);
         //
@@ -146,6 +149,7 @@ public class SpiderWebTest{
         spiderWeb.delSpot("brown");
         expected = new String[]{};
         assertArrayEquals(spiderWeb.spots(), expected);  
+        
         
         //
         spiderWeb.addSpot("aquamarine", 4);
@@ -207,20 +211,22 @@ public class SpiderWebTest{
     }
     
     @Test
-    public void accordingDCShouldExpand(){
+    public void accordingMUShouldExpand(){
+        spiderWeb.enlarge(150);
+        assertEquals(spiderWeb.ok(),true);
         
         spiderWeb.enlarge(150);
         assertEquals(spiderWeb.ok(),true);
-        spiderWeb.enlarge(150);
-        assertEquals(spiderWeb.ok(),true);
+        
         spiderWeb.enlarge(-150);
         assertNotEquals(spiderWeb.ok(),true);
+        
         spiderWeb.enlarge(-5);
         assertNotEquals(spiderWeb.ok(),true);
     }
     
     @Test
-    public void accordingDCShouldAddStrand(){
+    public void accordingMUShouldAddStrand(){
         for (int i = 1; i<= 5; i++){
             spiderWeb.addStrand();
             assertEquals(spiderWeb.ok(),true);
@@ -230,22 +236,27 @@ public class SpiderWebTest{
     }
     
     @Test
-    public void accordingDCShouldAddBridge(){
+    public void accordingMUShouldAddBridge(){
         spiderWeb.addBridge("blue", 20,20);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addBridge("black",80,1);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addBridge("black", 701,1);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addBridge("black", 100,25);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addBridge("black", 50,1000);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addBridge("black", 75,15);
         spiderWeb.makeInvisible();
         assertEquals(spiderWeb.ok(), true);
@@ -253,91 +264,124 @@ public class SpiderWebTest{
     }
     
     @Test
-    public void accordingDCShouldDelBridge(){
+    public void accordingMUShouldDelBridge(){
         spiderWeb.addBridge("black", 75,15);
         spiderWeb.delBridge("black");
         assertEquals(true, spiderWeb.ok());
+        
         spiderWeb.delBridge("black");
         assertEquals(false, spiderWeb.ok());
+        
         spiderWeb.addBridge("black", 75,15);
         spiderWeb.delBridge("black");
         assertEquals(true, spiderWeb.ok());
+        
         spiderWeb.addBridge("yellow",100,12);
         spiderWeb.delBridge("yellow");
         assertEquals(true, spiderWeb.ok());
     }
     
     @Test
-    public void accordignDCShouldrelocateBridge(){
+    public void accordignMUShouldrelocateBridge(){
         spiderWeb.addBridge("black", 100,14);
         spiderWeb.relocateBridge("black", 50);
         assertEquals(true, spiderWeb.ok());
+        
         spiderWeb.relocateBridge("black", 100);
         assertEquals(true, spiderWeb.ok());
+        
         spiderWeb.addBridge("black", 100,14);
         spiderWeb.relocateBridge("black", 701);
         assertEquals(false, spiderWeb.ok());
+        
         spiderWeb.relocateBridge("black", -50);
         assertEquals(false, spiderWeb.ok());        
     }
     
     @Test
-    public void accordingDCShouldAddSpot(){
+    public void accordingMUShouldAddSpot(){
         spiderWeb.addSpot("brown", 17);
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addSpot("black", 100);
         assertEquals(spiderWeb.ok(), false);
+        
         int begin = spiderWeb.spots().length;
         spiderWeb.addSpot("black", 19);
         assertEquals(spiderWeb.spots().length,begin+1);
+        
         begin+=1;
         spiderWeb.addSpot("cyan", 17);
         assertEquals(spiderWeb.spots().length,begin+1);
+        
         begin+=1;
         spiderWeb.delSpot("cyan");
         spiderWeb.delSpot("black");
     }
     
     @Test
-    public void accordingDCShouldDelSpot(){
+    public void accordingMUShouldDelSpot(){
         spiderWeb.delSpot("black");
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.addSpot("cyan", 17);
         spiderWeb.delSpot("cyan");
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.addSpot("black", 17);
         spiderWeb.delSpot("black");
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.addSpot("green", 17);
         spiderWeb.delSpot("green");
         assertEquals(spiderWeb.ok(), true);
     }
     
     @Test
-    public void accordingDCShouldSitSpider(){
+    public void accordingMUShouldSitSpider(){
         spiderWeb.spiderSit(0);
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.spiderSit(555);
         assertEquals(spiderWeb.ok(), false);
+        
         spiderWeb.spiderSit(5);
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.spiderSit(5);
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.spiderSit(15);
         assertEquals(spiderWeb.ok(), true);
     }
     
     @Test 
-    public void accordingDCShouldSpiderWalk(){
+    public void accordingMUShouldSpiderWalk(){
         spiderWeb.spiderWalk(true);
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.spiderSit(15);
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.spiderWalk(true);
         assertEquals(spiderWeb.ok(), true);
+        
         spiderWeb.spiderWalk(false);
         assertEquals(spiderWeb.ok(), true);
     }
     
-    
+    @Test
+    public void accordingDCShouldSolve(){
+        int[] minBridges = SpiderWebContest.solve(7, 6, new int[][]{{100,1},{150,3},{200,3},{250,7},{300,5}});
+        int[] expected = new int[]{2,1,1,1,0,1,2};
+        assertArrayEquals(minBridges, expected);
+        
+        minBridges = SpiderWebContest.solve(4, 2, new int[][]{{100,1},{150,2},{200,3},{250,4}});
+        expected = new int[]{1,2,0,1};
+        assertArrayEquals(minBridges, expected);
+        
+        minBridges = SpiderWebContest.solve(8, 4, new int[][]{{100,1},{1150,2},{200,2},{230,5},{270,8},{300,8}});
+        expected = new int[]{1,2,1,0,1,1,2,2};
+        assertArrayEquals(minBridges, expected);
+    }
 }
