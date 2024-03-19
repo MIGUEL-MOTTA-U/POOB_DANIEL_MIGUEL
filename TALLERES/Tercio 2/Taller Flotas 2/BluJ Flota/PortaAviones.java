@@ -18,4 +18,9 @@ public class PortaAviones extends Barco{
         }
         return res;
     }
+    
+    @Override
+    public String autodestruir(String razon){
+        return super.autodestruir(razon);
+    }
 }

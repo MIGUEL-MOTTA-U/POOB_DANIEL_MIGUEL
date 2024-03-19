@@ -15,4 +15,10 @@ public class capsula extends nodriza
         }
         return res;
     }
+    
+    @Override
+    public String autodestruir(String razon){
+        String res = "Mi nave Nodriza fue destruida";
+        return res; 
+    }
 }

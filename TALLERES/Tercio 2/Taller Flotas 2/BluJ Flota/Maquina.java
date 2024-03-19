@@ -2,9 +2,16 @@
 
 public abstract class Maquina {
     private Ubicacion ubicacion;
-    
+    protected boolean destruido;
     public void alNorte(){
-        this.ubicacion.alNorte();
+        try
+        {
+            this.ubicacion.alNorte();
+        }
+        catch (BatallaNavalExcepcion e)
+        {
+            System.out.println("Error generado por: " +  e.getMessage());
+        }
     }
     
     public void avance(int DLon, int DLat){

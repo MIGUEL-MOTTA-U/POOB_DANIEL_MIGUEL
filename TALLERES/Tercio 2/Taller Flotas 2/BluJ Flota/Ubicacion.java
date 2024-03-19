@@ -10,11 +10,11 @@ public class Ubicacion {
         return res;
     }
     
-    public void alNorte(){
+    public void alNorte() throws BatallaNavalExcepcion{
         if(inLimits(0, 1)){
             this.latitud += 1;
         }else{
-            System.out.println("Out of limits");
+            throw new BatallaNavalExcepcion("Mensaje descriptivo de la excepción");
         }
     }
     

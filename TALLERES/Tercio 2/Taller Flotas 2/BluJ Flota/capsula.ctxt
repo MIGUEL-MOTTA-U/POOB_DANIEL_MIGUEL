@@ -3,4 +3,6 @@ comment0.target=capsula
 comment0.text=\r\n\ Clase\ c\u00E1psula,\ es\ inmune\ a\ los\ ataques\ y\ NUNCA\ es\ d\u00E9bil\ si\ est\u00E1\ bajo\ 8000\ metros\r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\r\n\ @version\ (1.2)\r\n
 comment1.params=
 comment1.target=boolean\ esDebil()
-numComments=2
+comment2.params=razon
+comment2.target=java.lang.String\ autodestruir(java.lang.String)
+numComments=3

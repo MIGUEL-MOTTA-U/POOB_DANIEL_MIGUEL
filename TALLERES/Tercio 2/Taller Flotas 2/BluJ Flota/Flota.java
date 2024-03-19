@@ -1,5 +1,3 @@
- 
-
 import java.util.ArrayList;
 
 public class Flota {    
@@ -7,12 +5,15 @@ public class Flota {
     private String nombre;
     private ArrayList<Marino> marinos;
     private ArrayList<Maquina> maquinas;
+    private ArrayList<Object> autodestruirdos;
     
     public void alNorte(){
+  
         for(Maquina maquina : maquinas){
             maquina.alNorte();
         }
-    }
+
+        }
     
     public void avance(int dLon, int DLat){
         for(Maquina maquina : maquinas){
@@ -64,4 +65,41 @@ public class Flota {
             }
         }   
     }
+    
+    public ArrayList<Marino> pilotos() throws BatallaNavalExcepcion{
+        
+        ArrayList res = new ArrayList<>();
+        for(Maquina m : this.maquinas){
+            if(m instanceof Avion){
+                Avion a = (Avion) m;
+                if(!this.marinos.contains(a.getPilot())){
+                     throw new BatallaNavalExcepcion("Error piloto no es marino de la flota");
+                }
+                res.add(a);
+            }
+        }
+        return res;
+    }
+    
+    public int potencia()throws BatallaNavalExcepcion{
+        if (this.maquinas.size() < this.marinos.size()){
+            throw new BatallaNavalExcepcion("Hay menos marinos que maquinas");
+        }
+        int res = 0;
+        for(Maquina m : this.maquinas){
+            if(!m.esDebil()){
+                res+=1;
+            }
+        }
+        return res;
+    }
+    // Como defino qué máquina o avión o Nodriza autodestruir, al tener la referencia lo podemos eliminar y añadir al arreglo de autodestruidos    public void autodestruir(){
+        
+    public void autodestruir(){
+        
+    }
+    
+    
+    
+    
 }

@@ -6,6 +6,7 @@ public class Avion extends Maquina{
     private Marino piloto;
     private Marino copiloto;
     
+    
     @Override
     public boolean seraDestruida(int longitud, int latitud){
         return (!enAire) ? super.seraDestruida(longitud, latitud) : false;
@@ -18,5 +19,23 @@ public class Avion extends Maquina{
 
     public boolean getEnAire(){
         return this.enAire;
+    }
+    
+    public Marino getPilot(){
+        return piloto;
+    }
+    
+    public String autodestruir(String razon){
+        String res = null;
+        if(!this.destruido){
+            if(piloto != null){
+                piloto.autodestruir("Avión derribado");
+            }
+            
+            if(copiloto != null){
+                copiloto.autodestruir("Avión derribado");
+            }
+        }
+        return res;
     }
 }
