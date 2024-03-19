@@ -1,12 +1,10 @@
-
+import java.util.ArrayList;
 /**
- * Write a description of class capsula here.
+ * Clase Nodriza
  *
- * @author (your name)
+ * @author (Daniel Diaz & Miguel Motta)
  * @version (a version number or a date)
  */
-import java.util.ArrayList;
-
 public abstract class nodriza extends Maquina{
     
 }
