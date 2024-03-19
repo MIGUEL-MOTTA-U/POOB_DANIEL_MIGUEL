@@ -4,7 +4,7 @@
  * @author (Daniel Diaz y Miguel Motta)
  * @version (1.2)
  */
-public class capsula extends nodriza
+public abstract class capsula extends nodriza
 {
     private int profundidad;
     @Override

@@ -1,3 +1,4 @@
+import java.util.*;
  
 
 public class Avion extends Maquina{
@@ -21,8 +22,11 @@ public class Avion extends Maquina{
         return this.enAire;
     }
     
-    public Marino getPilot(){
-        return piloto;
+    @Override
+    public ArrayList<Marino> pilotos(){
+        ArrayList<Marino> marinos = new ArrayList<>();
+        marinos.add(this.piloto);
+        return marinos;
     }
     
     public String autodestruir(String razon){

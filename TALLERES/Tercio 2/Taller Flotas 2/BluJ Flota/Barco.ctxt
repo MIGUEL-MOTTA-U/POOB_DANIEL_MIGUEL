@@ -2,6 +2,8 @@
 comment0.target=Barco
 comment1.params=
 comment1.target=boolean\ esDebil()
-comment2.params=razon
-comment2.target=java.lang.String\ autodestruir(java.lang.String)
-numComments=3
+comment2.params=
+comment2.target=java.util.ArrayList\ getMarinos()
+comment3.params=razon
+comment3.target=java.lang.String\ autodestruir(java.lang.String)
+numComments=4

@@ -67,22 +67,21 @@ public class Flota {
     }
     
     public ArrayList<Marino> pilotos() throws BatallaNavalExcepcion{
-        
-        ArrayList res = new ArrayList<>();
+        ArrayList pilotos = new ArrayList<>();
         for(Maquina m : this.maquinas){
-            if(m instanceof Avion){
-                Avion a = (Avion) m;
-                if(!this.marinos.contains(a.getPilot())){
-                     throw new BatallaNavalExcepcion("Error piloto no es marino de la flota");
+            ArrayList<Marino> pilotosMaquina = m.pilotos();
+            for(int i = 0; i <= pilotosMaquina.size(); i++){
+                if(!this.marinos.contains(pilotosMaquina.get(i))){
+                    throw new BatallaNavalExcepcion("Error piloto no es marino de la flota");
                 }
-                res.add(a);
             }
+            pilotos.addAll(pilotosMaquina);
         }
-        return res;
+        return pilotos;
     }
     
     public int potencia()throws BatallaNavalExcepcion{
-        if (this.maquinas.size() < this.marinos.size()){
+        if (this.maquinas.size() > this.marinos.size()){
             throw new BatallaNavalExcepcion("Hay menos marinos que maquinas");
         }
         int res = 0;

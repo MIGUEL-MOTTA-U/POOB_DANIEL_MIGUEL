@@ -8,4 +8,6 @@ comment3.params=longitud\ latitud
 comment3.target=boolean\ seraDestruida(int,\ int)
 comment4.params=
 comment4.target=boolean\ esDebil()
-numComments=5
+comment5.params=
+comment5.target=java.util.ArrayList\ pilotos()
+numComments=6

@@ -1,3 +1,4 @@
+import java.util.*;
  
 
 public abstract class Maquina {
@@ -23,4 +24,6 @@ public abstract class Maquina {
     }
 
     public abstract boolean esDebil();
+    
+    public abstract ArrayList<Marino> pilotos() throws BatallaNavalExcepcion;
 }
