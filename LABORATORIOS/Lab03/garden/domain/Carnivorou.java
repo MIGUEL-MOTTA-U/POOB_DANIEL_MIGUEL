@@ -2,8 +2,8 @@ package domain;
 
 import java.awt.Color;
 
-public class Carnivorous extends Flower{
-    public Carnivorous(Garden garden,int row, int column){
+public class Carnivorou extends Flower{
+    public Carnivorou(Garden garden,int row, int column){
         super(garden, row, column);
         color = Color.BLUE;
     }
@@ -38,7 +38,7 @@ public class Carnivorous extends Flower{
         for (int r = 0; r < Garden.LENGTH; r++) {
             for (int c = 0; c < Garden.LENGTH; c++) {
                 Thing thing = things[r][c];
-                if ((thing instanceof Flower) && !(thing instanceof Carnivorous)) {
+                if ((thing instanceof Flower) && !(thing instanceof Carnivorou)) {
                     Flower flower = (Flower) thing;
                     int distance = Math.abs(this.column - flower.getColumn()) + Math.abs(this.row - flower.getRow());
                     if (distance < minDistance) {

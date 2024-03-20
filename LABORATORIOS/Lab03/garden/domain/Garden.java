@@ -43,10 +43,10 @@ public class Garden{
         Flower violet = new Flower(this, 15, 15);
         setThing(violet.getRow(), violet.getColumn(), violet);
 
-        Carnivorous venus = new Carnivorous(this, 7, 12);
+        Carnivorou venus = new Carnivorou(this, 7, 12);
         setThing(venus.getRow(), venus.getColumn(), venus);
 
-        Carnivorous sundeuos = new Carnivorous(this, 14, 14);
+        Carnivorou sundeuos = new Carnivorou(this, 14, 14);
         setThing(sundeuos.getRow(), sundeuos.getColumn(), sundeuos);
     }
     
