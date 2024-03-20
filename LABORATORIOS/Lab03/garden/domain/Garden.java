@@ -1,5 +1,6 @@
 package domain;
 import java.util.*;
+import java.util.random.RandomGenerator.LeapableGenerator;
 
 
 /*No olviden adicionar la documentacion*/
@@ -44,6 +45,14 @@ public class Garden{
     }
     
     public void ticTac(){
+        for (int r = 0; r < LENGTH; r++){
+            for (int c = 0; c < LENGTH; c++){
+                Thing thing = garden[r][c];
+                if (thing != null) {
+                    thing.act();
+                }
+            }
+        }
     }
 
 }

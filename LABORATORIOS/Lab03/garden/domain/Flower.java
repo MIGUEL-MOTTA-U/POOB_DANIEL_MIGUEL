@@ -60,5 +60,16 @@ public class Flower extends Agent implements Thing{
     }
     
     public void act(){
+        super.turn();
+
+        if (super.getTime() <= 3){
+            color = Color.ORANGE;
+        } else if (super.getTime() > 3 && super.getTime() <= 5) {
+            state = Agent.DEAD;
+            color = Color.GRAY;
+        } else {
+            state = Agent.ALIVE;
+            color = Color.RED;
+        }
     }
 }
