@@ -8,7 +8,7 @@ import java.awt.Color;
 public class Flower extends Agent implements Thing{
     protected char nextState;
     protected Color color;
-    private Garden garden;
+    protected Garden garden;
     protected int row,column;
 
 
@@ -59,14 +59,13 @@ public class Flower extends Agent implements Thing{
     public void move(){
     }
     
+    @Override
     public void act(){
         super.turn();
 
-        if (super.getTime() <= 3){
-            color = Color.ORANGE;
-        } else if (super.getTime() > 3 && super.getTime() <= 5) {
+        if (super.getTime() > 3 && super.getTime() <= 5) {
             state = Agent.DEAD;
-            color = Color.GRAY;
+            color = Color.ORANGE;
         } else {
             state = Agent.ALIVE;
             color = Color.RED;

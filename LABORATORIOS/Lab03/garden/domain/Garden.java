@@ -38,16 +38,24 @@ public class Garden{
 
     public void someThings(){
         Flower rose = new Flower(this, 10, 10);
-        setThing(10, 10, rose);
+        setThing(rose.row, rose.getColumn(), rose);
 
         Flower violet = new Flower(this, 15, 15);
-        setThing(15, 15, violet);
+        setThing(violet.getRow(), violet.getColumn(), violet);
+
+        Carnivorous venus = new Carnivorous(this, 7, 12);
+        setThing(venus.getRow(), venus.getColumn(), venus);
+
+        Carnivorous sundeuos = new Carnivorous(this, 14, 14);
+        setThing(sundeuos.getRow(), sundeuos.getColumn(), sundeuos);
     }
     
     public void ticTac(){
+        Thing[][] copyGarden = this.copyGarden();
+
         for (int r = 0; r < LENGTH; r++){
             for (int c = 0; c < LENGTH; c++){
-                Thing thing = garden[r][c];
+                Thing thing = copyGarden[r][c];
                 if (thing != null) {
                     thing.act();
                 }
@@ -55,4 +63,18 @@ public class Garden{
         }
     }
 
+    public Thing[][] getThings(){
+        return this.garden;
+    }
+
+    public Thing[][] copyGarden(){
+        Thing[][] copy = new Thing[LENGTH][LENGTH];
+        for (int r=0;r<LENGTH;r++){
+            for (int c=0;c<LENGTH;c++){
+                copy[r][c]=garden[r][c];
+            }
+        }
+
+        return copy;
+    }
 }
