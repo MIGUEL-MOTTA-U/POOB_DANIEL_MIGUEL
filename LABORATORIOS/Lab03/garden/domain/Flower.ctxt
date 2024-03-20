@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.target=Flower
+comment0.text=Information\ about\ a\ Flower<br>\r\n<b>(garden,row,column,time,state,nextState,\ color)</b><br>\r\n<br>\r\n
+comment1.params=garden\ row\ column
+comment1.target=Flower(Garden,\ int,\ int)
+comment1.text=Create\ a\ new\ flower\ (<b>row,column</b>)\ in\ the\ garden\ <b>garden</b>.\r\n\ Every\ new\ flower\ is\ going\ to\ be\ alive\ in\ the\ following\ state.\r\n\ @param\ garden\ \r\n\ @param\ row\ \r\n\ @param\ column\ \r\n
+comment2.params=
+comment2.target=int\ shape()
+comment2.text=Returns\ the\ shape\r\n\ \ \ \ @return\ \r\n
+comment3.params=
+comment3.target=int\ getRow()
+comment3.text=Returns\ the\ row\r\n\ \ \ \ @return\ \r\n
+comment4.params=
+comment4.target=int\ getColumn()
+comment4.text=Returns\ tha\ column\r\n\ \ \ \ @return\ \r\n
+comment5.params=
+comment5.target=java.awt.Color\ getColor()
+comment5.text=Returns\ the\ color\r\n\ \ \ \ @return\ \r\n
+comment6.params=
+comment6.target=void\ move()
+comment7.params=
+comment7.target=void\ act()
+numComments=8

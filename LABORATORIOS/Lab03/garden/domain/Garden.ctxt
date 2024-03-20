@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Garden
+comment0.text=No\ olviden\ adicionar\ la\ documentacion
+comment1.params=
+comment1.target=Garden()
+comment2.params=
+comment2.target=int\ getLength()
+comment3.params=r\ c
+comment3.target=Thing\ getThing(int,\ int)
+comment4.params=r\ c\ e
+comment4.target=void\ setThing(int,\ int,\ Thing)
+comment5.params=
+comment5.target=void\ someThings()
+comment6.params=
+comment6.target=void\ ticTac()
+numComments=7
