@@ -2,6 +2,8 @@ package domain;
 import java.util.*;
 import java.util.random.RandomGenerator.LeapableGenerator;
 
+import javax.swing.tree.VariableHeightLayoutCache;
+
 
 /*No olviden adicionar la documentacion*/
 public class Garden{
@@ -37,12 +39,14 @@ public class Garden{
     }
 
     public void someThings(){
+        //Flores normales
         Flower rose = new Flower(this, 10, 10);
         setThing(rose.row, rose.getColumn(), rose);
 
         Flower violet = new Flower(this, 15, 15);
         setThing(violet.getRow(), violet.getColumn(), violet);
 
+        //Flores carnivoras
         Carnivorou venus = new Carnivorou(this, 18, 2);
         setThing(venus.getRow(), venus.getColumn(), venus);
 
@@ -54,6 +58,8 @@ public class Garden{
 
         Carnivorou gladiolo = new Carnivorou(this, 35, 12);
         setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
+
+        //Parches de arena
 
         //Tatacoa
         setThing(1, 0, new Sand(this, 1, 0));
@@ -70,11 +76,19 @@ public class Garden{
             }
         }
 
+        //Flores aromaticas
         Aromatic tulipan = new Aromatic(this, 20, 11);
         setThing(tulipan.getRow(), tulipan.getColumn(), tulipan);
 
         Aromatic azela = new Aromatic(this, 17, 30);
         setThing(azela.getRow(), azela.getColumn(), azela);
+
+        //Virus
+        Virus covid = new Virus(this, 20, 33);
+        setThing(covid.getRow(), covid.getColumn(), covid);
+
+        Virus sarampion = new Virus(this, 7, 5);
+        setThing(sarampion.getRow(), sarampion.getColumn(), sarampion);
     }
     
     public void ticTac(){
@@ -83,7 +97,7 @@ public class Garden{
         for (int r = 0; r < LENGTH; r++) {
             for (int c = 0; c < LENGTH; c++) {
                 Thing thing = copyGarden[r][c];
-                if (!(thing instanceof Aromatic) && thing != null) {
+                if (!(thing instanceof Aromatic) && !(thing instanceof Virus) && thing != null) {
                     thing.act();
                 }
             }
@@ -92,7 +106,16 @@ public class Garden{
         for (int r = 0; r < LENGTH; r++) {
             for (int c = 0; c < LENGTH; c++) {
                 Thing thing = copyGarden[r][c];
-                if (thing instanceof Aromatic && thing != null) {
+                if (thing instanceof Aromatic && !(thing instanceof Virus) && thing != null) {
+                    thing.act();
+                }
+            }
+        }
+
+        for (int r = 0; r < LENGTH; r++) {
+            for (int c = 0; c < LENGTH; c++) {
+                Thing thing = copyGarden[r][c];
+                if (thing instanceof Virus && thing != null) {
                     thing.act();
                 }
             }
