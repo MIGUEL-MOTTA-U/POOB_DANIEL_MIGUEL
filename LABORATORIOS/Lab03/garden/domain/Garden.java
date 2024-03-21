@@ -48,6 +48,21 @@ public class Garden{
 
         Carnivorou sundeuos = new Carnivorou(this, 14, 14);
         setThing(sundeuos.getRow(), sundeuos.getColumn(), sundeuos);
+
+        //Tatacoa
+        setThing(1, 0, new Sand());
+        for (int r = 0; r < 2; r++) {
+            for (int c = 1; c < 3; c++) {
+                setThing(r, c, new Sand());
+            }
+        }
+        
+        //Sahara
+        for (int r = 0; r < 3; r++) {
+            for (int c = 35; c < LENGTH; c++) {
+                setThing(r, c, new Sand());
+            }
+        }
     }
     
     public void ticTac(){
