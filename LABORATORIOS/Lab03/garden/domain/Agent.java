@@ -17,7 +17,6 @@ public abstract class Agent{
         time=0;
     }
 
-
     /**The agent turns one life span old
      * 
      */

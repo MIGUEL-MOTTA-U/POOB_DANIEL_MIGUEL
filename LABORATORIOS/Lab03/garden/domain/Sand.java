@@ -1,32 +1,40 @@
 package domain;
 import java.awt.Color;
 
-public class Sand implements Thing{
+public class Sand extends Agent implements Thing{
     private Color color;
-    private int time;
+    private Garden garden;
+    private int row,column;
 
-    public Sand(){
-        this.time = 0;
-        this.color = Color.GRAY;
+    public Sand(Garden garden,int row, int column){
+        this.garden = garden;
+        this.row = row;
+        this.column = column;
+        this.color = new Color(0.57f, 0.57f, 0.57f);
     }
 
     @Override
     public void act(){
         this.turn();
-        int fadeRate = 10;
-        int red = Math.min(this.color.getRed() + fadeRate, 255);
-        int green = Math.min(this.color.getGreen() + fadeRate, 255);
-        int blue = Math.min(this.color.getBlue() + fadeRate, 255);
 
-        this.color = new Color(red, green, blue);
-    }
+        if (super.getTime() != 100) {  
+            float fadeRate = 0.005f;
+            float red = Math.min((this.color.getRed() / 255.0f) + fadeRate, 1.0f);
+            float green = Math.min((this.color.getGreen() / 255.0f) + fadeRate, 1.0f);
+            float blue = Math.min((this.color.getBlue() / 255.0f) + fadeRate, 1.0f);
 
-    public void turn(){
-        this.time++;
+            this.color = new Color(red, green, blue);
+        } else {
+            garden.setThing(this.row, this.column, null);
+        }
     }
 
     @Override
-    public final Color getColor(){
+    public Color getColor(){
         return this.color;
+    }
+
+    public void move(){
+
     }
 }

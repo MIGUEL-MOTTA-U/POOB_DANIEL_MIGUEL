@@ -56,17 +56,17 @@ public class Garden{
         setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
 
         //Tatacoa
-        setThing(1, 0, new Sand());
+        setThing(1, 0, new Sand(this, 1, 0));
         for (int r = 0; r < 2; r++) {
             for (int c = 1; c < 3; c++) {
-                setThing(r, c, new Sand());
+                setThing(r, c, new Sand(this, r, c));
             }
         }
         
         //Sahara
         for (int r = 0; r < 3; r++) {
             for (int c = 35; c < LENGTH; c++) {
-                setThing(r, c, new Sand());
+                setThing(r, c, new Sand(this, r, c));
             }
         }
 

@@ -10,6 +10,8 @@ public class Flower extends Agent implements Thing{
     protected Color color;
     protected Garden garden;
     protected int row,column;
+    
+    private int lasTime = 0;
 
 
     /**Create a new flower (<b>row,column</b>) in the garden <b>garden</b>.
@@ -22,7 +24,8 @@ public class Flower extends Agent implements Thing{
         this.garden=garden;
         this.row=row;
         this.column=column;
-        nextState=Agent.ALIVE;
+        this.state = Agent.ALIVE;
+        nextState=Agent.DEAD;
         garden.setThing(row,column,(Thing)this);  
         color=Color.red;
     }
@@ -63,12 +66,17 @@ public class Flower extends Agent implements Thing{
     public void act(){
         super.turn();
 
-        if (super.getTime() > 3 && super.getTime() <= 5) {
+        int time = super.getTime();
+        if (super.isAlive() && time == this.lasTime + 3) {
             state = Agent.DEAD;
             color = Color.ORANGE;
-        } else {
+            this.nextState = Agent.ALIVE;
+            this.lasTime = time;
+        } else if (!super.isAlive() && time == this.lasTime + 2) {
             state = Agent.ALIVE;
             color = Color.RED;
+            this.nextState = Agent.DEAD;
+            this.lasTime = time;
         }
     }
 }
