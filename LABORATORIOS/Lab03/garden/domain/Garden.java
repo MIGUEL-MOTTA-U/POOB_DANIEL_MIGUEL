@@ -43,11 +43,17 @@ public class Garden{
         Flower violet = new Flower(this, 15, 15);
         setThing(violet.getRow(), violet.getColumn(), violet);
 
-        Carnivorou venus = new Carnivorou(this, 7, 12);
+        Carnivorou venus = new Carnivorou(this, 18, 2);
         setThing(venus.getRow(), venus.getColumn(), venus);
 
         Carnivorou sundeuos = new Carnivorou(this, 14, 14);
         setThing(sundeuos.getRow(), sundeuos.getColumn(), sundeuos);
+
+        Carnivorou narciso = new Carnivorou(this, 31, 5);
+        setThing(narciso.getRow(), narciso.getColumn(), narciso);
+
+        Carnivorou gladiolo = new Carnivorou(this, 35, 12);
+        setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
 
         //Tatacoa
         setThing(1, 0, new Sand());
@@ -63,15 +69,30 @@ public class Garden{
                 setThing(r, c, new Sand());
             }
         }
+
+        Aromatic tulipan = new Aromatic(this, 20, 11);
+        setThing(tulipan.getRow(), tulipan.getColumn(), tulipan);
+
+        Aromatic azela = new Aromatic(this, 17, 30);
+        setThing(azela.getRow(), azela.getColumn(), azela);
     }
     
     public void ticTac(){
         Thing[][] copyGarden = this.copyGarden();
 
-        for (int r = 0; r < LENGTH; r++){
-            for (int c = 0; c < LENGTH; c++){
+        for (int r = 0; r < LENGTH; r++) {
+            for (int c = 0; c < LENGTH; c++) {
                 Thing thing = copyGarden[r][c];
-                if (thing != null) {
+                if (!(thing instanceof Aromatic) && thing != null) {
+                    thing.act();
+                }
+            }
+        }
+
+        for (int r = 0; r < LENGTH; r++) {
+            for (int c = 0; c < LENGTH; c++) {
+                Thing thing = copyGarden[r][c];
+                if (thing instanceof Aromatic && thing != null) {
                     thing.act();
                 }
             }
