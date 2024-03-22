@@ -15,7 +15,7 @@ public class Garden{
     private Thing[][] garden;
 
     private int ticTac = 0;
-	
+    
     /**Create a new garden with object
      */
     public Garden() {
@@ -85,7 +85,26 @@ public class Garden{
 
         Carnivorou gladiolo = new Carnivorou(this, 35, 12);
         setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
-
+        
+        // Flores de Conway
+        FlowerConway f1 = new FlowerConway(this, 7, 15);
+        setThing(f1.getRow(), f1.getColumn(), f1);
+        
+        FlowerConway f2 = new FlowerConway(this, 7, 16);
+        setThing(f2.getRow(), f2.getColumn(), f2);
+        
+        FlowerConway f3 = new FlowerConway(this, 7, 17);
+        setThing(f3.getRow(), f3.getColumn(), f3);
+        
+        FlowerConway f4 = new FlowerConway(this, 8, 16);
+        setThing(f4.getRow(), f4.getColumn(), f4);
+        
+        // Celulas
+        
+        Cell c1 = new Cell(this, 19, 19);
+        setThing(c1.getRow(), c1.getColumn(), c1);
+        
+        
         //Tatacoa
         setThing(1, 0, new Sand(this, 1, 0));
         for (int r = 0; r < 2; r++) {

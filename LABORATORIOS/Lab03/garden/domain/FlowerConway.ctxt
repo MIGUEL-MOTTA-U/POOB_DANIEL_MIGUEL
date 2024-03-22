@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=FlowerConway
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ FlowerConway\ here.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ &&\ Miguel\ Motta)\ \r\n\ @version\ (22/03/2024)\r\n
+comment1.params=garden\ row\ column
+comment1.target=FlowerConway(Garden,\ int,\ int)
+comment2.params=
+comment2.target=int\ checkCells()
+comment3.params=
+comment3.target=int\ checkVecinas()
+comment4.params=
+comment4.target=void\ act()
+comment4.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ carnivorou\r\n
+numComments=5
