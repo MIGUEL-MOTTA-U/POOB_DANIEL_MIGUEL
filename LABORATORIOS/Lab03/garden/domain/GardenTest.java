@@ -1,7 +1,5 @@
 package domain;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.*;
 
 /**
