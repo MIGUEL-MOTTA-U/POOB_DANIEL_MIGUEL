@@ -59,8 +59,6 @@ public class Garden{
         Carnivorou gladiolo = new Carnivorou(this, 35, 12);
         setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
 
-        //Parches de arena
-
         //Tatacoa
         setThing(1, 0, new Sand(this, 1, 0));
         for (int r = 0; r < 2; r++) {
@@ -92,48 +90,47 @@ public class Garden{
     }
     
     public void ticTac(){
-        Thing[][] copyGarden = this.copyGarden();
+        ArrayList<Thing> copyGarden = this.copyGarden();
 
-        for (int r = 0; r < LENGTH; r++) {
-            for (int c = 0; c < LENGTH; c++) {
-                Thing thing = copyGarden[r][c];
-                if (!(thing instanceof Aromatic) && !(thing instanceof Virus) && thing != null) {
-                    thing.act();
+        for (Thing thing : copyGarden) {
+            thing.act();
+        }
+    }
+
+    public ArrayList<Thing> copyGarden(){
+        ArrayList<Thing> copy = new ArrayList<>();
+        for (int r=0;r<LENGTH;r++){
+            for (int c=0;c<LENGTH;c++){
+                Thing thing = garden[r][c];
+                if (thing != null) {                
+                    copy.add(thing);
                 }
             }
         }
 
-        for (int r = 0; r < LENGTH; r++) {
-            for (int c = 0; c < LENGTH; c++) {
-                Thing thing = copyGarden[r][c];
-                if (thing instanceof Aromatic && !(thing instanceof Virus) && thing != null) {
-                    thing.act();
+        Collections.sort(copy, new Comparator<Thing>() {
+            @Override
+            public int compare(Thing t1, Thing t2) {
+                if (!(t1 instanceof Aromatic) && !(t1 instanceof Virus)) {
+                    if (t2 instanceof Aromatic || t2 instanceof Virus) {
+                        return -1;
+                    }
+                    return 0;
                 }
+                else if (t1 instanceof Aromatic && !(t2 instanceof Aromatic)) {
+                    return 1;
+                }
+                else if (t1 instanceof Virus && !(t2 instanceof Virus)) {
+                    return 1;
+                }
+                return 0;
             }
-        }
+        });
 
-        for (int r = 0; r < LENGTH; r++) {
-            for (int c = 0; c < LENGTH; c++) {
-                Thing thing = copyGarden[r][c];
-                if (thing instanceof Virus && thing != null) {
-                    thing.act();
-                }
-            }
-        }
+        return copy;
     }
 
     public Thing[][] getThings(){
         return this.garden;
-    }
-
-    public Thing[][] copyGarden(){
-        Thing[][] copy = new Thing[LENGTH][LENGTH];
-        for (int r=0;r<LENGTH;r++){
-            for (int c=0;c<LENGTH;c++){
-                copy[r][c]=garden[r][c];
-            }
-        }
-
-        return copy;
     }
 }
