@@ -9,6 +9,10 @@ public abstract class Agent{
     protected char state;
     private int time;
 
+    protected Color color;
+    protected Garden garden;
+    protected int row; protected int column;
+
     /**Create a new agent
      * 
      */

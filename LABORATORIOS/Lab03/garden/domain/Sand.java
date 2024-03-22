@@ -2,10 +2,6 @@ package domain;
 import java.awt.Color;
 
 public class Sand extends Agent implements Thing{
-    private Color color;
-    private Garden garden;
-    private int row,column;
-
     public Sand(Garden garden,int row, int column){
         this.garden = garden;
         this.row = row;

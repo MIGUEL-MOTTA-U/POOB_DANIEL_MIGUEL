@@ -7,9 +7,6 @@ import java.awt.Color;
  */
 public class Flower extends Agent implements Thing{
     protected char nextState;
-    protected Color color;
-    protected Garden garden;
-    protected int row,column;
     
     private int lasTime = 0;
 

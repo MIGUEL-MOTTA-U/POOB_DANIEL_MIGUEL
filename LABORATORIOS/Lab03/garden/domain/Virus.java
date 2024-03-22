@@ -3,10 +3,6 @@ package domain;
 import java.awt.Color;
 
 public class Virus extends Agent implements Thing {
-    private Color color;
-    private Garden garden;
-    private int row;
-    private int column;
     private int hunger;
 
     public Virus(Garden garden,int row, int column){
