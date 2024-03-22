@@ -2,12 +2,26 @@ package domain;
 
 import java.awt.Color;
 
+/**
+ * Represent a Carnivorou in the garden
+ * 
+ * @author  Daniel Diaz && Miguel Motta
+ */
 public class Carnivorou extends Flower{
+    /**Create a new carnivorou (<b>row,column</b>) in the garden <b>garden</b>.
+     * Every new carnivorou is going to be alive in the following state.
+     * @param garden    It is the garden where the carnivorou is locate
+     * @param row       It is the position on the garden where the carnivorou is locate
+     * @param column    It is the position on the garden where the carnivorou is locate
+     */
     public Carnivorou(Garden garden,int row, int column){
         super(garden, row, column);
         color = Color.BLUE;
     }
 
+    /**
+     * Move the carnivorou along the garden
+     */
     @Override
     public void move(){
         Flower nearestFlower = this.nearestFlower();
@@ -30,6 +44,9 @@ public class Carnivorou extends Flower{
         garden.setThing(this.row, this.column, this);
     }
 
+    /*
+     * find the nearest flower to the carnivorou
+     */
     private Flower nearestFlower(){
         Flower nearestFlower = null;
         Thing[][] things = garden.getThings();
@@ -52,6 +69,9 @@ public class Carnivorou extends Flower{
         return nearestFlower;
     }
 
+    /**
+     * Defines the action to be performed by the carnivorou
+     */
     @Override
     public void act(){
         super.turn();

@@ -2,9 +2,20 @@ package domain;
 
 import java.awt.Color;
 
+/**
+ * Represent a virus in the garden
+ * 
+ * @author  Daniel Diaz && Miguel Motta
+ */
 public class Virus extends Agent implements Thing {
     private int hunger;
 
+    /**Create a new virus (<b>row,column</b>) in the garden <b>garden</b>.
+     * Every new virus is going to be alive in the following state.
+     * @param garden    It is the garden where the virus is locate
+     * @param row       It is the position on the garden where the virus is locate
+     * @param column    It is the position on the garden where the virus is locate
+     */
     public Virus(Garden garden,int row, int column){
         this.garden = garden;
         this.row = row;
@@ -13,6 +24,9 @@ public class Virus extends Agent implements Thing {
         this.state = Agent.ALIVE;
     }
 
+    /**
+     * Move the virus along the garden
+     */
     @Override
     public void move(){
         Flower nearestFlower = this.nearestFlower();
@@ -35,6 +49,9 @@ public class Virus extends Agent implements Thing {
         garden.setThing(this.row, this.column, this);
     }
 
+    /*
+     * find the nearest flower that is not a carnivorou to the virus
+     */
     private Flower nearestFlower(){
         Flower nearestFlower = null;
         Thing[][] things = garden.getThings();
@@ -57,6 +74,9 @@ public class Virus extends Agent implements Thing {
         return nearestFlower;
     }
 
+    /**
+     * Defines the action to be performed by the virus
+     */
     @Override
     public void act(){
         super.turn();
@@ -84,20 +104,36 @@ public class Virus extends Agent implements Thing {
         }
     }
 
+    /**
+     * Returns the color
+     * @return  an object of type Color representing the color of the virus
+     */
     @Override
     public Color getColor(){
         return this.color;
     }
 
+    /**
+     * Returns the shape
+     * @return  an integer representing the shape of the virus
+     */
     @Override
     public int shape(){
         return Thing.ROUND;
     }
 
+    /**
+     * Returns the row
+     * @return  the row where is locate the virus
+     */
     public int getRow(){
         return this.row;
     }
 
+    /**
+     * Returns the column
+     * @return  the column where is locate the virus
+     */
     public int getColumn(){
         return this.column;
     }

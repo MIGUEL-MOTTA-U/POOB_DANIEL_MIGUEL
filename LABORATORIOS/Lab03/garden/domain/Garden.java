@@ -5,11 +5,17 @@ import java.util.random.RandomGenerator.LeapableGenerator;
 import javax.swing.tree.VariableHeightLayoutCache;
 
 
-/*No olviden adicionar la documentacion*/
+/**
+ * Represent a garden with objects
+ * 
+ * @author  Daniel Diaz && Miguel Motta
+ */
 public class Garden{
     static public int LENGTH=40;
     private Thing[][] garden;
 	
+    /**Create a new garden with object
+     */
     public Garden() {
         garden=new Thing[LENGTH][LENGTH];
         for (int r=0;r<LENGTH;r++){
@@ -26,18 +32,37 @@ public class Garden{
         someThings();
     }
 
+    /**
+     * Return the length of the garden
+     * @return  an integer representing the length of the garden
+     */
     public int  getLength(){
         return LENGTH;
     }
 
+    /**
+     * Return a thing that is locate in the garden
+     * @param r it is the position on the garden where the thing is locate
+     * @param c it is the position on the garden where the thing is locate
+     * @return  the Thing that is in the given position
+     */
     public Thing getThing(int r,int c){
         return garden[r][c];
     }
 
+    /**
+     * Add one thing on the garden
+     * @param r it is the position on the garden where the thing is locate
+     * @param c it is the position on the garden where the thing is locate
+     * @param e the thing to add
+     */
     public void setThing(int r, int c, Thing e){
         garden[r][c]=e;
     }
 
+    /**
+     * Create the things on the garden
+     */
     public void someThings(){
         //Flores normales
         Flower rose = new Flower(this, 10, 10);
@@ -89,6 +114,9 @@ public class Garden{
         setThing(sarampion.getRow(), sarampion.getColumn(), sarampion);
     }
     
+    /**
+     * Give the instruction to each thing in the garden to perform its action.
+     */
     public void ticTac(){
         ArrayList<Thing> copyGarden = this.copyGarden();
 
@@ -97,7 +125,10 @@ public class Garden{
         }
     }
 
-    public ArrayList<Thing> copyGarden(){
+    /*
+     * Make a copy of the things that are locate in the garden
+     */
+    private ArrayList<Thing> copyGarden(){
         ArrayList<Thing> copy = new ArrayList<>();
         for (int r=0;r<LENGTH;r++){
             for (int c=0;c<LENGTH;c++){
@@ -130,6 +161,10 @@ public class Garden{
         return copy;
     }
 
+    /**
+     * Return the things in the garden
+     * @return  an array containing the things in the garden
+     */
     public Thing[][] getThings(){
         return this.garden;
     }
