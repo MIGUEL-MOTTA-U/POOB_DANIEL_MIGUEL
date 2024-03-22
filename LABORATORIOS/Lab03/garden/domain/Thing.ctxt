@@ -1,12 +1,16 @@
 #BlueJ class context
 comment0.target=Thing
-comment0.text=No\ olviden\ adicionar\ la\ documentacion
+comment0.text=\r\n\ Represents\ entities\ that\ share\ shape,\ color\ and\ perform\ an\ action\r\n\r\n\ @author\ ECI-2024\r\n
 comment1.params=
 comment1.target=void\ act()
+comment1.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ Thing\r\n
 comment2.params=
 comment2.target=int\ shape()
+comment2.text=\r\n\ Return\ the\ shape\ of\ the\ thing\r\n\ @return\ \ an\ integer\ representing\ the\ shape\ of\ the\ thing\r\n
 comment3.params=
 comment3.target=java.awt.Color\ getColor()
+comment3.text=\r\n\ Return\ the\ color\ of\ the\ thing\r\n\ @return\ \ an\ object\ of\ type\ Color\ representing\ the\ color\ of\ the\ thing\r\n
 comment4.params=
 comment4.target=boolean\ is()
+comment4.text=\r\n\ Return\ if\ an\ object\ implements\ this\ interface\r\n\ @return\ \ that\ the\ object\ implementes\ this\ interface\r\n
 numComments=5

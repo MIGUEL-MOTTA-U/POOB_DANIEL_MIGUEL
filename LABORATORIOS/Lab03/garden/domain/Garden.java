@@ -13,6 +13,8 @@ import javax.swing.tree.VariableHeightLayoutCache;
 public class Garden{
     static public int LENGTH=40;
     private Thing[][] garden;
+
+    private int ticTac = 0;
 	
     /**Create a new garden with object
      */
@@ -118,6 +120,7 @@ public class Garden{
      * Give the instruction to each thing in the garden to perform its action.
      */
     public void ticTac(){
+        this.ticTac++;
         ArrayList<Thing> copyGarden = this.copyGarden();
 
         for (Thing thing : copyGarden) {
@@ -167,5 +170,9 @@ public class Garden{
      */
     public Thing[][] getThings(){
         return this.garden;
+    }
+
+    public int getTicTac(){
+        return this.ticTac;
     }
 }

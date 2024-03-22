@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=Water
+comment0.text=\r\n\ Represent\ water\ in\ the\ garden\r\n\ \r\n\ @author\ \ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n
 comment1.params=
 comment1.target=void\ act()
+comment1.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ water\r\n
 numComments=2

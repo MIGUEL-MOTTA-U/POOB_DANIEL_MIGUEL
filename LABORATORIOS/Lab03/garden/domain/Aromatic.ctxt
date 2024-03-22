@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Aromatic
+comment0.text=\r\n\ Represent\ an\ aromatic\ in\ the\ garden\r\n\ \r\n\ @author\ \ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n
+comment1.params=garden\ row\ column
+comment1.target=Aromatic(Garden,\ int,\ int)
+comment1.text=Create\ a\ new\ carnivorou\ (<b>row,column</b>)\ in\ the\ garden\ <b>garden</b>.\r\n\ Every\ new\ carnivorou\ is\ going\ to\ be\ alive\ in\ the\ following\ state.\r\n\ @param\ garden\ \ \ \ It\ is\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n\ @param\ row\ \ \ \ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n\ @param\ column\ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n
+comment2.params=
+comment2.target=java.util.ArrayList\ nearestCarnivorous()
+comment2.text=\r\n\ find\ the\ carnivorous\ found\ in\ the\ range\ of\ the\ aromatic\r\n
+comment3.params=carnivorou
+comment3.target=boolean\ inRange(Carnivorou)
+comment3.text=\r\n\ Verify\ if\ a\ carnivorou\ is\ in\ the\ range\ of\ the\ aromatic\r\n
+comment4.params=
+comment4.target=void\ emissions()
+comment4.text=\r\n\ Count\ the\ times\ that\ the\ aromatic\ sprays\ its\ aroma\r\n
+comment5.params=
+comment5.target=void\ act()
+comment5.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ aromatic\r\n
+numComments=6

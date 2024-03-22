@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Sand
+comment0.text=\r\n\ Represent\ sand\ in\ the\ garden\r\n\ \r\n\ @author\ \ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n
+comment1.params=garden\ row\ column
+comment1.target=Sand(Garden,\ int,\ int)
+comment1.text=Create\ a\ new\ sand\ (<b>row,column</b>)\ in\ the\ garden\ <b>garden</b>.\r\n\ @param\ garden\ \ \ \ It\ is\ the\ garden\ where\ the\ sand\ is\ locate\r\n\ @param\ row\ \ \ \ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ sand\ is\ locate\r\n\ @param\ column\ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ sand\ is\ locate\r\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ sand\r\n
+comment3.params=
+comment3.target=java.awt.Color\ getColor()
+comment3.text=\r\n\ Returns\ the\ color\r\n\ @return\ \ an\ object\ of\ type\ Color\ representing\ the\ color\ of\ the\ sand\r\n
+comment4.params=
+comment4.target=void\ move()
+comment4.text=\r\n\ Move\ the\ sand\ along\ the\ garden\r\n
+numComments=5

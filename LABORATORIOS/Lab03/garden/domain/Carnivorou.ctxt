@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Carnivorou
+comment0.text=\r\n\ Represent\ a\ Carnivorou\ in\ the\ garden\r\n\ \r\n\ @author\ \ Daniel\ Diaz\ &&\ Miguel\ Motta\r\n
+comment1.params=garden\ row\ column
+comment1.target=Carnivorou(Garden,\ int,\ int)
+comment1.text=Create\ a\ new\ carnivorou\ (<b>row,column</b>)\ in\ the\ garden\ <b>garden</b>.\r\n\ Every\ new\ carnivorou\ is\ going\ to\ be\ alive\ in\ the\ following\ state.\r\n\ @param\ garden\ \ \ \ It\ is\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n\ @param\ row\ \ \ \ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n\ @param\ column\ \ \ \ It\ is\ the\ position\ on\ the\ garden\ where\ the\ carnivorou\ is\ locate\r\n
+comment2.params=
+comment2.target=void\ move()
+comment2.text=\r\n\ Move\ the\ carnivorou\ along\ the\ garden\r\n
+comment3.params=
+comment3.target=Flower\ nearestFlower()
+comment3.text=\r\n\ find\ the\ nearest\ flower\ to\ the\ carnivorou\r\n
+comment4.params=
+comment4.target=void\ act()
+comment4.text=\r\n\ Defines\ the\ action\ to\ be\ performed\ by\ the\ carnivorou\r\n
+numComments=5
