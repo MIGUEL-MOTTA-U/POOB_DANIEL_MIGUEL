@@ -1,5 +1,7 @@
 package domain;
 
+import java.awt.Color;
+
 import org.junit.*;
 
 /**
@@ -25,6 +27,51 @@ public class GardenTest{
         Thing violet = garden.getThing(15, 15);
         Assert.assertTrue(rose instanceof Flower);
         Assert.assertTrue(violet instanceof Flower);
+    }
+    
+    @Test
+    public void flowerShouldAct(){
+        garden.setThing(18, 2, null);
+        garden.setThing(14, 14, null);
+        garden.setThing(31, 5, null);
+        garden.setThing(35, 12, null);
+        garden.setThing(20, 11, null);
+        garden.setThing(17, 30, null);
+        garden.setThing(20, 33, null);
+        garden.setThing(7, 5, null);
+
+        for (int i = 1; i <= 10; i++) {
+            garden.ticTac();
+            Flower rose = (Flower) garden.getThing(10, 10);
+            Flower violet = (Flower) garden.getThing(15, 15);
+
+            if (i == 1) {
+                Assert.assertTrue(rose.isAlive());
+                Assert.assertEquals(Color.RED, rose.getColor());
+                Assert.assertTrue(violet.isAlive());
+                Assert.assertEquals(Color.RED, violet.getColor());    
+            } else if (i == 4) {
+                Assert.assertFalse(rose.isAlive());
+                Assert.assertEquals(Color.ORANGE, rose.getColor());
+                Assert.assertFalse(violet.isAlive());
+                Assert.assertEquals(Color.ORANGE, violet.getColor());
+            } else if (i == 6) {
+                Assert.assertTrue(rose.isAlive());
+                Assert.assertEquals(Color.RED, rose.getColor());
+                Assert.assertTrue(violet.isAlive());
+                Assert.assertEquals(Color.RED, violet.getColor());          
+            } else if (i == 9) {
+                Assert.assertFalse(rose.isAlive());
+                Assert.assertEquals(Color.ORANGE, rose.getColor());
+                Assert.assertFalse(violet.isAlive());
+                Assert.assertEquals(Color.ORANGE, violet.getColor());   
+            } else if (i == 11) {
+                Assert.assertFalse(rose.isAlive());
+                Assert.assertEquals(Color.ORANGE, rose.getColor());
+                Assert.assertFalse(violet.isAlive());
+                Assert.assertEquals(Color.ORANGE, violet.getColor());  
+            }
+        }
     }
 
     @Test
