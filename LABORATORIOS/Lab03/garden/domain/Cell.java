@@ -84,8 +84,8 @@ public class Cell extends Agent implements Thing
                     for(int j = 0; j < 3; j++){
                         int roW = r-1+i;
                         int colum = c-1+j;
-                        if(roW >= 0  && roW < garden.LENGTH && colum >= 0  
-                        && colum < garden.LENGTH && thing == null){
+                        if(roW >= 0  && roW < Garden.LENGTH && colum >= 0  
+                        && colum < Garden.LENGTH && thing == null){
                             Thing aroundThing = things[roW][colum];
                             if(aroundThing instanceof Cell){
                                 Cell aroundCell = (Cell) thing;
