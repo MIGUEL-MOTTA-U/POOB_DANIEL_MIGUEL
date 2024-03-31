@@ -29,7 +29,7 @@ public class Avion extends Maquina{
         return marinos;
     }
     
-    public String autodestruir(String razon){
+    public void autodestruir(String razon){
         String res = null;
         if(!this.destruido){
             if(piloto != null){
@@ -40,6 +40,6 @@ public class Avion extends Maquina{
                 copiloto.autodestruir("Avión derribado");
             }
         }
-        return res;
+        super.razon = razon;
     }
 }

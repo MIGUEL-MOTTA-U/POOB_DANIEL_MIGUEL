@@ -4,7 +4,7 @@
  * @author (Daniel Diaz y Miguel Motta)
  * @version (1.2)
  */
-public abstract class capsula extends nodriza
+public abstract class Capsula extends nodriza
 {
     private int profundidad;
     @Override
@@ -17,8 +17,8 @@ public abstract class capsula extends nodriza
     }
     
     @Override
-    public String autodestruir(String razon){
-        String res = "Mi nave Nodriza fue destruida";
-        return res; 
+    public void autodestruir(String razon){
+        this.razon = "Mi nave Nodriza fue destruida";
+        this.destruido = true;
     }
 }

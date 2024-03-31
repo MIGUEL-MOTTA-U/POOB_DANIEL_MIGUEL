@@ -4,13 +4,23 @@ public class Marino {
     private String nombre;
     private int rango;
     private boolean destruido = false;
+    private boolean infiltrado;
+    private String razon;
     
-    public String autodestruir(String razon){
-        String res = null;
+    
+    public boolean isInfiltrado(){
+        return infiltrado;
+    }
+    
+    
+    public void autodestruir(String razon){
         if(!this.destruido){
             this.destruido = true;
-            res = razon;
+            this.razon = razon;
         }
-        return res;
+    }
+    
+    public String getRazon(){
+        return this.razon;
     }
 }

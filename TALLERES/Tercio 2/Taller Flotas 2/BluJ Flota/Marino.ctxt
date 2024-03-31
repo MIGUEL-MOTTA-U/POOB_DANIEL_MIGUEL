@@ -1,5 +1,9 @@
 #BlueJ class context
 comment0.target=Marino
-comment1.params=razon
-comment1.target=java.lang.String\ autodestruir(java.lang.String)
-numComments=2
+comment1.params=
+comment1.target=boolean\ isInfiltrado()
+comment2.params=razon
+comment2.target=void\ autodestruir(java.lang.String)
+comment3.params=
+comment3.target=java.lang.String\ getRazon()
+numComments=4

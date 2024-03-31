@@ -2,5 +2,5 @@
 comment0.target=nodriza
 comment0.text=\r\n\ Clase\ Nodriza\r\n\r\n\ @author\ (Daniel\ Diaz\ &\ Miguel\ Motta)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=razon
-comment1.target=java.lang.String\ autodestruir(java.lang.String)
+comment1.target=void\ autodestruir(java.lang.String)
 numComments=2

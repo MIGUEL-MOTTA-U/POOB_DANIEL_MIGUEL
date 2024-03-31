@@ -7,6 +7,12 @@ import java.util.ArrayList;
  */
 public abstract class nodriza extends Maquina{
     protected boolean destruido;
+    protected ArrayList<Capsula> capsulas; 
     
-    public abstract String autodestruir(String razon);
+    @Override
+    public void autodestruir(String razon){
+        for(Capsula c : this.capsulas){
+            c.autodestruir(null);
+        }
+    }
 }

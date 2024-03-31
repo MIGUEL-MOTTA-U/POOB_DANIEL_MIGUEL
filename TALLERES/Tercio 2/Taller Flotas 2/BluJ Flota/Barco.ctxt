@@ -5,5 +5,5 @@ comment1.target=boolean\ esDebil()
 comment2.params=
 comment2.target=java.util.ArrayList\ getMarinos()
 comment3.params=razon
-comment3.target=java.lang.String\ autodestruir(java.lang.String)
+comment3.target=void\ autodestruir(java.lang.String)
 numComments=4

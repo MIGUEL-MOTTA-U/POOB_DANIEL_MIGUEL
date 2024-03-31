@@ -5,7 +5,7 @@ public class Flota {
     private String nombre;
     private ArrayList<Marino> marinos;
     private ArrayList<Maquina> maquinas;
-    private ArrayList<Object> autodestruirdos;
+    private ArrayList<Object> autodestruidos;
     
     public void alNorte(){
   
@@ -26,8 +26,10 @@ public class Flota {
         for(Maquina maquina : maquinas){
             if(maquina.seraDestruida(longitud, latitud)){
                 res.add(maquina);
+                maquina.autodestruir(null);
             }
         }
+        this.autodestruidos.addAll(res);
         return res;
     }
 
@@ -45,6 +47,7 @@ public class Flota {
         boolean res = false;
         ArrayList<Maquina> eliminarMaquinas = this.seranDestruidas(longitud, latitud);
         if(!maquinas.isEmpty()){
+            
             maquinas.removeAll(eliminarMaquinas);
             res = true;
         }
@@ -55,6 +58,7 @@ public class Flota {
         int dLon = 0;
         int dLat = 0;
         for(Maquina maquina : maquinas){
+            
             if (!maquina.esDebil()) {
                 int maxDistance = Math.max(lon, lat); 
                 for (int i = 0; i <= maxDistance; i++) {
@@ -68,8 +72,10 @@ public class Flota {
     
     public ArrayList<Marino> pilotos() throws BatallaNavalExcepcion{
         ArrayList pilotos = new ArrayList<>();
+        
         for(Maquina m : this.maquinas){
             ArrayList<Marino> pilotosMaquina = m.pilotos();
+            
             for(int i = 0; i <= pilotosMaquina.size(); i++){
                 if(!this.marinos.contains(pilotosMaquina.get(i))){
                     throw new BatallaNavalExcepcion("Error piloto no es marino de la flota");
@@ -92,10 +98,10 @@ public class Flota {
         }
         return res;
     }
-    // Como defino qué máquina o avión o Nodriza autodestruir, al tener la referencia lo podemos eliminar y añadir al arreglo de autodestruidos    public void autodestruir(){
+    
         
-    public void autodestruir(){
-        
+    public ArrayList<Object> getAutodestruidos(){
+        return this.autodestruidos;
     }
     
     

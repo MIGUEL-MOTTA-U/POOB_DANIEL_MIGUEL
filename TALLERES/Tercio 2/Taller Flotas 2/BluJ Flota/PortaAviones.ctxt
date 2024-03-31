@@ -2,8 +2,6 @@
 comment0.target=PortaAviones
 comment1.params=
 comment1.target=boolean\ esDebil()
-comment2.params=razon
-comment2.target=java.lang.String\ autodestruir(java.lang.String)
-comment3.params=
-comment3.target=java.util.ArrayList\ pilotos()
-numComments=4
+comment2.params=
+comment2.target=java.util.ArrayList\ pilotos()
+numComments=3

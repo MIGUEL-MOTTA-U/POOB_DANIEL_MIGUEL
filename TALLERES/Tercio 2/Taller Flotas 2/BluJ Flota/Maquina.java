@@ -4,6 +4,7 @@ import java.util.*;
 public abstract class Maquina {
     private Ubicacion ubicacion;
     protected boolean destruido;
+    protected String razon;
     public void alNorte(){
         try
         {
@@ -23,7 +24,14 @@ public abstract class Maquina {
         return (ubicacion.mismaUbicacion(longitud, latitud)) ? true : false;
     }
 
+    
+    public String getRazon(){
+        return this.razon;
+    }
+    
     public abstract boolean esDebil();
     
     public abstract ArrayList<Marino> pilotos() throws BatallaNavalExcepcion;
+    
+    public abstract void autodestruir(String razon);
 }

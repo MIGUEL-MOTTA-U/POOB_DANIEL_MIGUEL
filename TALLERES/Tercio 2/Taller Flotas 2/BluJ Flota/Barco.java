@@ -14,15 +14,13 @@ public abstract class Barco extends nodriza{
     }
     
     @Override
-    public String autodestruir(String razon){
-        String res = null;
+    public void autodestruir(String razon){
         if(!this.destruido){
             this.destruido = true;
-            res = razon;
+            this.razon = razon;
             for(Marino m : this.marinos){
                 m.autodestruir("El Barco fue destruido");
             }
         }
-        return res;
     }
 }

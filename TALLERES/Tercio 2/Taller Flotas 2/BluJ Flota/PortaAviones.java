@@ -23,11 +23,6 @@ public class PortaAviones extends Barco{
     
     
     @Override
-    public String autodestruir(String razon){
-        return super.autodestruir(razon);
-    }
-    
-    @Override
     public ArrayList<Marino> pilotos() throws BatallaNavalExcepcion{
         ArrayList<Marino> marinos = new ArrayList<>();
         for(Avion a : aviones){
@@ -43,7 +38,6 @@ public class PortaAviones extends Barco{
                 throw new BatallaNavalExcepcion("Error piloto asignado a mas de un avion");
             }
         }
-        
         return marinos;
     }
 }

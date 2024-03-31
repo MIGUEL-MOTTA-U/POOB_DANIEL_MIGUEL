@@ -17,5 +17,5 @@ comment7.target=java.util.ArrayList\ pilotos()
 comment8.params=
 comment8.target=int\ potencia()
 comment9.params=
-comment9.target=void\ autodestruir()
+comment9.target=java.util.ArrayList\ getAutodestruidos()
 numComments=10
