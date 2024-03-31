@@ -5,14 +5,14 @@ public abstract class Maquina {
     private Ubicacion ubicacion;
     protected boolean destruido;
     protected String razon;
-    public void alNorte(){
+    public void alNorte() throws BatallaNavalExcepcion{
         try
         {
             this.ubicacion.alNorte();
         }
         catch (BatallaNavalExcepcion e)
         {
-            System.out.println("Error generado por: " +  e.getMessage());
+            throw e;
         }
     }
     

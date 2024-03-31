@@ -4,4 +4,6 @@ comment1.params=
 comment1.target=int\ alNorte()
 comment2.params=
 comment2.target=int\ potencia()
-numComments=3
+comment3.params=
+comment3.target=java.util.ArrayList\ infiltrados()
+numComments=4

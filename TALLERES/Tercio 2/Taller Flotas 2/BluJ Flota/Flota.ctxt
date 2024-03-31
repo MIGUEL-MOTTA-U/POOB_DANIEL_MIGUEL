@@ -2,6 +2,8 @@
 comment0.target=Flota
 comment1.params=
 comment1.target=void\ alNorte()
+comment10.params=
+comment10.target=java.util.ArrayList\ getAutodestruidos()
 comment2.params=dLon\ DLat
 comment2.target=void\ avance(int,\ int)
 comment3.params=longitud\ latitud
@@ -17,5 +19,5 @@ comment7.target=java.util.ArrayList\ pilotos()
 comment8.params=
 comment8.target=int\ potencia()
 comment9.params=
-comment9.target=java.util.ArrayList\ getAutodestruidos()
-numComments=10
+comment9.target=int\ infiltrados()
+numComments=11

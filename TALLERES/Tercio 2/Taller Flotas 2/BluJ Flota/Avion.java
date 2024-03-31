@@ -24,7 +24,7 @@ public class Avion extends Maquina{
     
     @Override
     public ArrayList<Marino> pilotos(){
-        ArrayList<Marino> marinos = new ArrayList<>();
+        ArrayList<Marino> marinos = new ArrayList<>(1);
         marinos.add(this.piloto);
         return marinos;
     }
