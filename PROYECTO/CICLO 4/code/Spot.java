@@ -8,10 +8,10 @@ import java.awt.geom.Ellipse2D;
  */
 public class Spot
 {
-    private String color;
-    private int strand;
-    private Ellipse2D.Double body;
-    private boolean isVisible;
+    protected String color;
+    protected int strand;
+    protected Ellipse2D.Double body;
+    protected boolean isVisible;
     
     Canvas canvas;
 
