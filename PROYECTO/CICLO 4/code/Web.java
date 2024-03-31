@@ -124,6 +124,11 @@ public class Web
                 int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
                 boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
                 if(!contiguo){
+                    //Transformer bridge = new Transformer(color, distance, firstStrand, finalStrand, this.isVisible);
+                    //Weak bridge = new Weak(color, distance, firstStrand, finalStrand, this.isVisible);
+                    //Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
+                    //Mobile bridge = new Mobile(color, distance, firstStrand, finalStrand, this.isVisible);
+                    //Fixed bridge = new Fixed(color, distance, firstStrand, finalStrand, this.isVisible);
                     Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
                     bridge.addBridge(this.strands, firstStrand, finalStrand);
                     bridges.put(color, bridge);
@@ -198,14 +203,31 @@ public class Web
      */
     public void delBridge(String color){
         Bridge bridge = bridges.get(color);
-        if(bridge != null){
-            bridge.makeInvisible();
-            bridge = null;
-            bridges.remove(color);
-            this.ok = true;
-        }else{
-            JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
-            this.ok = false;
+        if(!(bridge instanceof Fixed)){
+            if(bridge != null){
+                // Implementation of Transformer
+                if(bridge instanceof Transformer){
+                    int numberStrand = bridge.getInicialStrand();
+                    Strand st = this.strands.get(numberStrand);
+                    boolean freeSpot = true;
+                    for (Spot sp : this.spots.values()) {
+                        if(sp.getStrand() == numberStrand){
+                            freeSpot = false;
+                        }
+                    }
+                    if(freeSpot){
+                        this.addSpot(color, numberStrand);
+                    }
+                }
+                // It Keeps the same behaviour
+                bridge.makeInvisible();
+                bridge = null;
+                bridges.remove(color);
+                this.ok = true;
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
+                this.ok = false;
+            }
         }
     }
     
@@ -219,6 +241,7 @@ public class Web
             this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
+            // Killer spot = new Killer(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             spots.put(color, spot);
             this.ok = true;

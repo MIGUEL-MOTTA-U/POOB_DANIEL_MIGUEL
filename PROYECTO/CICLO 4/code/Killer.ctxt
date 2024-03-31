@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Killer
+comment0.text=\r\n\ This\ Spot's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Spot,\r\n\ except\ that\ when\ the\ spider\ reaches\ this\ spot,\ it\ dies\ and\ disappears.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\ \r\n\ @version\ (CICLO\ 4\ /\ 2024\ -\ 01)\r\n
+comment1.params=color\ strand\ xPosition\ yPosition\ isVisible
+comment1.target=Killer(java.lang.String,\ int,\ double,\ double,\ boolean)
+numComments=2

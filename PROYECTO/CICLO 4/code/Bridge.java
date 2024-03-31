@@ -9,14 +9,14 @@ import java.util.HashMap;
  */
 public class Bridge
 {
-    private String color;
-    private int distance;
-    private int inicialStrand;
-    private int finalStrand;
-    private Line2D.Double body;
-    private boolean isVisible;
+    protected String color;
+    protected int distance;
+    protected int inicialStrand;
+    protected int finalStrand;
+    protected Line2D.Double body;
+    protected boolean isVisible;
     
-    private Canvas canvas;
+    protected Canvas canvas;
 
     /**
      * Constructor for objects of class Bridge

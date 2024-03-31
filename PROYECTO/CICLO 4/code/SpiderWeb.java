@@ -22,6 +22,7 @@ public class SpiderWeb
         this.isVisible = true;
         web = new Web(strands, radio, this.isVisible);
         spider = new Spider(this.isVisible);
+        this.spider.setWeb(this.web);
     }
     
     /**
@@ -39,6 +40,7 @@ public class SpiderWeb
             web.addBridge(bridges[i][0], bridges[i][1]);
         }
         spider = new Spider(this.isVisible);
+        this.spider.setWeb(this.web);
     }
     
     /**

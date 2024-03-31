@@ -21,6 +21,7 @@ public class Spider
     private HashMap<String, Bridge> usedBridges;
     private boolean isVisible;
     private boolean ok;
+    private Web web;
     
     private Canvas canvas;
 
@@ -69,7 +70,6 @@ public class Spider
         double y0 = strands.get(this.strand).getBody().getY1();
         double x1, y1, x2, y2;
         Bridge bridge;
-        
         do{
             bridge = bridgeToGo(bridges);
             this.lastPath.add(this.strand);
@@ -87,18 +87,57 @@ public class Spider
                     y2 = bridge.getBody().getY1();
                     this.strand = bridge.getInicialStrand();
                 }
-                
                 moveSpider(x0, y0, x1, y1);
                 moveSpider(x1, y1, x2, y2);
                 this.distance = bridge.getDistance();
                 usedBridges.put(bridge.getColor(), bridge);
+                // Implementation of Weak
+                if (bridge instanceof Weak){
+                    this.web.delBridge(bridge.getColor());
+                // Implementation of Mobile
+                } else if (bridge instanceof Mobile){
+                    int firstStrand = bridge.getFinalStrand();
+                    int radiu = (int) (bridge.getDistance() * 1.2);
+                    String colr = bridge.getColor();
+                    this.web.delBridge(bridge.getColor());
+                    this.web.addBridge(colr, radiu, firstStrand);
+                }
                 x0 = x2;
                 y0 = y2;
             }
-        }while(bridge != null);
-        
+        }while(bridge != null);  
         moveSpider(x0, y0, strands.get(this.strand).getBody().getX2(), strands.get(this.strand).getBody().getY2());
+        
+        boolean isKill = false;
+        for(Spot s : this.web.getSpots().values()){
+            if(s.getStrand() == this.strand && s instanceof Killer){
+                isKill = true;
+            }
+        }
+        if(isKill){
+            this.kill();
+        }
         this.ok = true;
+    }
+    
+    /*
+     * This private method deletes the spider from the web.
+     */
+    private void kill(){
+    this.makeInvisible();
+    this.body = null;
+    this.strand = 0;
+    this.distance = 0;
+    this.lastPath = null;
+    this.usedBridges = null;
+    }
+    
+    /**
+     * This method return sets the web where the is spider.
+     * @param w, is the web where the is spider.
+     */
+    public final void setWeb(Web w){
+        this.web = w;
     }
     
     /*
