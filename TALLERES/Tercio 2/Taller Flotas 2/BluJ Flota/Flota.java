@@ -5,10 +5,9 @@ public class Flota {
     private String nombre;
     private ArrayList<Marino> marinos;
     private ArrayList<Maquina> maquinas;
-    private ArrayList<Object> autodestruidos;
+    private ArrayList<Maquina> autodestruidos;
     
     public void alNorte()  throws BatallaNavalExcepcion{
-        
         for(Maquina maquina : maquinas){
             try{
                 maquina.alNorte();
@@ -16,8 +15,8 @@ public class Flota {
                 throw ex;
             }
             
-            }
         }
+    }
     
     public void avance(int dLon, int DLat){
         for(Maquina maquina : maquinas){
@@ -75,23 +74,25 @@ public class Flota {
     }
     
     public ArrayList<Marino> pilotos() throws BatallaNavalExcepcion{
-        ArrayList pilotos = new ArrayList<>();
+        ArrayList<Marino> pilotos = new ArrayList<>();
         
         for(Maquina m : this.maquinas){
-            ArrayList<Marino> pilotosMaquina = m.pilotos();
-            for(int i = 0; i <= pilotosMaquina.size(); i++){
-                if(!this.marinos.contains(pilotosMaquina.get(i))){
-                    throw new BatallaNavalExcepcion("Error piloto no es marino de la flota");
+            if (m instanceof Avion || m instanceof PortaAviones) {
+                ArrayList<Marino> pilotosMaquina = m.pilotos();
+                for(int i = 0; i <= pilotosMaquina.size(); i++){
+                    if(!this.marinos.contains(pilotosMaquina.get(i))){
+                        throw new BatallaNavalExcepcion(BatallaNavalExcepcion.INCONSISTENCIA_PILOTO_FLOTA);
+                    }
                 }
+                pilotos.addAll(pilotosMaquina);
             }
-            pilotos.addAll(pilotosMaquina);
         }
         return pilotos;
     }
     
     public int potencia()throws BatallaNavalExcepcion{
         if (this.maquinas.size() > this.marinos.size()){
-            throw new BatallaNavalExcepcion("Hay menos marinos que maquinas");
+            throw new BatallaNavalExcepcion(BatallaNavalExcepcion.MARINOS_INSUFICIENTES);
         }
         int res = 0;
         for(Maquina m : this.maquinas){
@@ -104,7 +105,7 @@ public class Flota {
     
     public boolean infiltrados() throws BatallaNavalExcepcion{
         if(this.marinos.size() == 0){
-            throw new BatallaNavalExcepcion("La flota no tiene marineros asignados.");
+            throw new BatallaNavalExcepcion(BatallaNavalExcepcion.SIN_MARINOS);
         }
         boolean res = false;
         for(Marino m: this.marinos){
@@ -115,7 +116,7 @@ public class Flota {
         return res;
     }
     
-    public ArrayList<Object> getAutodestruidos(){
+    public ArrayList<Maquina> getAutodestruidos(){
         return this.autodestruidos;
     }
     

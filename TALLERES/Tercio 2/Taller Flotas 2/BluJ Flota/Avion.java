@@ -24,13 +24,12 @@ public class Avion extends Maquina{
     
     @Override
     public ArrayList<Marino> pilotos(){
-        ArrayList<Marino> marinos = new ArrayList<>(1);
+        ArrayList<Marino> marinos = new ArrayList<>();
         marinos.add(this.piloto);
         return marinos;
     }
     
     public void autodestruir(String razon){
-        String res = null;
         if(!this.destruido){
             if(piloto != null){
                 piloto.autodestruir("Avión derribado");

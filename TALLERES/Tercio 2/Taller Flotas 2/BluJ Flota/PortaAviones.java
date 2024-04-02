@@ -27,17 +27,14 @@ public class PortaAviones extends Barco{
         ArrayList<Marino> marinos = new ArrayList<>();
         for(Avion a : aviones){
             ArrayList<Marino> pilotos = a.pilotos();
-            if(!this.marinos.contains(pilotos.get(0))){
-                throw new BatallaNavalExcepcion("Error piloto no es marino del porta avion");
+            for(int i = 0; i <= pilotos.size(); i++){
+                if(!this.marinos.contains(pilotos.get(i))){
+                    throw new BatallaNavalExcepcion(BatallaNavalExcepcion.INCONSISTENCIA_PILOTO_PORTAAVIONES);
+                }
             }
             marinos.addAll(pilotos);
         } 
-        
-        for(Avion a : aviones){ 
-            if(!marinos.contains(a.pilotos())){
-                throw new BatallaNavalExcepcion("Error piloto asignado a mas de un avion");
-            }
-        }
+
         return marinos;
     }
 }

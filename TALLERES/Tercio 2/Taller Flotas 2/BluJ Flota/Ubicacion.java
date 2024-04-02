@@ -14,7 +14,7 @@ public class Ubicacion {
         if(inLimits(0, 1)){
             this.latitud += 1;
         }else{
-            throw new BatallaNavalExcepcion("Mensaje descriptivo de la excepción");
+            throw new BatallaNavalExcepcion(BatallaNavalExcepcion.ERROR_NORTE);
         }
     }
     

@@ -5,6 +5,7 @@ public abstract class Maquina {
     private Ubicacion ubicacion;
     protected boolean destruido;
     protected String razon;
+    
     public void alNorte() throws BatallaNavalExcepcion{
         try
         {
