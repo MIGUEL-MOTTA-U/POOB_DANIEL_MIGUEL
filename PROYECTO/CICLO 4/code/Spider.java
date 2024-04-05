@@ -100,73 +100,8 @@ public class Spider
         }while(bridge != null);  
 
         moveSpider(x0, y0, strands.get(this.strand).getBody().getX2(), strands.get(this.strand).getBody().getY2());
-    }
-    
-    /*
-     * This private method deletes the spider from the web.
-     */
-    private void kill(){
-    this.makeInvisible();
-    this.body = null;
-    this.strand = 0;
-    this.distance = 0;
-    this.lastPath = null;
-    this.usedBridges = null;
-    }
-    
-    /**
-     * This method return sets the web where the is spider.
-     * @param w, is the web where the is spider.
-     */
-    public final void setWeb(Web w){
-        this.web = w;
-    }
-    
-    /*
-     * Move the spider trough a line
-     */
-    private void moveSpider(double x1, double y1, double x2, double y2){
-        for(double i = 0; i <= 1; i += 0.01){
-            Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
-            this.body.setFrame(point.getX() - 7.5, point.getY() - 7.5, 15, 15);
-            canvas.wait(16);
-            draw();
-        }
-    }
-    
-    /*
-     * Return a point belonging to the line
-     */
-    private Point2D.Double parameterizedSegment(double x1, double y1, double x2, double y2, double t){
-        double x = x1 + t * (x2 - x1);
-        double y = y1 + t * (y2 - y1);
-        return new Point2D.Double(x, y);
-    }
-    
-    /*
-     * Return the bridge closest to the spider
-     */
-    private Bridge bridgeToGo(HashMap<String, Bridge> bridges){
-        ArrayList<Bridge> bridgesInStrand = new ArrayList<>();
-        
-        for(Bridge bridge : bridges.values()){
-            bridgesInStrand.add((bridge.getInicialStrand() == this.strand || bridge.getFinalStrand() == this.strand) ? bridge : null);
-        }
-        
-        double minDistance = Double.MAX_VALUE;
-        Bridge selectedBridge = null;
-        
-        for(Bridge bridge : bridgesInStrand){
-            if(bridge != null){
-                double distance = bridge.getDistance();
-                if (distance > this.distance && distance < minDistance) {
-                    minDistance = distance;
-                    selectedBridge = bridge;
-                }
-            }
-        }
-        
-        return (selectedBridge != null) ? selectedBridge : null;
+        jumpSpider();
+        killSpider();
     }
     
     /**
@@ -210,18 +145,6 @@ public class Spider
         this.strand = tempStrand;
         this.distance = distance;
         return reachableSpots;
-    }
-
-    /*
-     * Return the color of the spot that is on the strand
-     */
-    private String spotInStrand(int strand, HashMap<String, Spot> spots){
-        for(Spot spot : spots.values()){
-            if(spot.getStrand() == strand){
-                return spot.getColor();
-            }
-        }
-        return null;
     }
 
     /**
@@ -289,6 +212,126 @@ public class Spider
         rightBridges = addBridgesRight(bridges, favorite, strands);
         this.strand = originalStrand;
         return (leftBridges.size() <= rightBridges.size()) ? leftBridges : rightBridges;
+    }
+
+    /**
+     * This method returns the distance of the spider respect the origin.
+     * @return  the distance of the spider respect the origin.
+     */
+    public int getDistance(){
+        return this.distance;
+    }
+
+    /**
+     * Return the status of the spider
+     * @return  if an action could be completed
+     */
+    public boolean getOk(){
+        return this.ok;
+    }
+
+    /**
+     * Change the status of the spider
+     * @param   ok    the new status of the spider
+     */
+    public void setOk(boolean ok){
+        this.ok = ok;
+    }
+
+    /**
+     * Make visible the spider
+     */
+    public void makeVisible(){
+        this.isVisible = true;
+        draw();
+    }
+    
+    /**
+     * Make invisible the spider
+     */
+    public void makeInvisible(){
+        erase();
+        this.isVisible = false;
+    }
+
+    /*
+     * Draw the spider with current specifications on screen.
+     */
+    private void draw(){
+        if(isVisible){
+            Canvas canvas = Canvas.getCanvas();
+            canvas.draw(this, "black", body);
+            canvas.wait(10);
+        }
+    }
+
+    /*
+     * Erase the spider on screen.
+     */
+    private void erase(){
+        if(isVisible) {
+            Canvas canvas = Canvas.getCanvas();
+            canvas.erase(this);
+        }
+    }
+
+    /*
+     * Move the spider trough a line
+     */
+    private void moveSpider(double x1, double y1, double x2, double y2){
+        for(double i = 0; i <= 1; i += 0.01){
+            Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
+            this.body.setFrame(point.getX() - 7.5, point.getY() - 7.5, 15, 15);
+            canvas.wait(16);
+            draw();
+        }
+    }
+    
+    /*
+     * Return a point belonging to the line
+     */
+    private Point2D.Double parameterizedSegment(double x1, double y1, double x2, double y2, double t){
+        double x = x1 + t * (x2 - x1);
+        double y = y1 + t * (y2 - y1);
+        return new Point2D.Double(x, y);
+    }
+    
+    /*
+     * Return the bridge closest to the spider
+     */
+    private Bridge bridgeToGo(HashMap<String, Bridge> bridges){
+        ArrayList<Bridge> bridgesInStrand = new ArrayList<>();
+        
+        for(Bridge bridge : bridges.values()){
+            bridgesInStrand.add((bridge.getInicialStrand() == this.strand || bridge.getFinalStrand() == this.strand) ? bridge : null);
+        }
+        
+        double minDistance = Double.MAX_VALUE;
+        Bridge selectedBridge = null;
+        
+        for(Bridge bridge : bridgesInStrand){
+            if(bridge != null){
+                double distance = bridge.getDistance();
+                if (distance > this.distance && distance < minDistance) {
+                    minDistance = distance;
+                    selectedBridge = bridge;
+                }
+            }
+        }
+        
+        return (selectedBridge != null) ? selectedBridge : null;
+    }
+
+    /*
+     * Return the color of the spot that is on the strand
+     */
+    private String spotInStrand(int strand, HashMap<String, Spot> spots){
+        for(Spot spot : spots.values()){
+            if(spot.getStrand() == strand){
+                return spot.getColor();
+            }
+        }
+        return null;
     }
 
     /*
@@ -459,64 +502,49 @@ public class Spider
         return (selectedBridge != null) ? selectedBridge : null;
     }
 
-    /**
-     * This method returns the distance of the spider respect the origin.
-     * @return  the distance of the spider respect the origin.
-     */
-    public int getDistance(){
-        return this.distance;
-    }
-
-    /**
-     * Return the status of the spider
-     * @return  if an action could be completed
-     */
-    public boolean getOk(){
-        return this.ok;
-    }
-
-    /**
-     * Change the status of the spider
-     * @param   ok    the new status of the spider
-     */
-    public void setOk(boolean ok){
-        this.ok = ok;
-    }
-
     /*
-     * Draw the spider with current specifications on screen.
+     * The spider jump to the next strand
      */
-    private void draw(){
-        if(isVisible){
-            Canvas canvas = Canvas.getCanvas();
-            canvas.draw(this, "black", body);
-            canvas.wait(10);
+    private void jumpSpider(){
+        Boolean spiderInSpot = false;
+
+        for (Spot spot : this.web.getSpots().values()) {
+            if (spot instanceof Bouncy) {
+                spiderInSpot = spot.spiderInSpot(this.strand);
+            }
+        }
+
+        if (spiderInSpot) {
+            if (this.strand != this.web.getNumStrands()) {
+                this.strand += 1;
+            } else {
+                this.strand = 1;
+            }
+
+            Strand strand = this.web.getStrands().get(this.strand);
+            this.body.setFrame(strand.getBody().getX2() - 7.5, strand.getBody().getY2() - 7.5, 15, 15);
+            draw();
         }
     }
 
     /*
-     * Erase the spider on screen.
+     * Deletes the spider from the web.
      */
-    private void erase(){
-        if(isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            canvas.erase(this);
-        }
-    }
+    private void killSpider(){
+        Boolean spiderInSpot = false;
 
-    /**
-     * Make visible the spider
-     */
-    public void makeVisible(){
-        this.isVisible = true;
-        draw();
-    }
-    
-    /**
-     * Make invisible the spider
-     */
-    public void makeInvisible(){
-        erase();
-        this.isVisible = false;
+        for (Spot spot : this.web.getSpots().values()) {
+            if (spot instanceof Killer) {
+                spiderInSpot = spot.spiderInSpot(this.strand);
+            }
+        }
+
+        if (spiderInSpot) {
+            this.makeInvisible();
+            this.strand = 0;
+            this.distance = 0;
+            this.lastPath = new ArrayList<>();
+            this.usedBridges = new HashMap<>();
+            }
     }
 }

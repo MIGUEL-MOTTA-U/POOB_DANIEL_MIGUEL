@@ -10,6 +10,7 @@ public class Spot
 {
     protected String color;
     protected int strand;
+    protected Web web;
     protected Ellipse2D.Double body;
     protected boolean isVisible;
     
@@ -18,15 +19,24 @@ public class Spot
     /**
      * Constructor for objects of class Spot
      */
-    public Spot(String color, int strand, double xPosition, double yPosition, boolean isVisible){
+    public Spot(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.color = color;
         this.strand = strand;
+        this.web = web;
         body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);        
         this.isVisible = isVisible;
         draw();
     }
 
+    /**
+     * Verify if the spider is on a spot
+     * @param strand    the strand to verify
+     * @return  TRUE, the spider is on a spot. FALSE, otherwise
+     */
+    public boolean spiderInSpot(int strand){
+        return this.strand == strand;
+    }
     
     /**
      * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)

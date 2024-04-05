@@ -22,7 +22,6 @@ public class SpiderWeb
         this.isVisible = true;
         web = new Web(strands, radio, this.isVisible);
         spider = new Spider(this.isVisible);
-        this.spider.setWeb(this.web);
     }
     
     /**
@@ -40,7 +39,6 @@ public class SpiderWeb
             web.addBridge(bridges[i][0], bridges[i][1]);
         }
         spider = new Spider(this.isVisible);
-        this.spider.setWeb(this.web);
     }
     
     /**
@@ -112,9 +110,20 @@ public class SpiderWeb
      * @param   strand  where the spot is locate
      */
     public void addSpot(String color, int strand){
-        web.addSpot(color, strand);
+        web.addSpot("normal", color, strand);
     }
     
+    /**
+     * Add a spot of a specific type to the web
+     * @param   type     the type of the spot. Valid tipes are "killer" and "bouncy"
+     * @param   color   The color of the spot. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
+     * @param   strand  where the spot is locate
+     */
+    public void addSpot(String type, String color, int strand){
+        web.addSpot(type, color, strand);
+    }
+
     /**
      * Remove a spot from the web
      * @param   color   The color of the spot. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 

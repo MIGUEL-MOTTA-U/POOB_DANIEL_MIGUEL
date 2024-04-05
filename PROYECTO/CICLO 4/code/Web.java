@@ -75,6 +75,7 @@ public class Web
     
     /**
      * Add a bridge to the web
+     * @param   type        the type of the bridge. Valid tipes are "normal", "fixed", "transformer", "weak" and "mobile"
      * @param   color       The color of the bridge
      * @param   distance    the distance from the center to the bridge
      * @param   firstStrand the strand where the bridge begin
@@ -167,15 +168,24 @@ public class Web
     
     /**
      * Add a spot to the web.
+     * @param   type     the type of the spot. Valid tipes are "killer" and "bouncy"  
      * @param   color   The color of the spot
      * @param   strand  where the spot is locate
      */
-    public void addSpot(String color, int strand){
+    public void addSpot(String type, String color, int strand){
+        Spot spot = null;
+
         if(this.spots.containsKey(color) || strand <0 || strand > strands.size()){
             this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
-            Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
+            if (type.equals("normal")) {
+                spot = new Spot(color, strand, this, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
+            } else if (type.equals("killer")) {
+                spot = new Killer(color, strand, this, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
+            } else if (type.equals("bouncy")) {
+                spot = new Bouncy(color, strand, this, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
+            }
             spots.put(color, spot);
             this.ok = true;
         }
@@ -193,7 +203,7 @@ public class Web
             int indexRandom = random.nextInt(colors.size());
             color = colors.get(indexRandom);
         }while(this.spots.containsKey(color));
-        addSpot(color, strand);
+        addSpot("normal", color, strand);
     }
     
     /**
@@ -215,7 +225,7 @@ public class Web
 
     /**
      * Verify if there is a spot in the strand
-     * @param strand    the strand to verify if there is a spot
+     * @param strand    the strand to verify
      * @return  TRUE, there is a spot in the strand. FALSE, otherwise
      */
     public boolean spotInStrand(int strand){
@@ -408,7 +418,8 @@ public class Web
 
         for (Map.Entry<String, Spot> element : copySpots.entrySet()){
             Spot s = element.getValue();
-            this.addSpot(s.getColor(), s.getStrand());
+            String type = spotType(s);
+            this.addSpot(type, s.getColor(), s.getStrand());
         }
     }
 
@@ -444,6 +455,23 @@ public class Web
             type = "weak";
         } else if (bridge instanceof Mobile) {
             type = "mobile";
+        } else {
+            type = "normal";
+        }
+
+        return type;
+    }
+
+    /*
+    * Return the type of the bridge
+    */
+    private String spotType(Spot spot){
+        String type; 
+
+        if (spot instanceof Killer) {
+            type = "killer";
+        } else if (spot instanceof Bouncy) {
+            type = "bouncy";
         } else {
             type = "normal";
         }

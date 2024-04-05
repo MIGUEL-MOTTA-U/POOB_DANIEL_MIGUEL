@@ -17,7 +17,7 @@ public class Transformer extends Bridge {
         super.deleteBridge();
         Boolean spotInStrand = this.web.spotInStrand(this.inicialStrand);
         if (!spotInStrand) {
-            this.web.addSpot(this.color, this.inicialStrand);
+            this.web.addSpot("normal", this.color, this.inicialStrand);
         }
     }
 }
