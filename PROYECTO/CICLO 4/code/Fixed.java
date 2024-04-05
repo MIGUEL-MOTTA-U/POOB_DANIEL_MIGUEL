@@ -8,7 +8,12 @@
  */
 
 public class Fixed extends Bridge {
-    public Fixed(String color, int distance, int inicialStrand, int finalStrand, boolean isVisible) {
-        super(color, distance, inicialStrand, finalStrand, isVisible);
+    public Fixed(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
+        super(color, distance, inicialStrand, finalStrand, web, isVisible);
+    }
+
+    @Override
+    public void deleteBridge(){
+        System.out.println("No se puede eliminar un puente que sea de tipo fixed");
     }
 }

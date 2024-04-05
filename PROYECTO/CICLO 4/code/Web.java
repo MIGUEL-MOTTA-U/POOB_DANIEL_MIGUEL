@@ -43,25 +43,11 @@ public class Web
         }
     }
     
-    /*
-     * Create the web
-     */
-    private void addStrands(){
-        double angle = Math.toRadians((double) 360 / this.numStrands);
-        double angleStrand = 0;
-        for(int i = 1; i <= this.numStrands; i++){
-            Strand strand = new Strand(this.radio, angleStrand, this.isVisible);
-            this.strands.put(i, strand);
-            angleStrand -= angle;
-        }
-    }
-    
     /**
      * Add an strand to the web and update the relation of spots and bridges with their respective strands.
      */
     public void addOneStrand(){
         if(this.radio > 0 && this.numStrands > 0 && this.numStrands <= 360){
-            
             this.strands.clear();
             this.numStrands ++;
             addStrands();
@@ -87,57 +73,41 @@ public class Web
         }
     }
     
-    /*
-     * Recreates the web according to the new specifications.
-     */
-    private void recalculateWeb(){
-        HashMap<String, Bridge> copyBridges = new HashMap<>(this.bridges);
-        HashMap<String, Spot> copySpots = new HashMap<>(this.spots);
-        this.spots.clear();
-        this.bridges.clear();
-        for (Map.Entry<String, Bridge> element : copyBridges.entrySet()){
-            Bridge b = element.getValue();
-            int firstStrand = b.getInicialStrand();
-            String color = element.getKey();
-            int distance = b.getDistance();
-            this.addBridge(color, distance, firstStrand);
-        }
-        for (Map.Entry<String, Spot> element : copySpots.entrySet()){
-            Spot s = element.getValue();
-            String color = element.getKey();
-            int strand = s.getStrand();
-            this.addSpot(color, strand);
-        }
-    }
-    
     /**
      * Add a bridge to the web
      * @param   color       The color of the bridge
      * @param   distance    the distance from the center to the bridge
      * @param   firstStrand the strand where the bridge begin
      */
-    public void addBridge(String color, int distance, int firstStrand){
-        if(this.bridges.containsKey(color) || distance < 0 || firstStrand <= 0 || firstStrand > this.numStrands ){
+    public void addBridge(String type, String color, int distance, int firstStrand){
+        Bridge bridge = null;
+
+        if (this.bridges.containsKey(color) || distance < 0 || firstStrand <= 0 || firstStrand > this.numStrands) {
             this.ok = false;
-        }else{
-            if(distance <= this.radio){
+        } else {
+            if (distance <= this.radio) {
                 int finalStrand = (firstStrand == this.numStrands) ? 1 : firstStrand + 1;
                 boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
-                if(!contiguo){
-                    //Transformer bridge = new Transformer(color, distance, firstStrand, finalStrand, this.isVisible);
-                    //Weak bridge = new Weak(color, distance, firstStrand, finalStrand, this.isVisible);
-                    //Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
-                    //Mobile bridge = new Mobile(color, distance, firstStrand, finalStrand, this.isVisible);
-                    //Fixed bridge = new Fixed(color, distance, firstStrand, finalStrand, this.isVisible);
-                    Bridge bridge = new Bridge(color, distance, firstStrand, finalStrand, this.isVisible);
+                if (!contiguo) {
+                    if (type.equals("normal")) {
+                        bridge = new Bridge(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                    } else if (type.equals("fixed")) {
+                        bridge = new Fixed(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                    } else if (type.equals("transformer")) {
+                        bridge = new Transformer(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                    } else if (type.equals("weak")) {
+                        bridge = new Weak(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                    } else if (type.equals("mobile")) {
+                        bridge = new Mobile(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                    }
                     bridge.addBridge(this.strands, firstStrand, finalStrand);
                     bridges.put(color, bridge);
                     this.ok = true;
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
                     this.ok = false;
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "La distancia no debe ser mayor al radio.");
                 this.ok = false;
             }
@@ -159,27 +129,9 @@ public class Web
             color = colors.get(indexRandom);
         }while(this.spots.containsKey(color));
 
-        addBridge(color, distance, firstStrand);
+        addBridge("normal", color, distance, firstStrand);
     }
 
-    /*
-     * Verify if exists contiguos bridges.
-     */
-    private boolean contiguosBridges(int distance, int firstStrand, int finalStrand){
-        for(Bridge b: bridges.values()){
-            int bDistance = b.getDistance();
-            int bInicialStrand = b.getInicialStrand();
-            int bFinalStrand = b.getFinalStrand();
-
-            if((bDistance == distance) && ((bInicialStrand == firstStrand || bInicialStrand == finalStrand) ||
-            (bFinalStrand == firstStrand || bFinalStrand == finalStrand))){
-                return true;
-            }
-        }
-
-        return false;
-    }
-    
     /**
      * Change the distance of the bridge
      * @param   color       The color of the bridge
@@ -188,9 +140,9 @@ public class Web
     public void relocateBridge(String color, int distance){
         if (bridges.containsKey(color) && this.radio >= distance && distance > 0){
             Bridge bridge = bridges.get(color);
-            int firstStrand = bridge.getInicialStrand();
+            String type = bridgeType(bridge);
             delBridge(color);
-            addBridge(color, distance, firstStrand);
+            addBridge(type, color, distance, bridge.getInicialStrand());
             this.ok = true;
         } else{
             this.ok = false;
@@ -203,31 +155,13 @@ public class Web
      */
     public void delBridge(String color){
         Bridge bridge = bridges.get(color);
-        if(!(bridge instanceof Fixed)){
-            if(bridge != null){
-                // Implementation of Transformer
-                if(bridge instanceof Transformer){
-                    int numberStrand = bridge.getInicialStrand();
-                    Strand st = this.strands.get(numberStrand);
-                    boolean freeSpot = true;
-                    for (Spot sp : this.spots.values()) {
-                        if(sp.getStrand() == numberStrand){
-                            freeSpot = false;
-                        }
-                    }
-                    if(freeSpot){
-                        this.addSpot(color, numberStrand);
-                    }
-                }
-                // It Keeps the same behaviour
-                bridge.makeInvisible();
-                bridge = null;
-                bridges.remove(color);
-                this.ok = true;
-            }else{
-                JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
-                this.ok = false;
-            }
+        if (bridge != null) {
+            if (!(bridge instanceof Fixed)) bridges.remove(color);
+            bridge.deleteBridge();   
+            this.ok = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
+            this.ok = false;
         }
     }
     
@@ -241,7 +175,6 @@ public class Web
             this.ok = false;
         }else{
             Strand selectedStrand = strands.get(strand);
-            // Killer spot = new Killer(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             Spot spot = new Spot(color, strand, selectedStrand.getBody().getX2(), selectedStrand.getBody().getY2(), this.isVisible);
             spots.put(color, spot);
             this.ok = true;
@@ -278,6 +211,20 @@ public class Web
             JOptionPane.showMessageDialog(null, "No existe un spot con ese color");
             this.ok = false;
         }
+    }
+
+    /**
+     * Verify if there is a spot in the strand
+     * @param strand    the strand to verify if there is a spot
+     * @return  TRUE, there is a spot in the strand. FALSE, otherwise
+     */
+    public boolean spotInStrand(int strand){
+        for (Spot spot : this.spots.values()) {
+            if (spot.getStrand() == strand) {
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -428,5 +375,79 @@ public class Web
             spot.makeInvisible();
         }
         this.isVisible = false;
+    }
+
+    /*
+     * Create the web
+     */
+    private void addStrands(){
+        double angle = Math.toRadians((double) 360 / this.numStrands);
+        double angleStrand = 0;
+        for(int i = 1; i <= this.numStrands; i++){
+            Strand strand = new Strand(this.radio, angleStrand, this.isVisible);
+            this.strands.put(i, strand);
+            angleStrand -= angle;   
+        }
+    }
+
+    /*
+     * Recreates the web according to the new specifications.
+     */
+    private void recalculateWeb(){
+        HashMap<String, Bridge> copyBridges = new HashMap<>(this.bridges);
+        HashMap<String, Spot> copySpots = new HashMap<>(this.spots);
+        this.spots.clear();
+        this.bridges.clear();
+
+        for (Map.Entry<String, Bridge> element : copyBridges.entrySet()){
+            Bridge b = element.getValue();
+            String type = bridgeType(b);
+
+            this.addBridge(type, b.getColor(), b.getDistance(), b.getInicialStrand());
+        }
+
+        for (Map.Entry<String, Spot> element : copySpots.entrySet()){
+            Spot s = element.getValue();
+            this.addSpot(s.getColor(), s.getStrand());
+        }
+    }
+
+    /*
+     * Verify if exists contiguos bridges.
+     */
+    private boolean contiguosBridges(int distance, int firstStrand, int finalStrand){
+        for(Bridge b: bridges.values()){
+            int bDistance = b.getDistance();
+            int bInicialStrand = b.getInicialStrand();
+            int bFinalStrand = b.getFinalStrand();
+
+            if((bDistance == distance) && ((bInicialStrand == firstStrand || bInicialStrand == finalStrand) ||
+            (bFinalStrand == firstStrand || bFinalStrand == finalStrand))){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /*
+     * Return the type of the bridge
+     */
+    private String bridgeType(Bridge bridge){
+        String type; 
+
+        if (bridge instanceof Fixed) {
+            type = "fixed";
+        } else if (bridge instanceof Transformer) {
+            type = "transformer";
+        } else if (bridge instanceof Weak) {
+            type = "weak";
+        } else if (bridge instanceof Mobile) {
+            type = "mobile";
+        } else {
+            type = "normal";
+        }
+
+        return type;
     }
 }

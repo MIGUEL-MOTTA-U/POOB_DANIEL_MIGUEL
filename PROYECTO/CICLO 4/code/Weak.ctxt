@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Weak
 comment0.text=\r\n\ This\ Bridge's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Bridge,\ \r\n\ except\ when\ the\ spider\ walks\ through\ it,\ then\ it\ will\ be\ deleted.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\ \r\n\ @version\ (CICLO\ 4,\ 2024\ /\ 01)\r\n
-comment1.params=color\ distance\ inicialStrand\ finalStrand\ isVisible
-comment1.target=Weak(java.lang.String,\ int,\ int,\ int,\ boolean)
+comment1.params=color\ distance\ inicialStrand\ finalStrand\ web\ isVisible
+comment1.target=Weak(java.lang.String,\ int,\ int,\ int,\ Web,\ boolean)
 numComments=2

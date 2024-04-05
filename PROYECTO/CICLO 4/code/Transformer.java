@@ -8,8 +8,17 @@
  */
 
 public class Transformer extends Bridge {
-    public Transformer(String color, int distance, int inicialStrand, int finalStrand, boolean isVisible) {
-        super(color, distance, inicialStrand, finalStrand, isVisible);
+    public Transformer(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
+        super(color, distance, inicialStrand, finalStrand, web, isVisible);
+    }
+
+    @Override
+    public void deleteBridge(){
+        super.deleteBridge();
+        Boolean spotInStrand = this.web.spotInStrand(this.inicialStrand);
+        if (!spotInStrand) {
+            this.web.addSpot(this.color, this.inicialStrand);
+        }
     }
 }
 

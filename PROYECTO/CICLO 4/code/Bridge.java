@@ -13,6 +13,7 @@ public class Bridge
     protected int distance;
     protected int inicialStrand;
     protected int finalStrand;
+    protected Web web;
     protected Line2D.Double body;
     protected boolean isVisible;
     
@@ -21,12 +22,13 @@ public class Bridge
     /**
      * Constructor for objects of class Bridge
      */
-    public Bridge(String color, int distance, int inicialStrand, int finalStrand, boolean isVisible){
+    public Bridge(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible){
         canvas = Canvas.getCanvas();
         this.color = color;
         this.distance = distance;
         this.inicialStrand = inicialStrand;
         this.finalStrand = finalStrand;
+        this.web = web;
         this.isVisible = isVisible;
     }
 
@@ -45,6 +47,10 @@ public class Bridge
         double y2 = this.distance * Math.sin(lastStrand.getAngle());
         body = new Line2D.Double(canvas.getCenterX() + x1, canvas.getCenterY() + y1, canvas.getCenterX() + x2, canvas.getCenterY() + y2);
         draw();
+    }
+
+    public void deleteBridge(){
+        this.makeInvisible();
     }
     
     /**

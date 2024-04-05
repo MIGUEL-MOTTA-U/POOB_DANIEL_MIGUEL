@@ -8,8 +8,19 @@
  */
 
 public class Mobile extends Bridge {
-    public Mobile(String color, int distance, int inicialStrand, int finalStrand, boolean isVisible) {
-        super(color, distance, inicialStrand, finalStrand, isVisible);
+    public Mobile(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
+        super(color, distance, inicialStrand, finalStrand, web, isVisible);
+    }
+
+    @Override
+    public void deleteBridge(){
+        super.deleteBridge();
+        int newDistance = (int) (this.distance + this.distance * 0.2);
+        if (this.finalStrand != this.web.getNumStrands()) {
+            this.web.addBridge("mobile", this.color, newDistance, this.inicialStrand + 1);
+        } else {
+            this.web.addBridge("mobile", this.color, newDistance, 1);
+        }
     }
 }
 

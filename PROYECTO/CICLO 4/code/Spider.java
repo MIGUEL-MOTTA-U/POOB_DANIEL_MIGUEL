@@ -17,11 +17,11 @@ public class Spider
     private Ellipse2D.Double body;
     private int strand = 0;
     private int distance = 0;
+    private Web web;
     private ArrayList<Integer> lastPath;
     private HashMap<String, Bridge> usedBridges;
     private boolean isVisible;
     private boolean ok;
-    private Web web;
     
     private Canvas canvas;
 
@@ -91,33 +91,15 @@ public class Spider
                 moveSpider(x1, y1, x2, y2);
                 this.distance = bridge.getDistance();
                 usedBridges.put(bridge.getColor(), bridge);
-                // Implementation of Weak
-                if (bridge instanceof Weak){
-                    this.web.delBridge(bridge.getColor());
-                // Implementation of Mobile
-                } else if (bridge instanceof Mobile){
-                    int firstStrand = bridge.getFinalStrand();
-                    int radiu = (int) (bridge.getDistance() * 1.2);
-                    String colr = bridge.getColor();
-                    this.web.delBridge(bridge.getColor());
-                    this.web.addBridge(colr, radiu, firstStrand);
-                }
+
+                if (bridge instanceof Weak || bridge instanceof Mobile) this.web.delBridge(bridge.getColor());
+
                 x0 = x2;
                 y0 = y2;
             }
         }while(bridge != null);  
+
         moveSpider(x0, y0, strands.get(this.strand).getBody().getX2(), strands.get(this.strand).getBody().getY2());
-        
-        boolean isKill = false;
-        for(Spot s : this.web.getSpots().values()){
-            if(s.getStrand() == this.strand && s instanceof Killer){
-                isKill = true;
-            }
-        }
-        if(isKill){
-            this.kill();
-        }
-        this.ok = true;
     }
     
     /*

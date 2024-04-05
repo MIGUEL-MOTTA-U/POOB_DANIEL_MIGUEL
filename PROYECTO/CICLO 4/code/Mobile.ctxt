@@ -1,6 +1,8 @@
 #BlueJ class context
 comment0.target=Mobile
 comment0.text=\r\n\ This\ Bridge's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Bridge,\ \r\n\ except\ it\ relocates\ it's\ position\ if\ it's\ possible\ jumping\ to\ the\ next\ strand\ increasing\ \r\n\ its\ radius\ by\ a\ 20%\ (if\ it's\ possible).\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\ \r\n\ @version\ (CICLO\ 4,\ 2024\ /\ 01)\r\n
-comment1.params=color\ distance\ inicialStrand\ finalStrand\ isVisible
-comment1.target=Mobile(java.lang.String,\ int,\ int,\ int,\ boolean)
-numComments=2
+comment1.params=color\ distance\ inicialStrand\ finalStrand\ web\ isVisible
+comment1.target=Mobile(java.lang.String,\ int,\ int,\ int,\ Web,\ boolean)
+comment2.params=
+comment2.target=void\ deleteBridge()
+numComments=3

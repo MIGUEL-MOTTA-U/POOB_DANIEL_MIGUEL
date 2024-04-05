@@ -44,14 +44,6 @@ public class SpiderWeb
     }
     
     /**
-     * Returns the web of the Spider web.
-     * @return the web of Spider Web
-     */
-    public Web getWeb(){
-        return this.web;
-    }
-    
-    /**
      * This Method adds an strand to the SpiderWeb
      */
     public void addStrand(){
@@ -79,9 +71,21 @@ public class SpiderWeb
      * @param   firstStrand the strand where the bridge begin
      */
     public void addBridge(String color, int distance, int firstStrand){
-        web.addBridge(color, distance, firstStrand);
+        web.addBridge("normal", color, distance, firstStrand);
     }
     
+    /**
+     * Add a bridge of a specific type to the web
+     * @param   type        the type of the bridge. Valid tipes are "normal", "fixed", "transformer", "weak" and "mobile"
+     * @param   color       The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
+     * "darkgreen", "aquamarine", "lavender" and "salmon"
+     * @param   distance    the distance from the center to the bridge
+     * @param   firstStrand the strand where the bridge begin
+     */
+    public void addBridge(String type, String color, int distance, int firstStrand){
+        web.addBridge(type, color, distance, firstStrand);
+    }
+
     /**
      * Change the distance of the bridge
      * @param   color       The color of the bridge. Valid colors are "red", "black", "blue", "yellow", "green", "magenta", "gray", "orange", "purple", "brown", "cyan", 
