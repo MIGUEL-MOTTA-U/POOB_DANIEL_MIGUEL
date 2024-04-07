@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class Bridge {
     protected String color;
-    protected int distance;  
+    protected int distance;
     protected int inicialStrand;
     protected int finalStrand;
     protected Web web;
@@ -32,7 +32,7 @@ public class Bridge {
     }
 
     /**
-     * An example of a method - replace this comment with your own
+     * Add the bridge to the web
      * 
      * @param strands       the strands of the web
      * @param inicialStrand the strand where the bridge begin
@@ -50,6 +50,9 @@ public class Bridge {
         draw();
     }
 
+    /**
+     * Delete the bridge from the web
+     */
     public void deleteBridge() {
         this.web.removeBridge(color);
         this.makeInvisible();
@@ -69,6 +72,9 @@ public class Bridge {
         return output;
     }
 
+    /**
+     * Its the behavior of the bridge
+     */
     public void act() {
 
     }
