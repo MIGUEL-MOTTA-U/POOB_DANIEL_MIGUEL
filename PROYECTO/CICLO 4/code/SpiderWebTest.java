@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import javax.swing.JOptionPane;
+
 /**
  * The test class SpiderWebTest.
  *
@@ -117,7 +119,7 @@ public class SpiderWebTest {
     @Test
     public void accordingDCShouldShowTheCoordinatesOfTheBridge() {
         //
-        double[] expected = { 580.0, 400.0, 576.0845213036123, 375.2786404500042};
+        double[] expected = { 580.0, 400.0, 576.0845213036123, 375.2786404500042 };
         assertArrayEquals(spiderWeb.bridge("blue"), expected, 0.1);
         //
         expected = new double[] { 770.0, 374.0, 756.7852593996914, 290.5654115187642 };
@@ -371,5 +373,145 @@ public class SpiderWebTest {
                 new int[][] { { 100, 1 }, { 1150, 2 }, { 200, 2 }, { 230, 5 }, { 270, 8 }, { 300, 8 } });
         expected = new int[] { 1, 2, 1, 0, 1, 1, 2, 2 };
         assertArrayEquals(minBridges, expected);
+    }
+
+    @Test
+    public void accordingDCShouldDelFixed() {
+        spiderWeb.addBridge("fixed", "black", 75, 15);
+        int numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 7);
+        spiderWeb.delBridge("black");
+        assertEquals(true, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 7);
+
+        spiderWeb.addBridge("fixed", "yellow", 100, 12);
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 8);
+        spiderWeb.delBridge("yellow");
+        assertEquals(true, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 8);
+    }
+
+    @Test
+    public void accordingDCShouldDelTransformer() {
+        spiderWeb.addBridge("transformer", "black", 75, 15);
+        int numBridges = spiderWeb.bridges().length;
+        int numSpots = spiderWeb.spots().length;
+        assertEquals(numBridges, 7);
+        assertEquals(numSpots, 3);
+        spiderWeb.delBridge("black");
+        assertEquals(true, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        numSpots = spiderWeb.spots().length;
+        assertEquals(numBridges, 6);
+        assertEquals(numSpots, 4);
+
+        spiderWeb.addBridge("transformer", "yellow", 100, 20);
+        numBridges = spiderWeb.bridges().length;
+        numSpots = spiderWeb.spots().length;
+        assertEquals(numBridges, 7);
+        assertEquals(numSpots, 4);
+        spiderWeb.delBridge("yellow");
+        assertEquals(false, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        numSpots = spiderWeb.spots().length;
+        assertEquals(numBridges, 7);
+        assertEquals(numSpots, 4);
+    }
+
+    @Test
+    public void accordingDCShouldActWeak() {
+        spiderWeb.addBridge("weak", "black", 382, 3);
+        int numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 7);
+        spiderWeb.spiderSit(3);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 6);
+
+        spiderWeb.addBridge("weak", "yellow", 320, 1);
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 7);
+        spiderWeb.spiderSit(4);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+        numBridges = spiderWeb.bridges().length;
+        assertEquals(numBridges, 6);
+    }
+
+    @Test
+    public void accordingDCShouldActMobile() {
+        spiderWeb.addBridge("mobile", "aquamarine", 185, 3);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+
+        spiderWeb.addBridge("purple", 110, 3);
+        spiderWeb.addBridge("mobile", "yellow", 65, 1);
+        spiderWeb.spiderSit(1);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+    }
+
+    @Test
+    public void accordingDCShouldActBouncy() {
+        spiderWeb.addSpot("bouncy", "red", 3);
+        spiderWeb.spiderSit(3);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+
+        spiderWeb.addSpot("bouncy", "blue", 19);
+        spiderWeb.spiderSit(19);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+    }
+
+    @Test
+    public void accordingDCShouldActKiller() {
+        spiderWeb.addSpot("killer", "red", 3);
+        spiderWeb.spiderSit(3);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+
+        spiderWeb.addSpot("killer", "blue", 19);
+        spiderWeb.spiderSit(19);
+        spiderWeb.spiderWalk(true);
+        assertEquals(true, spiderWeb.ok());
+    }
+
+    @Test
+    public void spiderWebAtest() {
+        spiderWeb.makeVisible();
+        spiderWeb.addBridge("weak", "yellow", 98, 4);
+        spiderWeb.addBridge("weak", "aquamarine", 114, 3);
+        spiderWeb.addSpot("bouncy", "red", 3);
+        spiderWeb.spiderSit(5);
+        spiderWeb.spiderWalk(true);
+
+        int respuesta = JOptionPane.showConfirmDialog(null,
+                "Teniendo en cuenta que los 2 primeros puentes son de tipo Weak; y el spot alcanzado es de tipo bouncy, el simulador funciona de manera adecuada?",
+                "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        assertEquals(respuesta, JOptionPane.YES_OPTION);
+    }
+
+    @Test
+    public void spiderWebAtest2() {
+        spiderWeb.makeVisible();
+        spiderWeb.addBridge("black", 110, 3);
+        spiderWeb.addBridge("mobile", "yellow", 65, 1);
+        spiderWeb.addBridge("transformer", "purple", 300, 2);
+        spiderWeb.addBridge("fixed", "aquamarine", 371, 1);
+        spiderWeb.addSpot("killer", "red", 1);
+        spiderWeb.spiderWalk(true);
+        spiderWeb.delSpot("purple");
+
+        int respuesta = JOptionPane.showConfirmDialog(null,
+                "Teniendo en cuenta que el primer puente es de tipo Mobile, el penultimo de tipo transformer (el cual se elimina al final) y el ultimo de tipo fixed; y el spot alcanzado es de tipo Killer, el simulador funciona de manera adecuada?",
+                "Confirmación", JOptionPane.YES_NO_OPTION);
+
+        assertEquals(respuesta, JOptionPane.YES_OPTION);
     }
 }
