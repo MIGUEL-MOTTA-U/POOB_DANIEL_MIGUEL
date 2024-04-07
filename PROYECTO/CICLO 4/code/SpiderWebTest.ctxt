@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=SpiderWebTest
-comment0.text=\r\n\ The\ test\ class\ SpiderWebTest.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ The\ test\ class\ SpiderWebTest.\r\n\r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
 comment1.params=
 comment1.target=void\ beforeClass()
 comment10.params=

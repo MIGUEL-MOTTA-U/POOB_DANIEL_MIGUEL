@@ -6,70 +6,67 @@ import java.awt.geom.Ellipse2D;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public class Spot
-{
+public class Spot {
     protected String color;
     protected int strand;
     protected Web web;
     protected Ellipse2D.Double body;
     protected boolean isVisible;
-    
+
     Canvas canvas;
 
     /**
      * Constructor for objects of class Spot
      */
-    public Spot(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible){
+    public Spot(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible) {
         canvas = Canvas.getCanvas();
         this.color = color;
         this.strand = strand;
         this.web = web;
-        body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);        
+        body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);
         this.isVisible = isVisible;
         draw();
     }
 
     /**
-     * Verify if the spider is on a spot
-     * @param strand    the strand to verify
-     * @return  TRUE, the spider is on a spot. FALSE, otherwise
-     */
-    public boolean spiderInSpot(int strand){
-        return this.strand == strand;
-    }
-    
-    /**
      * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)
-     * @return  the coordenates of the spot
+     * 
+     * @return the coordenates of the spot
      */
-    public double[] spot(){
+    public double[] spot() {
         double[] output = new double[2];
         output[0] = this.body.getX();
         output[1] = this.body.getX();
-        return output;  
+        return output;
     }
+
+    public void act() {
+
+    };
 
     /**
      * Return the color of the spot
-     * @return  the color of the spot
+     * 
+     * @return the color of the spot
      */
-    public String getColor(){
+    public String getColor() {
         return this.color;
     }
 
     /**
      * Return the strand of the spot
-     * @return  the strand where is locate the spot
+     * 
+     * @return the strand where is locate the spot
      */
-    public int getStrand(){
+    public int getStrand() {
         return this.strand;
     }
-    
+
     /*
      * Draw the spot with current specifications on screen.
      */
-    private void draw(){
-        if(isVisible){
+    private void draw() {
+        if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color, body);
             canvas.wait(10);
@@ -79,8 +76,8 @@ public class Spot
     /*
      * Erase the spot on screen.
      */
-    private void erase(){
-        if(isVisible) {
+    private void erase() {
+        if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
         }
@@ -89,15 +86,15 @@ public class Spot
     /**
      * Make visible the spot
      */
-    public void makeVisible(){
+    public void makeVisible() {
         this.isVisible = true;
         draw();
     }
-    
+
     /**
      * Make invisible the spot
      */
-    public void makeInvisible(){
+    public void makeInvisible() {
         erase();
         this.isVisible = false;
     }

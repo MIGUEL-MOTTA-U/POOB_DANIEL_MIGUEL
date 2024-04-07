@@ -13,7 +13,7 @@ public class Mobile extends Bridge {
     }
 
     @Override
-    public void deleteBridge(){
+    public void act() {
         super.deleteBridge();
         int newDistance = (int) (this.distance + this.distance * 0.2);
         if (this.finalStrand != this.web.getNumStrands()) {

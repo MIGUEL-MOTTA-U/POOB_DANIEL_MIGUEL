@@ -20,5 +20,9 @@ public class Transformer extends Bridge {
             this.web.addSpot("normal", this.color, this.inicialStrand);
         }
     }
+
+    @Override
+    public void act() {
+    };
 }
 

@@ -10,36 +10,34 @@ import java.util.ArrayList;
 
 public class SpiderWebContest {
     public static int[] solve(int strands, int favorite, int[][] bridges) {
-        Spider spider = new Spider(false);
+        Spider spider = new Spider(1, false);
         ArrayList<Integer> bridgesToAdd = spider.minBridgesToAdd(bridges, favorite, strands);
-        
+
         int[] output = new int[strands];
         int i = 0;
-        for(Integer b : bridgesToAdd){
+        for (Integer b : bridgesToAdd) {
             output[i] = b;
             i += 1;
         }
-        
+
         return output;
     }
 
-    public static void simulate(int strands, int favorite, int[][] bridges, int strand){
-        Spider s = new Spider(false);
+    public static void simulate(int strands, int favorite, int[][] bridges, int strand) throws Exception{
+        Spider s = new Spider(1, false);
         ArrayList<int[]> bridgesToAdd = s.bridgesToAdd(strands, favorite, bridges, strand);
-        
+
         int[][] totalBridges = new int[bridges.length + bridgesToAdd.size()][2];
-        
+
         for (int i = 0; i < bridges.length; i++) {
             totalBridges[i] = bridges[i];
         }
-        
+
         int index = bridges.length;
         for (int[] bridge : bridgesToAdd) {
             totalBridges[index] = bridge;
             index++;
         }
-
-        System.out.println(totalBridges.length);
 
         SpiderWeb spiderWeb = new SpiderWeb(strands, favorite, totalBridges);
         spiderWeb.spiderSit(strand);

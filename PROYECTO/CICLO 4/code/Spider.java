@@ -17,7 +17,6 @@ public class Spider
     private Ellipse2D.Double body;
     private int strand = 0;
     private int distance = 0;
-    private Web web;
     private ArrayList<Integer> lastPath;
     private HashMap<String, Bridge> usedBridges;
     private boolean isVisible;
@@ -28,10 +27,10 @@ public class Spider
     /**
      * Constructor for objects of class Spider
      */
-    public Spider(boolean isVisible){
+    public Spider(int strand, boolean isVisible){
         canvas = Canvas.getCanvas();
         body = new Ellipse2D.Double(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
-        this.strand = 1;
+        this.strand = strand;
         this.distance = 0;
         lastPath = new ArrayList<>();
         usedBridges = new HashMap<>();
@@ -56,7 +55,7 @@ public class Spider
             this.ok = true;
         }else{
             JOptionPane.showMessageDialog(null, "Hebra fuera del rango");
-                    this.ok = false;
+            this.ok = false;
         }
     }
     
@@ -91,8 +90,7 @@ public class Spider
                 moveSpider(x1, y1, x2, y2);
                 this.distance = bridge.getDistance();
                 usedBridges.put(bridge.getColor(), bridge);
-
-                if (bridge instanceof Weak || bridge instanceof Mobile) this.web.delBridge(bridge.getColor());
+                bridge.act();
 
                 x0 = x2;
                 y0 = y2;
@@ -100,8 +98,6 @@ public class Spider
         }while(bridge != null);  
 
         moveSpider(x0, y0, strands.get(this.strand).getBody().getX2(), strands.get(this.strand).getBody().getY2());
-        jumpSpider();
-        killSpider();
     }
     
     /**
@@ -214,12 +210,40 @@ public class Spider
         return (leftBridges.size() <= rightBridges.size()) ? leftBridges : rightBridges;
     }
 
+    public void spiderJump(HashMap<Integer, Strand> strands, int numStrands) {
+        if (this.strand != numStrands) {
+            this.strand += 1;
+        } else {
+            this.strand = 1;
+        }
+
+        Strand strand = strands.get(this.strand);
+        this.body.setFrame(strand.getBody().getX2() - 7.5, strand.getBody().getY2() - 7.5, 15, 15);
+        draw();
+    }
+
+    public void spiderKill(){
+        this.makeInvisible();
+        this.strand = 0;
+        this.distance = 0;
+        this.lastPath = new ArrayList<>();
+        this.usedBridges = new HashMap<>();
+    }
+
     /**
      * This method returns the distance of the spider respect the origin.
      * @return  the distance of the spider respect the origin.
      */
     public int getDistance(){
         return this.distance;
+    }
+
+    /**
+     * This method returns the distance of the spider respect the origin.
+     * @return  the distance of the spider respect the origin.
+     */
+    public int getStrand(){
+        return this.strand;
     }
 
     /**
@@ -500,51 +524,5 @@ public class Spider
         }
 
         return (selectedBridge != null) ? selectedBridge : null;
-    }
-
-    /*
-     * The spider jump to the next strand
-     */
-    private void jumpSpider(){
-        Boolean spiderInSpot = false;
-
-        for (Spot spot : this.web.getSpots().values()) {
-            if (spot instanceof Bouncy) {
-                spiderInSpot = spot.spiderInSpot(this.strand);
-            }
-        }
-
-        if (spiderInSpot) {
-            if (this.strand != this.web.getNumStrands()) {
-                this.strand += 1;
-            } else {
-                this.strand = 1;
-            }
-
-            Strand strand = this.web.getStrands().get(this.strand);
-            this.body.setFrame(strand.getBody().getX2() - 7.5, strand.getBody().getY2() - 7.5, 15, 15);
-            draw();
-        }
-    }
-
-    /*
-     * Deletes the spider from the web.
-     */
-    private void killSpider(){
-        Boolean spiderInSpot = false;
-
-        for (Spot spot : this.web.getSpots().values()) {
-            if (spot instanceof Killer) {
-                spiderInSpot = spot.spiderInSpot(this.strand);
-            }
-        }
-
-        if (spiderInSpot) {
-            this.makeInvisible();
-            this.strand = 0;
-            this.distance = 0;
-            this.lastPath = new ArrayList<>();
-            this.usedBridges = new HashMap<>();
-            }
     }
 }

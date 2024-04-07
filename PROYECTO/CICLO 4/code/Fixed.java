@@ -1,3 +1,4 @@
+
 /**
  * This Bridge's subclass has the same behaviors that a normal Bridge, 
  * except it relocates it's position if it's possible jumping to the next strand increasing 
@@ -15,5 +16,10 @@ public class Fixed extends Bridge {
     @Override
     public void deleteBridge(){
         System.out.println("No se puede eliminar un puente que sea de tipo fixed");
+    }
+
+    @Override
+    public void act() {
+        
     }
 }

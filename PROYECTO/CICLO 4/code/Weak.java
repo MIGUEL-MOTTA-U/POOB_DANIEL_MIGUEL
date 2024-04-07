@@ -11,5 +11,10 @@ public class Weak extends Bridge {
     public Weak(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
         super(color, distance, inicialStrand, finalStrand, web, isVisible);
     }
+
+    @Override
+    public void act() {
+        this.deleteBridge();
+    }
 }
 

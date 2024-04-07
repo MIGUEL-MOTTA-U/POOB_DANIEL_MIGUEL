@@ -11,4 +11,12 @@ public class Killer extends Spot
     public Killer(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible){
         super(color, strand, web, xPosition, yPosition, isVisible);
     }
+
+    @Override
+    public void act() {
+        Boolean spiderInspot = this.web.spiderInspot(this);
+        if (spiderInspot) {
+            this.web.spiderKill();
+        }
+    }
 }

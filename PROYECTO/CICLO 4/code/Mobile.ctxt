@@ -4,5 +4,5 @@ comment0.text=\r\n\ This\ Bridge's\ subclass\ has\ the\ same\ behaviors\ that\ a
 comment1.params=color\ distance\ inicialStrand\ finalStrand\ web\ isVisible
 comment1.target=Mobile(java.lang.String,\ int,\ int,\ int,\ Web,\ boolean)
 comment2.params=
-comment2.target=void\ deleteBridge()
+comment2.target=void\ act()
 numComments=3
