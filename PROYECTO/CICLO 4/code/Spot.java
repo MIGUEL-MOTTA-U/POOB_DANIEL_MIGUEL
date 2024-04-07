@@ -29,7 +29,7 @@ public class Spot {
     }
 
     /**
-     * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)
+     * Return the coordenates of the spot, (Xo,Yo) & (Xf,Yf)
      * 
      * @return the coordenates of the spot
      */
@@ -40,6 +40,17 @@ public class Spot {
         return output;
     }
 
+    /**
+     * Delete the spot from the web
+     */
+    public void deleteSpot() {
+        this.web.removeSpot(color);
+        this.makeInvisible();
+    }
+
+    /**
+     * Its the behavior of the spot
+     */
     public void act() {
 
     };

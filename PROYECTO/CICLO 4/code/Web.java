@@ -1,11 +1,8 @@
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Map;
-import java.lang.reflect.InvocationTargetException;
-
 
 /**
  * Create the web.
@@ -56,7 +53,7 @@ public class Web {
         addStrands();
         recalculateWeb();
 
-        this.ok = this.bridges.equals(oldBridges) && this.spots.equals(oldSpots);     
+        this.ok = this.bridges.equals(oldBridges) && this.spots.equals(oldSpots);
         makeVisible();
     }
 
@@ -144,7 +141,6 @@ public class Web {
             Bridge bridge = bridges.get(color);
             String type = bridge.getClass().getSimpleName().toLowerCase();
             type = (type.equals("bridge")) ? "normal" : type;
-            System.out.println(type);
             delBridge(color);
             addBridge(type, color, distance, bridge.getInicialStrand());
             this.ok = true;
@@ -161,8 +157,8 @@ public class Web {
     public void delBridge(String color) {
         Bridge bridge = bridges.get(color);
         if (bridge != null) {
-            bridge.deleteBridge();
             this.ok = true;
+            bridge.deleteBridge();
         } else {
             JOptionPane.showMessageDialog(null, "No existe un puente con ese color");
             this.ok = false;
@@ -212,10 +208,8 @@ public class Web {
     public void delSpot(String color) {
         Spot spot = spots.get(color);
         if (spot != null) {
-            spot.makeInvisible();
-            spot = null;
-            spots.remove(color);
             this.ok = true;
+            spot.deleteSpot();
         } else {
             JOptionPane.showMessageDialog(null, "No existe un spot con ese color");
             this.ok = false;
@@ -228,11 +222,11 @@ public class Web {
      * @param strand the strand to wich the spider will refer
      */
     public void spiderSit(int strand) {
-        if(strand > 0 && strand <= numStrands){
+        if (strand > 0 && strand <= numStrands) {
             this.spider.makeInvisible();
             this.spider = new Spider(strand, this.isVisible);
             this.ok = true;
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Hebra fuera del rango");
             this.ok = false;
         }
@@ -242,12 +236,10 @@ public class Web {
      * The spider walks through the strands and bridges
      */
     public void spiderWalk() {
-        String color = this.reachableSpots()[0];
         spider.spiderWalk(this.strands, this.bridges);
-        if (color != null) {
-            Spot spot = this.spots.get(color);
-            if (this.spiderInspot(spot)) spot.act();
-        }
+        Spot spot = this.spiderInspot();
+        if (spot != null)
+            spot.act();
     }
 
     /**
@@ -383,6 +375,11 @@ public class Web {
         this.isVisible = false;
     }
 
+    /**
+     * Return the status of the simulation
+     * 
+     * @return TRUE, if an action could be completed. FALSE, otherwise
+     */
     public boolean ok() {
         boolean webOk = this.ok;
         boolean spiderOk = spider.getOk();
@@ -392,19 +389,29 @@ public class Web {
     }
 
     /**
-     * Verify if there is a spot in the strand
+     * Verify if the spider is sitting on a spot
      * 
-     * @param strand the strand to verify
-     * @return TRUE, there is a spot in the strand. FALSE, otherwise
+     * @return the spot where the spider is
      */
-    public boolean spiderInspot(Spot spot) {
-        return (spot.getStrand() == this.spider.getStrand()) ? true : false;
+    public Spot spiderInspot() {
+        for (Spot s : this.spots.values()) {
+            if (s.getStrand() == this.spider.getStrand()) {
+                return s;
+            }
+        }
+        return null;
     }
 
+    /**
+     * The spider jump to the next strand
+     */
     public void spiderJump() {
         this.spider.spiderJump(this.strands, this.numStrands);
     }
 
+    /**
+     * The spider dies
+     */
     public void spiderKill() {
         this.spider.spiderKill();
     }
@@ -424,13 +431,24 @@ public class Web {
         return false;
     }
 
+    /**
+     * Delete a bridge form the arrayList
+     * 
+     * @param color
+     */
     public void removeBridge(String color) {
         this.bridges.remove(color);
     }
-    
+
+    /**
+     * Delete a spot form the arrayList
+     * 
+     * @param color
+     */
     public void removeSpot(String color) {
         this.spots.remove(color);
     }
+
     /**
      * Return the existing strands in the web
      * 
@@ -476,6 +494,15 @@ public class Web {
         return this.radio;
     }
 
+    /**
+     * Change the status of the web
+     * 
+     * @param ok the new status of the web
+     */
+    public void setOk(boolean ok) {
+        this.ok = ok;
+    }
+
     /*
      * Create all the strands of the web
      */
@@ -492,7 +519,7 @@ public class Web {
     /*
      * Recreates the web according to the new specifications.
      */
-    private void recalculateWeb() throws Exception{
+    private void recalculateWeb() throws Exception {
         HashMap<String, Bridge> copyBridges = new HashMap<>(this.bridges);
         HashMap<String, Spot> copySpots = new HashMap<>(this.spots);
         this.spots.clear();
@@ -502,7 +529,6 @@ public class Web {
             Bridge b = element.getValue();
             String type = b.getClass().getSimpleName().toLowerCase();
             type = (type.equals("bridge")) ? "normal" : type;
-            System.out.println(type);
             this.addBridge(type, b.getColor(), b.getDistance(), b.getInicialStrand());
         }
 

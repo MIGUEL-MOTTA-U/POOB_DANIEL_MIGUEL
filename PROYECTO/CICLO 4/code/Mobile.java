@@ -8,10 +8,16 @@
  */
 
 public class Mobile extends Bridge {
+    /**
+     * Constructor for objects of class Mobile
+     */
     public Mobile(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
         super(color, distance, inicialStrand, finalStrand, web, isVisible);
     }
 
+    /**
+     * Its the behavior of the bridge
+     */
     @Override
     public void act() {
         super.deleteBridge();

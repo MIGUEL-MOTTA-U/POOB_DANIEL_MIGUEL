@@ -39,14 +39,14 @@ public class SpiderWeb {
     }
 
     /**
-     * This Method adds an strand to the SpiderWeb
+     * Add a strand to the SpiderWeb
      */
     public void addStrand() throws Exception {
         web.addOneStrand();
     }
 
     /**
-     * Method to expand the radius of the web.
+     * Expand the radius of the web.
      * 
      * @param percentage, the expansion factor.
      */
@@ -151,7 +151,7 @@ public class SpiderWeb {
     /**
      * Seat the spider in the center with reference to a specific strand
      * 
-     * @param strand the strand to wich the spider will refer
+     * @param strand the strand to wich the spider will sit
      */
     public void spiderSit(int strand) {
         web.spiderSit(strand);
@@ -163,7 +163,8 @@ public class SpiderWeb {
      * @param advance indicates wheter the spider should move
      */
     public void spiderWalk(boolean advance) {
-        if (advance) web.spiderWalk();
+        if (advance)
+            web.spiderWalk();
     }
 
     /**
@@ -207,7 +208,7 @@ public class SpiderWeb {
     }
 
     /**
-     * Return the coordenates of the apot, (Xo,Yo) & (Xf,Yf)
+     * Return the coordenates of the spot, (Xo,Yo) & (Xf,Yf)
      * 
      * @param color the color of the spot. Valid colors are "red", "black", "blue",
      *              "yellow", "green", "magenta", "gray", "orange", "purple",
@@ -256,7 +257,7 @@ public class SpiderWeb {
     /**
      * Return the status of the simulation
      * 
-     * @return if an action could be completed
+     * @return TRUE, if an action could be completed. FALSE, otherwise
      */
     public boolean ok() {
         return web.ok();
