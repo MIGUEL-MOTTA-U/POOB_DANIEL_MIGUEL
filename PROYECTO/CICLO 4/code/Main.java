@@ -7,7 +7,7 @@
  */
 public class Main
 {
-    public static void main(String[] args){
+    public static void main(String args[]){
         SpiderWeb spiderWeb = new SpiderWeb(11, 300);
         spiderWeb.addBridge("blue", 80, 1);
         spiderWeb.addBridge("red", 130, 2);
