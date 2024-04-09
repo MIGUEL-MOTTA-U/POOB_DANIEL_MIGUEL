@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Activity
+comment1.params=name\ cost
+comment1.target=Activity(java.lang.String,\ java.lang.Integer)
+comment2.params=
+comment2.target=java.lang.String\ name()
+comment2.text=\r\n\ Return\ the\ name\r\n\ @return\r\n
+comment3.params=
+comment3.target=int\ time()
+comment3.text=\r\n\ Return\ time\r\n\ @return\r\n\ @throws\ ProjectException,\ if\ the\ time\ is\ not\ available\ or\ has\ an\ error\r\n
+comment4.params=
+comment4.target=int\ cost()
+comment4.text=\r\n\ Return\ cost\r\n\ @return\r\n\ @throws\ ProjectException,\ if\ the\ cost\ is\ not\ available\ or\ has\ an\ error\r\n
+comment5.params=
+comment5.target=java.lang.String\ data()
+comment5.text=\r\n\ Return\ the\ representation\ as\ string\r\n\ @return\r\n\ @throws\ ProjectException,\ if\ the\ data\ is\ not\ complete\r\n
+numComments=6

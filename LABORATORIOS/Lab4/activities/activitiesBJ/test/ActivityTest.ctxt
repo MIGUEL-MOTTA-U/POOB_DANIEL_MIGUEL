@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=ActivityTest
+comment1.params=
+comment1.target=ActivityTest()
+comment2.params=
+comment2.target=void\ setUp()
+comment3.params=
+comment3.target=void\ tearDown()
+comment4.params=
+comment4.target=void\ shouldCalculateTheTimeOfAComposedSecuencialActivity()
+comment5.params=
+comment5.target=void\ shouldCalculateTheTimeOfAComposedParallelActivity()
+comment6.params=
+comment6.target=void\ shouldThrowExceptionIfComposedIsEmpty()
+comment7.params=
+comment7.target=void\ shouldThrowExceptionIfThereIsErrorInTime()
+comment8.params=
+comment8.target=void\ shouldThrowExceptionIfTimeIsNotKnown()
+numComments=9
