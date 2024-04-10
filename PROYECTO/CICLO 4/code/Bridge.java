@@ -38,16 +38,15 @@ public class Bridge {
      * @param inicialStrand the strand where the bridge begin
      * @param finalStrand   the strand where the bridge end
      */
-    public void addBridge(HashMap<Integer, Strand> strands, int inicialStrand, int finalStrand) {
-        Strand firstStrand = strands.get(inicialStrand);
-        Strand lastStrand = strands.get(finalStrand);
+    public void addBridge(HashMap<Integer, Strand> strands) {
+        Strand firstStrand = strands.get(this.inicialStrand);
+        Strand lastStrand = strands.get(this.finalStrand);
         double x1 = this.distance * Math.cos(firstStrand.getAngle());
         double y1 = this.distance * Math.sin(firstStrand.getAngle());
         double x2 = this.distance * Math.cos(lastStrand.getAngle());
         double y2 = this.distance * Math.sin(lastStrand.getAngle());
         this.body = new Line2D.Double(canvas.getCenterX() + x1, canvas.getCenterY() + y1, canvas.getCenterX() + x2,
                 canvas.getCenterY() + y2);
-        // draw();
     }
 
     /**

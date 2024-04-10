@@ -41,8 +41,8 @@ public class Transformer extends Bridge {
      * @param finalStrand   the strand where the bridge end
      */
     @Override
-    public void addBridge(HashMap<Integer, Strand> strands, int inicialStrand, int finalStrand) {
-        super.addBridge(strands, inicialStrand, finalStrand);
+    public void addBridge(HashMap<Integer, Strand> strands) {
+        super.addBridge(strands);
         createBody();
         draw();
     }

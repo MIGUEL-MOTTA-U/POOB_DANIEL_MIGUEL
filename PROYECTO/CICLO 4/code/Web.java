@@ -98,7 +98,7 @@ public class Web {
                 boolean contiguo = contiguosBridges(distance, firstStrand, finalStrand);
                 if (!contiguo) {
                     Bridge bridge = createBridge(type, color, distance, firstStrand, finalStrand);
-                    bridge.addBridge(this.strands, firstStrand, finalStrand);
+                    bridge.addBridge(this.strands);
                     bridges.put(color, bridge);
                 } else {
                     JOptionPane.showMessageDialog(null, "No pueden haber puentes contiguos");
@@ -178,6 +178,7 @@ public class Web {
         } else {
             Strand selectedStrand = strands.get(strand);
             Spot spot = this.createSpot(type, color, strand, selectedStrand);
+            spot.addSpot(strands);
             this.spots.put(color, spot);
         }
     }
@@ -528,14 +529,14 @@ public class Web {
         for (Map.Entry<String, Bridge> element : copyBridges.entrySet()) {
             Bridge b = element.getValue();
             String type = b.getClass().getSimpleName().toLowerCase();
-            type = (type.equals("bridge")) ? "normal" : type;
+            type = (type.equals("normalbridge")) ? "normal" : type;
             this.addBridge(type, b.getColor(), b.getDistance(), b.getInicialStrand());
         }
 
         for (Map.Entry<String, Spot> element : copySpots.entrySet()) {
             Spot s = element.getValue();
             String type = s.getClass().getSimpleName().toLowerCase();
-            type = (type.equals("spot")) ? "normal" : type;
+            type = (type.equals("normalspot")) ? "normal" : type;
             this.addSpot(type, s.getColor(), s.getStrand());
         }
     }
@@ -566,7 +567,7 @@ public class Web {
         this.ok = true;
         switch (type) {
             case "normal":
-                bridge = new Bridge(color, distance, firstStrand, finalStrand, this, this.isVisible);
+                bridge = new NormalBridge(color, distance, firstStrand, finalStrand, this, this.isVisible);
                 break;
             case "fixed":
                 bridge = new Fixed(color, distance, firstStrand, finalStrand, this, this.isVisible);
@@ -592,18 +593,17 @@ public class Web {
      */
     private Spot createSpot(String type, String color, int strand, Strand selectedStrand) {
         Spot spot = null;
-        Double x2 = selectedStrand.getBody().getX2();
-        Double y2 = selectedStrand.getBody().getY2();
         this.ok = true;
+
         switch (type) {
             case "normal":
-                spot = new Spot(color, strand, this, x2, y2, this.isVisible);
+                spot = new NormalSpot(color, strand, this, this.isVisible);
                 break;
             case "bouncy":
-                spot = new Bouncy(color, strand, this, x2, y2, this.isVisible);
+                spot = new Bouncy(color, strand, this, this.isVisible);
                 break;
             case "killer":
-                spot = new Killer(color, strand, this, x2, y2, this.isVisible);
+                spot = new Killer(color, strand, this, this.isVisible);
                 break;
             default:
                 this.ok = false;

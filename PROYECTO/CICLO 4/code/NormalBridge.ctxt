@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=NormalBridge
+comment0.text=\r\n\ This\ Bridge's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Bridge,\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\r\n\ @version\ (CICLO\ 4,\ 2024\ /\ 01)\r\n
+comment1.params=color\ distance\ inicialStrand\ finalStrand\ web\ isVisible
+comment1.target=NormalBridge(java.lang.String,\ int,\ int,\ int,\ Web,\ boolean)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Bridge\r\n
+comment2.params=strands
+comment2.target=void\ addBridge(java.util.HashMap)
+comment2.text=\r\n\ Add\ the\ bridge\ to\ the\ web\r\n\ \r\n\ @param\ strands\ \ \ \ \ \ \ the\ strands\ of\ the\ web\r\n\ @param\ inicialStrand\ the\ strand\ where\ the\ bridge\ begin\r\n\ @param\ finalStrand\ \ \ the\ strand\ where\ the\ bridge\ end\r\n
+numComments=3

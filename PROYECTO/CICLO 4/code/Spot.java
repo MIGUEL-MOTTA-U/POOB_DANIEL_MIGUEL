@@ -1,4 +1,5 @@
 import java.awt.geom.Ellipse2D;
+import java.util.HashMap;
 
 /**
  * Create the spots of the spider.
@@ -18,14 +19,25 @@ public class Spot {
     /**
      * Constructor for objects of class Spot
      */
-    public Spot(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible) {
+    public Spot(String color, int strand, Web web, boolean isVisible) {
         canvas = Canvas.getCanvas();
         this.color = color;
         this.strand = strand;
         this.web = web;
-        body = new Ellipse2D.Double(xPosition - 2.5, yPosition - 2.5, 5, 5);
         this.isVisible = isVisible;
-        draw();
+    }
+
+    /**
+     * Add the spot to the web
+     * 
+     * @param strands       the strands of the web
+     */
+    public void addSpot(HashMap<Integer, Strand> strands) {
+        Strand strand = strands.get(this.strand);
+        Double x2 = strand.getBody().getX2();
+        Double y2 = strand.getBody().getY2();
+        
+        body = new Ellipse2D.Double(x2 - 2.5, y2 - 2.5, 5, 5);
     }
 
     /**
@@ -76,7 +88,7 @@ public class Spot {
     /*
      * Draw the spot with current specifications on screen.
      */
-    private void draw() {
+    protected void draw() {
         if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color, body);
@@ -87,7 +99,7 @@ public class Spot {
     /*
      * Erase the spot on screen.
      */
-    private void erase() {
+    protected void erase() {
         if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
