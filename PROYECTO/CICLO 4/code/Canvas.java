@@ -145,12 +145,14 @@ public class Canvas{
             graphic.setColor(Color.cyan);
         else if(colorString.equals("darkgreen"))
             graphic.setColor(new Color(0, 100, 0));
-        else if (colorString.equals("aquamarine")) // Añadir aquamarine
+        else if (colorString.equals("aquamarine")) 
             graphic.setColor(new Color(127, 255, 212));
-        else if (colorString.equals("lavender")) // Añadir lavender
+        else if (colorString.equals("lavender")) 
             graphic.setColor(new Color(230, 230, 250));
-        else if (colorString.equals("salmon")) // Añadir salmon
+        else if (colorString.equals("salmon")) 
             graphic.setColor(new Color(250, 128, 114));
+        else if (colorString.equals("white"))
+            graphic.setColor(new Color(255, 255, 255));
         else
             graphic.setColor(Color.black);
     }

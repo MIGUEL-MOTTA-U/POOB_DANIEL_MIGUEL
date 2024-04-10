@@ -19,6 +19,9 @@ public class Fixed extends Bridge {
         super(color, distance, inicialStrand, finalStrand, web, isVisible);
     }
 
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
     private void createBody() {
         double x1 = this.body.getX1() - (5/2);
         double y1 = this.body.getY1() - (5/2);
@@ -29,6 +32,13 @@ public class Fixed extends Bridge {
         this.rightEnd = new Circle(x2, y2, this.color, this.isVisible, 5);
     }
 
+    /**
+     * Add the bridge to the web with the new body
+     * 
+     * @param strands       the strands of the web
+     * @param inicialStrand the strand where the bridge begin
+     * @param finalStrand   the strand where the bridge end
+     */
     @Override
     public void addBridge(HashMap<Integer, Strand> strands, int inicialStrand, int finalStrand) {
         super.addBridge(strands, inicialStrand, finalStrand);
@@ -44,21 +54,27 @@ public class Fixed extends Bridge {
         System.out.println("No se puede eliminar un puente que sea de tipo fixed");
     }
 
+    /*
+     * Draw the bridge with current specifications on screen.
+     */
     @Override
     protected void draw() {
         super.draw();
         if (isVisible) {
-            leftEnd.makeVisible();
-            rightEnd.makeVisible();
+            this.leftEnd.makeVisible();
+            this.rightEnd.makeVisible();
         }
     }
 
+    /*
+     * Erase the bridge on screen.
+     */
     @Override
     protected void erase() {
         super.erase();
         if (isVisible) {
-            leftEnd.makeInvisible();
-            rightEnd.makeInvisible();
+            this.leftEnd.makeInvisible();
+            this.rightEnd.makeInvisible();
         }
     }
 }
