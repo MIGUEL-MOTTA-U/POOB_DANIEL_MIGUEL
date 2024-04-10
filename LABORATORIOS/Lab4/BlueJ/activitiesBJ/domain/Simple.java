@@ -1,4 +1,10 @@
 package domain;  
+/**
+ * The class Simple extends the abstract class Activity. 
+ * It is a regular activity with a determined time to be completed.
+ * @autors: Daniel Diaz and Miguel Motta
+ * @version: 09/04/2024
+ */
 
 public class Simple extends Activity{
     private Integer time;
@@ -9,6 +15,9 @@ public class Simple extends Activity{
     }    
     
 
+    /**
+     * This function return
+     */
     @Override
     public int time() throws ProjectException{
        if (time == null) throw new ProjectException(ProjectException.TIME_EMPTY);
@@ -25,5 +34,14 @@ public class Simple extends Activity{
     @Override
     public String data(){
         return name+". Costo:" +cost+".Tiempo:"+time;
+    }
+    
+    
+    /**
+     * CHanges the time of the Simple activity
+     * @param t, is the new value of the time of the Simple activity.
+     */
+    public void setTime(Integer t){
+        this.time = t;
     }
 }

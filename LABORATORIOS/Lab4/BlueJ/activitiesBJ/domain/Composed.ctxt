@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=Composed
+comment1.params=name\ cost\ parallel
+comment1.target=Composed(java.lang.String,\ java.lang.Integer,\ boolean)
+comment1.text=\r\n\ Constructs\ a\ new\ composed\ activity\r\n\ @param\ name\ \r\n\ @param\ cost\r\n\ @param\ parallel\r\n
+comment2.params=a
+comment2.target=void\ add(Activity)
+comment2.text=\r\n\ Add\ a\ new\ activity\r\n\ @param\ a\r\n
+comment3.params=
+comment3.target=int\ cost()
+comment4.params=
+comment4.target=int\ time()
+comment5.params=dUnknow\ dError\ dEmpty
+comment5.target=int\ time(int,\ int,\ int)
+comment5.text=\r\n\ Calculates\ an\ estimated\ price\ using\ default\ values\ when\ necessary\r\n\ @param\ dUnknown\r\n\ @param\ dError\r\n\ @param\ dEmpty\r\n\ @return\ \r\n
+comment6.params=modality
+comment6.target=int\ price(char)
+comment6.text=\r\n\ Calculate\ an\ estimated\ price\ considering\ the\ modality,\ if\ is\ possible.\r\n\ @param\ modality\ ['A'(verage),\ 'M'\ (ax)]\ Use\ the\ average\ or\ maximum\ time\ of\ known\ activities\ to\ estimate\ unknown\ ones\ or\ those\ with\ error.\r\n\ @return\ \r\n\ @throws\ ProjectException\ \ IMPOSSIBLE,\ if\ it\ can't\ be\ calculated\r\n
+comment7.params=activity
+comment7.target=int\ price(java.lang.String)
+comment7.text=\r\n\ Calculates\ an\ time\ of\ a\ subactivity\r\n\ @return\ \r\n\ @throws\ ProjectException\ UNKNOWN,\ if\ it\ doesn't\ exist.\ IMPOSSIBLE,\ if\ it\ can't\ be\ calculated\r\n
+comment8.params=
+comment8.target=java.lang.String\ data()
+numComments=9

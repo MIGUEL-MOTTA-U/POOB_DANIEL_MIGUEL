@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Simple
+comment0.text=\r\n\ The\ class\ Simple\ extends\ the\ abstract\ class\ Activity.\ \r\n\ It\ is\ a\ regular\ activity\ with\ a\ determined\ time\ to\ be\ completed.\r\n\ @autors\:\ Daniel\ Diaz\ and\ Miguel\ Motta\r\n\ @version\:\ 09/04/2024\r\n
+comment1.params=name\ cost\ time
+comment1.target=Simple(java.lang.String,\ java.lang.Integer,\ java.lang.Integer)
+comment2.params=
+comment2.target=int\ time()
+comment2.text=\r\n\ This\ function\ return\r\n
+comment3.params=
+comment3.target=int\ cost()
+comment4.params=
+comment4.target=java.lang.String\ data()
+comment5.params=t
+comment5.target=void\ setTime(java.lang.Integer)
+comment5.text=\r\n\ CHanges\ the\ time\ of\ the\ Simple\ activity\r\n\ @param\ t,\ is\ the\ new\ value\ of\ the\ time\ of\ the\ Simple\ activity.\r\n
+numComments=6

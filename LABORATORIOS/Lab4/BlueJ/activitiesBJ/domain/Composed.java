@@ -62,8 +62,40 @@ public class Composed extends Activity{
      * @param dEmpty
      * @return 
      */
-    public int time(int dUnknow, int dError, int dEmpty){
-        return 0;
+    public int time(int dUnknow, int dError, int dEmpty)throws ProjectException {
+        int time = 0;
+        if (this.activities.isEmpty()) throw new ProjectException(ProjectException.COMPOSED_EMPTY);
+        if (this.parallel) {
+            time = Integer.MIN_VALUE;
+            for (Activity activity : activities) {
+                try{
+                    if (activity.time() > time) time = activity.time();
+                } catch (ProjectException e){
+                    if (e.getMessage().equals( ProjectException.TIME_EMPTY)){
+                        if (dEmpty > time) time = dEmpty;
+                    } else if(e.getMessage().equals( ProjectException.TIME_ERROR)){ 
+                        if (dError > time) time = dError;
+                    } else if(e.getMessage().equals( ProjectException.COMPOSED_EMPTY)){ 
+                        if(dUnknow > time) time = dUnknow;
+                    } else throw e;
+                }
+            }
+        } else {
+            for (Activity activity : activities) {
+                try{
+                    time += activity.time();
+                } catch (ProjectException e){
+                    if (e.getMessage().equals( ProjectException.TIME_EMPTY)) {
+                        time += dEmpty; 
+                    } else if(e.getMessage().equals( ProjectException.TIME_ERROR)){
+                        time += dError;
+                    } else if (e.getMessage().equals( ProjectException.COMPOSED_EMPTY)) {
+                        if(dUnknow > time) time = dUnknow;
+                    } else throw e;   
+                } 
+            }
+        }
+        return time;
     } 
     
     
@@ -84,7 +116,7 @@ public class Composed extends Activity{
      */
     public int price(String activity) throws ProjectException{
         return 0;
-    }   
+    }
      
     @Override
     public String data() throws ProjectException{
@@ -94,7 +126,5 @@ public class Composed extends Activity{
             answer.append("\n\t"+b.data());
         }
         return answer.toString();
-    } 
-    
-
+    }
 }

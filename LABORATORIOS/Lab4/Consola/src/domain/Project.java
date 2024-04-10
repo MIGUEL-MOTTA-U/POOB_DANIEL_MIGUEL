@@ -23,9 +23,9 @@ public class Project{
 
     private void addSome(){
         String [][] activities= {{"Buscar datos","50","50", "" },
-                                 {"Evaluar datos","80","80",""},
-                                 {"Limpiar datos","100","100",""},
-                                 {"Preparar datos", "50", "Secuencial", "Buscar datos\nEvaluar datos\nLimpiar datos"}};
+                                {"Evaluar datos","80","80",""},
+                                {"Limpiar datos","100","100",""},
+                                {"Preparar datos", "50", "Secuencial", "Buscar datos\nEvaluar datos\nLimpiar datos"}};
         for (String [] c: activities){
             add(c[0],c[1],c[2],c[3]);
         }
@@ -52,7 +52,7 @@ public class Project{
     public void add(String name, String cost, String timeType, String theActivities){ 
         Activity na;
         if (theActivities.equals("")){
-           na=new Simple(name,cost.equals("") ? null : Integer.parseInt(cost),timeType.equals("") ? null : Integer.parseInt(timeType));
+            na=new Simple(name,cost.equals("") ? null : Integer.parseInt(cost),timeType.equals("") ? null : Integer.parseInt(timeType));
         }else{ 
             na = new Composed(name,cost.equals("") ? null : Integer.parseInt(cost), timeType.equals("") ? true : timeType.toUpperCase().charAt(0)=='P');
             String [] aSimples= theActivities.split("\n");
@@ -103,7 +103,7 @@ public class Project{
     }
     
     
-     /**
+    /**
      * Return the data of activities with a prefix
      * @param prefix
      * @return  

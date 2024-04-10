@@ -6,24 +6,25 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import javax.swing.JOptionPane;
 
 
 public class ActivityTest{
-   
+    
     
     public ActivityTest(){
     }
-
-
+    
+    
     @Before
     public void setUp(){    
     }
-
+    
     @After
     public void tearDown(){
     }
     
- 
+    
     @Test
     public void shouldCalculateTheTimeOfAComposedSecuencialActivity(){
         Composed c = new Composed("IS-BASICA", 100 , false );
@@ -63,7 +64,7 @@ public class ActivityTest{
     }    
     
     
-   @Test
+    @Test
     public void shouldThrowExceptionIfThereIsErrorInTime(){
         Composed c = new Composed("IS-BASICA", 100 , false );
         c.add(new Simple("AYED", 10, 10));
@@ -77,7 +78,7 @@ public class ActivityTest{
         }    
     }     
     
-   @Test
+    @Test
     public void shouldThrowExceptionIfTimeIsNotKnown(){
         Composed c = new Composed("IS-BASICA", 100 , true );
         c.add(new Simple("AYED", 10, 10));
@@ -90,5 +91,60 @@ public class ActivityTest{
             assertEquals(ProjectException.TIME_EMPTY,e.getMessage());
         }    
     }  
+    
+    
+    @Test
+    public void shouldThrowExceptionIfTimeIsEmpty(){
+       Simple s = new Simple("IS-BASICA", 100 , null);
+       try { 
+          int time=s.time();
+          fail("Did not throw exception (It was suposed to throw.)");
+       } catch (ProjectException e) {
+           assertEquals(ProjectException.TIME_EMPTY,e.getMessage());
+       }    
+    }
+    
+    @Test
+    public void shouldThrowExceptionIfTimeError(){
+       Simple s = new Simple("IS-BASICA", 100 , 0);
+       Simple a = new Simple("AYED", 15 , 0);
+       try { 
+          int time=s.time();
+          fail("Did not throw exception (It was suposed to throw.)");
+       } catch (ProjectException e) {
+           assertEquals(ProjectException.TIME_ERROR,e.getMessage());
+       }
+       try { 
+          int time=a.time();
+          fail("Did not throw exception (It was suposed to throw.)");
+       } catch (ProjectException e) {
+           assertEquals(ProjectException.TIME_ERROR,e.getMessage());
+       }    
+    } 
+    
+    @Test
+    public void shouldChangeDefaultValues(){
+       Composed c = new Composed("IS-BASICA", 100 , true );
+       c.add(new Simple("AYED", 10, 10));
+       c.add(new Simple("MBDA", 10, null));
+       c.add(new Simple("POOB", 10, 30));
+       try{
+           int time=c.time(1,5,15);
+           assertEquals(15,time);
+       } catch (ProjectException e){
+           fail("Didn't replaced the values.");
+       }
+       Composed f = new Composed("IS-ADVANCED", 100 , false );
+       f.add(new Simple("CNVS", 10, 10));
+       f.add(new Simple("RECO", 10, null));
+       f.add(new Simple("TSOR", 10, 33));
+       try{
+           int timef=f.time(0,30,15);
+           assertEquals(55,timef); // 55 = 10+30+15
+       } catch (ProjectException e){
+           fail("Didn't replaced the values.");
+       }
+    }
+    
     
 }
