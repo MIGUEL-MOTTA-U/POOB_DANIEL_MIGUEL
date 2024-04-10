@@ -22,4 +22,9 @@ public class NormalSpot extends Spot {
         super.addSpot(strands);
         draw();
     }
+
+    @Override
+    public void act() {
+        
+    }
 }

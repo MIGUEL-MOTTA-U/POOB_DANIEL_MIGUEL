@@ -26,4 +26,9 @@ public class NormalBridge extends Bridge {
         super.addBridge(strands);
         draw();
     }
+
+    @Override
+    public void act() {
+        
+    }
 }

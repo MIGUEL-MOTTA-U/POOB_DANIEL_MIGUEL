@@ -62,7 +62,12 @@ public class Transformer extends Bridge {
         }
     }
 
-        /*
+    @Override
+    public void act() {
+        
+    }
+
+    /*
      * Draw the bridge with current specifications on screen.
      */
     @Override

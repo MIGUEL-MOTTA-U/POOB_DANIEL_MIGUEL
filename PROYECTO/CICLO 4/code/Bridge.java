@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public class Bridge {
+public abstract class Bridge {
     protected String color;
     protected int distance;
     protected int inicialStrand;
@@ -71,12 +71,7 @@ public class Bridge {
         return output;
     }
 
-    /**
-     * Its the behavior of the bridge
-     */
-    public void act() {
-
-    }
+    public abstract void act();
 
     /**
      * Return the color of the bridge
