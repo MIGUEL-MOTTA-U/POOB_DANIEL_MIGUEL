@@ -45,9 +45,9 @@ public class Bridge {
         double y1 = this.distance * Math.sin(firstStrand.getAngle());
         double x2 = this.distance * Math.cos(lastStrand.getAngle());
         double y2 = this.distance * Math.sin(lastStrand.getAngle());
-        body = new Line2D.Double(canvas.getCenterX() + x1, canvas.getCenterY() + y1, canvas.getCenterX() + x2,
+        this.body = new Line2D.Double(canvas.getCenterX() + x1, canvas.getCenterY() + y1, canvas.getCenterX() + x2,
                 canvas.getCenterY() + y2);
-        draw();
+        // draw();
     }
 
     /**
@@ -127,7 +127,7 @@ public class Bridge {
     /*
      * Draw the bridge with current specifications on screen.
      */
-    private void draw() {
+    protected void draw() {
         if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.draw(this, color, body);
@@ -138,7 +138,7 @@ public class Bridge {
     /*
      * Erase the bridge on screen.
      */
-    private void erase() {
+    protected void erase() {
         if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             canvas.erase(this);
