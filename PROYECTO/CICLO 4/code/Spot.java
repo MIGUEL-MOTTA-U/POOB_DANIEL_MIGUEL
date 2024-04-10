@@ -7,7 +7,7 @@ import java.util.HashMap;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public class Spot {
+public abstract class Spot {
     protected String color;
     protected int strand;
     protected Web web;
@@ -60,12 +60,7 @@ public class Spot {
         this.makeInvisible();
     }
 
-    /**
-     * Its the behavior of the spot
-     */
-    public void act() {
-
-    };
+    public  abstract void act();
 
     /**
      * Return the color of the spot
