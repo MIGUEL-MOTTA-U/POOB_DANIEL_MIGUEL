@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 /**
  * This Spot's subclass has the same behaviors that a normal Spot,
@@ -10,8 +11,19 @@ public class Killer extends Spot {
     /**
      * Constructor for objects of class Killer
      */
-    public Killer(String color, int strand, Web web, double xPosition, double yPosition, boolean isVisible) {
-        super(color, strand, web, xPosition, yPosition, isVisible);
+    public Killer(String color, int strand, Web web, boolean isVisible) {
+        super(color, strand, web, isVisible);
+    }
+
+    /**
+     * Add the spot to the web
+     * 
+     * @param strands       the strands of the web
+     */
+    @Override
+    public void addSpot(HashMap<Integer, Strand> strands) {
+        super.addSpot(strands);
+        draw();
     }
 
     /**
