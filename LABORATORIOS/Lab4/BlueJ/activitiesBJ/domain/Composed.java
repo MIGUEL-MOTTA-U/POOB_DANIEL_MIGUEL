@@ -1,5 +1,6 @@
 package domain;  
- 
+
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 public class Composed extends Activity{
@@ -55,7 +56,7 @@ public class Composed extends Activity{
     };
     
     
-     /**
+    /**
      * Calculates an estimated price using default values when necessary
      * @param dUnknown
      * @param dError
@@ -101,13 +102,45 @@ public class Composed extends Activity{
     
      /**
      * Calculate an estimated price considering the modality, if is possible.
-     * @param modality ['A'(verage), 'M' (ax)] Use the average or maximum time of known activities to estimate unknown ones or those with error.
+     * @param modality ['A'(verage), 'M' (ax)] Use the average or maximum time 
+     * of known activities to estimate unknown ones or those with error.
      * @return 
      * @throws ProjectException  IMPOSSIBLE, if it can't be calculated
      */
-    public int price(char modality){
-        return 0;
-    } 
+    public int time(char modality)throws ProjectException{
+        int res = 0;
+        if(modality == 'A'){
+            /* Suponiendo que cunado encuentre un error debo guardar esa
+                actividad para reemplazarla luego con el valor calculado.
+               */
+            int acumulator = 0;
+            int nActivitiesOk = 0; // Numero de actividades correctas.
+            for (Activity a : activities){
+                try{
+                    acumulator += a.time();
+                    nActivitiesOk++;
+                } catch (ProjectException e){
+                    System.out.println("Error detected in activity.time() "+ e.getMessage());
+                }
+            }
+            if(nActivitiesOk==0) throw new ProjectException(ProjectException.IMPOSSIBLE);
+            res = acumulator / nActivitiesOk;
+            
+        } else if (modality == 'M'){
+            // Get the MAX
+            int max = Integer.MIN_VALUE;
+            for (Activity a : activities){
+                try{
+                    int tempo = a.time();
+                    max = (max>tempo)? max:tempo;
+                }catch (ProjectException e){
+                    System.out.println("Error detected in activity.time() "+ e.getMessage());
+                }
+            }
+            res = max;
+        }if(res <=0) throw new ProjectException(ProjectException.IMPOSSIBLE);
+        return (int) res;
+    }
     
      /**
      * Calculates an time of a subactivity
@@ -115,6 +148,9 @@ public class Composed extends Activity{
      * @throws ProjectException UNKNOWN, if it doesn't exist. IMPOSSIBLE, if it can't be calculated
      */
     public int price(String activity) throws ProjectException{
+        
+        
+        
         return 0;
     }
      
