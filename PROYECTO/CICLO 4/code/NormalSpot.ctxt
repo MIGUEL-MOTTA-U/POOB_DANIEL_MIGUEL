@@ -6,4 +6,6 @@ comment1.target=NormalSpot(java.lang.String,\ int,\ Web,\ boolean)
 comment2.params=strands
 comment2.target=void\ addSpot(java.util.HashMap)
 comment2.text=\r\n\ Add\ the\ spot\ to\ the\ web\r\n\ \r\n\ @param\ strands\ \ \ \ \ \ \ the\ strands\ of\ the\ web\r\n
-numComments=3
+comment3.params=
+comment3.target=void\ act()
+numComments=4

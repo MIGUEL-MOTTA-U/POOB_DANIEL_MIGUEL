@@ -30,7 +30,6 @@ comment4.target=double[]\ bridge()
 comment4.text=\r\n\ Return\ the\ coordenates\ of\ the\ bridge,\ (Xo,Yo)\ &\ (Xf,Yf)\r\n\ \r\n\ @return\ the\ coordenates\ of\ the\ bridge\r\n
 comment5.params=
 comment5.target=void\ act()
-comment5.text=\r\n\ Its\ the\ behavior\ of\ the\ bridge\r\n
 comment6.params=
 comment6.target=java.lang.String\ getColor()
 comment6.text=\r\n\ Return\ the\ color\ of\ the\ bridge\r\n\ \r\n\ @return\ the\ color\ of\ the\ bridge\r\n

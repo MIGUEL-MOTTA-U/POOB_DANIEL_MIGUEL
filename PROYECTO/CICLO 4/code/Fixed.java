@@ -54,6 +54,11 @@ public class Fixed extends Bridge {
         System.out.println("No se puede eliminar un puente que sea de tipo fixed");
     }
 
+    @Override
+    public void act() {
+        
+    }
+
     /*
      * Draw the bridge with current specifications on screen.
      */

@@ -8,11 +8,23 @@ import java.util.HashMap;
  * @version (CICLO 4 / 2024 - 01)
  */
 public class Killer extends Spot {
+    private Circle centerCircle;
+
     /**
      * Constructor for objects of class Killer
      */
     public Killer(String color, int strand, Web web, boolean isVisible) {
         super(color, strand, web, isVisible);
+    }
+
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
+    private void createBody() {
+        double x = this.body.getCenterX() - 1;
+        double y = this.body.getCenterY() - 1;
+
+        this.centerCircle = new Circle(x, y, "white", this.isVisible, 2);
     }
 
     /**
@@ -23,6 +35,7 @@ public class Killer extends Spot {
     @Override
     public void addSpot(HashMap<Integer, Strand> strands) {
         super.addSpot(strands);
+        createBody();
         draw();
     }
 
@@ -32,5 +45,27 @@ public class Killer extends Spot {
     @Override
     public void act() {
         this.web.spiderKill();
+    }
+
+    /*
+     * Draw the bridge with current specifications on screen.
+     */
+    @Override
+    protected void draw() {
+        super.draw();
+        if (isVisible) {
+            this.centerCircle.makeVisible();        
+        }
+    }
+
+    /*
+     * Erase the bridge on screen.
+     */
+    @Override
+    protected void erase() {
+        super.erase();
+        if (isVisible) {
+            this.centerCircle.makeInvisible();
+        }
     }
 }

@@ -17,7 +17,7 @@ public class Triangle extends Figure{
     /**
      * Create a new triangle at default position with default color.
      */
-    public Triangle(int x, int y, String color, boolean isVisible, int height, int width){
+    public Triangle(double x, double y, String color, boolean isVisible, int height, int width){
         super(x, y, color, isVisible);
         this.height = height;
         this.width = width;
