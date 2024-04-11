@@ -30,20 +30,6 @@ public class Suicide extends Spot {
         createBody();
         draw();
     }
-    
-     /*
-     * Crete the new body of the suicide spot to differentiate it
-     */
-    private void createBody() {
-        
-        double x = this.body.getX();
-        double y = this.body.getY();
-
-        this.leftArm = new Circle(x-5, y, this.color, this.isVisible, 5);
-        this.rightArm = new Circle(x+5, y, this.color, this.isVisible, 5);
-        this.downArm = new Circle(x, y-5, this.color, this.isVisible, 5);
-        this.upArm = new Circle(x, y+5, this.color, this.isVisible, 5);
-    }
 
     /**
      * Its the behavior of the spot
@@ -79,5 +65,19 @@ public class Suicide extends Spot {
             this.upArm.makeInvisible();
             this.downArm.makeInvisible();
         }
+    }
+
+    /*
+     * Crete the new body of the suicide spot to differentiate it
+     */
+    private void createBody() {
+        
+        double x = this.body.getX();
+        double y = this.body.getY();
+
+        this.leftArm = new Circle(x-5, y, this.color, this.isVisible, 5);
+        this.rightArm = new Circle(x+5, y, this.color, this.isVisible, 5);
+        this.downArm = new Circle(x, y-5, this.color, this.isVisible, 5);
+        this.upArm = new Circle(x, y+5, this.color, this.isVisible, 5);
     }
 }

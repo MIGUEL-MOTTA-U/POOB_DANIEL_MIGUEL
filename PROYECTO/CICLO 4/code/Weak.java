@@ -18,20 +18,6 @@ public class Weak extends Bridge {
         super(color, distance, inicialStrand, finalStrand, web, isVisible);
     }
 
-    /*
-     * Crete the new body of the bridge to differentiate it
-     */
-    private void createBody() {
-        double x1 = this.body.getX1();
-        double y1 = this.body.getY1();
-        double x2 = this.body.getX2();
-        double y2 = this.body.getY2();
-        double x = ((x1 + x2) / 2) - (5/2);
-        double y = ((y1 + y2) / 2) - (5/2);
-
-        this.broken = new Circle(x, y, "white", this.isVisible, 5);
-    }
-
     /**
      * Add the bridge to the web with the new body
      * 
@@ -74,5 +60,19 @@ public class Weak extends Bridge {
         if (isVisible) {
             this.broken.makeInvisible();
         }
+    }
+
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
+    private void createBody() {
+        double x1 = this.body.getX1();
+        double y1 = this.body.getY1();
+        double x2 = this.body.getX2();
+        double y2 = this.body.getY2();
+        double x = ((x1 + x2) / 2) - (5/2);
+        double y = ((y1 + y2) / 2) - (5/2);
+
+        this.broken = new Circle(x, y, "white", this.isVisible, 5);
     }
 }
