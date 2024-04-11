@@ -482,36 +482,71 @@ public class SpiderWebTest {
     }
 
     @Test
-    public void spiderWebAtest() {
+    public void spiderWebAtest()  throws InterruptedException  {
         spiderWeb.makeVisible();
-        spiderWeb.addBridge("weak", "yellow", 98, 4);
+        JOptionPane.showMessageDialog(null, "Los puentes y spots existentes son normales");
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un puente (lavenderñ) tipo weak", 2000);
+        spiderWeb.addBridge("weak", "lavender", 98, 4);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un puente (aguamarina) tipo weak", 2000);
         spiderWeb.addBridge("weak", "aquamarine", 114, 3);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un spot (rojo) tipo bouncy", 2000);
         spiderWeb.addSpot("bouncy", "red", 3);
+        Thread.sleep(2000);
         spiderWeb.spiderSit(5);
         spiderWeb.spiderWalk(true);
+        Thread.sleep(2000);
 
         int respuesta = JOptionPane.showConfirmDialog(null,
-                "Teniendo en cuenta que los 2 primeros puentes son de tipo Weak; y el spot alcanzado es de tipo bouncy, el simulador funciona de manera adecuada?",
+                "Teniendo en cuenta las condiciones dada, considera que el simulador funciona de manera adecuada?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
 
         assertEquals(respuesta, JOptionPane.YES_OPTION);
     }
 
     @Test
-    public void spiderWebAtest2() {
+    public void spiderWebAtest2() throws InterruptedException {
         spiderWeb.makeVisible();
+        JOptionPane.showMessageDialog(null, "Los puentes y spots existentes son normales");
+        Thread.sleep(200);
+        showMessageWithDelay("Se agrega un puente normal (negro)", 2000);
         spiderWeb.addBridge("black", 110, 3);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un puente (amarillo) tipo mobile", 2000);
         spiderWeb.addBridge("mobile", "yellow", 65, 1);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un puente (morado) tipo transformer", 2000);
         spiderWeb.addBridge("transformer", "purple", 300, 2);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un puente (aguamarina) tipo fixed", 2000);
         spiderWeb.addBridge("fixed", "aquamarine", 371, 1);
+        Thread.sleep(2000);
+        showMessageWithDelay("Se agrega un spot (rojo) tipo killer", 2000);
         spiderWeb.addSpot("killer", "red", 1);
+        Thread.sleep(2000);
         spiderWeb.spiderWalk(true);
-        spiderWeb.delSpot("purple");
+        Thread.sleep(2000);
+        showMessageWithDelay("Se elimina el spot amarillo (normal)", 2000);
+        spiderWeb.delSpot("yellow");
+        Thread.sleep(2000);
+        showMessageWithDelay("Se elimina el puente morado (transformer)", 2000);
+        spiderWeb.delBridge("purple");
+        Thread.sleep(2000);
+        showMessageWithDelay("Se elimina el puente aguamarina (fixed)", 2000);
+        spiderWeb.delBridge("aquamarine");
+        Thread.sleep(2000);
 
         int respuesta = JOptionPane.showConfirmDialog(null,
-                "Teniendo en cuenta que el primer puente es de tipo Mobile, el penultimo de tipo transformer (el cual se elimina al final) y el ultimo de tipo fixed; y el spot alcanzado es de tipo Killer, el simulador funciona de manera adecuada?",
+                "Teniendo en cuenta las condiciones dada, considera que el simulador funciona de manera adecuada?",
                 "Confirmación", JOptionPane.YES_NO_OPTION);
 
         assertEquals(respuesta, JOptionPane.YES_OPTION);
+    }
+
+    private void showMessageWithDelay(String message, int delay) throws InterruptedException {
+        JOptionPane.showMessageDialog(null, message);
+        Thread.sleep(delay);
     }
 }

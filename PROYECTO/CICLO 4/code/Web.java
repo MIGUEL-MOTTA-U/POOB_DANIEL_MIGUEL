@@ -140,7 +140,7 @@ public class Web {
         if (bridges.containsKey(color) && this.radio >= distance && distance > 0) {
             Bridge bridge = bridges.get(color);
             String type = bridge.getClass().getSimpleName().toLowerCase();
-            type = (type.equals("bridge")) ? "normal" : type;
+            type = (type.equals("normalbridge")) ? "normal" : type;
             bridge.makeInvisible();
             removeBridge(color);;
             addBridge(type, color, distance, bridge.getInicialStrand());
