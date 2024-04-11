@@ -119,6 +119,13 @@ public abstract class Bridge {
     }
 
     /*
+     * Change the distance of the bridge
+     */
+    public void setDistance(int newDistance) {
+        this.distance = newDistance;
+    }
+
+    /*
      * Draw the bridge with current specifications on screen.
      */
     protected void draw() {

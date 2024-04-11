@@ -141,7 +141,8 @@ public class Web {
             Bridge bridge = bridges.get(color);
             String type = bridge.getClass().getSimpleName().toLowerCase();
             type = (type.equals("bridge")) ? "normal" : type;
-            delBridge(color);
+            bridge.makeInvisible();
+            removeBridge(color);;
             addBridge(type, color, distance, bridge.getInicialStrand());
             this.ok = true;
         } else {

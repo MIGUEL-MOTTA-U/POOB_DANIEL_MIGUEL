@@ -60,12 +60,14 @@ public class Mobile extends Bridge {
      */
     @Override
     public void act() {
-        super.deleteBridge();
         int newDistance = (int) (this.distance + this.distance * 0.2);
-        if (this.finalStrand != this.web.getNumStrands()) {
-            this.web.addBridge("mobile", this.color, newDistance, this.inicialStrand + 1);
-        } else {
-            this.web.addBridge("mobile", this.color, newDistance, 1);
+        if (this.web.getRadio() >= newDistance) {
+            super.deleteBridge();
+            if (this.finalStrand != this.web.getNumStrands()) {
+                this.web.addBridge("mobile", this.color, newDistance, this.inicialStrand + 1);
+            } else {
+                this.web.addBridge("mobile", this.color, newDistance, 1);
+            }
         }
     }
 
