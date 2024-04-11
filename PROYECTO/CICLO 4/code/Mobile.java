@@ -35,26 +35,6 @@ public class Mobile extends Bridge {
         draw();
     }
 
-    /*
-     * Crete the new body of the bridge to differentiate it
-     */
-    private void createBody() {
-        double x1 = this.body.getX1();
-        double y1 = this.body.getY1();
-        double x2 = this.body.getX2();
-        double y2 = this.body.getY2();
-
-        double diameter = distance(x1, x2, y1, y2) / 10;
-
-        for (double i = 0; i <= 1; i += 0.1) {
-            Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
-            double x = point.getX() - (diameter / 2);
-            double y = point.getY() - (diameter / 2);
-            Circle circle = new Circle(x, y, this.color, this.isVisible, diameter);
-            this.circles.add(circle);
-        }
-    }
-
     /**
      * Its the behavior of the bridge
      */
@@ -69,22 +49,6 @@ public class Mobile extends Bridge {
                 this.web.addBridge("mobile", this.color, newDistance, 1);
             }
         }
-    }
-
-    /*
-     * Return the length of the bridge
-     */
-    private double distance(double x1, double x2, double y1, double y2) {
-        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    }
-
-    /*
-     * Return a point belonging to the line
-     */
-    private Point2D.Double parameterizedSegment(double x1, double y1, double x2, double y2, double t) {
-        double x = x1 + t * (x2 - x1);
-        double y = y1 + t * (y2 - y1);
-        return new Point2D.Double(x, y);
     }
 
     /*
@@ -111,5 +75,41 @@ public class Mobile extends Bridge {
                 circle.makeInvisible();
             }
         }
+    }
+
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
+    private void createBody() {
+        double x1 = this.body.getX1();
+        double y1 = this.body.getY1();
+        double x2 = this.body.getX2();
+        double y2 = this.body.getY2();
+
+        double diameter = distance(x1, x2, y1, y2) / 10;
+
+        for (double i = 0; i <= 1; i += 0.1) {
+            Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
+            double x = point.getX() - (diameter / 2);
+            double y = point.getY() - (diameter / 2);
+            Circle circle = new Circle(x, y, this.color, this.isVisible, diameter);
+            this.circles.add(circle);
+        }
+    }
+
+    /*
+     * Return the length of the bridge
+     */
+    private double distance(double x1, double x2, double y1, double y2) {
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    /*
+     * Return a point belonging to the line
+     */
+    private Point2D.Double parameterizedSegment(double x1, double y1, double x2, double y2, double t) {
+        double x = x1 + t * (x2 - x1);
+        double y = y1 + t * (y2 - y1);
+        return new Point2D.Double(x, y);
     }
 }

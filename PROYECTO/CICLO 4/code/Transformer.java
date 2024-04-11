@@ -19,20 +19,6 @@ public class Transformer extends Bridge {
         super(color, distance, inicialStrand, finalStrand, web, isVisible);
     }
 
-    /*
-     * Crete the new body of the bridge to differentiate it
-     */
-    private void createBody() {
-        double x1 = this.body.getX1();
-        double y1 = this.body.getY1();
-        double x2 = this.body.getX2();
-        double y2 = this.body.getY2();
-        double x = ((x1 + x2) / 2) - (5/2);
-        double y = ((y1 + y2) / 2) - (5/2);
-
-        this.centerCircle = new Circle(x, y, this.color, this.isVisible, 5);
-    }
-
     /**
      * Add the bridge to the web with the new body
      * 
@@ -87,5 +73,19 @@ public class Transformer extends Bridge {
         if (isVisible) {
             this.centerCircle.makeInvisible();
         }
+    }
+
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
+    private void createBody() {
+        double x1 = this.body.getX1();
+        double y1 = this.body.getY1();
+        double x2 = this.body.getX2();
+        double y2 = this.body.getY2();
+        double x = ((x1 + x2) / 2) - (5/2);
+        double y = ((y1 + y2) / 2) - (5/2);
+
+        this.centerCircle = new Circle(x, y, this.color, this.isVisible, 5);
     }
 }

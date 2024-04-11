@@ -17,16 +17,6 @@ public class Killer extends Spot {
         super(color, strand, web, isVisible);
     }
 
-    /*
-     * Crete the new body of the bridge to differentiate it
-     */
-    private void createBody() {
-        double x = this.body.getCenterX() - 1;
-        double y = this.body.getCenterY() - 1;
-
-        this.centerCircle = new Circle(x, y, "white", this.isVisible, 2);
-    }
-
     /**
      * Add the spot to the web
      * 
@@ -67,5 +57,15 @@ public class Killer extends Spot {
         if (isVisible) {
             this.centerCircle.makeInvisible();
         }
+    }
+
+    /*
+     * Crete the new body of the bridge to differentiate it
+     */
+    private void createBody() {
+        double x = this.body.getCenterX() - 1;
+        double y = this.body.getCenterY() - 1;
+
+        this.centerCircle = new Circle(x, y, "white", this.isVisible, 2);
     }
 }
