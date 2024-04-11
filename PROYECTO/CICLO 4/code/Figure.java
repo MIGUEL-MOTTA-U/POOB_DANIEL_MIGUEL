@@ -141,7 +141,46 @@ public abstract class Figure {
         color = newColor;
         draw();
     }
-
+    
+    /**
+     * return the color
+     */
+    public String getColor(){
+        return color;
+    }
+    
+    /**
+     * Set a new X position
+     * @param the new x position
+     */
+    public void setX(double x){
+        xPosition = x;
+    }
+    
+    /**
+     * Set a new Y position
+     * @param the new y position
+     */
+    public void setY(double y){
+        yPosition = y;
+    }
+    
+    /**
+     * return the X postion
+     * @return X
+     */
+    public double getX(){
+        return xPosition;
+    }
+    
+    /**
+     * return the y postion
+     * @return y
+     */
+    public double getY(){
+        return yPosition;
+    }
+    
     /*
      * Erase the figure on screen.
      */
