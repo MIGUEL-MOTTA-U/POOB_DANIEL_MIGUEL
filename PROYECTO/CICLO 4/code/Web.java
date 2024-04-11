@@ -605,6 +605,9 @@ public class Web {
             case "killer":
                 spot = new Killer(color, strand, this, this.isVisible);
                 break;
+            case "suicide":
+                spot = new Suicide(color, strand, this, this.isVisible);
+                break;
             default:
                 this.ok = false;
                 throw new IllegalArgumentException("Tipo de puente no válido: " + type);
