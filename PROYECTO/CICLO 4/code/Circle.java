@@ -14,7 +14,7 @@ public class Circle extends Figure {
     /**
      * Constructor for objects of class Circle
      */
-    public Circle(double x, double y, String color, boolean isVisible, int diameter) {
+    public Circle(double x, double y, String color, boolean isVisible, double diameter) {
         super(x, y, color, isVisible);
         this.diameter = diameter;
     }
@@ -24,7 +24,7 @@ public class Circle extends Figure {
      * 
      * @param newDiameter the new size (in pixels). Size must be >=0.
      */
-    public void changeSize(int newDiameter) {
+    public void changeSize(double newDiameter) {
         erase();
         diameter = newDiameter;
         draw();
