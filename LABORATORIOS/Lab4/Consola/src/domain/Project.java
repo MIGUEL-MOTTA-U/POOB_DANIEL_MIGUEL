@@ -67,8 +67,9 @@ public class Project{
             for (String b : aSimples){
                 ((Composed)na).add(activities.get(b.toUpperCase()));
             }
-        }
-        activities.put(name.toUpperCase(),na);
+        }if(activities.containsKey(name.toUpperCase())){
+            throw new ProjectException(ProjectException.EXISTENT_ACTIVITY);
+        } else {activities.put(name.toUpperCase(),na);}
     }
 
 

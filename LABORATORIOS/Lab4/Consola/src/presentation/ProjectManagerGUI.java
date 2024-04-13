@@ -182,7 +182,9 @@ public class ProjectManagerGUI extends JFrame{
         buttonAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev){
                 try{
-                actionAdd();} catch (ProjectException e){} // Cositas
+                actionAdd();} catch (ProjectException e){
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                } // Cositas
             }
         });
         

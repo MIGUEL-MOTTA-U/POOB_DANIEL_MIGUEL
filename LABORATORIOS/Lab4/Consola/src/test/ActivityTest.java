@@ -228,7 +228,7 @@ public class ActivityTest{
         try{
             c.time("AFSA");
         }catch(ProjectException e){
-            System.out.println(e.getMessage());
+            
             assertEquals(ProjectException.IMPOSSIBLE, e.getMessage());
         }
         try{
@@ -254,17 +254,30 @@ public class ActivityTest{
         
         
     }
+    
     @Test
     public void shouldNotAddTheRepeatedActivities(){
         Composed c = new Composed("IS-BASICA", 100 , true );
         try{
-            c.add(new Simple("AFSA", 10, 45));
-            c.add(new Simple("POOB", 10, null));
-            c.add(new Simple("CVST", 10, -13));
-            c.add(new Simple("RECO", 10, 111)); 
+            c.add(new Simple("MBDA", 10, 45)); 
             c.add(new Composed("MBDA", 100 , true ));
+            fail("It should not add an existent activity.");
         } catch (ProjectException e){
-            e.getMessage();
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
+        }
+        try{
+            c.add(new Composed("POOB", 100 , true ));
+            c.add(new Composed("POOB", 100 , false ));
+            fail("It should not add an existent activity.");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
+        }
+        try{
+            c.add(new Simple("TSORS", 10, 45)); 
+            c.add(new Simple("TSORS", 100 , 66));
+            fail("It should not add an existent activity.");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
         }
     }
 }

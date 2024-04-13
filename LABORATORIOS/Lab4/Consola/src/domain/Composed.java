@@ -25,8 +25,15 @@ public class Composed extends Activity{
      * @param a
      */   
     public void add(Activity a)throws ProjectException{
-        activities.add(a);
+        boolean res = false;
+        for (Activity acti : activities){
+            if(acti.name().equals(a.name())) res = true;
+        }
+        if(res) {
+            throw new ProjectException(ProjectException.EXISTENT_ACTIVITY);
+        } else {activities.add(a);}
     }
+
 
     @Override
     public int cost(){
@@ -156,11 +163,9 @@ public class Composed extends Activity{
                 }
             }
         }
-        System.out.println(res);
         if (res==0) throw new ProjectException(ProjectException.UNKNOWN);
         return res;
     }
-     
     @Override
     public String data() throws ProjectException{
         StringBuffer answer=new StringBuffer();

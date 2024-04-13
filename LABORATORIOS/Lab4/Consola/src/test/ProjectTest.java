@@ -68,16 +68,16 @@ public class ProjectTest{
             assertTrue(a3 instanceof Composed);
 
             assertEquals("completo 1. Tipo Paralela. \n" +
-                 "\tBuscar datos. Costo:50.Tiempo:50\n" +
-                 "\tEvaluar datos. Costo:80.Tiempo:80", a1.data());
+                "\tBuscar datos. Costo:50.Tiempo:50\n" +
+                "\tEvaluar datos. Costo:80.Tiempo:80", a1.data());
             assertEquals("completo 2. Tipo Paralela. \n" +
-                 "\tBuscar datos. Costo:50.Tiempo:50\n" +
-                 "\tLimpiar datos. Costo:100.Tiempo:100", a2.data());
+                "\tBuscar datos. Costo:50.Tiempo:50\n" +
+                "\tLimpiar datos. Costo:100.Tiempo:100", a2.data());
             assertEquals("completo 3. Tipo Paralela. \n" +
-                 "\tPreparar datos. Tipo Secuencial. \n" +
-                 "\tBuscar datos. Costo:50.Tiempo:50\n" +
-                 "\tEvaluar datos. Costo:80.Tiempo:80\n" +
-                 "\tLimpiar datos. Costo:100.Tiempo:100", a3.data());
+                "\tPreparar datos. Tipo Secuencial. \n" +
+                "\tBuscar datos. Costo:50.Tiempo:50\n" +
+                "\tEvaluar datos. Costo:80.Tiempo:80\n" +
+                "\tLimpiar datos. Costo:100.Tiempo:100", a3.data());
         } catch (ProjectException e){
             fail("Threw a exception");
         }
