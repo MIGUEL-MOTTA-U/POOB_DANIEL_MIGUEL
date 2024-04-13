@@ -3,6 +3,9 @@ import domain.*;
 
 
 import static org.junit.Assert.*;
+
+import javax.swing.JOptionPane;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -105,5 +108,76 @@ public class ProjectTest{
         } catch (ProjectException e) {
             fail("Threw a exception");
         }
+    }
+    @Test
+    public void shouldNotAddTheRepeatedActivities() {
+        Project p = new Project();
+        try {
+            p.add("simple 1", "100", "200", "a");
+            p.add("simple 1", "100", "Paralela", "Buscar datos\nEvaluar datos");
+            fail("This should not add repeated activities");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
+        }
+        try {
+            p.add("simple 2", "105", "200", "Void");
+            p.add("simple 2", "1055", "Secuencial", "Ni si \nNi no");
+            fail("This should not add repeated activities");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
+        }
+
+        try {
+            p.add("simple 3", "5", "Secuencial", "Voi");
+            p.add("simple 3", "1", "Secuencial", "Nisi \nNi no");
+            fail("This should not add repeated activities");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
+        }
+
+        
+    }
+
+    @Test
+    public void acceptanceTest() throws InterruptedException {
+        Project p = new Project();
+        try {
+            showMessageWithDelay("Se agregar una tarea simple con costo de 300 y tiempo de 1300", 1500);
+            p.add("simple 1", "300", "1300", "");
+            showMessageWithDelay("Se agregar una tarea completa con costo de 670 que contiene las actividades de evaluar datos y limpiar datos", 1500);
+            p.add("completo 1", "670", "Paralela", "Evaluar datos\nLimpiar datos");
+            showMessageWithDelay("Se agregar otra tarea simple con costo de 10 y tiempo de 48", 1500);
+            p.add("simple 2", "10", "48", "");
+
+            String msg = "7 actividades\n" +
+            ">completo 1. Tipo Paralela. \n" +
+            "    Evaluar datos. Costo:80.Tiempo:80\n" +
+            "    Limpiar datos. Costo:100.Tiempo:100\n" +
+            ">Buscar datos. Costo:50.Tiempo:50\n" +
+            ">Limpiar datos. Costo:100.Tiempo:100\n" +
+            ">simple 1. Costo:300.Tiempo:1300\n" +
+            ">Evaluar datos. Costo:80.Tiempo:80\n" +
+            ">simple 2. Costo:10.Tiempo:48\n" +
+            ">Preparar datos. Tipo Secuencial. \n" +
+            "    Buscar datos. Costo:50.Tiempo:50\n" +
+            "    Evaluar datos. Costo:80.Tiempo:80\n" +
+            "    Limpiar datos. Costo:100.Tiempo:100\n";
+
+            showMessageWithDelay("A continuacion se listaran todas las actividades", 1500);
+            JOptionPane.showMessageDialog(null, msg);
+
+            int respuesta = JOptionPane.showConfirmDialog(null,
+                "Teniendo en cuenta las condiciones dada, considera que el programa funciona de manera adecuada?",
+                "Confirmación", JOptionPane.YES_NO_OPTION);
+
+            assertEquals(respuesta, JOptionPane.YES_OPTION);
+        } catch (ProjectException e) {
+            fail("Threw a exception");
+        }
+    }
+
+    private void showMessageWithDelay(String message, int delay) throws InterruptedException {
+        JOptionPane.showMessageDialog(null, message);
+        Thread.sleep(delay);
     }
 }
