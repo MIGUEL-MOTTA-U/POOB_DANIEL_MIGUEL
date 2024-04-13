@@ -181,7 +181,8 @@ public class ProjectManagerGUI extends JFrame{
         /*Add*/
         buttonAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev){
-                actionAdd();                    
+                try{
+                actionAdd();} catch (ProjectException e){} // Cositas
             }
         });
         
@@ -216,7 +217,7 @@ public class ProjectManagerGUI extends JFrame{
         textDetails.setText(project.toString());
     }
     
-    private void  actionAdd(){
+    private void  actionAdd() throws ProjectException{
         project.add(name.getText().trim(),cost.getText().trim(),time.getText().trim(), basics.getText().trim());
     }
 

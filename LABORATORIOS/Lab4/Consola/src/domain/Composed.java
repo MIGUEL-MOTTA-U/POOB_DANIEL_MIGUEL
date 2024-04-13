@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 public class Composed extends Activity{
-   
+    
     private boolean parallel;
     private ArrayList<Activity> activities;
     
@@ -20,15 +20,14 @@ public class Composed extends Activity{
         activities= new ArrayList<Activity>();
     }
 
-     /**
+    /**
      * Add a new activity
      * @param a
      */   
-    public void add(Activity a){
+    public void add(Activity a)throws ProjectException{
         activities.add(a);
     }
-       
- 
+
     @Override
     public int cost(){
         return 0;

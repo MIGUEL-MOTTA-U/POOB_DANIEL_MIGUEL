@@ -25,7 +25,7 @@ public class ActivityTest{
     
     
     @Test
-    public void shouldCalculateTheTimeOfAComposedSecuencialActivity(){
+    public void shouldCalculateTheTimeOfAComposedSecuencialActivity()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , false );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, 20));
@@ -38,7 +38,7 @@ public class ActivityTest{
     }    
     
     @Test
-    public void shouldCalculateTheTimeOfAComposedParallelActivity(){
+    public void shouldCalculateTheTimeOfAComposedParallelActivity()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , true );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, 20));
@@ -64,7 +64,7 @@ public class ActivityTest{
     
     
     @Test
-    public void shouldThrowExceptionIfThereIsErrorInTime(){
+    public void shouldThrowExceptionIfThereIsErrorInTime()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , false );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, -20));
@@ -78,7 +78,7 @@ public class ActivityTest{
     }     
     
     @Test
-    public void shouldThrowExceptionIfTimeIsNotKnown(){
+    public void shouldThrowExceptionIfTimeIsNotKnown()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , true );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, null));
@@ -122,7 +122,7 @@ public class ActivityTest{
     } 
     
     @Test
-    public void shouldChangeDefaultValues(){
+    public void shouldChangeDefaultValues()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , true );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, null));
@@ -146,7 +146,7 @@ public class ActivityTest{
         }
     
     @Test
-    public void shouldRecalculateTime(){
+    public void shouldRecalculateTime()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , true );
         c.add(new Simple("AYED", 10, 10));
         c.add(new Simple("MBDA", 10, null)); // error
@@ -169,7 +169,7 @@ public class ActivityTest{
     }
     
     @Test
-    public void shouldThrowErrorIMPOSSIBLE(){
+    public void shouldThrowErrorIMPOSSIBLE()throws ProjectException{
         Composed c = new Composed("IS-BASICA", 100 , true );
         try{
             c.time('M');
@@ -253,5 +253,18 @@ public class ActivityTest{
         }
         
         
+    }
+    @Test
+    public void shouldNotAddTheRepeatedActivities(){
+        Composed c = new Composed("IS-BASICA", 100 , true );
+        try{
+            c.add(new Simple("AFSA", 10, 45));
+            c.add(new Simple("POOB", 10, null));
+            c.add(new Simple("CVST", 10, -13));
+            c.add(new Simple("RECO", 10, 111)); 
+            c.add(new Composed("MBDA", 100 , true ));
+        } catch (ProjectException e){
+            e.getMessage();
+        }
     }
 }

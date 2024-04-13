@@ -1,6 +1,9 @@
 package domain; 
 
 import java.util.LinkedList;
+
+import javax.swing.JOptionPane;
+
 //import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,7 +31,11 @@ public class Project{
                                 {"Preparar datos", "50", "Secuencial", 
                                 "Buscar datos\nEvaluar datos\nLimpiar datos"}};
         for (String [] c: activities){
-            add(c[0],c[1],c[2],c[3]);
+            try{
+                add(c[0],c[1],c[2],c[3]);
+            }catch (ProjectException e){
+                JOptionPane.showMessageDialog(null, e.getMessage(), "ERROR", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }
 
@@ -50,7 +57,7 @@ public class Project{
      * @param time
      * @param type
     */
-    public void add(String name, String cost, String timeType, String theActivities){ 
+    public void add(String name, String cost, String timeType, String theActivities) throws ProjectException{ 
         Activity na;
         if (theActivities.equals("")){
             na=new Simple(name,cost.equals("") ? null : Integer.parseInt(cost),timeType.equals("") ? null : Integer.parseInt(timeType));
