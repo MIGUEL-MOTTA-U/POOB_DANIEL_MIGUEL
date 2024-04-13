@@ -1,7 +1,7 @@
 package domain; 
 
 import java.util.LinkedList;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -25,7 +25,8 @@ public class Project{
         String [][] activities= {{"Buscar datos","50","50", "" },
                                 {"Evaluar datos","80","80",""},
                                 {"Limpiar datos","100","100",""},
-                                {"Preparar datos", "50", "Secuencial", "Buscar datos\nEvaluar datos\nLimpiar datos"}};
+                                {"Preparar datos", "50", "Secuencial", 
+                                "Buscar datos\nEvaluar datos\nLimpiar datos"}};
         for (String [] c: activities){
             add(c[0],c[1],c[2],c[3]);
         }

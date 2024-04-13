@@ -229,8 +229,8 @@ public class ProjectManagerGUI extends JFrame{
         textResults.setText(answer);
     } 
     
-   public static void main(String args[]){
-       ProjectManagerGUI gui=new ProjectManagerGUI();
-       gui.setVisible(true);
-   }    
+    public static void main(String args[]){
+        ProjectManagerGUI gui=new ProjectManagerGUI();
+        gui.setVisible(true);
+    }    
 }
