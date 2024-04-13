@@ -1,12 +1,11 @@
 package presentation; 
- 
+
 import domain.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.*;
 
 /**
  * @version ECI 2024
@@ -16,7 +15,7 @@ public class ProjectManagerGUI extends JFrame{
     private static final int PREFERRED_WIDTH = 700;
     private static final int PREFERRED_HIGH= 700;
     private static final Dimension PREFERRED_DIMENSION =
-                         new Dimension(PREFERRED_WIDTH,PREFERRED_HIGH);
+                        new Dimension(PREFERRED_WIDTH,PREFERRED_HIGH);
 
     private Project project;
 
@@ -92,8 +91,8 @@ public class ProjectManagerGUI extends JFrame{
         panel.add(botones, BorderLayout.SOUTH);
 
         return panel;
-     }
-     
+    }
+    
     /**
      * Prepare area add
      * @return 
@@ -130,7 +129,7 @@ public class ProjectManagerGUI extends JFrame{
         return panel;
     }
 
-   /**
+    /**
      * Prepare area search
      * @return 
      */
@@ -146,8 +145,8 @@ public class ProjectManagerGUI extends JFrame{
         textResults.setLineWrap(true);
         textResults.setWrapStyleWord(true);
         JScrollPane scrollArea = new JScrollPane(textResults,
-                                     JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-                                     JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                                    JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                                    JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -200,7 +199,6 @@ public class ProjectManagerGUI extends JFrame{
             public void changedUpdate(DocumentEvent ev){
                 actionSearch();
             }
-           
             public void insertUpdate(DocumentEvent ev){
                 actionSearch();
             }
@@ -219,8 +217,7 @@ public class ProjectManagerGUI extends JFrame{
     }
     
     private void  actionAdd(){
-         project.add(name.getText().trim(),cost.getText().trim(),time.getText().trim(), basics.getText().trim());
-       
+        project.add(name.getText().trim(),cost.getText().trim(),time.getText().trim(), basics.getText().trim());
     }
 
     private void actionSearch(){
