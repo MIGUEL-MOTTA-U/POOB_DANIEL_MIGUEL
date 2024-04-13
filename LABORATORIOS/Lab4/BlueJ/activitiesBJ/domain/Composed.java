@@ -34,6 +34,9 @@ public class Composed extends Activity{
         return 0;
     }
     
+    public ArrayList<Activity> activities(){
+        return activities;
+    }
     
     @Override
     public int time() throws ProjectException{
@@ -119,9 +122,7 @@ public class Composed extends Activity{
                 try{
                     acumulator += a.time();
                     nActivitiesOk++;
-                } catch (ProjectException e){
-                    System.out.println("Error detected in activity.time() "+ e.getMessage());
-                }
+                } catch (ProjectException e){}
             }
             if(nActivitiesOk==0) throw new ProjectException(ProjectException.IMPOSSIBLE);
             res = acumulator / nActivitiesOk;
@@ -133,9 +134,7 @@ public class Composed extends Activity{
                 try{
                     int tempo = a.time();
                     max = (max>tempo)? max:tempo;
-                }catch (ProjectException e){
-                    System.out.println("Error detected in activity.time() "+ e.getMessage());
-                }
+                }catch (ProjectException e){}
             }
             res = max;
         }if(res <=0) throw new ProjectException(ProjectException.IMPOSSIBLE);
@@ -147,11 +146,20 @@ public class Composed extends Activity{
      * @return 
      * @throws ProjectException UNKNOWN, if it doesn't exist. IMPOSSIBLE, if it can't be calculated
      */
-    public int price(String activity) throws ProjectException{
-        
-        
-        
-        return 0;
+    public int time(String activity) throws ProjectException{
+        int res = 0;
+        for (Activity a: activities){
+            if(a.name().equals(activity)){
+                try{
+                    res=a.time();
+                }catch (ProjectException e){
+                    throw new ProjectException(ProjectException.IMPOSSIBLE);
+                }
+            }
+        }
+        System.out.println(res);
+        if (res==0) throw new ProjectException(ProjectException.UNKNOWN);
+        return res;
     }
      
     @Override

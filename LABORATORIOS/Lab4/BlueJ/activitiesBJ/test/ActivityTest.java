@@ -205,4 +205,54 @@ public class ActivityTest{
        }
        
     }
+    
+    @Test
+    public void shouldReturnActivityTime()throws ProjectException{
+        Composed c = new Composed("IS-BASICA", 100 , true );
+        c.add(new Simple("AFSA", 10, 15));
+        c.add(new Simple("POOB", 10, 20));
+        c.add(new Simple("CVST", 10, 13));
+        c.add(new Simple("RECO", 10, 1)); 
+        assertEquals(15,c.time("AFSA"));
+        assertEquals(20,c.time("POOB"));
+        assertEquals(13,c.time("CVST"));
+        assertEquals(1,c.time("RECO"));
+    }
+    
+    @Test public void shouldNotReturnActivityTimeIMPOSSIBLE()throws ProjectException{
+        Composed c = new Composed("IS-BASICA", 100 , true );
+        c.add(new Simple("AFSA", 10, 45));
+        c.add(new Simple("POOB", 10, null));
+        c.add(new Simple("CVST", 10, -13));
+        c.add(new Simple("RECO", 10, 111)); 
+        c.add(new Composed("MBDA", 100 , true ));
+        try{
+            c.time("AFSA");
+        }catch(ProjectException e){
+            System.out.println(e.getMessage());
+            assertEquals(ProjectException.IMPOSSIBLE, e.getMessage());
+        }
+        try{
+            c.time("POOB");
+        }catch(ProjectException e){
+            assertEquals(ProjectException.IMPOSSIBLE, e.getMessage());
+        }
+        try{
+            c.time("CVST");
+        }catch(ProjectException e){
+            assertEquals(ProjectException.IMPOSSIBLE, e.getMessage());
+        }
+        try{
+            c.time("RECOOOOO XD");
+        }catch(ProjectException e){
+            assertEquals(ProjectException.UNKNOWN, e.getMessage());
+        }
+        try{
+            c.time("MBDA");
+        }catch(ProjectException e){
+            assertEquals(ProjectException.IMPOSSIBLE, e.getMessage());
+        }
+        
+        
+    }
 }
