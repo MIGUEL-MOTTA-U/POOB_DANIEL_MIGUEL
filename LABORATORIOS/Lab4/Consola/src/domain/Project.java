@@ -84,12 +84,12 @@ public class Project{
      */
     
     public LinkedList<Activity> select(String prefix){
-        LinkedList <Activity> answers=null;
+        LinkedList <Activity> answers=new LinkedList<>();
         prefix=prefix.toUpperCase();
         try {
-            for(int i=0;i<activities.size();i++){
-                if(activities.get(i).name().toUpperCase().startsWith(prefix.toUpperCase())){
-                    answers.add(activities.get(i));
+            for(Activity activity : this.activities.values()){
+                if(activity.name().toUpperCase().startsWith(prefix.toUpperCase())){
+                    answers.add(activity);
                 } 
             }
         } catch (Exception e) {

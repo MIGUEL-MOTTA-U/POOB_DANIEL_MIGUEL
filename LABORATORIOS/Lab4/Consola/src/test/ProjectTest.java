@@ -180,4 +180,24 @@ public class ProjectTest{
         JOptionPane.showMessageDialog(null, message);
         Thread.sleep(delay);
     }
+
+    @Test
+    public void shouldSearchByPrefix() {
+        Project p = new Project();
+
+        String a1 = p.search("l");
+        String a2 = p.search("p");
+        String a3 = p.search("b");
+
+
+        assertEquals("4 actividades\n" +
+        ">Limpiar datos. Costo:100.Tiempo:100\n", a1);
+        assertEquals("4 actividades\n" +
+        ">Preparar datos. Tipo Secuencial. \n" +
+        "\tBuscar datos. Costo:50.Tiempo:50\n" +
+        "\tEvaluar datos. Costo:80.Tiempo:80\n" +
+        "\tLimpiar datos. Costo:100.Tiempo:100\n", a2);
+        assertEquals("4 actividades\n" +
+        ">Buscar datos. Costo:50.Tiempo:50\n", a3);
+    }
 }
