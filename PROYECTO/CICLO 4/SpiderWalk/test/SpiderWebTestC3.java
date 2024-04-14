@@ -13,7 +13,6 @@ import org.junit.Test;
  * @version (a version number or a date)
  */
 public class SpiderWebTestC3 {
-    private static SpiderWeb spiderWeb;
 
     @BeforeClass
     public static void beforeClass() {
@@ -21,16 +20,6 @@ public class SpiderWebTestC3 {
 
     @Before
     public void before() {
-        spiderWeb = new SpiderWeb(20, 400);
-        spiderWeb.addBridge("blue", 80, 1);
-        spiderWeb.addBridge("red", 130, 2);
-        spiderWeb.addBridge("magenta", 200, 3);
-        spiderWeb.addBridge("green", 230, 2);
-        spiderWeb.addBridge("orange", 270, 1);
-        spiderWeb.addBridge("cyan", 50, 19);
-        spiderWeb.addSpot("yellow", 2);
-        spiderWeb.addSpot("aquamarine", 4);
-        spiderWeb.addSpot("brown", 20);
     }
 
     @Test
@@ -48,7 +37,5 @@ public class SpiderWebTestC3 {
                 new int[][] { { 100, 1 }, { 1150, 2 }, { 200, 2 }, { 230, 5 }, { 270, 8 }, { 300, 8 } });
         expected = new int[] { 1, 2, 1, 0, 1, 1, 2, 2 };
         assertArrayEquals(minBridges, expected);
-    }
-
-    
+    }    
 }
