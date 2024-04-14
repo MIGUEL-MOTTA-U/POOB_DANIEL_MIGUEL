@@ -109,6 +109,7 @@ public class ProjectTest{
             fail("Threw a exception");
         }
     }
+    
     @Test
     public void shouldNotAddTheRepeatedActivities() {
         Project p = new Project();
@@ -121,15 +122,15 @@ public class ProjectTest{
         }
         System.out.println(p.toString());
         try {
-            p.add("simple 2", "105", "200", "Void");
-            p.add("simple 2", "105", "200", "Void");
+            p.add("simple 2", "105", "200", "");
+            p.add("simple 2", "105", "200", "");
             fail("This should not add repeated activities");
         } catch (ProjectException e){
             assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
         }
 
         try {
-            p.add("simple 3", "5", "Paralela", "Voi");
+            p.add("simple 3", "5", "Paralela", "simple 1\nEvaluar datos");
             p.add("simple 3", "1", "Paralela", "simple 1\nEvaluar datos");
             fail("This should not add repeated activities");
         } catch (ProjectException e){
