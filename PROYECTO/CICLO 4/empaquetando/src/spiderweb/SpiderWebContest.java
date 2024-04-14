@@ -62,6 +62,7 @@ public class SpiderWebContest {
         }
 
         SpiderWeb spiderWeb = new SpiderWeb(strands, favorite, totalBridges);
+        spiderWeb.makeVisible();
         spiderWeb.spiderSit(strand);
         spiderWeb.spiderWalk(true);
     }

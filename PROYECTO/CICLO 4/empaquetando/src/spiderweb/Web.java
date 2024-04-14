@@ -146,7 +146,7 @@ public class Web {
         do {
             int indexRandom = random.nextInt(colors.size());
             color = colors.get(indexRandom);
-        } while (this.spots.containsKey(color));
+        } while (this.bridges.containsKey(color));
 
         addBridge("normal", color, distance, firstStrand);
     }
