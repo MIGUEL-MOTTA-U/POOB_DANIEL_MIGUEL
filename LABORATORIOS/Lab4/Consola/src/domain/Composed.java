@@ -35,15 +35,27 @@ public class Composed extends Activity{
     }
 
 
+    /**
+     * Return the cost of the activity
+     * @return
+     */
     @Override
     public int cost(){
         return 0;
     }
     
+    /**
+     * Return the activities
+     * @return
+     */
     public ArrayList<Activity> activities(){
         return activities;
     }
     
+    /**
+     * Return the cost of the activity
+     * @return
+     */
     @Override
     public int time() throws ProjectException{
         int time = 0;
@@ -67,9 +79,9 @@ public class Composed extends Activity{
     
     /**
      * Calculates an estimated price using default values when necessary
-     * @param dUnknown
-     * @param dError
-     * @param dEmpty
+     * @param dUnknown the timpe to change
+     * @param dError the timpe to change
+     * @param dEmpty the timpe to change
      * @return 
      */
     public int time(int dUnknow, int dError, int dEmpty)throws ProjectException {
@@ -149,6 +161,7 @@ public class Composed extends Activity{
     
      /**
      * Calculates an time of a subactivity
+     * @param activity the activity to consult
      * @return 
      * @throws ProjectException UNKNOWN, if it doesn't exist. IMPOSSIBLE, if it can't be calculated
      */
@@ -166,6 +179,11 @@ public class Composed extends Activity{
         if (res==0) throw new ProjectException(ProjectException.UNKNOWN);
         return res;
     }
+
+    /**
+     * Return de information of the activity
+     * @return
+     */
     @Override
     public String data() throws ProjectException{
         StringBuffer answer=new StringBuffer();

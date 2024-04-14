@@ -16,7 +16,8 @@ public class Simple extends Activity{
     
 
     /**
-     * This function return
+     * Return the time of the activity
+     * @return 
      */
     @Override
     public int time() throws ProjectException{
@@ -25,12 +26,18 @@ public class Simple extends Activity{
        return time;
     }    
     
-    
+    /**
+     * Return the cost of the activity
+     * @return
+     */
     @Override
     public int cost() throws ProjectException{
        return (cost == null || cost<0) ? 0 : cost;
     }   
     
+    /**
+     * Return the information of the activity
+     */
     @Override
     public String data(){
         return name+". Costo:" +cost+".Tiempo:"+time;

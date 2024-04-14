@@ -182,6 +182,49 @@ public class ProjectTest{
     }
 
     @Test
+    public void shouldNotAddWrongType(){
+        Project p = new Project();
+        try {
+            p.add("simple 1", "asdfasdf", "200", "");
+            fail("This should faill, The type is incorrect");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.WRONG_TYPE, e.getMessage());
+        }
+        try {
+            p.add("simple 1", "122", "asdfasdf", "");
+            fail("This should faill, The type is incorrect");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.WRONG_TYPE, e.getMessage());
+        }
+        try {
+            p.add("simple 1", "a646546", "No es Secuencial", "");
+            fail("This should faill, The type is incorrect");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.WRONG_TYPE, e.getMessage());
+        }
+        try {
+            p.add("simple 1", "a646546", "No es Paralela", "");
+            fail("This should faill, The type is incorrect");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.WRONG_TYPE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotAddInexistentActivities(){
+        Project p = new Project();
+        
+        try {
+            p.add("simple 1", "100", "550", "");
+            p.add("simple 1", "100", "2", "simple 3");
+            fail("This should faill, The type is incorrect");
+        } catch (ProjectException e){
+            assertEquals(ProjectException.UNKNOWN, e.getMessage());
+        }
+    }
+
+
+    @Test
     public void shouldSearchByPrefix() {
         Project p = new Project();
 
