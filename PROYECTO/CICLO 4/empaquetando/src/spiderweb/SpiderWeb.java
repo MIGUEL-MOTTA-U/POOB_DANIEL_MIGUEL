@@ -16,8 +16,8 @@ public class SpiderWeb {
      * Constructor for objects of class SpiderWeb
      */
     public SpiderWeb(int strands, int radio) {
-        this.isVisible = true;
-        web = new Web(strands, radio, this.isVisible);
+        this.isVisible = false;
+        web = Web.getWeb(strands, radio, this.isVisible);
     }
 
     /**
@@ -31,8 +31,8 @@ public class SpiderWeb {
      *                 indices of the spots connected by a bridge.
      */
     public SpiderWeb(int strands, int favorite, int[][] bridges) {
-        this.isVisible = true;
-        web = new Web(strands, 350, this.isVisible);
+        this.isVisible = false;
+        web = Web.getWeb(strands, 350, this.isVisible);
         web.addSpot(favorite);
         for (int i = 0; i < bridges.length; i++) {
             web.addBridge(bridges[i][0], bridges[i][1]);

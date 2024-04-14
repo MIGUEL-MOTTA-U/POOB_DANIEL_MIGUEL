@@ -1,4 +1,5 @@
 package spiderweb;
+
 import shapes.*;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -23,10 +24,12 @@ public class Web {
     private boolean isVisible;
     private boolean ok;
 
+    private static Web webSingleton;
+
     /**
      * Constructor for objects of class Web
      */
-    public Web(int strands, int radio, boolean isVisible) {
+    private Web(int strands, int radio, boolean isVisible) {
         this.strands = new HashMap<>();
         this.bridges = new HashMap<>();
         this.spots = new HashMap<>();
@@ -39,11 +42,28 @@ public class Web {
     }
 
     /**
+     * Factory method to get the web singleton object.
+     * 
+     * @param strands   the number of strands in the web
+     * @param radio     the radio of the web
+     * @param isVisible the visibility of the web
+     * @return the web as singleton object
+     */
+    public static Web getWeb(int strands, int radio, boolean isVisible) {
+        if (webSingleton == null) {
+            webSingleton = new Web(strands, radio, isVisible);
+        }
+
+        return webSingleton;
+    }
+
+    /**
      * Add an strand to the web and update the relation of spots and bridges with
      * their respective strands.
      */
     public void addOneStrand() throws Exception {
-        makeInvisible();
+        boolean visible = this.isVisible;
+        if (visible) makeInvisible();
         HashMap<String, Bridge> oldBridges = this.bridges;
         HashMap<String, Spot> oldSpots = this.spots;
 
@@ -53,7 +73,7 @@ public class Web {
         recalculateWeb();
 
         this.ok = this.bridges.equals(oldBridges) && this.spots.equals(oldSpots);
-        makeVisible();
+        if (visible) makeVisible();
     }
 
     /**
@@ -63,7 +83,8 @@ public class Web {
      */
     public void enlarge(int percentage) throws Exception {
         if (percentage > 0) {
-            makeInvisible();
+            boolean visible = this.isVisible;
+            if (visible) makeInvisible();
             HashMap<String, Bridge> oldBridges = this.bridges;
             HashMap<String, Spot> oldSpots = this.spots;
 
@@ -73,7 +94,7 @@ public class Web {
             recalculateWeb();
 
             this.ok = this.bridges.equals(oldBridges) && this.spots.equals(oldSpots);
-            makeVisible();
+            if (visible) makeVisible();
         } else {
             this.ok = false;
         }
@@ -142,7 +163,8 @@ public class Web {
             String type = bridge.getClass().getSimpleName().toLowerCase();
             type = (type.equals("normalbridge")) ? "normal" : type;
             bridge.makeInvisible();
-            removeBridge(color);;
+            removeBridge(color);
+            ;
             addBridge(type, color, distance, bridge.getInicialStrand());
             this.ok = true;
         } else {

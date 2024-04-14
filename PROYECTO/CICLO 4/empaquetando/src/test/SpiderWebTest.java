@@ -24,7 +24,6 @@ public class SpiderWebTest {
     @Before
     public void before() {
         spiderWeb = new SpiderWeb(20, 400);
-        spiderWeb.makeInvisible();
         spiderWeb.addBridge("blue", 80, 1);
         spiderWeb.addBridge("red", 130, 2);
         spiderWeb.addBridge("magenta", 200, 3);
