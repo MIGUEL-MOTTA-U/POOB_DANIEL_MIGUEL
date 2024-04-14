@@ -84,16 +84,8 @@ public class Project {
             activities.put(name.toUpperCase(),na);
         }
     }
-    }
 
-    public static boolean esEntero(String str) {
-        try {
-            Integer.parseInt(str); // Intenta convertir la cadena a un entero
-            return true; // Si no hay excepción, la cadena es un entero
-        } catch (NumberFormatException e) {
-            return false; // Si hay una excepción, la cadena no es un entero
-            }
-        }
+    
 
     /**
      * Consults the activities that start with a prefix
@@ -167,4 +159,12 @@ public class Project {
         return activities.size();
     }
 
+    public static boolean esEntero(String str) {
+        try {
+            Integer.parseInt(str); // Intenta convertir la cadena a un entero
+            return true; // Si no hay excepción, la cadena es un entero
+        } catch (NumberFormatException e) {
+            return false; // Si hay una excepción, la cadena no es un entero
+        }
+    }
 }

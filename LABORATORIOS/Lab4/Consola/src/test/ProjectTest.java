@@ -220,8 +220,8 @@ public class ProjectTest{
             fail("This should faill, The type is incorrect");
         } catch (ProjectException e){
             assertEquals(ProjectException.UNKNOWN, e.getMessage());
-        }
-    }
+        }
+    }
 
 
     @Test
