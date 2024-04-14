@@ -13,13 +13,10 @@ public class Strand {
     private Line2D.Double body;
     private boolean isVisible;
 
-    private Canvas canvas;
-
     /**
      * Constructor for objects of class Strand
      */
     public Strand(int radio, double angle, boolean isVisible) {
-        canvas = Canvas.getCanvas();
         this.angle = angle;
         this.isVisible = isVisible;
 
@@ -85,6 +82,7 @@ public class Strand {
      * Create a strand in the web
      */
     private void addStrand(int radio) {
+        Canvas canvas = Canvas.getCanvas();
         double x = radio * Math.cos(this.angle);
         double y = radio * Math.sin(this.angle);
         this.body = new Line2D.Double(canvas.getCenterX(), canvas.getCenterY(), canvas.getCenterX() + x,

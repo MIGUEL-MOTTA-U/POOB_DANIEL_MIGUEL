@@ -23,13 +23,10 @@ public class Web {
     private boolean isVisible;
     private boolean ok;
 
-    private Canvas canvas;
-
     /**
      * Constructor for objects of class Web
      */
     public Web(int strands, int radio, boolean isVisible) {
-        canvas = Canvas.getCanvas();
         this.strands = new HashMap<>();
         this.bridges = new HashMap<>();
         this.spots = new HashMap<>();
@@ -120,6 +117,7 @@ public class Web {
      * @param firstStrand the strand where the bridge begin
      */
     public void addBridge(int distance, int firstStrand) {
+        Canvas canvas = Canvas.getCanvas();
         ArrayList<String> colors = canvas.getColors();
         Random random = new Random();
         String color = "";
@@ -192,6 +190,7 @@ public class Web {
      * @param strand where the spot is locate
      */
     public void addSpot(int strand) {
+        Canvas canvas = Canvas.getCanvas();
         ArrayList<String> colors = canvas.getColors();
         Random random = new Random();
         String color = "";

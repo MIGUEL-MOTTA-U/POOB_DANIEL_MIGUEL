@@ -16,13 +16,10 @@ public abstract class Spot {
     protected Ellipse2D.Double body;
     protected boolean isVisible;
 
-    Canvas canvas;
-
     /**
      * Constructor for objects of class Spot
      */
     public Spot(String color, int strand, Web web, boolean isVisible) {
-        canvas = Canvas.getCanvas();
         this.color = color;
         this.strand = strand;
         this.web = web;

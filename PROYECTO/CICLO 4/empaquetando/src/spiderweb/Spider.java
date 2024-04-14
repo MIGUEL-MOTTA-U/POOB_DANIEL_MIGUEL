@@ -21,13 +21,13 @@ public class Spider {
     private boolean isVisible;
     private boolean ok;
 
-    private Canvas canvas;
+    // private Canvas canvas;
 
     /**
      * Constructor for objects of class Spider
      */
     public Spider(int strand, boolean isVisible) {
-        canvas = Canvas.getCanvas();
+        Canvas canvas = Canvas.getCanvas();
         body = new Ellipse2D.Double(canvas.getCenterX() - 7.5, canvas.getCenterY() - 7.5, 15, 15);
         this.strand = strand;
         this.distance = 0;
@@ -303,6 +303,7 @@ public class Spider {
      * Move the spider trough a line
      */
     private void moveSpider(double x1, double y1, double x2, double y2) {
+        Canvas canvas = Canvas.getCanvas();
         for (double i = 0; i <= 1; i += 0.01) {
             Point2D.Double point = parameterizedSegment(x1, y1, x2, y2, i);
             this.body.setFrame(point.getX() - 7.5, point.getY() - 7.5, 15, 15);

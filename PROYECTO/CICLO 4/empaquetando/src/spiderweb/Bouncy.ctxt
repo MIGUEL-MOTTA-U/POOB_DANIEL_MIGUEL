@@ -1,0 +1,27 @@
+#BlueJ class context
+comment0.target=Bouncy
+comment0.text=\r\n\ This\ Spot's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Spot,\r\n\ except\ that\ when\ the\ spider\ reaches\ this\ spot,\ it\ jump\ to\ the\ next\ strand.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\r\n\ @version\ (CICLO\ 4\ /\ 2024\ -\ 01)\r\n
+comment1.params=color\ strand\ web\ isVisible
+comment1.target=Bouncy(java.lang.String,\ int,\ Web,\ boolean)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Bouncy\r\n
+comment2.params=
+comment2.target=void\ rotateColors()
+comment3.params=angleDegrees
+comment3.target=void\ rotateArms(double)
+comment3.text=\r\n\ Rotates\ the\ arms\r\n
+comment4.params=strands
+comment4.target=void\ addSpot(java.util.HashMap)
+comment4.text=\r\n\ Add\ the\ spot\ to\ the\ web\r\n\ \r\n\ @param\ strands\ the\ strands\ of\ the\ web\r\n
+comment5.params=
+comment5.target=void\ createBody()
+comment5.text=\r\n\ Crete\ the\ new\ body\ of\ the\ bouncy\ spot\ to\ differentiate\ it\r\n
+comment6.params=
+comment6.target=void\ act()
+comment6.text=\r\n\ Its\ the\ behavior\ of\ the\ spot\r\n
+comment7.params=
+comment7.target=void\ draw()
+comment7.text=\r\n\ Erase\ the\ spot\ on\ screen.\r\n
+comment8.params=
+comment8.target=void\ erase()
+comment8.text=\r\n\ Draw\ the\ spot\ with\ current\ specifications\ on\ screen.\r\n
+numComments=9
