@@ -109,7 +109,7 @@ public class ProjectTest{
             fail("Threw a exception");
         }
     }
-    
+
     @Test
     public void shouldNotAddTheRepeatedActivities() {
         Project p = new Project();
@@ -135,9 +135,7 @@ public class ProjectTest{
             fail("This should not add repeated activities");
         } catch (ProjectException e){
             assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
-        }
-
-        
+        } 
     }
 
     @Test
