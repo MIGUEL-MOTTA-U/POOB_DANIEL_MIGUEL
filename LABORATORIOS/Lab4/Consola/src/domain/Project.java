@@ -93,6 +93,7 @@ public class Project{
                 } 
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Se ha presentado un error");
             Log.record(e);
         }
           
