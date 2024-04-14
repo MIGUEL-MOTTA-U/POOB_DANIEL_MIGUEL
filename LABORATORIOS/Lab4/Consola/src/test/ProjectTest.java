@@ -113,23 +113,24 @@ public class ProjectTest{
     public void shouldNotAddTheRepeatedActivities() {
         Project p = new Project();
         try {
-            p.add("simple 1", "100", "200", "a");
+            p.add("simple 1", "100", "200", "");
             p.add("simple 1", "100", "Paralela", "Buscar datos\nEvaluar datos");
             fail("This should not add repeated activities");
         } catch (ProjectException e){
             assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
         }
+        System.out.println(p.toString());
         try {
             p.add("simple 2", "105", "200", "Void");
-            p.add("simple 2", "1055", "Secuencial", "Ni si \nNi no");
+            p.add("simple 2", "105", "200", "Void");
             fail("This should not add repeated activities");
         } catch (ProjectException e){
             assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());
         }
 
         try {
-            p.add("simple 3", "5", "Secuencial", "Voi");
-            p.add("simple 3", "1", "Secuencial", "Nisi \nNi no");
+            p.add("simple 3", "5", "Paralela", "Voi");
+            p.add("simple 3", "1", "Paralela", "simple 1\nEvaluar datos");
             fail("This should not add repeated activities");
         } catch (ProjectException e){
             assertEquals(ProjectException.EXISTENT_ACTIVITY, e.getMessage());

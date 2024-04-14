@@ -65,7 +65,11 @@ public class Project{
             na = new Composed(name,cost.equals("") ? null : Integer.parseInt(cost), timeType.equals("") ? true : timeType.toUpperCase().charAt(0)=='P');
             String [] aSimples= theActivities.split("\n");
             for (String b : aSimples){
-                ((Composed)na).add(activities.get(b.toUpperCase()));
+                if(activities.containsKey(b.toUpperCase())){
+                    ((Composed)na).add(activities.get(b.toUpperCase()));
+                }else {
+                    throw new ProjectException(ProjectException.UNKNOWN);
+                }
             }
         }if(activities.containsKey(name.toUpperCase())){
             throw new ProjectException(ProjectException.EXISTENT_ACTIVITY);
