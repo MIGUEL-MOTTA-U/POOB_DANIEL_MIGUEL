@@ -17,7 +17,7 @@ public class SpiderWeb {
      */
     public SpiderWeb(int strands, int radio) {
         this.isVisible = false;
-        web = Web.getWeb(strands, radio, this.isVisible);
+        web = new Web(strands, radio, this.isVisible);
     }
 
     /**
@@ -32,7 +32,7 @@ public class SpiderWeb {
      */
     public SpiderWeb(int strands, int favorite, int[][] bridges) {
         this.isVisible = false;
-        web = Web.getWeb(strands, 350, this.isVisible);
+        web = new Web(strands, 350, this.isVisible);
         web.addSpot(favorite);
         for (int i = 0; i < bridges.length; i++) {
             web.addBridge(bridges[i][0], bridges[i][1]);

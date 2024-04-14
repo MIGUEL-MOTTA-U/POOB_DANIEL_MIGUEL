@@ -1,7 +1,6 @@
 package spiderweb;
 import shapes.*;
 import java.util.HashMap;
-import java.util.ArrayList;
 import java.lang.Math;
 
 /**

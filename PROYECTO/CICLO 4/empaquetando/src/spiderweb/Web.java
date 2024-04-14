@@ -24,12 +24,10 @@ public class Web {
     private boolean isVisible;
     private boolean ok;
 
-    private static Web webSingleton;
-
     /**
      * Constructor for objects of class Web
      */
-    private Web(int strands, int radio, boolean isVisible) {
+    public Web(int strands, int radio, boolean isVisible) {
         this.strands = new HashMap<>();
         this.bridges = new HashMap<>();
         this.spots = new HashMap<>();
@@ -39,22 +37,6 @@ public class Web {
         this.ok = true;
         addStrands();
         this.spider = new Spider(1, isVisible);
-    }
-
-    /**
-     * Factory method to get the web singleton object.
-     * 
-     * @param strands   the number of strands in the web
-     * @param radio     the radio of the web
-     * @param isVisible the visibility of the web
-     * @return the web as singleton object
-     */
-    public static Web getWeb(int strands, int radio, boolean isVisible) {
-        if (webSingleton == null) {
-            webSingleton = new Web(strands, radio, isVisible);
-        }
-
-        return webSingleton;
     }
 
     /**
