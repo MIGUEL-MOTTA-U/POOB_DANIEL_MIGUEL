@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Suicide
+comment0.text=\r\n\ This\ Spot's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Spot,\r\n\ except\ that\ when\ the\ spider\ reaches\ this\ spot,\ this\ spot\ disappear.\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\r\n\ @version\ (CICLO\ 4\ /\ 2024\ -\ 01)\r\n
+comment1.params=color\ strand\ web\ isVisible
+comment1.target=Suicide(java.lang.String,\ int,\ Web,\ boolean)
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Suicide\r\n
+comment2.params=strands
+comment2.target=void\ addSpot(java.util.HashMap)
+comment2.text=\r\n\ Add\ the\ spot\ to\ the\ web\r\n\ \r\n\ @param\ strands\ the\ strands\ of\ the\ web\r\n
+comment3.params=
+comment3.target=void\ act()
+comment3.text=\r\n\ Its\ the\ behavior\ of\ the\ spot\r\n
+comment4.params=
+comment4.target=void\ draw()
+comment4.text=\r\n\ Erase\ the\ spot\ on\ screen.\r\n
+comment5.params=
+comment5.target=void\ erase()
+comment5.text=\r\n\ Draw\ the\ spot\ with\ current\ specifications\ on\ screen.\r\n
+comment6.params=
+comment6.target=void\ createBody()
+comment6.text=\r\n\ Crete\ the\ new\ body\ of\ the\ suicide\ spot\ to\ differentiate\ it\r\n
+numComments=7

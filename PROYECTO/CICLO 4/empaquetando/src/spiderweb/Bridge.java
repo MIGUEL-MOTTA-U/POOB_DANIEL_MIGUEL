@@ -18,13 +18,10 @@ public abstract class Bridge {
     protected Line2D.Double body;
     protected boolean isVisible;
 
-    protected Canvas canvas;
-
     /**
      * Constructor for objects of class Bridge
      */
     public Bridge(String color, int distance, int inicialStrand, int finalStrand, Web web, boolean isVisible) {
-        canvas = Canvas.getCanvas();
         this.color = color;
         this.distance = distance;
         this.inicialStrand = inicialStrand;
@@ -41,6 +38,7 @@ public abstract class Bridge {
      * @param finalStrand   the strand where the bridge end
      */
     public void addBridge(HashMap<Integer, Strand> strands) {
+        Canvas canvas = Canvas.getCanvas();
         Strand firstStrand = strands.get(this.inicialStrand);
         Strand lastStrand = strands.get(this.finalStrand);
         double x1 = this.distance * Math.cos(firstStrand.getAngle());

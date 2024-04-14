@@ -121,10 +121,10 @@ public class SpiderWebTest {
     @Test
     public void accordingDCShouldShowTheCoordinatesOfTheBridge() {
         //
-        double[] expected = { 580.0, 374.0, 576.0845213036123, 349.2786404500042};
+        double[] expected = { 580.0, 400.0, 576.0845213036123, 375.2786404500042};
         assertArrayEquals(spiderWeb.bridge("blue"), expected, 0.1);
         //
-        expected = new double[] { 770.0, 374.0, 756.7852593996914, 290.5654115187642 };
+        expected = new double[] { 770.0, 400.0, 756.7852593996914, 316.5654115187642 };
         assertArrayEquals(spiderWeb.bridge("orange"), expected, 0.1);
 
         //

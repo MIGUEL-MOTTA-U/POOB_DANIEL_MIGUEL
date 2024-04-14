@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=NormalSpot
+comment0.text=\r\n\ This\ Spot's\ subclass\ has\ the\ same\ behaviors\ that\ a\ normal\ Spot,\r\n\ \r\n\ @author\ (Daniel\ Diaz\ y\ Miguel\ Motta)\r\n\ @version\ (CICLO\ 4\ /\ 2024\ -\ 01)\r\n
+comment1.params=color\ strand\ web\ isVisible
+comment1.target=NormalSpot(java.lang.String,\ int,\ Web,\ boolean)
+comment2.params=strands
+comment2.target=void\ addSpot(java.util.HashMap)
+comment2.text=\r\n\ Add\ the\ spot\ to\ the\ web\r\n\ \r\n\ @param\ strands\ \ \ \ \ \ \ the\ strands\ of\ the\ web\r\n
+comment3.params=
+comment3.target=void\ act()
+numComments=4
