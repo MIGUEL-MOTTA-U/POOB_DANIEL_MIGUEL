@@ -23,49 +23,6 @@ public class Bouncy extends Spot {
         super(color, strand, web, isVisible);
     }
     
-    private void rotateColors(){
-        if (leftArm != null && downArm != null && upArm != null && rightArm != null) {    
-            String color1 = leftArm.getColor();
-            String color2 = downArm.getColor();
-            String color3 = upArm.getColor();
-            String color4 = rightArm.getColor();
-            rotateArms(-5);
-            leftArm.changeColor(color2);
-            downArm.changeColor(color4);
-            upArm.changeColor(color1);
-            rightArm.changeColor(color3);
-        }
-    }
-    
-    /*
-     * Rotates the arms
-    */    
-    private void rotateArms(double angleDegrees) {
-        double centerX = this.body.getX(); // Coordenada x del centro del cuerpo
-        double centerY = this.body.getY(); // Coordenada y del centro del cuerpo
-        // Convertir el ángulo de grados a radianes
-        double angleRadians = Math.toRadians(angleDegrees);    
-        // Calcular las nuevas coordenadas de cada brazo
-        double newXLeft = centerX + (leftArm.getX() - centerX) * Math.cos(angleRadians) - (leftArm.getY() - centerY) * Math.sin(angleRadians);
-        double newYLeft = centerY + (leftArm.getX() - centerX) * Math.sin(angleRadians) + (leftArm.getY() - centerY) * Math.cos(angleRadians);
-        double newXRight = centerX + (rightArm.getX() - centerX) * Math.cos(angleRadians) - (rightArm.getY() - centerY) * Math.sin(angleRadians);
-        double newYRight = centerY + (rightArm.getX() - centerX) * Math.sin(angleRadians) + (rightArm.getY() - centerY) * Math.cos(angleRadians);
-        double newXDown = centerX + (downArm.getX() - centerX) * Math.cos(angleRadians) - (downArm.getY() - centerY) * Math.sin(angleRadians);
-        double newYDown = centerY + (downArm.getX() - centerX) * Math.sin(angleRadians) + (downArm.getY() - centerY) * Math.cos(angleRadians);
-        double newXUp = centerX + (upArm.getX() - centerX) * Math.cos(angleRadians) - (upArm.getY() - centerY) * Math.sin(angleRadians);
-        double newYUp = centerY + (upArm.getX() - centerX) * Math.sin(angleRadians) + (upArm.getY() - centerY) * Math.cos(angleRadians);
-        // Actualizar las coordenadas de cada brazo
-        leftArm.setX(newXLeft);
-        leftArm.setY(newYLeft);
-        rightArm.setX(newXRight);
-        rightArm.setY(newYRight);
-        downArm.setX(newXDown);
-        downArm.setY(newYDown);
-        upArm.setX(newXUp);
-        upArm.setY(newYUp);
-    }
-
-    
     /**
      * Add the spot to the web
      * 
@@ -76,21 +33,6 @@ public class Bouncy extends Spot {
         super.addSpot(strands);
         createBody();
         draw();
-    }
-    
-    
-     /*
-     * Crete the new body of the bouncy spot to differentiate it
-     */
-    private void createBody() {
-        
-        double x = this.body.getX();
-        double y = this.body.getY();
-
-        this.leftArm = new Circle(x-5, y, "red", this.isVisible, 5);
-        this.rightArm = new Circle(x+5, y, "red", this.isVisible, 5);
-        this.downArm = new Circle(x, y-5, "green", this.isVisible, 5);
-        this.upArm = new Circle(x, y+5, "green", this.isVisible, 5);
     }
 
     /**
@@ -128,5 +70,64 @@ public class Bouncy extends Spot {
             this.upArm.makeInvisible();
             this.downArm.makeInvisible();
         }
+    }
+
+    /*
+     * Crete the new body of the bouncy spot to differentiate it
+     */
+    private void createBody() {
+        
+        double x = this.body.getX();
+        double y = this.body.getY();
+
+        this.leftArm = new Circle(x-5, y, "red", this.isVisible, 5);
+        this.rightArm = new Circle(x+5, y, "red", this.isVisible, 5);
+        this.downArm = new Circle(x, y-5, "green", this.isVisible, 5);
+        this.upArm = new Circle(x, y+5, "green", this.isVisible, 5);
+    }
+
+    /*
+     * Rotate the colors
+     */
+    private void rotateColors(){
+        if (leftArm != null && downArm != null && upArm != null && rightArm != null) {    
+            String color1 = leftArm.getColor();
+            String color2 = downArm.getColor();
+            String color3 = upArm.getColor();
+            String color4 = rightArm.getColor();
+            rotateArms(-5);
+            leftArm.changeColor(color2);
+            downArm.changeColor(color4);
+            upArm.changeColor(color1);
+            rightArm.changeColor(color3);
+        }
+    }
+    
+    /*
+     * Rotates the arms
+    */    
+    private void rotateArms(double angleDegrees) {
+        double centerX = this.body.getX(); 
+        double centerY = this.body.getY(); 
+        
+        double angleRadians = Math.toRadians(angleDegrees);    
+        
+        double newXLeft = centerX + (leftArm.getX() - centerX) * Math.cos(angleRadians) - (leftArm.getY() - centerY) * Math.sin(angleRadians);
+        double newYLeft = centerY + (leftArm.getX() - centerX) * Math.sin(angleRadians) + (leftArm.getY() - centerY) * Math.cos(angleRadians);
+        double newXRight = centerX + (rightArm.getX() - centerX) * Math.cos(angleRadians) - (rightArm.getY() - centerY) * Math.sin(angleRadians);
+        double newYRight = centerY + (rightArm.getX() - centerX) * Math.sin(angleRadians) + (rightArm.getY() - centerY) * Math.cos(angleRadians);
+        double newXDown = centerX + (downArm.getX() - centerX) * Math.cos(angleRadians) - (downArm.getY() - centerY) * Math.sin(angleRadians);
+        double newYDown = centerY + (downArm.getX() - centerX) * Math.sin(angleRadians) + (downArm.getY() - centerY) * Math.cos(angleRadians);
+        double newXUp = centerX + (upArm.getX() - centerX) * Math.cos(angleRadians) - (upArm.getY() - centerY) * Math.sin(angleRadians);
+        double newYUp = centerY + (upArm.getX() - centerX) * Math.sin(angleRadians) + (upArm.getY() - centerY) * Math.cos(angleRadians);
+        
+        leftArm.setX(newXLeft);
+        leftArm.setY(newYLeft);
+        rightArm.setX(newXRight);
+        rightArm.setY(newYRight);
+        downArm.setX(newXDown);
+        downArm.setY(newYDown);
+        upArm.setX(newXUp);
+        upArm.setY(newYUp);
     }
 }
