@@ -61,13 +61,12 @@ public class SquareGUI extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent windowEvent) { 
 				confirmClose(); 
-			} 
+			}
 		}); 
 		prepareActionsMenu();
 	}   
 
 	private void prepareActionsMenu(){
-		// exit item
 		exitItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev){
 				confirmClose();

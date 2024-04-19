@@ -1,20 +1,27 @@
 package domain;
 import java.util.HashMap;
 public class Board {
-    private HashMap<String, Hollow> hollows;
-    private HashMap<String, Token> tokens;
     private int columns;
     private int rows;
+    private int movements;
+    private String[][][] matrixBoard;
 
 
     public Board(int n, int m){
-        hollows = new HashMap<>();
-        tokens = new HashMap<>();
+        // Inicializar todas las casillas con valores predeterminados
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                matrixBoard[i][j][0] = ""; // String 1
+                matrixBoard[i][j][1] = ""; // String 2
+                matrixBoard[i][j][2] = "false"; // booleano representado como String
+            }
+        }
         randomHollows();
         randomTokens();
         columns = m;
         rows = n;
     }
+    
 
     /**
      * Try to add a Hollow by given coordenates and color
@@ -23,12 +30,7 @@ public class Board {
      * @param column The column where is the Hollow
      */
     public void addHollow(String color, int row, int column) {
-        if(row < 1 || row>rows || column < 1 || column > columns){
-            System.out.println("Colocar Excepcion de Board");
-        } else {
-            Hollow hollow = new Hollow(color, row, column);
-            hollows.put(color, hollow);
-        }
+        
     }
     
 
@@ -39,8 +41,7 @@ public class Board {
      * @param column The column where is the Token
      */
     public void addToken(String color, int row, int column) {
-        Token token = new Token(color,row,column);
-        tokens.put(color, token);
+        
     }
     
 
@@ -49,7 +50,7 @@ public class Board {
       * @param token is the token that will move on the board
       * @param direction is the direction where the token is moving to
       */
-    public void move(Token token, String direction) {
+    public void move(String token, String direction) {
         
     }
 
@@ -58,7 +59,7 @@ public class Board {
      * @param token The given token that checks if It is on a Hollow of the same Color.
      * @return true if the token is on a Hollow of the same Color, otherwise returns false
      */
-    public boolean isTokenInMatchingHollow(Token token) {
+    public boolean isTokenInMatchingHollow(String token) {
         return false; // Cambiar esto según la implementación
     }
 
@@ -81,7 +82,7 @@ public class Board {
      * @return the movements in the board.
      */
     public int movements(){
-        return 0;
+        return movements;
     }
 
     /**
