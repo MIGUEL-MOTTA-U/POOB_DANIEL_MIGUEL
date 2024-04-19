@@ -1,43 +1,38 @@
 package domain;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 //import java.util.HashMap;
 import java.util.Random;
-public class Board {
+public class Square {
     private int columns;
     private int rows;
     private int movements;
-    private String[][][] matrixBoard; // i, j, (Color, Type, Boolean)
-    private String[] usedColors;
-    private static final String[] COLORS = {
-        "Red", "Blue", "Green", "Yellow", "Orange", "Purple", 
-        "White", "Black", "Gray", "Pink", "Light Green", "Brown",
-        "Sky Blue", "Violet", "Dark Yellow"
-    };
+    private String[][][] board; // i, j, (Type(H,T,""), Color or "", Boolean or "")
+    private HashMap<String, int[]> tokens;
+    private HashMap<String, int[]> hollows;
+    private ArrayList<String> COLORS = new ArrayList<>(Arrays.asList(
+        "red", "blue", "green", "yellow", "orange", "purple", 
+        "white", "black", "gray", "pink", "light green", "brown",
+        "sky blue", "violet", "dark yellow"
+    ));
 
     // Que pasa si n <= 0 or m <= 0 
-    public Board(int n, int m){
-        matrixBoard = new String[n][m][3];
+    public Square(int n, int m){
+        board = new String[n][m][3];
         columns = m;
         rows = n;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                matrixBoard[i][j][0] = ""; // String 1 --> vacio
-                matrixBoard[i][j][1] = ""; // String 2 -->
-                matrixBoard[i][j][2] = ""; // booleano representado como String
+                board[i][j][0] = ""; // String 1 --> vacio
+                board[i][j][1] = ""; // String 2 -->
+                board[i][j][2] = ""; // booleano representado como String
             }
         }
-        randomHollows();
+        randomTokens();
     }
     
 
-    /**
-     * Try to add a Hollow by given coordenates and color
-     * @param color The color of the Hollow
-     * @param row The row where is the Hollow
-     * @param column The column where is the Hollow
-     */
-    public void addHollow(String color, int row, int column) {
-        
-    }
     
 
     /**
@@ -56,7 +51,7 @@ public class Board {
       * @param token is the token that will move on the board
       * @param direction is the direction where the token is moving to
       */
-    public void move(String token, String direction) {
+    public void move(String direction) {
         
     }
 
@@ -99,38 +94,29 @@ public class Board {
     }
 
     /*
-     * It generates random Tokens to start the board
-     */
-    private void randomTokens() {
-        
-    }
-    
-    /*
      * It generates random Hollows to start the board
      */
-    private void randomHollows() {
-        int totalSpaces = rows * columns;
-        
-        // Calcular la cantidad de huecos a generar (1/4 parte del total de espacios)
-        int numHollows = totalSpaces / 4;
-        usedColors = new String[numHollows];
-        
-        // Generar huecos aleatorios
+    private void randomTokens() {
+        int numHollows = rows - 1;
+        ArrayList<String> usedColors = new ArrayList<>(numHollows);
         Random random = new Random();
         int hollowsPlaced = 0;
         while (hollowsPlaced < numHollows){
             int randomRow = random.nextInt(rows);
             int randomCol = random.nextInt(columns);
-            String ramdomColor = COLORS[random.nextInt(COLORS.length)];
-            if (matrixBoard[randomRow][randomCol][0].isEmpty()){ // && matrixBoard[randomRow][randomCol][1].isEmpty()) {
-                matrixBoard[randomRow][randomCol][0] = "H"; // Color
-                matrixBoard[randomRow][randomCol][1] = ramdomColor; // Random Color
-                matrixBoard[randomRow][randomCol][2] = ""; // Booleano representando true para hueco
-                
+            String ramdomColor = COLORS.get(random.nextInt(COLORS.size()));
+            if (board[randomRow][randomCol][0].isEmpty()){ // && board[randomRow][randomCol][1].isEmpty()) { --> Inecesario
+                board[randomRow][randomCol][0] = "H"; // Type
+                board[randomRow][randomCol][1] = ramdomColor; // Random Color
+                board[randomRow][randomCol][2] = ""; // Booleano representando true para hueco --> Aun no se cómo implementarlo pues creo que sobra
+                COLORS.remove(ramdomColor); // Lo elimina de los colores disponibles
+                usedColors.add(ramdomColor); // Lo agrega a los colores para crear los tokens
+                hollows.put(ramdomColor, new int[] {randomRow,randomCol});
                 // Incrementar el contador de huecos colocados
                 hollowsPlaced++; // Para poder implementar el segundo orden de harishem
             }
         }
+        randomTokens();
     }
     
 
