@@ -1,25 +1,31 @@
 package domain;
-import java.util.HashMap;
+//import java.util.HashMap;
+import java.util.Random;
 public class Board {
     private int columns;
     private int rows;
     private int movements;
-    private String[][][] matrixBoard;
+    private String[][][] matrixBoard; // i, j, (Color, Type, Boolean)
+    private String[] usedColors;
+    private static final String[] COLORS = {
+        "Red", "Blue", "Green", "Yellow", "Orange", "Purple", 
+        "White", "Black", "Gray", "Pink", "Light Green", "Brown",
+        "Sky Blue", "Violet", "Dark Yellow"
+    };
 
-
+    // Que pasa si n <= 0 or m <= 0 
     public Board(int n, int m){
-        // Inicializar todas las casillas con valores predeterminados
+        matrixBoard = new String[n][m][3];
+        columns = m;
+        rows = n;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                matrixBoard[i][j][0] = ""; // String 1
-                matrixBoard[i][j][1] = ""; // String 2
-                matrixBoard[i][j][2] = "false"; // booleano representado como String
+                matrixBoard[i][j][0] = ""; // String 1 --> vacio
+                matrixBoard[i][j][1] = ""; // String 2 -->
+                matrixBoard[i][j][2] = ""; // booleano representado como String
             }
         }
         randomHollows();
-        randomTokens();
-        columns = m;
-        rows = n;
     }
     
 
@@ -103,7 +109,29 @@ public class Board {
      * It generates random Hollows to start the board
      */
     private void randomHollows() {
+        int totalSpaces = rows * columns;
         
+        // Calcular la cantidad de huecos a generar (1/4 parte del total de espacios)
+        int numHollows = totalSpaces / 4;
+        usedColors = new String[numHollows];
+        
+        // Generar huecos aleatorios
+        Random random = new Random();
+        int hollowsPlaced = 0;
+        while (hollowsPlaced < numHollows){
+            int randomRow = random.nextInt(rows);
+            int randomCol = random.nextInt(columns);
+            String ramdomColor = COLORS[random.nextInt(COLORS.length)];
+            if (matrixBoard[randomRow][randomCol][0].isEmpty()){ // && matrixBoard[randomRow][randomCol][1].isEmpty()) {
+                matrixBoard[randomRow][randomCol][0] = "H"; // Color
+                matrixBoard[randomRow][randomCol][1] = ramdomColor; // Random Color
+                matrixBoard[randomRow][randomCol][2] = ""; // Booleano representando true para hueco
+                
+                // Incrementar el contador de huecos colocados
+                hollowsPlaced++; // Para poder implementar el segundo orden de harishem
+            }
+        }
     }
+    
 
 }
