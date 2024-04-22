@@ -17,13 +17,14 @@ public class SquareGUI extends JFrame {
 	private static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGH);
 
 	// Panels
+	private JPanel panelNorth;
+	private JPanel panelEast;
+	private JPanel panelBoard;
 	private JPanel panelHeader;
 	private JPanel panelCreateBoard;
 	private JPanel panelMove;
 	private JPanel panelInfo;
 	private JPanel panelChangeColor;
-	private JPanel panelBoard;
-	private JPanel panelContainer;
 	
 	// Menu
 	private JMenuBar menuBar;
@@ -37,9 +38,11 @@ public class SquareGUI extends JFrame {
 	private JLabel imageGame;
 	private JLabel labelTitle;
 	
-	// Board
+	// Create board
 	private JLabel labelBoardSize;
 	private JLabel labelNumberTokens;
+	private JTextField boardSize;
+	private JTextField numberTokens;
 	private JButton buttonCreateBoard;
 	
 	// Move
@@ -71,8 +74,7 @@ public class SquareGUI extends JFrame {
 		setLocationRelativeTo(null);
 
 		prepareElementsMenu();
-		prepareElementsHeader();
-		prepareElementsContainer();
+		prepareElementsNorth();
 	}
 	
 	private void prepareElementsMenu(){
@@ -93,14 +95,22 @@ public class SquareGUI extends JFrame {
 		setJMenuBar(menuBar);
 	}
 
-	private void prepareElementsHeader() {
+	private void prepareElementsNorth() {
+		panelNorth = new JPanel();
+		panelNorth.setLayout(new GridLayout(2, 1));
+
+		panelNorth.add(prepareElementsHeader());
+		panelNorth.add(prepareElementsCreateBoard());
+
+		getContentPane().add(panelNorth, BorderLayout.NORTH);
+	}
+
+	private JPanel prepareElementsHeader() {
 		panelHeader = new JPanel();
 		panelHeader.setBackground(Color.WHITE);
 		panelHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
 		imageGame = new JLabel(new ImageIcon("../../assets/imageHeader.png"));
-		imageGame.setSize(new Dimension(500, 500));
-		imageGame.setBorder(new EmptyBorder(10, 10, 10, 10));
 		labelTitle = new JLabel("Square");
 		labelTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
 		labelTitle.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -108,8 +118,35 @@ public class SquareGUI extends JFrame {
 		panelHeader.add(imageGame);
 		panelHeader.add(labelTitle);
 
+		return panelHeader;
+	}
 
-		getContentPane().add(panelHeader, BorderLayout.NORTH);
+	private JPanel prepareElementsCreateBoard() {
+		panelCreateBoard = new JPanel();
+		panelCreateBoard.setBackground(Color.WHITE);
+		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Create board")));
+		panelCreateBoard.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
+
+		JPanel panelButton = new JPanel(new BorderLayout());
+		panelButton.setBackground(Color.WHITE);
+		panelButton.setBorder(new EmptyBorder(0, 70, 0, 0));
+
+		labelBoardSize = new JLabel("Board size: ");
+		labelBoardSize.setBorder(new EmptyBorder(0, 30, 0, 0));
+		boardSize = new JTextField(10);
+		labelNumberTokens = new JLabel("Number of tokens: ");
+		labelNumberTokens.setBorder(new EmptyBorder(0, 70, 0, 0));
+		numberTokens = new JTextField(10);
+		buttonCreateBoard = new JButton("Create");
+
+		panelButton.add(buttonCreateBoard, BorderLayout.CENTER);
+		panelCreateBoard.add(labelBoardSize);
+		panelCreateBoard.add(boardSize);
+		panelCreateBoard.add(labelNumberTokens);
+		panelCreateBoard.add(numberTokens);
+		panelCreateBoard.add(panelButton);
+
+		return panelCreateBoard;
 	}
 	
 	private void prepareActions() { 
