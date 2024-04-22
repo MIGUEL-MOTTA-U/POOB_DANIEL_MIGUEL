@@ -1,5 +1,6 @@
 package presentation;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -8,6 +9,7 @@ import javax.swing.JMenuItem;
 import java.awt.*;
 import javax.swing.JOptionPane;
 import java.awt.event.*;
+import java.io.File;
 
 public class SquareGUI extends JFrame {
 	private static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.5);
@@ -18,7 +20,7 @@ public class SquareGUI extends JFrame {
 	private JMenuBar menuBar;
 	private JMenu fileMenu;
 	private JMenuItem newItem;
-	private JMenuItem OpenItem;
+	private JMenuItem openItem;
 	private JMenuItem saveItem;
 	private JMenuItem exitItem;
 	
@@ -32,33 +34,29 @@ public class SquareGUI extends JFrame {
 		setSize(PREFERRED_DIMENSION);
 		setLocationRelativeTo(null);
 		prepareElementsMenu();
-		
 	}
 	
 	private void prepareElementsMenu(){
-		// Crear la barra de menú
 		menuBar = new JMenuBar();
 		fileMenu = new JMenu("File");
 		newItem = new JMenuItem("New");
-		OpenItem = new JMenuItem("Open");
+		openItem = new JMenuItem("Open");
 		saveItem = new JMenuItem("Save");
 		exitItem = new JMenuItem("Exit");
-		// Agregar los elementos al menú "Archivo"
+
 		fileMenu.add(newItem);
-		fileMenu.add(OpenItem);
+		fileMenu.add(openItem);
 		fileMenu.add(saveItem);
 		fileMenu.addSeparator();
 		fileMenu.add(exitItem);
+
 		menuBar.add(fileMenu);
 		setJMenuBar(menuBar);
 	}
 	
-
-
 	private void prepareActions() { 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 		addWindowListener(new WindowAdapter() { 
-			@Override
 			public void windowClosing(WindowEvent windowEvent) { 
 				confirmClose(); 
 			}
@@ -67,8 +65,30 @@ public class SquareGUI extends JFrame {
 	}   
 
 	private void prepareActionsMenu(){
+		openItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showOpenDialog(SquareGUI.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File fileSelected = chooser.getSelectedFile();
+					JOptionPane.showMessageDialog(SquareGUI.this, "You chose open this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+
+		saveItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showSaveDialog(SquareGUI.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File fileSelected = chooser.getSelectedFile();
+					JOptionPane.showMessageDialog(SquareGUI.this, "You chose save this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+
 		exitItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev){
+			public void actionPerformed(ActionEvent ev) {
 				confirmClose();
 			}
 		});	
