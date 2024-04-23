@@ -75,6 +75,7 @@ public class SquareGUI extends JFrame {
 
 		prepareElementsMenu();
 		prepareElementsNorth();
+		prepareElementsEast();
 	}
 	
 	private void prepareElementsMenu(){
@@ -96,8 +97,7 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void prepareElementsNorth() {
-		panelNorth = new JPanel();
-		panelNorth.setLayout(new GridLayout(2, 1));
+		panelNorth = new JPanel(new GridLayout(2, 1));
 
 		panelNorth.add(prepareElementsHeader());
 		panelNorth.add(prepareElementsCreateBoard());
@@ -106,7 +106,7 @@ public class SquareGUI extends JFrame {
 	}
 
 	private JPanel prepareElementsHeader() {
-		panelHeader = new JPanel();
+		panelHeader = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelHeader.setBackground(Color.WHITE);
 		panelHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
@@ -122,10 +122,9 @@ public class SquareGUI extends JFrame {
 	}
 
 	private JPanel prepareElementsCreateBoard() {
-		panelCreateBoard = new JPanel();
+		panelCreateBoard = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
 		panelCreateBoard.setBackground(Color.WHITE);
 		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Create board")));
-		panelCreateBoard.setLayout(new FlowLayout(FlowLayout.CENTER,20,20));
 
 		JPanel panelButton = new JPanel(new BorderLayout());
 		panelButton.setBackground(Color.WHITE);
@@ -147,6 +146,43 @@ public class SquareGUI extends JFrame {
 		panelCreateBoard.add(panelButton);
 
 		return panelCreateBoard;
+	}
+
+	private void prepareElementsEast() {
+		panelEast = new JPanel(new GridLayout(3, 1));
+
+		panelEast.add(prepareElementsMove());
+
+		getContentPane().add(panelEast, BorderLayout.EAST);
+	}
+
+	private JPanel prepareElementsMove() {
+		panelMove = new JPanel(new BorderLayout());
+		panelMove.setBackground(Color.WHITE);
+		panelMove.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Move")));
+
+		JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelWest = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelEast = new JPanel(new FlowLayout(FlowLayout.CENTER));
+
+		buttonNorth = new JButton("North");
+		buttonWest = new JButton("West");
+		buttonSouth = new JButton("South");
+		buttonEast = new JButton("East");
+		imageCompass = new JLabel("Imagen de brujula");
+
+		panelNorth.add(buttonNorth);
+		panelWest.add(buttonWest);
+		panelSouth.add(buttonSouth);
+		panelEast.add(buttonEast);
+		panelMove.add(panelNorth, BorderLayout.NORTH);
+		panelMove.add(panelWest, BorderLayout.WEST);
+		panelMove.add(panelSouth, BorderLayout.SOUTH);
+		panelMove.add(panelEast, BorderLayout.EAST);
+		panelMove.add(imageCompass, BorderLayout.CENTER);
+
+		return panelMove;
 	}
 	
 	private void prepareActions() { 
