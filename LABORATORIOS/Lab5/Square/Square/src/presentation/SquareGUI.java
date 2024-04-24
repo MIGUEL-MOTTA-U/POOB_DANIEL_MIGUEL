@@ -1,5 +1,7 @@
 package presentation;
 
+import domain. *;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -14,6 +16,8 @@ public class SquareGUI extends JFrame {
 	private static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.8);
 	private static final int PREFERRED_HEIGH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
 	private static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGH);
+
+	private Square Square;
 
 	// Panels
 	private JPanel panelNorth;
@@ -61,6 +65,7 @@ public class SquareGUI extends JFrame {
 	private JLabel labelNewColor; 
 	private JButton buttonOldColor;
 	private JButton buttonNewColor;
+	private JButton buttonChangeColor;
 	
 	private SquareGUI() {
 		prepareElements();
@@ -228,11 +233,12 @@ public class SquareGUI extends JFrame {
 		panelChangeColor.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Change color")));
 
 		JPanel panelLabels = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelButtons1 = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelButtons2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panelButtonOldColor = new JPanel();
-		panelButtonOldColor.setBorder(new EmptyBorder(0, 0, 20, 0));
 		JPanel panelButtonNewColor = new JPanel();
-		panelButtonNewColor.setBorder(new EmptyBorder(0, 0, 20, 0));
+		JPanel panelButtonChangeColor = new JPanel();
+		panelButtonChangeColor.setBorder(new EmptyBorder(0, 0, 20, 0));
 
 
 		labelOldColor = new JLabel("Old color");
@@ -241,16 +247,20 @@ public class SquareGUI extends JFrame {
 		labelNewColor.setBorder(new EmptyBorder(20, 20, 0, 20));
 		buttonOldColor = new JButton("color");
 		buttonNewColor = new JButton("color");
+		buttonChangeColor = new JButton("Change color");
 
 		panelButtonOldColor.add(buttonOldColor);
 		panelButtonNewColor.add(buttonNewColor);
+		panelButtonChangeColor.add(buttonChangeColor);
 		panelLabels.add(labelOldColor);
 		panelLabels.add(labelNewColor);
-		panelButtons.add(panelButtonOldColor);
-		panelButtons.add(Box.createHorizontalStrut(20));
-		panelButtons.add(panelButtonNewColor);
+		panelButtons1.add(panelButtonOldColor);
+		panelButtons1.add(Box.createHorizontalStrut(20));
+		panelButtons1.add(panelButtonNewColor);
+		panelButtons2.add(panelButtonChangeColor);
 		panelChangeColor.add(panelLabels);
-		panelChangeColor.add(panelButtons);
+		panelChangeColor.add(panelButtons1);
+		panelChangeColor.add(panelButtons2);
 
 		return panelChangeColor;
 	}
@@ -259,7 +269,7 @@ public class SquareGUI extends JFrame {
 		panelBoard = new JPanel();
 
 		JPanel container = new JPanel(new GridLayout(9, 9));
-		container.setPreferredSize(new Dimension(430, 430));
+		container.setPreferredSize(new Dimension(475, 475));
 		container.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
 		boxes = new ArrayList<>();
@@ -282,6 +292,7 @@ public class SquareGUI extends JFrame {
 			}
 		}); 
 		prepareActionsMenu();
+		prepareActionsEast();
 	}   
 
 	private void prepareActionsMenu(){
@@ -312,6 +323,32 @@ public class SquareGUI extends JFrame {
 				confirmClose();
 			}
 		});	
+	}
+
+	private void prepareActionsEast() {
+		prepareActionsChangeColor();
+	}
+
+	private void prepareActionsChangeColor() {
+		buttonOldColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JColorChooser chooser = new JColorChooser();
+				Color oldColor = chooser.showDialog(SquareGUI.this, "Choose the color to change", Color.BLUE);
+			}
+		});
+
+		buttonNewColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JColorChooser chooser = new JColorChooser();
+				Color newColor = chooser.showDialog(SquareGUI.this, "Choose the new color", Color.BLUE);
+			}
+		});
+
+		buttonChangeColor.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				// Square.changeColor(oldColor, newColor);
+			}
+		});
 	}
 
 	private void confirmClose() { 
