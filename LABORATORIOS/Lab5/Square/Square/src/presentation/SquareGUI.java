@@ -1,6 +1,6 @@
 package presentation;
 
-// import domain. *;
+// import domain.*;
 
 import java.awt.*;
 
@@ -167,7 +167,7 @@ public class SquareGUI extends JFrame {
 
 		return panelCreateBoard;
 	}
-// Y ahora :(
+
 	private void prepareElementsEast() {
 		panelEast = new JPanel();
 
@@ -204,7 +204,15 @@ public class SquareGUI extends JFrame {
 		buttonWest = new JButton("West");
 		buttonSouth = new JButton("South");
 		buttonEast = new JButton("East");
-		imageCompass = new JLabel("Imagen de brujula");
+		URL url = getClass().getResource("./assets/compass.png");
+		imageCompass = new JLabel();
+		imageCompass.setSize(50, 50);
+		if (url != null) {
+			ImageIcon img = new ImageIcon(url);
+			imageCompass.setIcon(new ImageIcon(img.getImage().getScaledInstance(imageCompass.getWidth(), imageCompass.getHeight(), Image.SCALE_SMOOTH)));
+			imageCompass.setHorizontalAlignment(SwingConstants.CENTER);
+        	imageCompass.setVerticalAlignment(SwingConstants.CENTER);
+		}
 
 		panelButtonNorth.add(buttonNorth);
 		panelButtonWest.add(buttonWest);
