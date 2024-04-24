@@ -72,11 +72,18 @@ public class SquareGUI extends JFrame {
 		getContentPane().setBackground(Color.WHITE);
 		setSize(PREFERRED_DIMENSION);
 		setLocationRelativeTo(null);
+		defaultBackground();
 
 		prepareElementsMenu();
 		prepareElementsNorth();
 		prepareElementsEast();
 	}
+
+	private void defaultBackground() {
+        UIManager.put("Panel.background", Color.WHITE);
+        UIManager.put("Button.background", Color.WHITE);
+        UIManager.put("Label.background", Color.WHITE);
+    }
 	
 	private void prepareElementsMenu(){
 		menuBar = new JMenuBar();
@@ -107,7 +114,6 @@ public class SquareGUI extends JFrame {
 
 	private JPanel prepareElementsHeader() {
 		panelHeader = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		panelHeader.setBackground(Color.WHITE);
 		panelHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
 		imageGame = new JLabel(new ImageIcon("../../assets/imageHeader.png"));
@@ -123,11 +129,9 @@ public class SquareGUI extends JFrame {
 
 	private JPanel prepareElementsCreateBoard() {
 		panelCreateBoard = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
-		panelCreateBoard.setBackground(Color.WHITE);
 		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Create board")));
 
 		JPanel panelButton = new JPanel(new BorderLayout());
-		panelButton.setBackground(Color.WHITE);
 		panelButton.setBorder(new EmptyBorder(0, 70, 0, 0));
 
 		labelBoardSize = new JLabel("Board size: ");
@@ -149,22 +153,35 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void prepareElementsEast() {
-		panelEast = new JPanel(new GridLayout(3, 1));
+		panelEast = new JPanel();
 
-		panelEast.add(prepareElementsMove());
+		JPanel container = new JPanel();
+		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+
+		container.add(prepareElementsMove());
+		container.add(prepareElementsInfo());
+		container.add(prepareElementsChangeColor());
+		panelEast.add(container);
 
 		getContentPane().add(panelEast, BorderLayout.EAST);
 	}
 
 	private JPanel prepareElementsMove() {
 		panelMove = new JPanel(new BorderLayout());
-		panelMove.setBackground(Color.WHITE);
 		panelMove.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Move")));
 
-		JPanel panelNorth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel panelWest = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel panelSouth = new JPanel(new FlowLayout(FlowLayout.CENTER));
-		JPanel panelEast = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelNorth = new JPanel(new GridBagLayout());
+		JPanel panelWest = new JPanel(new GridBagLayout());
+		JPanel panelSouth = new JPanel(new GridBagLayout());
+		JPanel panelEast = new JPanel(new GridBagLayout());
+		JPanel panelButtonNorth = new JPanel();
+		panelButtonNorth.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JPanel panelButtonWest = new JPanel();
+		panelButtonWest.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JPanel panelButtonSouth = new JPanel();
+		panelButtonSouth.setBorder(new EmptyBorder(10, 10, 10, 10));
+		JPanel panelButtonEast = new JPanel();
+		panelButtonEast.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		buttonNorth = new JButton("North");
 		buttonWest = new JButton("West");
@@ -172,10 +189,14 @@ public class SquareGUI extends JFrame {
 		buttonEast = new JButton("East");
 		imageCompass = new JLabel("Imagen de brujula");
 
-		panelNorth.add(buttonNorth);
-		panelWest.add(buttonWest);
-		panelSouth.add(buttonSouth);
-		panelEast.add(buttonEast);
+		panelButtonNorth.add(buttonNorth);
+		panelButtonWest.add(buttonWest);
+		panelButtonSouth.add(buttonSouth);
+		panelButtonEast.add(buttonEast);
+		panelNorth.add(panelButtonNorth);
+		panelWest.add(panelButtonWest);
+		panelSouth.add(panelButtonSouth);
+		panelEast.add(panelButtonEast);
 		panelMove.add(panelNorth, BorderLayout.NORTH);
 		panelMove.add(panelWest, BorderLayout.WEST);
 		panelMove.add(panelSouth, BorderLayout.SOUTH);
@@ -183,6 +204,54 @@ public class SquareGUI extends JFrame {
 		panelMove.add(imageCompass, BorderLayout.CENTER);
 
 		return panelMove;
+	}
+
+	private JPanel prepareElementsInfo() {
+		panelInfo = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		panelInfo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Information")));
+
+		labelMoves = new JLabel("Moves: 12");
+		labelMoves.setBorder(new EmptyBorder(20, 20, 20, 20));
+		labelPercentage = new JLabel("Percentage: 30%");
+		labelPercentage.setBorder(new EmptyBorder(20, 20, 20, 20));
+
+		panelInfo.add(labelMoves);
+		panelInfo.add(labelPercentage);
+
+		return panelInfo;
+	}
+
+	private JPanel prepareElementsChangeColor() {
+		panelChangeColor = new JPanel();
+		panelChangeColor.setLayout(new BoxLayout(panelChangeColor, BoxLayout.Y_AXIS));
+		panelChangeColor.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Change color")));
+
+		JPanel panelLabels = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelButtons = new JPanel(new FlowLayout(FlowLayout.CENTER));
+		JPanel panelButtonOldColor = new JPanel();
+		panelButtonOldColor.setBorder(new EmptyBorder(0, 0, 20, 0));
+		JPanel panelButtonNewColor = new JPanel();
+		panelButtonNewColor.setBorder(new EmptyBorder(0, 0, 20, 0));
+
+
+		labelOldColor = new JLabel("Old color");
+		labelOldColor.setBorder(new EmptyBorder(20, 20, 0, 20));
+		labelNewColor = new JLabel("New color");
+		labelNewColor.setBorder(new EmptyBorder(20, 20, 0, 20));
+		buttonOldColor = new JButton("color");
+		buttonNewColor = new JButton("color");
+
+		panelButtonOldColor.add(buttonOldColor);
+		panelButtonNewColor.add(buttonNewColor);
+		panelLabels.add(labelOldColor);
+		panelLabels.add(labelNewColor);
+		panelButtons.add(panelButtonOldColor);
+		panelButtons.add(Box.createHorizontalStrut(20));
+		panelButtons.add(panelButtonNewColor);
+		panelChangeColor.add(panelLabels);
+		panelChangeColor.add(panelButtons);
+
+		return panelChangeColor;
 	}
 	
 	private void prepareActions() { 
