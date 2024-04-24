@@ -2,14 +2,13 @@ package presentation;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import java.awt.event.*;
 import java.io.File;
-import java.net.CookieHandler;
+import java.util.ArrayList;
 
 public class SquareGUI extends JFrame {
 	private static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.8);
@@ -25,6 +24,7 @@ public class SquareGUI extends JFrame {
 	private JPanel panelMove;
 	private JPanel panelInfo;
 	private JPanel panelChangeColor;
+	private ArrayList<JPanel> boxes;
 	
 	// Menu
 	private JMenuBar menuBar;
@@ -77,6 +77,7 @@ public class SquareGUI extends JFrame {
 		prepareElementsMenu();
 		prepareElementsNorth();
 		prepareElementsEast();
+		prepareElementsBoard();
 	}
 
 	private void defaultBackground() {
@@ -170,10 +171,10 @@ public class SquareGUI extends JFrame {
 		panelMove = new JPanel(new BorderLayout());
 		panelMove.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Move")));
 
-		JPanel panelNorth = new JPanel(new GridBagLayout());
-		JPanel panelWest = new JPanel(new GridBagLayout());
-		JPanel panelSouth = new JPanel(new GridBagLayout());
-		JPanel panelEast = new JPanel(new GridBagLayout());
+		JPanel panelN = new JPanel(new GridBagLayout());
+		JPanel panelW = new JPanel(new GridBagLayout());
+		JPanel panelS = new JPanel(new GridBagLayout());
+		JPanel panelE = new JPanel(new GridBagLayout());
 		JPanel panelButtonNorth = new JPanel();
 		panelButtonNorth.setBorder(new EmptyBorder(10, 10, 10, 10));
 		JPanel panelButtonWest = new JPanel();
@@ -193,14 +194,14 @@ public class SquareGUI extends JFrame {
 		panelButtonWest.add(buttonWest);
 		panelButtonSouth.add(buttonSouth);
 		panelButtonEast.add(buttonEast);
-		panelNorth.add(panelButtonNorth);
-		panelWest.add(panelButtonWest);
-		panelSouth.add(panelButtonSouth);
-		panelEast.add(panelButtonEast);
-		panelMove.add(panelNorth, BorderLayout.NORTH);
-		panelMove.add(panelWest, BorderLayout.WEST);
-		panelMove.add(panelSouth, BorderLayout.SOUTH);
-		panelMove.add(panelEast, BorderLayout.EAST);
+		panelN.add(panelButtonNorth);
+		panelW.add(panelButtonWest);
+		panelS.add(panelButtonSouth);
+		panelE.add(panelButtonEast);
+		panelMove.add(panelN, BorderLayout.NORTH);
+		panelMove.add(panelW, BorderLayout.WEST);
+		panelMove.add(panelS, BorderLayout.SOUTH);
+		panelMove.add(panelE, BorderLayout.EAST);
 		panelMove.add(imageCompass, BorderLayout.CENTER);
 
 		return panelMove;
@@ -252,6 +253,25 @@ public class SquareGUI extends JFrame {
 		panelChangeColor.add(panelButtons);
 
 		return panelChangeColor;
+	}
+
+	private void prepareElementsBoard() {
+		panelBoard = new JPanel();
+
+		JPanel container = new JPanel(new GridLayout(9, 9));
+		container.setPreferredSize(new Dimension(430, 430));
+		container.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+		boxes = new ArrayList<>();
+		for (int i = 0; i < 81; i++) {
+			JPanel box = new JPanel();
+			box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			container.add(box);
+			boxes.add(box);
+		}
+
+		panelBoard.add(container);
+		getContentPane().add(panelBoard, BorderLayout.CENTER);
 	}
 	
 	private void prepareActions() { 
