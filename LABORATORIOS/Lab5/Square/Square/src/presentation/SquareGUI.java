@@ -167,7 +167,7 @@ public class SquareGUI extends JFrame {
 
 		return panelCreateBoard;
 	}
-
+// Y ahora :(
 	private void prepareElementsEast() {
 		panelEast = new JPanel();
 
