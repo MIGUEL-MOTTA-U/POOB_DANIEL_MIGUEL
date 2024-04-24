@@ -1,8 +1,10 @@
 package presentation;
 
-import domain. *;
+// import domain. *;
 
 import java.awt.*;
+
+import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -17,7 +19,7 @@ public class SquareGUI extends JFrame {
 	private static final int PREFERRED_HEIGH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
 	private static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGH);
 
-	private Square Square;
+	// private Square Square;
 
 	// Panels
 	private JPanel panelNorth;
@@ -110,7 +112,8 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void prepareElementsNorth() {
-		panelNorth = new JPanel(new GridLayout(2, 1));
+		panelNorth = new JPanel();
+		panelNorth.setLayout(new BoxLayout(panelNorth, BoxLayout.Y_AXIS));
 
 		panelNorth.add(prepareElementsHeader());
 		panelNorth.add(prepareElementsCreateBoard());
@@ -122,7 +125,14 @@ public class SquareGUI extends JFrame {
 		panelHeader = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
-		imageGame = new JLabel(new ImageIcon("../../assets/imageHeader.png"));
+		imageGame = new JLabel();
+		imageGame.setSize(70, 70);
+		imageGame.setBorder(new EmptyBorder(0, 0, 0, 40));
+		URL url = getClass().getResource("./assets/imageHeader.png");
+		if (url != null) {
+			ImageIcon img = new ImageIcon(url);
+			imageGame.setIcon(new ImageIcon(img.getImage().getScaledInstance(imageGame.getWidth(), imageGame.getHeight(), Image.SCALE_SMOOTH)));
+		}
 		labelTitle = new JLabel("Square");
 		labelTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
 		labelTitle.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -135,7 +145,7 @@ public class SquareGUI extends JFrame {
 
 	private JPanel prepareElementsCreateBoard() {
 		panelCreateBoard = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
-		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Create board")));
+		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 40, 5, 40), new TitledBorder("Create board")));
 
 		JPanel panelButton = new JPanel(new BorderLayout());
 		panelButton.setBorder(new EmptyBorder(0, 70, 0, 0));
@@ -163,6 +173,7 @@ public class SquareGUI extends JFrame {
 
 		JPanel container = new JPanel();
 		container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+		container.setBorder(new EmptyBorder(0, 0, 0, 30));
 
 		container.add(prepareElementsMove());
 		container.add(prepareElementsInfo());
