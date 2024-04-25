@@ -350,6 +350,32 @@ public class SquareGUI extends JFrame {
 		prepareActionsChangeColor();
 	}
 
+	private void prepareActionsMove() {
+		buttonNorth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				refresh();
+			}
+		});
+
+		buttonWest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				refresh();
+			}
+		});
+
+
+		buttonSouth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				refresh();
+			}
+		});
+		buttonEast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				refresh();
+			}
+		});
+	}
+
 	private void prepareActionsChangeColor() {
 		buttonOldColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
@@ -392,7 +418,7 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void refresh() {
-		
+
 	}
 
 	public static void main(String args[]) {
