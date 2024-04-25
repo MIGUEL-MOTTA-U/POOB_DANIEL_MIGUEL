@@ -1,6 +1,6 @@
 package presentation;
 
-// import domain.*;
+// import domain.*; 
 
 import java.awt.*;
 
@@ -80,16 +80,15 @@ public class SquareGUI extends JFrame {
 		setSize(PREFERRED_DIMENSION);
 		setLocationRelativeTo(null);
 		defaultBackground();
-
+		
 		prepareElementsMenu();
 		prepareElementsNorth();
 		prepareElementsEast();
-		prepareElementsBoard();
 	}
 
 	private void defaultBackground() {
         UIManager.put("Panel.background", Color.WHITE);
-        UIManager.put("Button.background", Color.WHITE);
+        UIManager.put("Button.background",  Color.WHITE);
         UIManager.put("Label.background", Color.WHITE);
     }
 	
@@ -121,6 +120,7 @@ public class SquareGUI extends JFrame {
 		getContentPane().add(panelNorth, BorderLayout.NORTH);
 	}
 
+	// panelNorth
 	private JPanel prepareElementsHeader() {
 		panelHeader = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelHeader.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
@@ -128,11 +128,7 @@ public class SquareGUI extends JFrame {
 		imageGame = new JLabel();
 		imageGame.setSize(70, 70);
 		imageGame.setBorder(new EmptyBorder(0, 0, 0, 40));
-		URL url = getClass().getResource("./assets/imageHeader.png");
-		if (url != null) {
-			ImageIcon img = new ImageIcon(url);
-			imageGame.setIcon(new ImageIcon(img.getImage().getScaledInstance(imageGame.getWidth(), imageGame.getHeight(), Image.SCALE_SMOOTH)));
-		}
+		createImage(imageGame, "./assets/imageHeader.png");
 		labelTitle = new JLabel("Square");
 		labelTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
 		labelTitle.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -183,6 +179,7 @@ public class SquareGUI extends JFrame {
 		getContentPane().add(panelEast, BorderLayout.EAST);
 	}
 
+	// panelEast
 	private JPanel prepareElementsMove() {
 		panelMove = new JPanel(new BorderLayout());
 		panelMove.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Move")));
@@ -204,15 +201,9 @@ public class SquareGUI extends JFrame {
 		buttonWest = new JButton("West");
 		buttonSouth = new JButton("South");
 		buttonEast = new JButton("East");
-		URL url = getClass().getResource("./assets/compass.png");
 		imageCompass = new JLabel();
 		imageCompass.setSize(50, 50);
-		if (url != null) {
-			ImageIcon img = new ImageIcon(url);
-			imageCompass.setIcon(new ImageIcon(img.getImage().getScaledInstance(imageCompass.getWidth(), imageCompass.getHeight(), Image.SCALE_SMOOTH)));
-			imageCompass.setHorizontalAlignment(SwingConstants.CENTER);
-        	imageCompass.setVerticalAlignment(SwingConstants.CENTER);
-		}
+		createImage(imageCompass, "./assets/compass.png");
 
 		panelButtonNorth.add(buttonNorth);
 		panelButtonWest.add(buttonWest);
@@ -284,15 +275,15 @@ public class SquareGUI extends JFrame {
 		return panelChangeColor;
 	}
 
-	private void prepareElementsBoard() {
+	private void prepareElementsBoard(int size) {
 		panelBoard = new JPanel();
 
-		JPanel container = new JPanel(new GridLayout(9, 9));
+		JPanel container = new JPanel(new GridLayout(size, size));
 		container.setPreferredSize(new Dimension(475, 475));
 		container.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
 		boxes = new ArrayList<>();
-		for (int i = 0; i < 81; i++) {
+		for (int i = 0; i < Math.pow(size, 2); i++) {
 			JPanel box = new JPanel();
 			box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			container.add(box);
@@ -301,6 +292,7 @@ public class SquareGUI extends JFrame {
 
 		panelBoard.add(container);
 		getContentPane().add(panelBoard, BorderLayout.CENTER);
+		setVisible(true);
 	}
 	
 	private void prepareActions() { 
@@ -311,6 +303,7 @@ public class SquareGUI extends JFrame {
 			}
 		}); 
 		prepareActionsMenu();
+		prepareActionsBoard();
 		prepareActionsEast();
 	}   
 
@@ -342,6 +335,15 @@ public class SquareGUI extends JFrame {
 				confirmClose();
 			}
 		});	
+	}
+
+	private void prepareActionsBoard() {
+		buttonCreateBoard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				int size = Integer.parseInt(boardSize.getText());
+				prepareElementsBoard(size);
+			}
+		});
 	}
 
 	private void prepareActionsEast() {
@@ -378,6 +380,20 @@ public class SquareGUI extends JFrame {
 			System.exit(0);
 		} 
 	} 
+
+	private void createImage(JLabel label, String path) {
+		URL url = getClass().getResource(path);
+		if (url != null) {
+			ImageIcon img = new ImageIcon(url);
+			label.setIcon(new ImageIcon(img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+			label.setHorizontalAlignment(SwingConstants.CENTER);
+        	label.setVerticalAlignment(SwingConstants.CENTER);
+		}
+	}
+
+	private void refresh() {
+		
+	}
 
 	public static void main(String args[]) {
 		SquareGUI gui = new SquareGUI();
