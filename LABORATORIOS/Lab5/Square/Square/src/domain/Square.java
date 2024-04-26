@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @autor: Daniel Diaz and Miguel Motta
- * This class represents the Square game
+ *         This class represents the Square game
  */
 public class Square {
     private String[][][] board;
@@ -37,11 +37,10 @@ public class Square {
             tokens = new HashMap<>();
             hollows = new HashMap<>();
             rows = n;
-            // La llena de espacios vacios
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    board[i][j][0] = ""; // String 1 --> vacioS
-                    board[i][j][1] = ""; // String 2 -->
+                    board[i][j][0] = ""; 
+                    board[i][j][1] = ""; 
                     board[i][j][2] = "";
                 }
             }
@@ -64,7 +63,7 @@ public class Square {
             case "EAST":
                 moveEast();
                 movements++;
-                break;  
+                break;
             case "SOUTH":
                 moveSouth();
                 movements++;
@@ -169,7 +168,8 @@ public class Square {
      */
     private void randomHollows(int numHollows) {
         ArrayList<String> colorsHollows = new ArrayList<>(Arrays.asList(
-                "RED", "BLUE", "GREEN", "YELLOW", "CYAN", "MAGENTA", "BLACK", "GRAY", "LIGHT_GRAY", "DARK_GRAY", "ORANGE", "PINK"));
+                "RED", "BLUE", "GREEN", "YELLOW", "CYAN", "MAGENTA", "BLACK", "GRAY", "LIGHT_GRAY", "DARK_GRAY",
+                "ORANGE", "PINK"));
         Random random = new Random();
         ArrayList<Integer> possibleRows = new ArrayList<>();
         ArrayList<Integer> possibleColumns = new ArrayList<>();
@@ -183,11 +183,10 @@ public class Square {
             int randomRow = random.nextInt(rows);
             int randomCol = random.nextInt(rows);
             String randomColor = colorsHollows.get(random.nextInt(colorsHollows.size()));
-            if (board[randomRow][randomCol][0].isEmpty()) { // && board[randomRow][randomCol][1].isEmpty()) { -->
-                                                            // Inecesario
-                board[randomRow][randomCol][0] = "H"; // Type
-                board[randomRow][randomCol][1] = randomColor; // Random Color
-                usedColors.add(randomColor); // Lo agrega a los colores para crear los tokens
+            if (board[randomRow][randomCol][0].isEmpty()) { 
+                board[randomRow][randomCol][0] = "H"; 
+                board[randomRow][randomCol][1] = randomColor;
+                usedColors.add(randomColor); 
                 colorsHollows.remove(randomColor);
                 hollows.put(randomColor, new int[] { randomRow, randomCol });
                 hollowsPlaced++;
@@ -209,10 +208,9 @@ public class Square {
             int randomRow = random.nextInt(rows);
             int randomCol = random.nextInt(rows);
             String randomColor = colorsToken.get(random.nextInt(colorsToken.size()));
-            if (board[randomRow][randomCol][0].isEmpty()) { // && board[randomRow][randomCol][1].isEmpty()) { -->
-                                                            // Inecesario
-                board[randomRow][randomCol][0] = "T"; // Type
-                board[randomRow][randomCol][1] = randomColor; // Random Color
+            if (board[randomRow][randomCol][0].isEmpty()) { 
+                board[randomRow][randomCol][0] = "T"; 
+                board[randomRow][randomCol][1] = randomColor; 
                 colorsToken.remove(randomColor);
                 tokens.put(randomColor, new int[] { randomRow, randomCol });
 
@@ -240,7 +238,7 @@ public class Square {
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            }
+                        }
                     }
                 }
             }
@@ -266,7 +264,7 @@ public class Square {
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            }
+                        }
                     }
                 }
             }
@@ -292,7 +290,7 @@ public class Square {
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            }
+                        }
                     }
                 }
             }
@@ -318,7 +316,7 @@ public class Square {
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            }
+                        }
                     }
                 }
             }
