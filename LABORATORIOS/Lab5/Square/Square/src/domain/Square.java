@@ -115,7 +115,7 @@ public class Square {
      * @return the percentage of Tokens in a hollow
      */
     public int percentage() {
-        percentage = (int)(correctPlaces/tokens.size());
+        percentage = (int)(100*correctPlaces/tokens.size());
         ok=true;
         return percentage;
     }
