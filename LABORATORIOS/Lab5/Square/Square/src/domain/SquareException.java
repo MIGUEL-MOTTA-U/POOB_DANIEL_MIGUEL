@@ -11,7 +11,6 @@ public class SquareException extends Exception{
     public static final String UNKNOWN_TOKEN = "The Token does not exist in the Square";
     public static final String TOKEN_EXISTENT = "The Token already exist in the Square";
     
-
     public SquareException(String message){
         super(message);
     }

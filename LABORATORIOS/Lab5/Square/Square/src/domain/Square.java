@@ -7,8 +7,8 @@ import java.util.Random;
 
 /**
  * @autor: Daniel Diaz and Miguel Motta
- *         This class represents the Square game
- */
+ *         This class represents the Square game.
+ */ 
 public class Square {
     private String[][][] board;
     private HashMap<String, int[]> tokens;
@@ -16,12 +16,13 @@ public class Square {
     private int rows;
     private int movements;
     private int percentage;
+    private int correctPlaces;
     private boolean gameOver;
     private ArrayList<String> usedColors;
+    private boolean ok;
 
     /**
      * Constructor of Square by given number of rows.
-     * 
      * @param n    is the number of rows (and columns, beacause is square).
      * @param nTok is the number of random tokens and hollows to be generated
      * @throws SquareException if the number of rows
@@ -29,9 +30,10 @@ public class Square {
     public Square(int n, int nTok) throws SquareException {
         if (n < 1)
             throw new SquareException(SquareException.WRONG_DIMENSIONS);
-        else if (nTok > (Math.pow(n, 2) / 2) || nTok > 16)
+        else if (nTok > (Math.pow(n, 2) / 2) || nTok > 12)
             throw new SquareException(SquareException.LIMIT_TOKENS);
         else {
+            correctPlaces = 0;
             board = new String[n][n][3];
             usedColors = new ArrayList<>();
             tokens = new HashMap<>();
@@ -46,81 +48,80 @@ public class Square {
             }
             randomHollows(nTok);
         }
+        ok = true;
         gameOver = false;
     }
 
     /**
      * Move the tokens to the orientation given
-     * 
      * @param direction is the direction where the token is moving to
      */
     public void move(String direction) throws SquareException {
-        switch (direction) {
-            case "NORTH":
-                moveNorth();
-                movements++;
-                break;
-            case "EAST":
-                moveEast();
-                movements++;
-                break;
-            case "SOUTH":
-                moveSouth();
-                movements++;
-                break;
-            case "WEST":
-                moveWest();
-                movements++;
-                break;
-            default:
-                throw new SquareException(SquareException.WRONG_DIRECTION);
+        if(!getGameOver()){
+            switch (direction.toUpperCase()) {
+                case "NORTH":
+                    moveNorth();
+                    movements++;
+                    break;
+                case "EAST":
+                    moveEast();
+                    movements++;
+                    break;
+                case "SOUTH":
+                    moveSouth();
+                    movements++;
+                    break;
+                case "WEST":
+                    moveWest();
+                    movements++;
+                    break;
+                default:
+                    ok=false;
+                    throw new SquareException(SquareException.WRONG_DIRECTION);
+            }
+            ok=true;
         }
     }
 
     /**
-     * Change the color of a token
-     * 
+     * Change the color of a token.
      * @param oldColor the color to change
      * @param newColor the new color
      * @throws SquareException
      */
     public void changeTokenColor(String oldColor, String newColor) throws SquareException {
-        if (!tokens.containsKey(oldColor))
+        if (!tokens.containsKey(oldColor)){
+            ok=false;
             throw new SquareException(SquareException.UNKNOWN_TOKEN);
-        else if (usedColors.contains(newColor))
+        }
+        else if (usedColors.contains(newColor)){
+            ok=false;
             throw new SquareException(SquareException.TOKEN_EXISTENT);
-        else {
+        }else {
             int rowOfToken = tokens.get(oldColor)[0], columnOfToken = tokens.get(oldColor)[1];
             int rowOfHollow = hollows.get(oldColor)[0], columnOfHollow = hollows.get(oldColor)[1];
             board[rowOfToken][columnOfToken][1] = newColor;
             board[rowOfHollow][columnOfHollow][1] = newColor;
-            // ME falta hacer el test
             tokens.remove(oldColor);
             tokens.put(newColor, new int[] { rowOfToken, columnOfToken });
             hollows.remove(oldColor);
             hollows.put(newColor, new int[] { rowOfHollow, columnOfHollow });
+            ok=true;
         }
     }
 
     /**
-     * Saves the game.
-     */
-    public void save() {
-
-    }
-
-    /**
      * Returns the percentage of Tokens in a hollow.
-     * 
      * @return the percentage of Tokens in a hollow
      */
     public int percentage() {
-        return 0;
+        percentage = (int)(correctPlaces/tokens.size());
+        ok=true;
+        return percentage;
     }
 
     /**
      * Counts the movements in the board and returns it.
-     * 
      * @return the movements in the board.
      */
     public int movements() {
@@ -129,7 +130,6 @@ public class Square {
 
     /**
      * Returns the board of the Square
-     * 
      * @return the board
      */
     public String[][][] getBoard() {
@@ -147,7 +147,6 @@ public class Square {
 
     /**
      * Returns the hollows in the board
-     * 
      * @return all the hollows
      */
     public HashMap<String, int[]> getHollows() {
@@ -156,11 +155,18 @@ public class Square {
 
     /**
      * Return if the player lose
-     * 
      * @return TRUE if the player lose. FALSE, otherwise
      */
     public boolean getGameOver() {
         return gameOver;
+    }
+
+    /**
+     * Returns the state of the last action.
+     * @return ok, the boolean of the state of Square.
+     */
+    public boolean ok(){
+        return ok;
     }
 
     /*
@@ -177,7 +183,6 @@ public class Square {
             possibleRows.add(k);
             possibleColumns.add(k);
         }
-
         int hollowsPlaced = 0;
         while (hollowsPlaced < numHollows) {
             int randomRow = random.nextInt(rows);
@@ -202,7 +207,7 @@ public class Square {
     private void randomTokens(ArrayList<String> pColors, ArrayList<Integer> possibleR, ArrayList<Integer> possibleC,
             int numHollows) {
         Random random = new Random();
-        ArrayList<String> colorsToken = usedColors;
+        ArrayList<String> colorsToken = new ArrayList<>(usedColors);
         int hollowsPlaced = 0;
         while (hollowsPlaced < numHollows) {
             int randomRow = random.nextInt(rows);
@@ -235,6 +240,7 @@ public class Square {
                         if (!board[i][j + 1][1].equals(board[i][j][1])) {
                             gameOver = true;
                         } else {
+                            correctPlaces++;
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -261,6 +267,7 @@ public class Square {
                         if (!board[i][j - 1][1].equals(board[i][j][1])) {
                             gameOver = true;
                         } else {
+                            correctPlaces++;
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -287,6 +294,7 @@ public class Square {
                         if (!board[i - 1][j][1].equals(board[i][j][1])) {
                             gameOver = true;
                         } else {
+                            correctPlaces++;
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -313,6 +321,7 @@ public class Square {
                         if (!board[i + 1][j][1].equals(board[i][j][1])) {
                             gameOver = true;
                         } else {
+                            correctPlaces++;
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";

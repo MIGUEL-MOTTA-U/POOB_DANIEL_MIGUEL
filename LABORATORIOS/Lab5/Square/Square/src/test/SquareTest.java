@@ -12,22 +12,19 @@ import org.junit.Test;
 
 public class SquareTest {
     public SquareTest() {
-
     }
 
     @Before
     public void setUp() {
-
     }
 
     @After
     public void tearDown() {
-
     }
 
     @Test
     public void shouldCreateSquareWithRandomTokensAndHollows() throws SquareException {
-        Square s1 = new Square(16, 15);
+        Square s1 = new Square(16, 12);
         HashMap<String, int[]> hollowsS = s1.getHollows();
         HashMap<String, int[]> tokensS = s1.getTokens();
         assertEquals(tokensS.size(), hollowsS.size());
@@ -77,13 +74,13 @@ public class SquareTest {
     @Test
     public void shouldNotCreateSquare() throws SquareException {
         try {
-            Square s1 = new Square(17, 17);
+            new Square(17, 17);
             fail("It should not create a Square with more than 16 rows");
         } catch (SquareException e) {
             assertEquals(e.getMessage(), SquareException.LIMIT_TOKENS);
         }
         try {
-            Square s2 = new Square(0, 0);
+            new Square(0, 0);
             fail("It should not create a Square with less than 1 row");
         } catch (SquareException e) {
             assertEquals(e.getMessage(), SquareException.WRONG_DIMENSIONS);
@@ -99,7 +96,82 @@ public class SquareTest {
             expected = tokens.get(color);
             s1.changeTokenColor(color, "Rojo Carmesi");
         }
-        assertEquals(expected, s1.getTokens().get("Rojo Carmesi")); // Deberia ser el mismo
+        assertArrayEquals(expected, s1.getTokens().get("Rojo Carmesi"));
+    }
+    @Test
+    public void shouldNotShangeColor1()throws SquareException {
+        Square s1 = new Square(5, 3);
+        try{
+            s1.changeTokenColor("Color inexistente", "");
+            fail("Should Fail if the given color does not exist in the Square.");
+        } catch (SquareException e){
+            assertEquals(e.getMessage(), SquareException.UNKNOWN_TOKEN);
+        }
+    }
+    @Test
+    public void shouldNotShangeColor2()throws SquareException {
+        Square s1 = new Square(5, 1);
+        HashMap<String, int[]> tokens = s1.getTokens();
+        String oldColor="";
+        for (String color : tokens.keySet()) {
+            oldColor=color;
+        }
+        try{
+            s1.changeTokenColor(oldColor,oldColor);
+            fail("Should Fail if the given color does not exist in the Square.");
+        } catch (SquareException e){
+            assertEquals(e.getMessage(), SquareException.TOKEN_EXISTENT);
+        }
+    }
+    
+    @Test
+    public void shouldMove()throws SquareException{
+        Square s1 = new Square(5, 2);
+        s1.move("NORTH");
+        assertEquals(true, s1.ok());
+        s1.move("SOUTH");
+        assertEquals(true, s1.ok());
+        s1.move("WEST");
+        assertEquals(true, s1.ok());
+        s1.move("EAST");
+        assertEquals(true, s1.ok());
+        s1.move("sOuTH");
+        assertEquals(true, s1.ok());
+    }
 
+    @Test
+    public void shouldNotMove1()throws SquareException{
+        Square s1 = new Square(5, 2);
+        try {
+            s1.move("NORT");
+        } catch (SquareException e){
+            assertEquals(SquareException.WRONG_DIRECTION, e.getMessage());
+        }
+        assertEquals(false, s1.ok());
+    }
+    @Test
+    public void shouldNotMove2()throws SquareException{
+        Square s1 = new Square(12, 8);
+        try {
+            s1.move("notCorrect");
+        } catch (SquareException e){
+            assertEquals(SquareException.WRONG_DIRECTION, e.getMessage());
+        }
+        assertEquals(false, s1.ok());
+    }
+    @Test
+    public void shouldNotMove3()throws SquareException{
+        Square s1 = new Square(12, 8);
+        try {
+            s1.move("");
+        } catch (SquareException e){
+            assertEquals(SquareException.WRONG_DIRECTION, e.getMessage());
+        }
+        assertEquals(false, s1.ok());
+    }
+
+    @Test
+    public void shouldCountMoves() throws SquareException{
+        // Falta hacer el de contar movimientos
     }
 }
