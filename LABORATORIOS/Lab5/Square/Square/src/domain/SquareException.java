@@ -1,7 +1,8 @@
 package domain;
+
 /**
  * @autor: Daniel Diaz and Miguel Motta
- * This class has all the Exceptions that, class Square might present.
+ * This class has all the Exceptions that class Square might present.
  */
 public class SquareException extends Exception{
     public static final String WRONG_DIMENSIONS = "Dimensions must greater than 0";

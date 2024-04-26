@@ -3,23 +3,27 @@ package domain;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-//import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * @autor: Daniel Diaz and Miguel Motta
+ * This class represents the Square game
+ */
 public class Square {
-    private int rows;
-    private int movements;
-    private String[][][] board; // i, j, (Type(H,T,""), Color or "")
+    private String[][][] board;
     private HashMap<String, int[]> tokens;
     private HashMap<String, int[]> hollows;
-    private ArrayList<String> usedColors;
+    private int rows;
+    private int movements;
+    private int precentage;
     private boolean gameOver;
+    private ArrayList<String> usedColors;
 
     /**
      * Constructor of Square by given number of rows.
      * 
      * @param n    is the number of rows (and columns, beacause is square).
-     * @param nTok is the number of random tokens to be generated
+     * @param nTok is the number of random tokens and hollows to be generated
      * @throws SquareException if the number of rows
      */
     public Square(int n, int nTok) throws SquareException {
@@ -47,20 +51,8 @@ public class Square {
     }
 
     /**
-     * Try to add a Token by given coordenates and color
+     * Move the tokens to the orientation given
      * 
-     * @param color  The color of the Token
-     * @param row    The row where is the Token
-     * @param column The column where is the Token
-     */
-    public void addToken(String color, int row, int column) {
-
-    }
-
-    /**
-     * Try to Move the given token
-     * 
-     * @param token     is the token that will move on the board
      * @param direction is the direction where the token is moving to
      */
     public void move(String direction) throws SquareException {
@@ -83,31 +75,12 @@ public class Square {
     }
 
     /**
-     * This method tries to delete a token (and it respective hollow) if it is
-     * possible
+     * Change the color of a token
      * 
-     * @throws SquareException if the token is not in the Square
-     * @param color, is the color of the given token.
+     * @param oldColor the color to change
+     * @param newColor the new color
+     * @throws SquareException
      */
-    public void delToken(String color) throws SquareException {
-        if (!tokens.containsKey(color))
-            throw new SquareException(SquareException.UNKNOWN_TOKEN);
-        int rowOfToken = tokens.get(color)[0], columnOfToken = tokens.get(color)[1];
-        int rowOfHollow = hollows.get(color)[0], columnOfHollow = hollows.get(color)[1];
-        // Borrar del board
-        board[rowOfToken][columnOfToken][0] = "";
-        board[rowOfToken][columnOfToken][1] = "";
-        board[rowOfToken][columnOfToken][2] = "";
-
-        board[rowOfHollow][columnOfHollow][1] = "";
-        board[rowOfHollow][columnOfHollow][0] = "";
-        board[rowOfHollow][columnOfHollow][2] = "";
-
-        tokens.remove(color);
-        hollows.remove(color);
-
-    }
-
     public void changeTokenColor(String oldColor, String newColor) throws SquareException {
         if (!tokens.containsKey(oldColor))
             throw new SquareException(SquareException.UNKNOWN_TOKEN);
@@ -130,6 +103,7 @@ public class Square {
      * Saves the game.
      */
     public void save() {
+
     }
 
     /**
@@ -153,36 +127,41 @@ public class Square {
     /**
      * Returns the board of the Square
      * 
-     * @return board, the attribute board of Square
+     * @return the board
      */
     public String[][][] getBoard() {
         return board;
     }
 
     /**
-     * Returns the tokens in a HashMap
+     * Returns the tokens in the board
      * 
-     * @return tokens, the attribute tokens of Square
+     * @return all the tokens
      */
     public HashMap<String, int[]> getTokens() {
         return tokens;
     }
 
     /**
-     * Returns the hollows in a HashMap
+     * Returns the hollows in the board
      * 
-     * @return hollows, the attribute hollows of Square
+     * @return all the hollows
      */
     public HashMap<String, int[]> getHollows() {
         return hollows;
     }
 
+    /**
+     * Return if the player lose
+     * 
+     * @return TRUE if the player lose. FALSE, otherwise
+     */
     public boolean getGameOver() {
         return gameOver;
     }
 
     /*
-     * It generates random Hollows to start the board
+     * Generates random Hollows to start the board
      */
     private void randomHollows(int numHollows) {
         ArrayList<String> colorsHollows = new ArrayList<>(Arrays.asList(
@@ -217,9 +196,7 @@ public class Square {
     }
 
     /*
-     * It generates rando Tokens to start the board
-     * 
-     * @param: colors, nTokens, possibleR, possibleC
+     * Generates rando Tokens to start the board
      */
     private void randomTokens(ArrayList<String> pColors, ArrayList<Integer> possibleR, ArrayList<Integer> possibleC,
             int numHollows) {
@@ -243,7 +220,7 @@ public class Square {
     }
 
     /*
-     * This method moves all the possible tokens to the East
+     * Moves all the possible tokens to the East
      */
     private void moveEast() throws SquareException {
         for (int i = 0; i < rows; i++) {
@@ -258,8 +235,7 @@ public class Square {
                     } else if (board[i][j + 1][0].equals("H") && board[i][j + 1][2].isEmpty()) {
                         if (!board[i][j + 1][1].equals(board[i][j][1])) {
                             gameOver = true;
-                        }
-                        else {
+                        } else {
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -272,7 +248,7 @@ public class Square {
     }
 
     /*
-     * This method moves all the possible tokens to the West
+     * Moves all the possible tokens to the West
      */
     private void moveWest() throws SquareException {
         for (int i = 0; i < rows; i++) {
@@ -286,8 +262,7 @@ public class Square {
                     } else if (board[i][j - 1][0].equals("H") && board[i][j - 1][2].isEmpty()) {
                         if (!board[i][j - 1][1].equals(board[i][j][1])) {
                             gameOver = true;
-                        }
-                        else {
+                        } else {
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -300,7 +275,7 @@ public class Square {
     }
 
     /*
-     * This method moves all the possible tokens to the North
+     * Moves all the possible tokens to the North
      */
     private void moveNorth() throws SquareException {
         for (int i = 1; i < rows; i++) {
@@ -314,8 +289,7 @@ public class Square {
                     } else if (board[i - 1][j][0].equals("H") && board[i - 1][j][2].isEmpty()) {
                         if (!board[i - 1][j][1].equals(board[i][j][1])) {
                             gameOver = true;
-                        }
-                        else {
+                        } else {
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -327,7 +301,7 @@ public class Square {
     }
 
     /*
-     * This method moves all the possible tokens to the West
+     * Moves all the possible tokens to the West
      */
     private void moveSouth() throws SquareException {
         for (int i = rows - 1; i >= 0; i--) {
@@ -341,8 +315,7 @@ public class Square {
                     } else if (board[i + 1][j][0].equals("H") && board[i + 1][j][2].isEmpty()) {
                         if (!board[i + 1][j][1].equals(board[i][j][1])) {
                             gameOver = true;
-                        }
-                        else {
+                        } else {
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
