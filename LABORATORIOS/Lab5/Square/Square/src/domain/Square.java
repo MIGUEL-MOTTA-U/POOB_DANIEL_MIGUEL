@@ -15,7 +15,7 @@ public class Square {
     private HashMap<String, int[]> hollows;
     private int rows;
     private int movements;
-    private int precentage;
+    private int percentage;
     private boolean gameOver;
     private ArrayList<String> usedColors;
 
