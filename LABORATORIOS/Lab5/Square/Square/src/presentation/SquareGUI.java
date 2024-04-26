@@ -53,6 +53,7 @@ public class SquareGUI extends JFrame {
 	private JTextField boardSize;
 	private JTextField numberTokens;
 	private JButton buttonCreateBoard;
+	private JButton buttonRestart;
 	
 	// Move
 	private JButton buttonNorth;
@@ -148,8 +149,12 @@ public class SquareGUI extends JFrame {
 		panelCreateBoard = new JPanel(new FlowLayout(FlowLayout.CENTER,20,20));
 		panelCreateBoard.setBorder(new CompoundBorder(new EmptyBorder(5, 40, 5, 40), new TitledBorder("Create board")));
 
-		JPanel panelButton = new JPanel(new BorderLayout());
-		panelButton.setBorder(new EmptyBorder(0, 70, 0, 0));
+		JPanel panelButtonCreateBoard = new JPanel(new BorderLayout());
+		panelButtonCreateBoard.setBorder(new EmptyBorder(0, 70, 0, 0));
+		
+		JPanel panelButtonRestart = new JPanel(new BorderLayout());
+		panelButtonRestart.setBorder(new EmptyBorder(0, 70, 0, 0));
+
 
 		labelBoardSize = new JLabel("Board size: ");
 		labelBoardSize.setBorder(new EmptyBorder(0, 30, 0, 0));
@@ -161,13 +166,16 @@ public class SquareGUI extends JFrame {
 
 		numberTokens = new JTextField(10);
 		buttonCreateBoard = new JButton("Create");
+		buttonRestart = new JButton("restart");
 
-		panelButton.add(buttonCreateBoard, BorderLayout.CENTER);
+		panelButtonCreateBoard.add(buttonCreateBoard, BorderLayout.CENTER);
+		panelButtonRestart.add(buttonRestart, BorderLayout.CENTER);
 		panelCreateBoard.add(labelBoardSize);
 		panelCreateBoard.add(boardSize);
 		panelCreateBoard.add(labelNumberTokens);
 		panelCreateBoard.add(numberTokens);
-		panelCreateBoard.add(panelButton);
+		panelCreateBoard.add(panelButtonCreateBoard);
+		panelCreateBoard.add(panelButtonRestart);
 
 		return panelCreateBoard;
 	}
@@ -463,6 +471,12 @@ public class SquareGUI extends JFrame {
 				}
 			}
 		});
+
+		buttonRestart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				restart();
+			}
+		});
 	}
 
 	private void prepareActionsEast() {
@@ -581,13 +595,7 @@ public class SquareGUI extends JFrame {
 
 	private void gameOver() {
 		JOptionPane.showMessageDialog(this, "A token fell into a hollow of another color", "Game over", JOptionPane.INFORMATION_MESSAGE);
-		try {
-			square = new Square(9, 0);
-			prepareElementsBoard();
-			resetInfo();
-		} catch (SquareException e) {
-			System.out.println(e.getMessage());
-		}
+		restart();
 	}
 
 	private void updateInfo() {
@@ -599,6 +607,18 @@ public class SquareGUI extends JFrame {
 		labelMoves.setText("Moves: 0");
 		labelPercentage.setText("Percentaje: 0%");
 		setVisible(true);
+	}
+
+	private void restart() {
+		try {
+			boardSize.setText("");
+			numberTokens.setText("");
+			square = new Square(9, 0);
+			prepareElementsBoard();
+			resetInfo();
+		} catch (SquareException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 
