@@ -87,6 +87,7 @@ public class SquareGUI extends JFrame {
 		prepareElementsMenu();
 		prepareElementsNorth();
 		prepareElementsEast();
+		prepareElementsBoard();	
 	}
 
 	private void defaultBackground() {
@@ -292,6 +293,28 @@ public class SquareGUI extends JFrame {
 	}
 
 	// Board
+	private void prepareElementsBoard() {
+		panelBoard = new JPanel();
+
+		JPanel container = new JPanel(new GridLayout(9, 9));
+		container.setPreferredSize(new Dimension(475, 475));
+		container.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
+
+		boxes = new JPanel[9][9];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				JPanel box = new JPanel();
+				box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				container.add(box);
+				boxes[i][j] = box;
+			}
+		}
+
+		panelBoard.add(container);
+		getContentPane().add(panelBoard, BorderLayout.CENTER);
+		setVisible(true);
+	}
+
 	private void prepareElementsBoard(int size) {
 		panelBoard = new JPanel();
 
@@ -450,7 +473,11 @@ public class SquareGUI extends JFrame {
 			public void actionPerformed(ActionEvent ev) {
 				try {
 					square.move("NORTH");
-					refresh();
+					if (square.getGameOver()) {
+						gameOver();
+					} else {
+						refresh();
+					}
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -461,7 +488,11 @@ public class SquareGUI extends JFrame {
 			public void actionPerformed(ActionEvent ev) {
 				try {
 					square.move("WEST");
-					refresh();
+					if (square.getGameOver()) {
+						gameOver();
+					} else {
+						refresh();
+					}
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -473,7 +504,11 @@ public class SquareGUI extends JFrame {
 			public void actionPerformed(ActionEvent ev) {
 				try {
 					square.move("SOUTH");
-					refresh();
+					if (square.getGameOver()) {
+						gameOver();
+					} else {
+						refresh();
+					}
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -484,7 +519,11 @@ public class SquareGUI extends JFrame {
 			public void actionPerformed(ActionEvent ev) {
 				try {
 					square.move("EAST");
-					refresh();
+					if (square.getGameOver()) {
+						gameOver();
+					} else {
+						refresh();
+					}
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -535,6 +574,16 @@ public class SquareGUI extends JFrame {
 
 	private void refresh() {
 		prepareElementsBoard(size);
+	}
+
+	private void gameOver() {
+		JOptionPane.showMessageDialog(this, "A token fell into a hollow of another color", "Game over", JOptionPane.INFORMATION_MESSAGE);
+		try {
+			square = new Square(9, 0);
+			prepareElementsBoard();
+		} catch (SquareException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	public static void main(String args[]) throws SquareException {

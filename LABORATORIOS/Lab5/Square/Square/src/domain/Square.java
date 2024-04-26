@@ -13,6 +13,7 @@ public class Square {
     private HashMap<String, int[]> tokens;
     private HashMap<String, int[]> hollows;
     private ArrayList<String> usedColors;
+    private boolean gameOver;
 
     /**
      * Constructor of Square by given number of rows.
@@ -22,7 +23,7 @@ public class Square {
      * @throws SquareException if the number of rows
      */
     public Square(int n, int nTok) throws SquareException {
-        if (n < 1 || nTok < 1)
+        if (n < 1)
             throw new SquareException(SquareException.WRONG_DIMENSIONS);
         else if (nTok > (Math.pow(n, 2) / 2) || nTok > 16)
             throw new SquareException(SquareException.LIMIT_TOKENS);
@@ -42,6 +43,7 @@ public class Square {
             }
             randomHollows(nTok);
         }
+        gameOver = false;
     }
 
     /**
@@ -175,6 +177,10 @@ public class Square {
         return hollows;
     }
 
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
     /*
      * It generates random Hollows to start the board
      */
@@ -250,8 +256,9 @@ public class Square {
                         board[i][j][1] = "";
                         movements++;
                     } else if (board[i][j + 1][0].equals("H") && board[i][j + 1][2].isEmpty()) {
-                        if (!board[i][j + 1][1].equals(board[i][j][1]))
-                            throw new SquareException(SquareException.LOSER);
+                        if (!board[i][j + 1][1].equals(board[i][j][1])) {
+                            gameOver = true;
+                        }
                         else {
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
@@ -277,8 +284,9 @@ public class Square {
                         board[i][j][0] = "";
                         board[i][j][1] = "";
                     } else if (board[i][j - 1][0].equals("H") && board[i][j - 1][2].isEmpty()) {
-                        if (!board[i][j - 1][1].equals(board[i][j][1]))
-                            throw new SquareException(SquareException.LOSER);
+                        if (!board[i][j - 1][1].equals(board[i][j][1])) {
+                            gameOver = true;
+                        }
                         else {
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
@@ -304,8 +312,9 @@ public class Square {
                         board[i][j][0] = "";
                         board[i][j][1] = "";
                     } else if (board[i - 1][j][0].equals("H") && board[i - 1][j][2].isEmpty()) {
-                        if (!board[i - 1][j][1].equals(board[i][j][1]))
-                            throw new SquareException(SquareException.LOSER);
+                        if (!board[i - 1][j][1].equals(board[i][j][1])) {
+                            gameOver = true;
+                        }
                         else {
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
@@ -330,8 +339,9 @@ public class Square {
                         board[i][j][0] = "";
                         board[i][j][1] = "";
                     } else if (board[i + 1][j][0].equals("H") && board[i + 1][j][2].isEmpty()) {
-                        if (!board[i + 1][j][1].equals(board[i][j][1]))
-                            throw new SquareException(SquareException.LOSER);
+                        if (!board[i + 1][j][1].equals(board[i][j][1])) {
+                            gameOver = true;
+                        }
                         else {
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
