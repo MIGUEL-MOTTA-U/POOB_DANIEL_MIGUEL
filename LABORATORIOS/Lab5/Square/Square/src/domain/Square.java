@@ -169,9 +169,7 @@ public class Square {
      */
     private void randomHollows(int numHollows) {
         ArrayList<String> colorsHollows = new ArrayList<>(Arrays.asList(
-                "red", "blue", "green", "yellow", "orange", "purple",
-                "white", "black", "gray", "pink", "light green", "brown",
-                "sky blue", "violet", "dark yellow"));
+                "RED", "BLUE", "GREEN", "YELLOW", "CYAN", "MAGENTA", "BLACK", "GRAY", "LIGHT_GRAY", "DARK_GRAY", "ORANGE", "PINK"));
         Random random = new Random();
         ArrayList<Integer> possibleRows = new ArrayList<>();
         ArrayList<Integer> possibleColumns = new ArrayList<>();

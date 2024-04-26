@@ -363,7 +363,8 @@ public class SquareGUI extends JFrame {
 	private void prepareElementsHollow(int row, int col) {
 		SwingUtilities.invokeLater(() -> {
 			JPanel box = boxes[row][col];
-			box.setBackground(Color.BLUE);
+			String color = square.getBoard()[row][col][1];
+			box.setBackground(getColorFromString(color));
 			box.setLayout(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = 0;
@@ -396,7 +397,8 @@ public class SquareGUI extends JFrame {
 			gbc.fill = GridBagConstraints.CENTER;
 
 			JPanel hollow = new JPanel();
-			hollow.setBackground(Color.BLUE);
+			String color = square.getBoard()[row][col][1];
+			hollow.setBackground(getColorFromString(color));
 			Dimension size = box.getSize();
 			int width = (int) (size.getWidth() * 0.6);
 			int height = (int) (size.getHeight() * 0.6);
@@ -410,7 +412,8 @@ public class SquareGUI extends JFrame {
 	private void prepareElementsInHollow(int row, int col) {
 		SwingUtilities.invokeLater(() -> {
 			JPanel box = boxes[row][col];
-			box.setBackground(Color.BLUE);
+			String color = square.getBoard()[row][col][1];
+			box.setBackground(getColorFromString(color));
 			setVisible(true);
 		});
 	}
@@ -621,6 +624,38 @@ public class SquareGUI extends JFrame {
 		}
 	}
 
+	public static Color getColorFromString(String colorName) {
+        switch (colorName.toUpperCase()) {
+            case "BLUE":
+                return Color.BLUE;
+            case "RED":
+                return Color.RED;
+            case "GREEN":
+                return Color.GREEN;
+            case "YELLOW":
+                return Color.YELLOW;
+            case "CYAN":
+                return Color.CYAN;
+            case "MAGENTA":
+                return Color.MAGENTA;
+            case "WHITE":
+                return Color.WHITE;
+            case "BLACK":
+                return Color.BLACK;
+            case "GRAY":
+                return Color.GRAY;
+            case "LIGHT_GRAY":
+                return Color.LIGHT_GRAY;
+            case "DARK_GRAY":
+                return Color.DARK_GRAY;
+            case "ORANGE":
+                return Color.ORANGE;
+            case "PINK":
+                return Color.PINK;
+            default:
+                return null;
+        }
+    }
 
 	public static void main(String args[]) throws SquareException {
 		SquareGUI gui = new SquareGUI();
