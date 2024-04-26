@@ -59,15 +59,19 @@ public class Square {
         switch (direction) {
             case "NORTH":
                 moveNorth();
+                movements++;
                 break;
             case "EAST":
                 moveEast();
-                break;
+                movements++;
+                break;  
             case "SOUTH":
                 moveSouth();
+                movements++;
                 break;
             case "WEST":
                 moveWest();
+                movements++;
                 break;
             default:
                 throw new SquareException(SquareException.WRONG_DIRECTION);
@@ -231,7 +235,6 @@ public class Square {
                         board[i][j + 1][1] = board[i][j][1];
                         board[i][j][0] = "";
                         board[i][j][1] = "";
-                        movements++;
                     } else if (board[i][j + 1][0].equals("H") && board[i][j + 1][2].isEmpty()) {
                         if (!board[i][j + 1][1].equals(board[i][j][1])) {
                             gameOver = true;
@@ -239,8 +242,7 @@ public class Square {
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            movements++;
-                        }
+                            }
                     }
                 }
             }
@@ -266,8 +268,7 @@ public class Square {
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                            movements++;
-                        }
+                            }
                     }
                 }
             }
@@ -293,7 +294,7 @@ public class Square {
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                        }
+                            }
                     }
                 }
             }
@@ -319,7 +320,7 @@ public class Square {
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
-                        }
+                            }
                     }
                 }
             }

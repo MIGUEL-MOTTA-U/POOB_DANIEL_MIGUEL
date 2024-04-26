@@ -239,15 +239,16 @@ public class SquareGUI extends JFrame {
 		panelInfo = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		panelInfo.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 5, 5), new TitledBorder("Information")));
 
-		labelMoves = new JLabel("Moves: 12");
+		labelMoves = new JLabel("Moves: 0");
 		labelMoves.setBorder(new EmptyBorder(20, 20, 20, 20));
 
-		labelPercentage = new JLabel("Percentage: 30%");
+		labelPercentage = new JLabel("Percentage: 0%");
 		labelPercentage.setBorder(new EmptyBorder(20, 20, 20, 20));
 
 		panelInfo.add(labelMoves);
 		panelInfo.add(labelPercentage);
 
+		setVisible(true);
 		return panelInfo;
 	}
 
@@ -456,6 +457,7 @@ public class SquareGUI extends JFrame {
 				try {
 					square = new Square(size, tokens);
 					prepareElementsBoard(size);
+					resetInfo();
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -574,6 +576,7 @@ public class SquareGUI extends JFrame {
 
 	private void refresh() {
 		prepareElementsBoard(size);
+		updateInfo();
 	}
 
 	private void gameOver() {
@@ -581,10 +584,23 @@ public class SquareGUI extends JFrame {
 		try {
 			square = new Square(9, 0);
 			prepareElementsBoard();
+			resetInfo();
 		} catch (SquareException e) {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	private void updateInfo() {
+		labelMoves.setText("Moves: " + String.valueOf(square.movements()));
+		setVisible(true);
+	}
+	
+	private void resetInfo() {
+		labelMoves.setText("Moves: 0");
+		labelPercentage.setText("Percentaje: 0%");
+		setVisible(true);
+	}
+
 
 	public static void main(String args[]) throws SquareException {
 		SquareGUI gui = new SquareGUI();
