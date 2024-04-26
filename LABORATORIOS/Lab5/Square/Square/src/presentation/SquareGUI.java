@@ -1,6 +1,6 @@
 package presentation;
 
-// import domain.*; 
+import domain.*; 
 
 import java.awt.*;
 
@@ -12,14 +12,17 @@ import javax.swing.border.TitledBorder;
 
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
 
 public class SquareGUI extends JFrame {
 	private static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.8);
 	private static final int PREFERRED_HEIGH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.8);
 	private static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGH);
 
-	// private Square Square;
+	private Square square;
+	private int size;
+	private int tokens;
+	private Color oldColor;
+	private Color newColor;
 
 	// Panels
 	private JPanel panelNorth;
@@ -30,7 +33,7 @@ public class SquareGUI extends JFrame {
 	private JPanel panelMove;
 	private JPanel panelInfo;
 	private JPanel panelChangeColor;
-	private ArrayList<JPanel> boxes;
+	private JPanel[][] boxes;
 	
 	// Menu
 	private JMenuBar menuBar;
@@ -69,7 +72,7 @@ public class SquareGUI extends JFrame {
 	private JButton buttonNewColor;
 	private JButton buttonChangeColor;
 	
-	private SquareGUI() {
+	private SquareGUI() throws SquareException {
 		prepareElements();
 		prepareActions();
 	}
@@ -129,6 +132,7 @@ public class SquareGUI extends JFrame {
 		imageGame.setSize(70, 70);
 		imageGame.setBorder(new EmptyBorder(0, 0, 0, 40));
 		createImage(imageGame, "./assets/imageHeader.png");
+
 		labelTitle = new JLabel("Square");
 		labelTitle.setBorder(new EmptyBorder(10, 10, 10, 10));
 		labelTitle.setFont(new Font("Arial", Font.PLAIN, 50));
@@ -148,9 +152,12 @@ public class SquareGUI extends JFrame {
 
 		labelBoardSize = new JLabel("Board size: ");
 		labelBoardSize.setBorder(new EmptyBorder(0, 30, 0, 0));
+
 		boardSize = new JTextField(10);
+
 		labelNumberTokens = new JLabel("Number of tokens: ");
 		labelNumberTokens.setBorder(new EmptyBorder(0, 70, 0, 0));
+
 		numberTokens = new JTextField(10);
 		buttonCreateBoard = new JButton("Create");
 
@@ -188,12 +195,16 @@ public class SquareGUI extends JFrame {
 		JPanel panelW = new JPanel(new GridBagLayout());
 		JPanel panelS = new JPanel(new GridBagLayout());
 		JPanel panelE = new JPanel(new GridBagLayout());
+
 		JPanel panelButtonNorth = new JPanel();
 		panelButtonNorth.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 		JPanel panelButtonWest = new JPanel();
 		panelButtonWest.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 		JPanel panelButtonSouth = new JPanel();
 		panelButtonSouth.setBorder(new EmptyBorder(10, 10, 10, 10));
+
 		JPanel panelButtonEast = new JPanel();
 		panelButtonEast.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -202,6 +213,7 @@ public class SquareGUI extends JFrame {
 		buttonSouth = new JButton("South");
 		buttonEast = new JButton("East");
 		imageCompass = new JLabel();
+
 		imageCompass.setSize(50, 50);
 		createImage(imageCompass, "./assets/compass.png");
 
@@ -228,6 +240,7 @@ public class SquareGUI extends JFrame {
 
 		labelMoves = new JLabel("Moves: 12");
 		labelMoves.setBorder(new EmptyBorder(20, 20, 20, 20));
+
 		labelPercentage = new JLabel("Percentage: 30%");
 		labelPercentage.setBorder(new EmptyBorder(20, 20, 20, 20));
 
@@ -247,14 +260,17 @@ public class SquareGUI extends JFrame {
 		JPanel panelButtons2 = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		JPanel panelButtonOldColor = new JPanel();
 		JPanel panelButtonNewColor = new JPanel();
+
 		JPanel panelButtonChangeColor = new JPanel();
 		panelButtonChangeColor.setBorder(new EmptyBorder(0, 0, 20, 0));
 
 
 		labelOldColor = new JLabel("Old color");
 		labelOldColor.setBorder(new EmptyBorder(20, 20, 0, 20));
+
 		labelNewColor = new JLabel("New color");
 		labelNewColor.setBorder(new EmptyBorder(20, 20, 0, 20));
+
 		buttonOldColor = new JButton("color");
 		buttonNewColor = new JButton("color");
 		buttonChangeColor = new JButton("Change color");
@@ -275,6 +291,7 @@ public class SquareGUI extends JFrame {
 		return panelChangeColor;
 	}
 
+	// Board
 	private void prepareElementsBoard(int size) {
 		panelBoard = new JPanel();
 
@@ -282,20 +299,91 @@ public class SquareGUI extends JFrame {
 		container.setPreferredSize(new Dimension(475, 475));
 		container.setBorder(BorderFactory.createEmptyBorder(20, 0, 0, 0));
 
-		boxes = new ArrayList<>();
-		for (int i = 0; i < Math.pow(size, 2); i++) {
-			JPanel box = new JPanel();
-			box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			container.add(box);
-			boxes.add(box);
+		boxes = new JPanel[size][size];
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				JPanel box = new JPanel();
+				box.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				container.add(box);
+				boxes[i][j] = box;
+			}
 		}
+
+		String[][][] board = square.getBoard();
+		for (int row = 0; row < size; row++) {
+			for (int column = 0; column < size; column++) {
+				if (board[row][column][2].equals("TRUE")) {
+					prepareElementsInHollow(row, column);
+				}else if (board[row][column][0].equals("H")) {
+					prepareElementsHollow(row, column);
+				} else if (board[row][column][0].equals("T")) {
+					prepareElementsToken(row, column);
+				}
+			}
+		}
+			
 
 		panelBoard.add(container);
 		getContentPane().add(panelBoard, BorderLayout.CENTER);
 		setVisible(true);
 	}
+
+	private void prepareElementsHollow(int row, int col) {
+		SwingUtilities.invokeLater(() -> {
+			JPanel box = boxes[row][col];
+			box.setBackground(Color.BLUE);
+			box.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.weightx = 1.0;
+			gbc.weighty = 1.0;
+			gbc.fill = GridBagConstraints.CENTER;
+
+			JPanel hollow = new JPanel();
+			hollow.setBackground(Color.BLACK);
+			Dimension size = box.getSize();
+			int width = (int) (size.getWidth() * 0.6);
+			int height = (int) (size.getHeight() * 0.6);
+			hollow.setPreferredSize(new Dimension(width, height));
+
+			box.add(hollow, gbc);
+			setVisible(true);
+		});
+	}
 	
-	private void prepareActions() { 
+	private void prepareElementsToken(int row, int col) {
+		SwingUtilities.invokeLater(() -> {
+			JPanel box = boxes[row][col];
+			box.setLayout(new GridBagLayout());
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			gbc.weightx = 1.0;
+			gbc.weighty = 1.0;
+			gbc.fill = GridBagConstraints.CENTER;
+
+			JPanel hollow = new JPanel();
+			hollow.setBackground(Color.BLUE);
+			Dimension size = box.getSize();
+			int width = (int) (size.getWidth() * 0.6);
+			int height = (int) (size.getHeight() * 0.6);
+			hollow.setPreferredSize(new Dimension(width, height));
+
+			box.add(hollow, gbc);
+			setVisible(true);
+		});
+	}
+
+	private void prepareElementsInHollow(int row, int col) {
+		SwingUtilities.invokeLater(() -> {
+			JPanel box = boxes[row][col];
+			box.setBackground(Color.BLUE);
+			setVisible(true);
+		});
+	}
+	
+	private void prepareActions() throws SquareException { 
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
 		addWindowListener(new WindowAdapter() { 
 			public void windowClosing(WindowEvent windowEvent) { 
@@ -340,38 +428,66 @@ public class SquareGUI extends JFrame {
 	private void prepareActionsBoard() {
 		buttonCreateBoard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				int size = Integer.parseInt(boardSize.getText());
-				prepareElementsBoard(size);
+				size = Integer.parseInt(boardSize.getText());
+				tokens = Integer.parseInt(numberTokens.getText());
+				try {
+					square = new Square(size, tokens);
+					prepareElementsBoard(size);
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 	}
 
 	private void prepareActionsEast() {
+		prepareActionsMove();
 		prepareActionsChangeColor();
 	}
 
 	private void prepareActionsMove() {
 		buttonNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				refresh();
+				try {
+					square.move("NORTH");
+					refresh();
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 
 		buttonWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				refresh();
+				try {
+					square.move("WEST");
+					refresh();
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 
 
 		buttonSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				refresh();
+				try {
+					square.move("SOUTH");
+					refresh();
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
+
 		buttonEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				refresh();
+				try {
+					square.move("EAST");
+					refresh();
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 	}
@@ -380,14 +496,14 @@ public class SquareGUI extends JFrame {
 		buttonOldColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				JColorChooser chooser = new JColorChooser();
-				Color oldColor = chooser.showDialog(SquareGUI.this, "Choose the color to change", Color.BLUE);
+				oldColor = chooser.showDialog(SquareGUI.this, "Choose the color to change", Color.BLUE);
 			}
 		});
 
 		buttonNewColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				JColorChooser chooser = new JColorChooser();
-				Color newColor = chooser.showDialog(SquareGUI.this, "Choose the new color", Color.BLUE);
+				newColor = chooser.showDialog(SquareGUI.this, "Choose the new color", Color.BLUE);
 			}
 		});
 
@@ -418,10 +534,10 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void refresh() {
-
+		prepareElementsBoard(size);
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws SquareException {
 		SquareGUI gui = new SquareGUI();
 		gui.setVisible(true);
 	}

@@ -20,11 +20,11 @@ public class SquareTest {
     }
     @Test
     public void shouldCreateSquareWithRandomTokensAndHollows()throws SquareException{
-        Square s1 = new  Square(16);
+        Square s1 = new  Square(16,15);
         HashMap<String, int[]> hollowsS= s1.getHollows();
         HashMap<String, int[]> tokensS=s1.getTokens();
         assertEquals(tokensS.size(),hollowsS.size());
-        Square s2 = new Square(1);
+        Square s2 = new Square(2,1);
         hollowsS= s2.getHollows();
         tokensS=s2.getTokens();
         assertEquals(tokensS.size(),hollowsS.size());
@@ -32,7 +32,7 @@ public class SquareTest {
 
     @Test
     public void shouldCheckTokensAndHollowsCreated()throws SquareException{
-        Square s1 = new  Square(10);
+        Square s1 = new  Square(10,9);
         String[][][] board = s1.getBoard();
         int rows = board.length;
         int tokens = 0;
@@ -48,7 +48,7 @@ public class SquareTest {
     
     @Test
     public void shouldCheckSameColorsOfTokensAndHollows()throws SquareException{
-        Square s1 = new  Square(6);
+        Square s1 = new  Square(6,5);
         String[][][] board = s1.getBoard();
         int rows = board.length;
         ArrayList<String> tColors = new ArrayList<>(), hColors = new ArrayList<>();
@@ -66,13 +66,13 @@ public class SquareTest {
     @Test
     public void shouldNotCreateSquare()throws SquareException{
         try{
-            Square s1 = new  Square(17);
+            Square s1 = new  Square(17,17);
             fail("It should not create a Square with more than 16 rows");
         } catch (SquareException e){
-            assertEquals(e.getMessage(), SquareException.WRONG_DIMENSIONS);
+            assertEquals(e.getMessage(), SquareException.LIMIT_TOKENS);
         }
         try{
-            Square s2 = new Square(0);
+            Square s2 = new Square(0,0);
             fail("It should not create a Square with less than 1 row");
         } catch(SquareException e){
             assertEquals(e.getMessage(), SquareException.WRONG_DIMENSIONS);
@@ -80,5 +80,17 @@ public class SquareTest {
     }
 
 
+    @Test
+    public void shouldChangeColor() throws SquareException{
+        Square s1 = new Square(5,1);
+        HashMap<String, int[]> tokens=s1.getTokens();
+        int[] expected = new int[2];
+        for(String color : tokens.keySet()){
+            expected = tokens.get(color);
+            s1.changeTokenColor(color, "Rojo Carmesi");
+        }
+        assertEquals(expected,s1.getTokens().get("Rojo Carmesi")); // Deberia ser el mismo
+
+    }   
 
 }
