@@ -58,11 +58,12 @@ public class Square {
         gameOver = false;
     }
 
-    /**
-     * Move the tokens to the orientation given
-     * 
-     * @param direction is the direction where the token is moving to
-     */
+     /**
+      * Move the tokens to the orientation given
+      *
+      * @param direction is the direction where the token is moving to
+      * @throws SquareException if the orientation doesn't exist
+      */
     public void move(String direction) throws SquareException {
         if (!getGameOver()) {
             switch (direction.toUpperCase()) {
@@ -95,7 +96,7 @@ public class Square {
      * 
      * @param oldColor the color to change
      * @param newColor the new color
-     * @throws SquareException
+     * @throws SquareException if the color to change doesn´t exist or the new color already exist
      */
     public void changeTokenColor(String oldColor, String newColor) throws SquareException {
         if (!tokens.containsKey(oldColor)) {
@@ -297,7 +298,7 @@ public class Square {
     /*
      * Moves all the possible tokens to the East
      */
-    private void moveEast() throws SquareException {
+    private void moveEast() {
         for (int i = 0; i < rows; i++) {
             for (int j = rows - 1; j >= 0; j--) {
                 if (board[i][j][0].equals("T") && j != rows - 1 && !board[i][j][2].equals("TRUE")) {
@@ -326,7 +327,7 @@ public class Square {
     /*
      * Moves all the possible tokens to the West
      */
-    private void moveWest() throws SquareException {
+    private void moveWest() {
         for (int i = 0; i < rows; i++) {
             for (int j = 1; j < rows; j++) {
                 if (board[i][j][0].equals("T") && !board[i][j][2].equals("TRUE")) {
@@ -355,7 +356,7 @@ public class Square {
     /*
      * Moves all the possible tokens to the North
      */
-    private void moveNorth() throws SquareException {
+    private void moveNorth() {
         for (int i = 1; i < rows; i++) {
             for (int j = 0; j < rows; j++) {
                 if (board[i][j][0].equals("T") && !board[i][j][2].equals("TRUE")) {
@@ -384,7 +385,7 @@ public class Square {
     /*
      * Moves all the possible tokens to the West
      */
-    private void moveSouth() throws SquareException {
+    private void moveSouth() {
         for (int i = rows - 1; i >= 0; i--) {
             for (int j = 0; j < rows; j++) {
                 if (board[i][j][0].equals("T") && i != rows - 1 && !board[i][j][2].equals("TRUE")) {
