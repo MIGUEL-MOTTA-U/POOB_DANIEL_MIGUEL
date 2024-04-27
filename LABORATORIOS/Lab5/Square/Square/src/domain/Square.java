@@ -115,9 +115,6 @@ public class Square {
         } else if (usedColors.contains(newColor)) {
             ok = false;
             throw new SquareException(SquareException.TOKEN_EXISTENT);
-        } else if (tokens.isEmpty()) {
-            ok = false;
-            throw new SquareException(SquareException.BOARD_UNDEFINIED);
         } else {
             int rowOfToken = tokens.get(oldColor)[0], columnOfToken = tokens.get(oldColor)[1];
             int rowOfHollow = hollows.get(oldColor)[0], columnOfHollow = hollows.get(oldColor)[1];
