@@ -491,15 +491,7 @@ public class SquareGUI extends JFrame {
 		buttonNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
-					square.move("NORTH");
-					if (square.getGameOver()) {
-						gameOver();
-					} else if (square.gameWon()) {
-						gameWon();
-					} else {
-						refresh();
-					}
+					move("NORTH");
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -509,15 +501,7 @@ public class SquareGUI extends JFrame {
 		buttonWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
-					square.move("WEST");
-					if (square.getGameOver()) {
-						gameOver();
-					} else if (square.gameWon()) {
-						gameWon();
-					} else {
-						refresh();
-					}
+					move("WEST");
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -528,15 +512,7 @@ public class SquareGUI extends JFrame {
 		buttonSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
-					square.move("SOUTH");
-					if (square.getGameOver()) {
-						gameOver();
-					} else if (square.gameWon()) {
-						gameWon();
-					} else {
-						refresh();
-					}
+					move("SOUTH");
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -546,15 +522,7 @@ public class SquareGUI extends JFrame {
 		buttonEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
-					square.move("EAST");
-					if (square.getGameOver()) {
-						gameOver();
-					} else if (square.gameWon()) {
-						gameWon();
-					} else {
-						refresh();
-					}
+					move("EAST");
 				} catch (SquareException e) {
 					System.out.println(e.getMessage());
 				}
@@ -656,6 +624,18 @@ public class SquareGUI extends JFrame {
 			square.changeTokenColor(oldColorString, newColoString);
 		} catch (SquareException e) {
 			System.out.println(e.getMessage());
+		}
+	}
+
+	private void move(String direction) throws SquareException {
+		if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
+		square.move(direction);
+		if (square.getGameOver()) {
+			gameOver();
+		} else if (square.gameWon()) {
+			gameWon();
+		} else {
+			refresh();
 		}
 	}
 
