@@ -10,6 +10,7 @@ public class SquareException extends Exception{
     public static final String LIMIT_TOKENS = "Has exceeded the limit of Tokens";
     public static final String UNKNOWN_TOKEN = "The Token does not exist in the Square";
     public static final String TOKEN_EXISTENT = "The Token already exist in the Square";
+    public static final String BOARD_UNDEFINIED = "The board is undefinied";
     
     public SquareException(String message){
         super(message);

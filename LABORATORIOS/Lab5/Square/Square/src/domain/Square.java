@@ -54,6 +54,9 @@ public class Square {
             }
             randomHollows(nTok);
         }
+
+        movements = 0;
+        percentage = 0;
         ok = true;
         gameOver = false;
     }
@@ -66,6 +69,10 @@ public class Square {
       */
     public void move(String direction) throws SquareException {
         if (!getGameOver()) {
+            if (tokens.isEmpty()) {
+                ok = false;
+                throw new SquareException(SquareException.BOARD_UNDEFINIED);
+            }
             switch (direction.toUpperCase()) {
                 case "NORTH":
                     moveNorth();
@@ -99,12 +106,18 @@ public class Square {
      * @throws SquareException if the color to change doesn´t exist or the new color already exist
      */
     public void changeTokenColor(String oldColor, String newColor) throws SquareException {
-        if (!tokens.containsKey(oldColor)) {
+        if (tokens.isEmpty()) {
+            ok = false;
+            throw new SquareException(SquareException.BOARD_UNDEFINIED);
+        } else if (!tokens.containsKey(oldColor)) {
             ok = false;
             throw new SquareException(SquareException.UNKNOWN_TOKEN);
         } else if (usedColors.contains(newColor)) {
             ok = false;
             throw new SquareException(SquareException.TOKEN_EXISTENT);
+        } else if (tokens.isEmpty()) {
+            ok = false;
+            throw new SquareException(SquareException.BOARD_UNDEFINIED);
         } else {
             int rowOfToken = tokens.get(oldColor)[0], columnOfToken = tokens.get(oldColor)[1];
             int rowOfHollow = hollows.get(oldColor)[0], columnOfHollow = hollows.get(oldColor)[1];
@@ -159,7 +172,7 @@ public class Square {
      * @return the percentage of Tokens in a hollow
      */
     public int percentage() {
-        percentage = (int) (100 * correctPlaces / tokens.size());
+        if (!tokens.isEmpty()) percentage = (int) (100 * correctPlaces / tokens.size());
         ok = true;
         return percentage;
     }

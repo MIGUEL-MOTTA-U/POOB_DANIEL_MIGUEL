@@ -491,6 +491,7 @@ public class SquareGUI extends JFrame {
 		buttonNorth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
+					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
 					square.move("NORTH");
 					if (square.getGameOver()) {
 						gameOver();
@@ -508,6 +509,7 @@ public class SquareGUI extends JFrame {
 		buttonWest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
+					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
 					square.move("WEST");
 					if (square.getGameOver()) {
 						gameOver();
@@ -526,6 +528,7 @@ public class SquareGUI extends JFrame {
 		buttonSouth.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
+					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
 					square.move("SOUTH");
 					if (square.getGameOver()) {
 						gameOver();
@@ -543,6 +546,7 @@ public class SquareGUI extends JFrame {
 		buttonEast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
+					if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
 					square.move("EAST");
 					if (square.getGameOver()) {
 						gameOver();
@@ -575,8 +579,12 @@ public class SquareGUI extends JFrame {
 
 		buttonChangeColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				changeColor();
-				refresh();
+				try {
+					changeColor();
+					refresh();
+				} catch (SquareException e) {
+					System.out.println(e.getMessage());
+				}
 			}
 		});
 	}
@@ -632,7 +640,7 @@ public class SquareGUI extends JFrame {
 		try {
 			boardSize.setText("");
 			numberTokens.setText("");
-			square = new Square(size, tokens);
+			square = new Square(9, 0);
 			prepareElementsBoard();
 			resetInfo();
 		} catch (SquareException e) {
@@ -640,7 +648,8 @@ public class SquareGUI extends JFrame {
 		}
 	}
 
-	private void changeColor() {
+	private void changeColor() throws SquareException{
+		if (size == 0) throw new SquareException(SquareException.BOARD_UNDEFINIED);
 		String oldColorString = square.colorToString(oldColor);
 		String newColoString = square.colorToString(newColor);
 		try {
