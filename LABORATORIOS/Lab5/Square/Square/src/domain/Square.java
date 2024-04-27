@@ -30,10 +30,14 @@ public class Square {
      * @throws SquareException if the number of rows
      */
     public Square(int n, int nTok) throws SquareException {
-        if (n < 1)
+        if (n < 1) {
+            ok = false;
             throw new SquareException(SquareException.WRONG_DIMENSIONS);
-        else if (nTok > (Math.pow(n, 2) / 2) || nTok > 12)
+        }
+        else if (nTok > (Math.pow(n, 2) / 2) || nTok > 12) {
+            ok = false;
             throw new SquareException(SquareException.LIMIT_TOKENS);
+        }
         else {
             correctPlaces = 0;
             board = new String[n][n][3];
@@ -169,6 +173,18 @@ public class Square {
     }
 
     /**
+     * Check if the player won
+     * 
+     * @return TRUE, if the player won. FALSE, otherwise
+     */
+    public boolean gameWon() {
+        if (percentage == 100) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Returns the board of the Square
      * 
      * @return the board
@@ -286,6 +302,7 @@ public class Square {
             for (int j = rows - 1; j >= 0; j--) {
                 if (board[i][j][0].equals("T") && j != rows - 1 && !board[i][j][2].equals("TRUE")) {
                     if (board[i][j + 1][0].isEmpty()) {
+                        updateTokens(i, j + 1, board[i][j][1]);
                         board[i][j + 1][0] = board[i][j][0];
                         board[i][j + 1][1] = board[i][j][1];
                         board[i][j][0] = "";
@@ -295,6 +312,7 @@ public class Square {
                             gameOver = true;
                         } else {
                             correctPlaces++;
+                            updateTokens(i, j + 1, board[i][j][1]);
                             board[i][j + 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -313,6 +331,7 @@ public class Square {
             for (int j = 1; j < rows; j++) {
                 if (board[i][j][0].equals("T") && !board[i][j][2].equals("TRUE")) {
                     if (board[i][j - 1][0].isEmpty()) {
+                        updateTokens(i, j - 1, board[i][j][1]);
                         board[i][j - 1][0] = board[i][j][0];
                         board[i][j - 1][1] = board[i][j][1];
                         board[i][j][0] = "";
@@ -322,6 +341,7 @@ public class Square {
                             gameOver = true;
                         } else {
                             correctPlaces++;
+                            updateTokens(i, j - 1, board[i][j][1]);
                             board[i][j - 1][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -340,6 +360,7 @@ public class Square {
             for (int j = 0; j < rows; j++) {
                 if (board[i][j][0].equals("T") && !board[i][j][2].equals("TRUE")) {
                     if (board[i - 1][j][0].isEmpty()) {
+                        updateTokens(i - 1, j, board[i][j][1]);
                         board[i - 1][j][0] = board[i][j][0];
                         board[i - 1][j][1] = board[i][j][1];
                         board[i][j][0] = "";
@@ -349,6 +370,7 @@ public class Square {
                             gameOver = true;
                         } else {
                             correctPlaces++;
+                            updateTokens(i - 1, j, board[i][j][1]);
                             board[i - 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -367,6 +389,7 @@ public class Square {
             for (int j = 0; j < rows; j++) {
                 if (board[i][j][0].equals("T") && i != rows - 1 && !board[i][j][2].equals("TRUE")) {
                     if (board[i + 1][j][0].isEmpty()) {
+                        updateTokens(i + 1, j, board[i][j][1]);
                         board[i + 1][j][0] = board[i][j][0];
                         board[i + 1][j][1] = board[i][j][1];
                         board[i][j][0] = "";
@@ -376,6 +399,7 @@ public class Square {
                             gameOver = true;
                         } else {
                             correctPlaces++;
+                            updateTokens(i + 1, j, board[i][j][1]);
                             board[i + 1][j][2] = "TRUE";
                             board[i][j][0] = "";
                             board[i][j][1] = "";
@@ -384,5 +408,13 @@ public class Square {
                 }
             }
         }
+    }
+
+    /*
+     * Update the HashMap of tokens when a token moves
+     */
+    private void updateTokens(int row, int col, String color) {
+        tokens.remove(color);
+        tokens.put(color, new int[] { row, col });
     }
 }

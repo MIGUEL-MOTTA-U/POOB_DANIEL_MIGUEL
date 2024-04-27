@@ -494,6 +494,8 @@ public class SquareGUI extends JFrame {
 					square.move("NORTH");
 					if (square.getGameOver()) {
 						gameOver();
+					} else if (square.gameWon()) {
+						gameWon();
 					} else {
 						refresh();
 					}
@@ -509,6 +511,8 @@ public class SquareGUI extends JFrame {
 					square.move("WEST");
 					if (square.getGameOver()) {
 						gameOver();
+					} else if (square.gameWon()) {
+						gameWon();
 					} else {
 						refresh();
 					}
@@ -525,6 +529,8 @@ public class SquareGUI extends JFrame {
 					square.move("SOUTH");
 					if (square.getGameOver()) {
 						gameOver();
+					} else if (square.gameWon()) {
+						gameWon();
 					} else {
 						refresh();
 					}
@@ -540,6 +546,8 @@ public class SquareGUI extends JFrame {
 					square.move("EAST");
 					if (square.getGameOver()) {
 						gameOver();
+					} else if (square.gameWon()) {
+						gameWon();
 					} else {
 						refresh();
 					}
@@ -602,6 +610,11 @@ public class SquareGUI extends JFrame {
 		restart();
 	}
 
+	private void gameWon() {
+		JOptionPane.showMessageDialog(this, "Congratulations, all the tokens fell into the hollows of their respectives colors", "You won!!", JOptionPane.INFORMATION_MESSAGE);
+		restart();
+	}
+
 	private void updateInfo() {
 		labelMoves.setText("Moves: " + String.valueOf(square.movements()));
 		labelPercentage.setText("Percentage: " + String.valueOf(square.percentage()));
@@ -618,7 +631,7 @@ public class SquareGUI extends JFrame {
 		try {
 			boardSize.setText("");
 			numberTokens.setText("");
-			square = new Square(9, 0);
+			square = new Square(size, tokens);
 			prepareElementsBoard();
 			resetInfo();
 		} catch (SquareException e) {
