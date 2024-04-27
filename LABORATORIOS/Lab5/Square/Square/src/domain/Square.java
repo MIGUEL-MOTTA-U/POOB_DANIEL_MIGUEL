@@ -1,5 +1,6 @@
 package domain;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Random;
 /**
  * @autor: Daniel Diaz and Miguel Motta
  *         This class represents the Square game.
- */ 
+ */
 public class Square {
     private String[][][] board;
     private HashMap<String, int[]> tokens;
@@ -23,6 +24,7 @@ public class Square {
 
     /**
      * Constructor of Square by given number of rows.
+     * 
      * @param n    is the number of rows (and columns, beacause is square).
      * @param nTok is the number of random tokens and hollows to be generated
      * @throws SquareException if the number of rows
@@ -41,8 +43,8 @@ public class Square {
             rows = n;
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    board[i][j][0] = ""; 
-                    board[i][j][1] = ""; 
+                    board[i][j][0] = "";
+                    board[i][j][1] = "";
                     board[i][j][2] = "";
                 }
             }
@@ -54,10 +56,11 @@ public class Square {
 
     /**
      * Move the tokens to the orientation given
+     * 
      * @param direction is the direction where the token is moving to
      */
     public void move(String direction) throws SquareException {
-        if(!getGameOver()){
+        if (!getGameOver()) {
             switch (direction.toUpperCase()) {
                 case "NORTH":
                     moveNorth();
@@ -76,28 +79,28 @@ public class Square {
                     movements++;
                     break;
                 default:
-                    ok=false;
+                    ok = false;
                     throw new SquareException(SquareException.WRONG_DIRECTION);
             }
-            ok=true;
+            ok = true;
         }
     }
 
     /**
      * Change the color of a token.
+     * 
      * @param oldColor the color to change
      * @param newColor the new color
      * @throws SquareException
      */
     public void changeTokenColor(String oldColor, String newColor) throws SquareException {
-        if (!tokens.containsKey(oldColor)){
-            ok=false;
+        if (!tokens.containsKey(oldColor)) {
+            ok = false;
             throw new SquareException(SquareException.UNKNOWN_TOKEN);
-        }
-        else if (usedColors.contains(newColor)){
-            ok=false;
+        } else if (usedColors.contains(newColor)) {
+            ok = false;
             throw new SquareException(SquareException.TOKEN_EXISTENT);
-        }else {
+        } else {
             int rowOfToken = tokens.get(oldColor)[0], columnOfToken = tokens.get(oldColor)[1];
             int rowOfHollow = hollows.get(oldColor)[0], columnOfHollow = hollows.get(oldColor)[1];
             board[rowOfToken][columnOfToken][1] = newColor;
@@ -106,22 +109,59 @@ public class Square {
             tokens.put(newColor, new int[] { rowOfToken, columnOfToken });
             hollows.remove(oldColor);
             hollows.put(newColor, new int[] { rowOfHollow, columnOfHollow });
-            ok=true;
+            usedColors.remove(oldColor);
+            usedColors.add(newColor);
+            ok = true;
         }
     }
 
     /**
+     * Convert the color rgb to a string
+     * 
+     * @param color the color to convert
+     * @return the string of the color rgb
+     */
+    public String colorToString(Color color) {
+        if (color != null) {
+            String colorString = String.format("%d,%d,%d", color.getRed(), color.getGreen(), color.getBlue());
+            return colorString;
+        }
+        return null;
+    }
+
+    /**
+     * Convert the color string to a Color object
+     * 
+     * @param colorString the color string to convert
+     * @return the Color object
+     */
+    public Color stringToColor(String colorString) {
+        if (colorString != null && !colorString.isEmpty()) {
+            String[] components = colorString.split(",");
+            if (components.length == 3) {
+                int r = Integer.parseInt(components[0]);
+                int g = Integer.parseInt(components[1]);
+                int b = Integer.parseInt(components[2]);
+                return new Color(r, g, b);
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns the percentage of Tokens in a hollow.
+     * 
      * @return the percentage of Tokens in a hollow
      */
     public int percentage() {
-        percentage = (int)(100*correctPlaces/tokens.size());
-        ok=true;
+        percentage = (int) (100 * correctPlaces / tokens.size());
+        ok = true;
         return percentage;
     }
 
     /**
      * Counts the movements in the board and returns it.
+     * 
      * @return the movements in the board.
      */
     public int movements() {
@@ -130,6 +170,7 @@ public class Square {
 
     /**
      * Returns the board of the Square
+     * 
      * @return the board
      */
     public String[][][] getBoard() {
@@ -147,6 +188,7 @@ public class Square {
 
     /**
      * Returns the hollows in the board
+     * 
      * @return all the hollows
      */
     public HashMap<String, int[]> getHollows() {
@@ -155,6 +197,7 @@ public class Square {
 
     /**
      * Return if the player lose
+     * 
      * @return TRUE if the player lose. FALSE, otherwise
      */
     public boolean getGameOver() {
@@ -163,9 +206,10 @@ public class Square {
 
     /**
      * Returns the state of the last action.
+     * 
      * @return ok, the boolean of the state of Square.
      */
-    public boolean ok(){
+    public boolean ok() {
         return ok;
     }
 
@@ -174,8 +218,18 @@ public class Square {
      */
     private void randomHollows(int numHollows) {
         ArrayList<String> colorsHollows = new ArrayList<>(Arrays.asList(
-                "RED", "BLUE", "GREEN", "YELLOW", "CYAN", "MAGENTA", "BLACK", "GRAY", "LIGHT_GRAY", "DARK_GRAY",
-                "ORANGE", "PINK"));
+                "255,0,0", // RED
+                "0,0,255", // BLUE
+                "0,255,0", // GREEN
+                "255,255,0", // YELLOW
+                "0,255,255", // CYAN
+                "255,0,255", // MAGENTA
+                "128,128,128", // GRAY
+                "192,192,192", // LIGHT_GRAY
+                "64,64,64", // DARK_GRAY
+                "255,200,0", // ORANGE
+                "255,175,175" // PINK
+        ));
         Random random = new Random();
         ArrayList<Integer> possibleRows = new ArrayList<>();
         ArrayList<Integer> possibleColumns = new ArrayList<>();
@@ -188,10 +242,10 @@ public class Square {
             int randomRow = random.nextInt(rows);
             int randomCol = random.nextInt(rows);
             String randomColor = colorsHollows.get(random.nextInt(colorsHollows.size()));
-            if (board[randomRow][randomCol][0].isEmpty()) { 
-                board[randomRow][randomCol][0] = "H"; 
+            if (board[randomRow][randomCol][0].isEmpty()) {
+                board[randomRow][randomCol][0] = "H";
                 board[randomRow][randomCol][1] = randomColor;
-                usedColors.add(randomColor); 
+                usedColors.add(randomColor);
                 colorsHollows.remove(randomColor);
                 hollows.put(randomColor, new int[] { randomRow, randomCol });
                 hollowsPlaced++;
@@ -213,9 +267,9 @@ public class Square {
             int randomRow = random.nextInt(rows);
             int randomCol = random.nextInt(rows);
             String randomColor = colorsToken.get(random.nextInt(colorsToken.size()));
-            if (board[randomRow][randomCol][0].isEmpty()) { 
-                board[randomRow][randomCol][0] = "T"; 
-                board[randomRow][randomCol][1] = randomColor; 
+            if (board[randomRow][randomCol][0].isEmpty()) {
+                board[randomRow][randomCol][0] = "T";
+                board[randomRow][randomCol][1] = randomColor;
                 colorsToken.remove(randomColor);
                 tokens.put(randomColor, new int[] { randomRow, randomCol });
 
@@ -331,5 +385,4 @@ public class Square {
             }
         }
     }
-
 }

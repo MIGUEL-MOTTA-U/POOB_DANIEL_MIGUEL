@@ -364,7 +364,7 @@ public class SquareGUI extends JFrame {
 		SwingUtilities.invokeLater(() -> {
 			JPanel box = boxes[row][col];
 			String color = square.getBoard()[row][col][1];
-			box.setBackground(getColorFromString(color));
+			box.setBackground(square.stringToColor(color));
 			box.setLayout(new GridBagLayout());
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = 0;
@@ -398,7 +398,7 @@ public class SquareGUI extends JFrame {
 
 			JPanel hollow = new JPanel();
 			String color = square.getBoard()[row][col][1];
-			hollow.setBackground(getColorFromString(color));
+			hollow.setBackground(square.stringToColor(color));
 			Dimension size = box.getSize();
 			int width = (int) (size.getWidth() * 0.6);
 			int height = (int) (size.getHeight() * 0.6);
@@ -413,7 +413,7 @@ public class SquareGUI extends JFrame {
 		SwingUtilities.invokeLater(() -> {
 			JPanel box = boxes[row][col];
 			String color = square.getBoard()[row][col][1];
-			box.setBackground(getColorFromString(color));
+			box.setBackground(square.stringToColor(color));
 			setVisible(true);
 		});
 	}
@@ -567,7 +567,8 @@ public class SquareGUI extends JFrame {
 
 		buttonChangeColor.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				// Square.changeColor(oldColor, newColor);
+				changeColor();
+				refresh();
 			}
 		});
 	}
@@ -603,6 +604,7 @@ public class SquareGUI extends JFrame {
 
 	private void updateInfo() {
 		labelMoves.setText("Moves: " + String.valueOf(square.movements()));
+		labelPercentage.setText("Percentage: " + String.valueOf(square.percentage()));
 		setVisible(true);
 	}
 	
@@ -624,38 +626,15 @@ public class SquareGUI extends JFrame {
 		}
 	}
 
-	public static Color getColorFromString(String colorName) {
-        switch (colorName.toUpperCase()) {
-            case "BLUE":
-                return Color.BLUE;
-            case "RED":
-                return Color.RED;
-            case "GREEN":
-                return Color.GREEN;
-            case "YELLOW":
-                return Color.YELLOW;
-            case "CYAN":
-                return Color.CYAN;
-            case "MAGENTA":
-                return Color.MAGENTA;
-            case "WHITE":
-                return Color.WHITE;
-            case "BLACK":
-                return Color.BLACK;
-            case "GRAY":
-                return Color.GRAY;
-            case "LIGHT_GRAY":
-                return Color.LIGHT_GRAY;
-            case "DARK_GRAY":
-                return Color.DARK_GRAY;
-            case "ORANGE":
-                return Color.ORANGE;
-            case "PINK":
-                return Color.PINK;
-            default:
-                return null;
-        }
-    }
+	private void changeColor() {
+		String oldColorString = square.colorToString(oldColor);
+		String newColoString = square.colorToString(newColor);
+		try {
+			square.changeTokenColor(oldColorString, newColoString);
+		} catch (SquareException e) {
+			System.out.println(e.getMessage());
+		}
+	}
 
 	public static void main(String args[]) throws SquareException {
 		SquareGUI gui = new SquareGUI();
