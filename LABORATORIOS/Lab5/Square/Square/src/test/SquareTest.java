@@ -24,7 +24,7 @@ public class SquareTest {
 
     @Test
     public void shouldCreateSquareWithRandomTokensAndHollows() throws SquareException {
-        Square s1 = new Square(16, 12);
+        Square s1 = new Square(16, 11);
         HashMap<String, int[]> hollowsS = s1.getHollows();
         HashMap<String, int[]> tokensS = s1.getTokens();
         assertEquals(tokensS.size(), hollowsS.size());
