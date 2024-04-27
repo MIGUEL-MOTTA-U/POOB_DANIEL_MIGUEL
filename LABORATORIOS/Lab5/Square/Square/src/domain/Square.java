@@ -178,7 +178,7 @@ public class Square {
      * @return TRUE, if the player won. FALSE, otherwise
      */
     public boolean gameWon() {
-        if (percentage == 100) {
+        if (percentage() == 100) {
             return true;
         }
         return false;

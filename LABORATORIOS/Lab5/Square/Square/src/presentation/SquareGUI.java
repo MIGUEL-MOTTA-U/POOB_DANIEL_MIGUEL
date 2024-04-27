@@ -88,7 +88,7 @@ public class SquareGUI extends JFrame {
 		prepareElementsMenu();
 		prepareElementsNorth();
 		prepareElementsEast();
-		prepareElementsBoard();	
+		prepareElementsBoard();
 	}
 
 	private void defaultBackground() {
@@ -611,6 +611,7 @@ public class SquareGUI extends JFrame {
 	}
 
 	private void gameWon() {
+		refresh();
 		JOptionPane.showMessageDialog(this, "Congratulations, all the tokens fell into the hollows of their respectives colors", "You won!!", JOptionPane.INFORMATION_MESSAGE);
 		restart();
 	}

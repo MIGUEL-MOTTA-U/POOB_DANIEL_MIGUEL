@@ -169,9 +169,4 @@ public class SquareTest {
         }
         assertEquals(false, s1.ok());
     }
-
-    @Test
-    public void shouldCountMoves() throws SquareException{
-        // Falta hacer el de contar movimientos
-    }
 }
