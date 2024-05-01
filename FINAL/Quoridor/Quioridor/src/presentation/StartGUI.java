@@ -91,13 +91,13 @@ public class StartGUI extends JPanel{
         content.add(panelButtons); 
     }
 
-    private JButton createButton(String label) {
-        JButton button = new JButton(label);
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setFocusPainted(false);
         button.setBackground(BUTTONS_COLOR);
         button.setForeground(Color.WHITE);
         button.setPreferredSize(new Dimension(120, 45));
         button.setBorder(new EmptyBorder(10, 10, 10, 10));
-        button.setFocusPainted(false);
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         button.addMouseListener(new MouseAdapter() {
@@ -121,6 +121,11 @@ public class StartGUI extends JPanel{
 
     private void prepareActionsButtons() {
         buttonOnePlayer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+            }
+        });
+        
+        buttonTwoPlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 quoridorGUI.showGameModeGUI();
             }

@@ -15,13 +15,13 @@ public class QuoridorGUI extends JFrame {
     private JPanel cardPanel;
 
     // Windows
+    StartGUI startGUI;
     GameModeGUI gameModeGUI;
-    StartGUI quoridorGUI;
 
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "quoridorGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
@@ -39,13 +39,13 @@ public class QuoridorGUI extends JFrame {
 
     private void createCardPanel() {
         gameModeGUI = new GameModeGUI(this);
-        quoridorGUI = new StartGUI(this);
+        startGUI = new StartGUI(this);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
+        cardPanel.add(startGUI, "startGUI");
         cardPanel.add(gameModeGUI, "gameModeGUI");
-        cardPanel.add(quoridorGUI, "quoridorGUI");
     }
 
     private void prepareActions() { 
