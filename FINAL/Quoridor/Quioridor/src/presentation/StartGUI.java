@@ -122,6 +122,7 @@ public class StartGUI extends JPanel{
     private void prepareActionsButtons() {
         buttonOnePlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.showGameDifficultyGUI();
             }
         });
         
