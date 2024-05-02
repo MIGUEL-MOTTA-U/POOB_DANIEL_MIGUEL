@@ -134,7 +134,7 @@ public class GardenGUI extends JFrame{
                 garden = Garden.openFile(file);
                 photo.repaint();
             } catch (GardenException e) {
-                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("open", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -147,7 +147,7 @@ public class GardenGUI extends JFrame{
             try {
                 garden.saveFile(file);
             } catch (GardenException e) {
-                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("save", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -161,7 +161,7 @@ public class GardenGUI extends JFrame{
                 garden = Garden.importFile(file);
                 photo.repaint();
             } catch (GardenException e) {
-                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("import", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -174,7 +174,7 @@ public class GardenGUI extends JFrame{
             try {
                 garden.exportFile(file);
             } catch (GardenException e) {
-                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("export", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

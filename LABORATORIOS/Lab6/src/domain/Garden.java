@@ -1,8 +1,13 @@
 package domain;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.security.Principal;
 import java.util.*;
 import java.util.random.RandomGenerator.LeapableGenerator;
 
+import javax.swing.JOptionPane;
 import javax.swing.tree.VariableHeightLayoutCache;
 
 
@@ -200,11 +205,39 @@ public class Garden{
     }
 
     /**
+     * Open a file given by the user
+     * @param file  the file to open
+     * @return  the garden saved in the file
+     * @throws GardenException
+     */
+    public static Garden openFile00(File file) throws GardenException{
+        return null;
+    }
+
+    /**
      * Save the game in a file
      * @param file  the file to save
      * @throws GardenException
      */
     public void saveFile(File file) throws GardenException{
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file.getName()));
+            for (int row = 0; row < garden.length; row++) {
+                for (int col = 0; col < garden.length; col++) {
+                    //pw.println(null);
+                }  
+            }
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Save the game in a file
+     * @param file  the file to save
+     * @throws GardenException
+     */
+    public void saveFile00(File file) throws GardenException{
         
     }
 
