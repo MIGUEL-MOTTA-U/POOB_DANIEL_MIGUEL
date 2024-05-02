@@ -1,4 +1,5 @@
 package domain;
+import java.io.File;
 import java.util.*;
 import java.util.random.RandomGenerator.LeapableGenerator;
 
@@ -84,18 +85,18 @@ public class Garden{
         Carnivorou gladiolo = new Carnivorou(this, 35, 12);
         setThing(gladiolo.getRow(), gladiolo.getColumn(), gladiolo);
         
-        // Flores de Conway
-        FlowerConway f1 = new FlowerConway(this, 7, 15);
-        setThing(f1.getRow(), f1.getColumn(), f1);
+        // Flores de Conway tu rela
+        // FlowerConway f1 = new FlowerConway(this, 7, 15);
+        // setThing(f1.getRow(), f1.getColumn(), f1);
         
-        FlowerConway f2 = new FlowerConway(this, 7, 16);
-        setThing(f2.getRow(), f2.getColumn(), f2);
+        // FlowerConway f2 = new FlowerConway(this, 7, 16);
+        // setThing(f2.getRow(), f2.getColumn(), f2);
         
-        FlowerConway f3 = new FlowerConway(this, 7, 17);
-        setThing(f3.getRow(), f3.getColumn(), f3);
+        // FlowerConway f3 = new FlowerConway(this, 7, 17);
+        // setThing(f3.getRow(), f3.getColumn(), f3);
         
-        FlowerConway f4 = new FlowerConway(this, 8, 16);
-        setThing(f4.getRow(), f4.getColumn(), f4);
+        // FlowerConway f4 = new FlowerConway(this, 8, 16);
+        // setThing(f4.getRow(), f4.getColumn(), f4);
         
         // Celulas
         
@@ -186,5 +187,41 @@ public class Garden{
      */
     public Thing[][] getThings(){
         return this.garden;
+    }
+
+    /**
+     * Open a file given by the user
+     * @param file  the file to open
+     * @throws GardenException
+     */
+    public void openFile(File file) throws GardenException{
+        
+    }
+
+    /**
+     * Save the game in a file
+     * @param file  the file to save
+     * @throws GardenException
+     */
+    public void saveFile(File file) throws GardenException{
+        
+    }
+
+    /**
+     * Import a file
+     * @param file  the file to import
+     * @throws GardenException
+     */
+    public void importFile(File file) throws GardenException{
+        
+    }
+
+    /**
+     * Export a file
+     * @param file  the file to export
+     * @throws GardenException
+     */
+    public void exportFile(File file) throws GardenException{
+        
     }
 }

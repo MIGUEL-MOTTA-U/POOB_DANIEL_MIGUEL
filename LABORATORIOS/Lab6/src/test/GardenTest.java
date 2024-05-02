@@ -1,5 +1,5 @@
-package domain;
-
+package test;
+import domain.*;
 import java.awt.Color;
 
 import org.junit.*;

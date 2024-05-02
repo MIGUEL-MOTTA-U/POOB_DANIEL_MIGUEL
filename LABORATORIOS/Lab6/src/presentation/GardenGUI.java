@@ -16,6 +16,16 @@ public class GardenGUI extends JFrame{
     private PhotoGarden photo;
     private Garden garden;
 
+    // Menu
+    private JMenuBar menuBar;
+	private JMenu fileMenu;
+	private JMenuItem newItem;
+	private JMenuItem openItem;
+	private JMenuItem saveAsItem;
+	private JMenuItem importItem;
+	private JMenuItem exportAsItem;
+	private JMenuItem exitItem;
+
     private GardenGUI() {
         garden=new Garden();
         prepareElements();
@@ -24,6 +34,7 @@ public class GardenGUI extends JFrame{
     
     private void prepareElements() {
         setTitle("Garden");
+        prepareElementsMenu();
         photo=new PhotoGarden(this);
         buttonTicTac=new JButton("Tic-tac");
         setLayout(new BorderLayout());
@@ -32,6 +43,31 @@ public class GardenGUI extends JFrame{
         setSize(new Dimension(SIDE*SIZE,SIDE*SIZE+50)); 
         setResizable(false);
         photo.repaint();
+    }
+
+    private void prepareElementsMenu() {
+        menuBar = new JMenuBar();
+		fileMenu = new JMenu("File");
+		newItem = new JMenuItem("New");
+		openItem = new JMenuItem("Open");
+		saveAsItem = new JMenuItem("Save as");
+        importItem = new JMenuItem("Import");
+        exportAsItem = new JMenuItem("Export as");
+		exitItem = new JMenuItem("Exit");
+
+		fileMenu.add(newItem);
+        fileMenu.addSeparator();
+		fileMenu.add(openItem);
+		fileMenu.add(saveAsItem);
+		fileMenu.addSeparator();
+		fileMenu.add(importItem);
+		fileMenu.add(exportAsItem);
+		fileMenu.addSeparator();
+		fileMenu.add(exitItem);
+
+
+		menuBar.add(fileMenu);
+		setJMenuBar(menuBar);
     }
 
     private void prepareActions(){
