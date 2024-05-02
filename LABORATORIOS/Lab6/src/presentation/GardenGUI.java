@@ -78,6 +78,46 @@ public class GardenGUI extends JFrame{
                     buttonTicTacAction();
                 }
             });
+
+        prepareActionsMenu();
+    }
+
+    private void prepareActionsMenu() {
+        openItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionOpen();
+            }
+        });
+
+        saveAsItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionSave();
+            }
+        });
+
+        importItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionImport();
+            }
+        });
+
+        exportAsItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionExport();
+            }
+        });
+
+        newItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionNew();
+            }
+        });
+
+        exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                optionExit();
+            }
+        });
     }
 
     private void buttonTicTacAction() {
@@ -85,6 +125,74 @@ public class GardenGUI extends JFrame{
         photo.repaint();
     }
 
+    private void optionOpen() {
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                garden = Garden.openFile(file);
+                photo.repaint();
+            } catch (GardenException e) {
+                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("open", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void optionSave(){
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                garden.saveFile(file);
+            } catch (GardenException e) {
+                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("save", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void optionImport() {
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                garden = Garden.importFile(file);
+                photo.repaint();
+            } catch (GardenException e) {
+                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("import", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void optionExport(){
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                garden.exportFile(file);
+            } catch (GardenException e) {
+                JOptionPane.showMessageDialog(this, GardenException.ERROR_OPEN("export", file.getName()), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void optionNew() {
+        garden = new Garden();
+        photo.repaint();
+    }
+
+    private void optionExit() { 
+		int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to close the window?", 
+		"Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
+	
+		if (option == JOptionPane.YES_OPTION) { 
+			System.exit(0);
+		} 
+	} 
+    
     public Garden getGarden(){
         return garden;
     }

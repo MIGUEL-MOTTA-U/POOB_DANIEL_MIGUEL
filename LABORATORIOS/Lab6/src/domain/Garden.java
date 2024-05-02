@@ -192,10 +192,11 @@ public class Garden{
     /**
      * Open a file given by the user
      * @param file  the file to open
+     * @return  the garden saved in the file
      * @throws GardenException
      */
-    public void openFile(File file) throws GardenException{
-        
+    public static Garden openFile(File file) throws GardenException{
+        return null;
     }
 
     /**
@@ -210,10 +211,12 @@ public class Garden{
     /**
      * Import a file
      * @param file  the file to import
+     * @return  the garden saved in the file
      * @throws GardenException
      */
-    public void importFile(File file) throws GardenException{
+    public static Garden importFile(File file) throws GardenException{
         
+        return null;
     }
 
     /**
