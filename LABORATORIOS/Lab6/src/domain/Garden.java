@@ -2,6 +2,9 @@ package domain;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.*;
@@ -221,13 +224,12 @@ public class Garden{
      */
     public void saveFile(File file) throws GardenException{
         try {
-            PrintWriter pw = new PrintWriter(new FileOutputStream(file.getName()));
-            for (int row = 0; row < garden.length; row++) {
-                for (int col = 0; col < garden.length; col++) {
-                    //pw.println(null);
-                }  
-            }
-        } catch (FileNotFoundException e) {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file.getName()));
+            out.writeObject("Garden storage\n");
+            out.writeObject(this);
+            out.close();
+
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
         }
     }
