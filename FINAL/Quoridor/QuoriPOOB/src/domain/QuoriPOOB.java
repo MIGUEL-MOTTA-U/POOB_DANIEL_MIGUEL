@@ -16,7 +16,6 @@ public class QuoriPOOB {
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) {
 		board = new Board(size, specialSquares);
 		board.setPlayers(players);
-		
 		for(Player p: players.values()) {
 			p.setBoard(board);
 		}
