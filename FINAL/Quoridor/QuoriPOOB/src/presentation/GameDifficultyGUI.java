@@ -7,8 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class GameDifficultyGUI extends JPanel{
-    public static final Color COLOR_BORDER_PANEL = new Color(153, 153, 153);
-
     QuoridorGUI quoridorGUI;
 
     // Title
@@ -57,7 +55,7 @@ public class GameDifficultyGUI extends JPanel{
         panelTitle.setLayout(new BoxLayout(panelTitle, BoxLayout.Y_AXIS));
 
         labelTitle = new JLabel("Choose the game difficulty");
-        labelTitle.setFont(new Font("Tahoma", Font.BOLD, 40));
+        labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 40));
         labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         panelTitle.add(Box.createVerticalStrut(20));
@@ -69,7 +67,7 @@ public class GameDifficultyGUI extends JPanel{
 
     private void prepareElementsBeginner(JPanel content) {
         panelBegginer = new JPanel();
-        panelBegginer.setBorder(new RoundBorder(COLOR_BORDER_PANEL, 10));
+        panelBegginer.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
         panelBegginer.setLayout(new BorderLayout());
 
         JPanel container = new JPanel();
@@ -87,7 +85,7 @@ public class GameDifficultyGUI extends JPanel{
 
     private void prepareElementsIntermediate(JPanel content) {
         panelIntermediate = new JPanel();
-        panelIntermediate.setBorder(new RoundBorder(COLOR_BORDER_PANEL, 10));
+        panelIntermediate.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
         panelIntermediate.setLayout(new BorderLayout());
 
         JPanel container = new JPanel();
@@ -105,7 +103,7 @@ public class GameDifficultyGUI extends JPanel{
 
     private void prepareElementsAdvanced(JPanel content) {
         panelAdvanced = new JPanel();
-        panelAdvanced.setBorder(new RoundBorder(COLOR_BORDER_PANEL, 10));
+        panelAdvanced.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
         panelAdvanced.setLayout(new BorderLayout());
 
         JPanel container = new JPanel();
@@ -128,7 +126,7 @@ public class GameDifficultyGUI extends JPanel{
         button.setBorderPainted(false);
         button.setFocusPainted(false);
         button.setBorder(new EmptyBorder(10, 10, 10, 0));
-        button.setFont(new Font("Bahnschrift", Font.PLAIN, 17));
+        button.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.PLAIN, 17));
 
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent ev) {
@@ -148,7 +146,7 @@ public class GameDifficultyGUI extends JPanel{
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setBorder(new EmptyBorder(0, 10, 10, 13));
-        label.setFont(new Font("Candara", Font.PLAIN, 15));
+        label.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 15));
 
         return label;
     }

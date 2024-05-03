@@ -6,9 +6,16 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class QuoridorGUI extends JFrame {
-    private static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.6);
-    private static final int PREFERRED_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
-    private static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT);
+    public static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.6);
+    public static final int PREFERRED_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);
+    public static final Dimension PREFERRED_DIMENSION = new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT);
+    public static final Color DEFAULT_BACKGROUND = new Color(238, 238, 238);
+    public static final Color BUTTONS_COLOR = new Color(80, 180, 255);
+    public static final Color BUTTONS_COLOR_HOVER = new Color(70, 170, 255);
+    public static final Color COLOR_BORDER_PANEL = new Color(153, 153, 153);
+    public static final String FONT_TITLE = "Tahoma";
+    public static final String FONT_SUBTITLE = "Bahnschrift";
+    public static final String FONT_TEXT = "Candara";
 
     // CardLayout
     private CardLayout cardLayout;
@@ -18,6 +25,7 @@ public class QuoridorGUI extends JFrame {
     StartGUI startGUI;
     GameModeGUI gameModeGUI;
     GameDifficultyGUI gameDifficultyGUI;
+    PlayerInfoGUI playerInfoGUI;
 
     private QuoridorGUI() {
         prepareElements();
@@ -42,6 +50,7 @@ public class QuoridorGUI extends JFrame {
         startGUI = new StartGUI(this);
         gameModeGUI = new GameModeGUI(this);
         gameDifficultyGUI = new GameDifficultyGUI(this);
+        playerInfoGUI = new PlayerInfoGUI(this);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -49,6 +58,7 @@ public class QuoridorGUI extends JFrame {
         cardPanel.add(startGUI, "startGUI");
         cardPanel.add(gameModeGUI, "gameModeGUI");
         cardPanel.add(gameDifficultyGUI, "gameDifficultyGUI");
+        cardPanel.add(playerInfoGUI, "playerInfoGUI");
     }
 
     private void prepareActions() { 
@@ -75,6 +85,10 @@ public class QuoridorGUI extends JFrame {
 
     public void showGameDifficultyGUI() {
         cardLayout.show(cardPanel, "gameDifficultyGUI");
+    }
+
+    public void showPlayerInfoGUI() {
+        cardLayout.show(cardPanel, "playerInfoGUI");
     }
 
     public static void main(String args[]) {

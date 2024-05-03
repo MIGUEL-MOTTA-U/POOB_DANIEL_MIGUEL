@@ -7,9 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class StartGUI extends JPanel{
-    private static final Color BUTTONS_COLOR = new Color(80, 180, 255);
-    private static final Color BUTTONS_COLOR_HOVER = new Color(70, 170, 255);
-
     QuoridorGUI quoridorGUI;
 
     // Title
@@ -31,16 +28,13 @@ public class StartGUI extends JPanel{
     }
 
     private void prepareElements() {
-        JPanel container = new JPanel(new GridBagLayout());
-
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
         prepareElementsTitle(content); 
         prepareElementsButtons(content); 
 
-        container.add(content);
-        add(container); 
+        add(content); 
     }
 
     private void prepareElementsTitle(JPanel content) {
@@ -48,7 +42,7 @@ public class StartGUI extends JPanel{
         panelTitle.setLayout(new BoxLayout(panelTitle, BoxLayout.Y_AXIS));
 
         labelTitle = new JLabel("Quoridor");
-        labelTitle.setFont(new Font("Tahoma", Font.BOLD, 60));
+        labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 60));
         labelTitle.setBorder(new EmptyBorder(0, 0, 20, 0));
         labelTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -94,7 +88,7 @@ public class StartGUI extends JPanel{
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
-        button.setBackground(BUTTONS_COLOR);
+        button.setBackground(QuoridorGUI.BUTTONS_COLOR);
         button.setForeground(Color.WHITE);
         button.setPreferredSize(new Dimension(120, 45));
         button.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -102,12 +96,12 @@ public class StartGUI extends JPanel{
 
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent ev) {
-                button.setBackground(BUTTONS_COLOR_HOVER);
+                button.setBackground(QuoridorGUI.BUTTONS_COLOR_HOVER);
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
         
             public void mouseExited(MouseEvent ev) {
-                button.setBackground(BUTTONS_COLOR);
+                button.setBackground(QuoridorGUI.BUTTONS_COLOR);
                 setCursor(Cursor.getDefaultCursor());
             }
         });
