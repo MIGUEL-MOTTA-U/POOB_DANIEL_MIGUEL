@@ -30,16 +30,13 @@ public class PlayerInfoGUI extends JPanel{
     }
 
     private void prepareElements() {
-        JPanel container = new JPanel();
-
         JPanel content = new JPanel(new BorderLayout());
         content.setBorder(new RoundBorder(Color.WHITE, Color.WHITE, 20));
 
         prepareElementsWest(content);
         prepareElementsEast(content);
 
-        container.add(content);
-        add(container);
+        add(content);
     }
 
     private void prepareElementsWest(JPanel content) {

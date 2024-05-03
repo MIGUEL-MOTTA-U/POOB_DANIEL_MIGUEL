@@ -37,13 +37,17 @@ public class QuoridorGUI extends JFrame {
         setTitle("Quoridor");
         setSize(PREFERRED_DIMENSION);
         setLocationRelativeTo(null);
-        
+
+        JPanel container = new JPanel();
         createCardPanel();
 
-        JPanel container = new JPanel(new GridBagLayout());
-        
+        SpringLayout calculator = new SpringLayout();
+        calculator.putConstraint(SpringLayout.HORIZONTAL_CENTER, cardPanel, 0, SpringLayout.HORIZONTAL_CENTER, container);
+        calculator.putConstraint(SpringLayout.VERTICAL_CENTER, cardPanel, 0, SpringLayout.VERTICAL_CENTER, container);
+
         container.add(cardPanel);
-        getContentPane().add(container);
+        container.setLayout(calculator);
+        add(container, BorderLayout.CENTER);
     }
 
     private void createCardPanel() {
