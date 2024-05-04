@@ -35,7 +35,7 @@ public class Human extends Player {
                 board.moveTokenDownRight(this.color);
                 break;
             default:
-                throw new QuoriPOOBException(QuoriPOOBException.TOKEN_WRONG_DIRECTION);
+                throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
         }
 
     }

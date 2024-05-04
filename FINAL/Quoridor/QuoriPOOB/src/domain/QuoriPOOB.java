@@ -21,12 +21,16 @@ public class QuoriPOOB {
 		}
 	}
 
-	public void createPlayerHuman(String name, Color color) {
+	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+		if (this.players.size() > 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+		
 		Human player = new Human(name, color);
 		this.players.put(color, player);
 	}
 
-	public void createPlayerMachine(Color color, String type) {
+	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+		if (this.players.size() > 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+
 		try {
 			Class<?> cls = Class.forName(type);
 			if (!Machine.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
@@ -39,21 +43,18 @@ public class QuoriPOOB {
 		}
 	}
 
-	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+	public void addWalls(int normal, int temporary, int longWall, int allied) {
 		Player player = getCurrentPlayer();
-		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.addWalls(normal, temporary, longWall, allied);
 	}
 
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
 		Player player = getCurrentPlayer();
-		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 	}
 
 	public void moveToken(Color color, String direction) throws QuoriPOOBException {
 		Player player = getCurrentPlayer();
-		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.moveToken(color, direction);
 	}
 
@@ -92,16 +93,5 @@ public class QuoriPOOB {
 
 	public Player getCurrentPlayer() {
 		return board.getPlayerPlaying();
-	}
-
-	private boolean existPlayer(Player player) {
-		boolean exist = false;
-		for (Player p : this.players.values()) {
-			if (player.equals(p)) {
-				exist = true;
-			}
-		}
-
-		return exist;
 	}
 }
