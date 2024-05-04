@@ -45,9 +45,13 @@ public class QuoriPOOB {
 		}
 	}
 
-	public void addWalls(int normal, int temporary, int longWall, int allied) {
-		Player player = getCurrentPlayer();
-		player.addWalls(normal, temporary, longWall, allied);
+	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+		int numberWalls = normal + temporary + longWall + allied;
+		if (numberWalls != this.board.getSize() + 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+
+		for (Player player : this.players.values()) {
+			player.addWalls(normal, temporary, longWall, allied);
+		}
 	}
 
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {

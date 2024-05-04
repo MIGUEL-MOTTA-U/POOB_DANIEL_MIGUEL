@@ -11,8 +11,9 @@ public class QuoriPOOBException extends Exception {
 	public static String BOARD_UNDEFINED = "There is not board defined";
 	public static String WRONG_TOKEN_DIRECTION = "The direction is not defined";
 	public static String WRONG_SIZE = "Board size must be greater than 0";
-	public static String INSUFFICIENT_WALLS = "There are no walls of this type";
 	public static String WRONG_NUMBER_PLAYERS = "There can be no more than 2 players";
+	public static String WRONG_NUMBER_WALLS = "there must be 1 more wall to the size of the board";
+	public static String INSUFFICIENT_WALLS = "There are no walls of this type";
 	public static String SAME_PLAYER_COLOR = "There can be no 2 players with the same color";
 	
 	public QuoriPOOBException(String message) {
