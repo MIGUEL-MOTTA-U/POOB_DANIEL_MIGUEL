@@ -46,9 +46,11 @@ public class Human extends Player {
         for (Wall w : this.walls) {
             if (w.getClass().getSimpleName().toUpperCase().equals(type.toUpperCase())) {
                 wallToPut = w;
+                break;
             }
         }
-        wallToPut.addWall(initialRow, initialColumn, squareSide);
-        board.addWallToBoard(wallToPut);
+
+        board.addWallToBoard(wallToPut, initialRow, initialColumn, squareSide);
+        delWall(wallToPut);
     }
 }

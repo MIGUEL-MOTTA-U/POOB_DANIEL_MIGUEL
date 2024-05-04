@@ -1,6 +1,7 @@
 package domain;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.lang.reflect.Constructor;
 
 public abstract class Player {
@@ -24,6 +25,38 @@ public abstract class Player {
 		createWalls(temporary, "Temporary");
 		createWalls(WLong, "LongWall");
 		createWalls(allied, "Allied");
+	}
+
+	public void delWall(Wall wall) {
+		this.walls.remove(wall);
+	}
+
+	public HashMap<String, Integer> numberWalls() {
+		HashMap<String, Integer> numberWalls = new HashMap<>();
+		int normalWalls = 0;
+		int temporaryWalls = 0;
+		int longWalls = 0;
+		int alliedWalls = 0;
+
+		for (Wall wall : this.walls) {
+			String cls = wall.getClass().getSimpleName().toUpperCase();
+			if (cls.equals("NORMALWALL")) {
+				normalWalls++;
+			} else if (cls.equals("TEMPORARYWALL")) {
+				temporaryWalls++;
+			} else if (cls.equals("LONGWALL")) {
+				longWalls++;
+			} else {
+				alliedWalls++;
+			}
+		}
+
+		numberWalls.put("normal", normalWalls);
+		numberWalls.put("temporary", temporaryWalls);
+		numberWalls.put("long", longWalls);
+		numberWalls.put("allied", alliedWalls);
+
+		return numberWalls;
 	}
 	
 	

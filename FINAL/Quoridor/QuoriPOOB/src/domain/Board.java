@@ -27,7 +27,7 @@ public class Board {
 		this.players = players;
 	}
 
-	public void addWallToBoard(Wall w) {
+	public void addWallToBoard(Wall wall, int initialRow, int initialColumn, String squareSide) {
 		// putWallBoard
 		// walls.remove(wallToPut);
 	}
