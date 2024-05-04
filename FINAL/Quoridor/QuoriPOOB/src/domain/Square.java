@@ -1,6 +1,7 @@
 package domain;
 
 public abstract class Square {
+    protected Board board;
     protected int row;
     protected int column;
     protected Wall wallLeft;
@@ -8,12 +9,13 @@ public abstract class Square {
     protected Wall wallUp;
     protected Wall wallDown;
 
-    public Square(int row, int column){
+    public Square(int row, int column, Board board) {
         this.row = row;
         this.column = column;
-        wallDown = null;
-        wallLeft = null;
-        wallRight = null;
-        wallUp = null;
+        this.board = board;
+        this.wallDown = null;
+        this.wallLeft = null;
+        this.wallRight = null;
+        this.wallUp = null;
     }
 }

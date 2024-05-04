@@ -80,7 +80,7 @@ public class Board {
 		for (int row = 0; row < this.size; row++) {
 			for (int column = 0; column < this.size; column++) {
 				if (matrixBoard[row][column] == null) {
-					Square emptySquare = new NormalSquare(row, column);
+					Square emptySquare = new NormalSquare(row, column, this);
 					matrixBoard[row][column] = emptySquare;
 					squares.add(emptySquare);
 				}
@@ -108,9 +108,9 @@ public class Board {
 		try {
 			Class<?> cls = Class.forName(type);
 			if (!Square.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.SQUARE_NOT_EXIST);
-			Constructor<?> constructor = cls.getDeclaredConstructor(int.class, int.class);
+			Constructor<?> constructor = cls.getDeclaredConstructor(int.class, int.class, Board.class);
 			constructor.setAccessible(true);
-			square = (Square) constructor.newInstance();
+			square = (Square) constructor.newInstance(row, column, this);
 			this.squares.add(square);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
