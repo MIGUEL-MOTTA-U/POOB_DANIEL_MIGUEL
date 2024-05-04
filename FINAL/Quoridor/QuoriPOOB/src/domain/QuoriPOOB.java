@@ -35,6 +35,8 @@ public class QuoriPOOB {
 		Player player = getCurrentPlayer();
 		player.moveToken(color, direction);
 	}
+	// Getters and Setters
+	
 
 	// Private methods
 
