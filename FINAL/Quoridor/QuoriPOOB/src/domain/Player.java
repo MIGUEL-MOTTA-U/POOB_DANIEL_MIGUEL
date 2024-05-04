@@ -61,9 +61,9 @@ public abstract class Player {
 		try {
 			Class<?> cls = Class.forName(type);
 			if (!Wall.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
-			Constructor<?> constructor = cls.getDeclaredConstructor();
+			Constructor<?> constructor = cls.getDeclaredConstructor(Color.class);
 			constructor.setAccessible(true);
-			wall = (Wall) constructor.newInstance();
+			wall = (Wall) constructor.newInstance(this.color);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

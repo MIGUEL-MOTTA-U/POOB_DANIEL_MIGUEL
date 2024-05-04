@@ -1,18 +1,23 @@
 package domain;
 
+import java.awt.Color;
+
 public abstract class  Wall {
-	private String color;
+	protected Board board;
+	protected Color color;
 	protected int initialRow;
 	protected int initialColumn;
-	protected String positionInSquare;
+	protected String squareSide;
 
-	public Wall() {
-		// Creates a Wall
+	public Wall(Color color) {
+		this.color = color;
 	}
 
-	public void addWall(int initialRow,int initialColumn,String squareSide){
+	public void addWall(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
+		if (initialRow > board.getSize() || initialColumn > board.getSize()) throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
+
 		this.initialColumn = initialColumn;
 		this.initialRow = initialRow;
-		this.positionInSquare = squareSide;
+		this.squareSide = squareSide;
 	}
 }

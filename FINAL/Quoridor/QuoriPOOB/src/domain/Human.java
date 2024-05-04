@@ -1,52 +1,54 @@
 package domain;
+
 import java.awt.*;
-public class Human extends Player{
-    public Human(String name, Color color){
+
+public class Human extends Player {
+    public Human(String name, Color color) {
         super(name, color);
     }
 
     @Override
-    public void moveToken(Color color, String direction) throws QuoriPOOBException{
+    public void moveToken(Color color, String direction) throws QuoriPOOBException {
         switch (direction.toUpperCase()) {
             case "UP":
-                board.moveTokenUp(color);
+                board.moveTokenUp(this.color);
                 break;
             case "DOWN":
-                board.moveTokenDown(color);
+                board.moveTokenDown(this.color);
                 break;
             case "LEFT":
-                board.moveTokenLeft(color);
+                board.moveTokenLeft(this.color);
                 break;
             case "RIGHT":
-                board.moveTokenRight(color);
+                board.moveTokenRight(this.color);
                 break;
             case "UPLEFT":
-                board.moveTokenUpLeft(color);
+                board.moveTokenUpLeft(this.color);
                 break;
             case "UPRIGHT":
-                board.moveTokenUpRight(color);
+                board.moveTokenUpRight(this.color);
                 break;
             case "DOWNLEFT":
-                board.moveTokenDownLeft(color);
+                board.moveTokenDownLeft(this.color);
                 break;
             case "DOWNRIGHT":
-                board.moveTokenDownRight(color);
+                board.moveTokenDownRight(this.color);
                 break;
             default:
                 throw new QuoriPOOBException(QuoriPOOBException.TOKEN_WRONG_DIRECTION);
         }
-        
+
     }
 
     @Override
-    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide){
-		Wall wallToPut = null;
-		for(Wall w:walls){
-			if(w.getClass().getSimpleName().toUpperCase().equals(type.toUpperCase())){
-				wallToPut = w;
-			}
-		}
-		wallToPut.addWall(initialRow, initialColumn, squareSide);
-		board.addWallToBoard(wallToPut);
-	}
+    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
+        Wall wallToPut = null;
+        for (Wall w : this.walls) {
+            if (w.getClass().getSimpleName().toUpperCase().equals(type.toUpperCase())) {
+                wallToPut = w;
+            }
+        }
+        wallToPut.addWall(initialRow, initialColumn, squareSide);
+        board.addWallToBoard(wallToPut);
+    }
 }
