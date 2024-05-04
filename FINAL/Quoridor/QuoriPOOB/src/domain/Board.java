@@ -17,6 +17,8 @@ public class Board {
 
 	public Board(int size, HashMap<String, int[][]> specialSquares) {
 		rows = size;
+		createMatrix(size);
+		createSpecialSquares(specialSquares);
 	}
 
 	public void setPlayers(HashMap<Color, Player> players) {
@@ -29,31 +31,49 @@ public class Board {
 	}
 
 	public void moveTokenUp(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenDown(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenLeft(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenRight(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenUpLeft(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenUpRight(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenDownLeft(Color color){
-		// En Construccion
+		// In Construction
 	}
 	public void moveTokenDownRight(Color color){
-		// En Construccion
+		// In Construction
 	}
 
+	// Getters and Setters
 	public Player getPlayerPlaying() {
 		return this.playerPlaying;
+	}
+
+	// Private Methods
+
+	private void createMatrix(int n){
+		matrixBoard = new Object[n][n];
+		for (int i = 0; i< n; i++){
+			for (int j = 0; j < n; j++){
+				Square emptySquare = new Square(i,j);
+				matrixBoard[i][j] = emptySquare;
+				squares.add(emptySquare);
+			}
+		}
+	}
+
+	private void createSpecialSquares(HashMap<String, int[][]> specialSquares){
+		
 	}
 }
