@@ -17,8 +17,8 @@ public class Board {
 
 	public Board(int size, HashMap<String, int[][]> specialSquares) {
 		rows = size;
-		createMatrix(size);
 		createSpecialSquares(specialSquares);
+		createMatrix(size);
 	}
 
 	public void setPlayers(HashMap<Color, Player> players) {
@@ -66,7 +66,7 @@ public class Board {
 		matrixBoard = new Object[n][n];
 		for (int i = 0; i< n; i++){
 			for (int j = 0; j < n; j++){
-				Square emptySquare = new Square(i,j);
+				Square emptySquare = new NormalSquare(i,j);
 				matrixBoard[i][j] = emptySquare;
 				squares.add(emptySquare);
 			}
@@ -74,6 +74,13 @@ public class Board {
 	}
 
 	private void createSpecialSquares(HashMap<String, int[][]> specialSquares){
+		for(String s:specialSquares.keySet()){
+			createSquare(s, specialSquares.get(s), specialSquares.get(s));
+		}
+	}
+
+	private void createSquare(String type, int[][] row, int[][] column){
+		// Usando reflexion
 		
 	}
 }
