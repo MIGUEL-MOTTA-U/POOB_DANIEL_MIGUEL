@@ -39,24 +39,21 @@ public class QuoriPOOB {
 		}
 	}
 
-	public void addWalls(int normal, int temporary, int longWall, int allied) {
-		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con
-		// uno de los jugadores de esta clase
+	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
 		Player player = getCurrentPlayer();
+		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.addWalls(normal, temporary, longWall, allied);
 	}
 
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
-		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con
-		// uno de los jugadores de esta clase
 		Player player = getCurrentPlayer();
+		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 	}
 
 	public void moveToken(Color color, String direction) throws QuoriPOOBException {
-		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con
-		// uno de los jugadores de esta clase
 		Player player = getCurrentPlayer();
+		if (!existPlayer(player)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		player.moveToken(color, direction);
 	}
 
@@ -95,5 +92,16 @@ public class QuoriPOOB {
 
 	public Player getCurrentPlayer() {
 		return board.getPlayerPlaying();
+	}
+
+	private boolean existPlayer(Player player) {
+		boolean exist = false;
+		for (Player p : this.players.values()) {
+			if (player.equals(p)) {
+				exist = true;
+			}
+		}
+
+		return exist;
 	}
 }
