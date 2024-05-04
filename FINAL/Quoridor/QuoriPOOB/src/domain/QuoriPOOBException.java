@@ -11,6 +11,7 @@ public class QuoriPOOBException extends Exception {
 	public static String TOKEN_WRONG_DIRECTION = "The direction is not defined";
 	public static String USER_NOT_EXIST = "The user not exist";
 	public static String WRONG_SIZE = "Board size must be greater than 0";
+	public static String INSUFFICIENT_WALLS = "There are no walls of this type";
 	
 	public QuoriPOOBException(String message) {
 		super(message);

@@ -42,7 +42,7 @@ public abstract class Player {
 			String cls = wall.getClass().getSimpleName().toUpperCase();
 			if (cls.equals("NORMALWALL")) {
 				normalWalls++;
-			} else if (cls.equals("TEMPORARYWALL")) {
+			} else if (cls.equals("TEMPORARY")) {
 				temporaryWalls++;
 			} else if (cls.equals("LONGWALL")) {
 				longWalls++;
@@ -51,17 +51,17 @@ public abstract class Player {
 			}
 		}
 
-		numberWalls.put("normal", normalWalls);
-		numberWalls.put("temporary", temporaryWalls);
-		numberWalls.put("long", longWalls);
-		numberWalls.put("allied", alliedWalls);
+		numberWalls.put("NORMALWALL", normalWalls);
+		numberWalls.put("TEMPORARY", temporaryWalls);
+		numberWalls.put("LONGWALL", longWalls);
+		numberWalls.put("ALLIED", alliedWalls);
 
 		return numberWalls;
 	}
 	
 	
 	// Abstract Methods
-	public abstract void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide);
+	public abstract void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException;
 
 	public abstract void moveToken(Color color, String direction)throws QuoriPOOBException;
 
