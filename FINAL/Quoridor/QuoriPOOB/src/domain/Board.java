@@ -22,4 +22,23 @@ public class Board {
 	public void setPlayers(HashMap<Color, Player> players) {
 		this.players = players;
 	}
+	
+	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
+		Wall wallToPut = null;
+		for(Wall w:walls) {
+			if(w.getClass().toString().equals(type)) {
+				wallToPut = w;
+			}	
+		}
+		putWallBoard
+		walls.remove(wallToPut);
+		
+	}
+	
+	
+	
+	public void setWalls(ArrayList<Wall> w) {
+		walls = w;
+	}
+	
 }

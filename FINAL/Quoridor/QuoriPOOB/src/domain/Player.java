@@ -33,4 +33,7 @@ public class Player {
             //return null;
         }
 	}
+	public ArrayList<Wall> getWalls(){
+		return walls;
+	}
 }
