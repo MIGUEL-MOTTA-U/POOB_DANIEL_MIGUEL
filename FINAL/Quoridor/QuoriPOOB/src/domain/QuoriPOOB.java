@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.awt.Color;
 
@@ -23,11 +22,23 @@ public class QuoriPOOB {
 
 	public void addWalls(int normal, int temporary, int longWall, int allied) { 
 		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con uno de los jugadores de esta clase
-		Player player = board.getPlayerPlaying();
+		Player player = getCurrentPlayer();
 		player.addWalls(normal, temporary, longWall, allied);
 	}
 
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
-		board.addWallToBoard(type, initialRow, initialColumn, squareSide);
+		Player player = getCurrentPlayer();
+		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
+	}
+
+	public void moveToken(Color color, String direction){
+		Player player = getCurrentPlayer();
+		player.moveToken(color, direction);
+	}
+
+	// Private methods
+	
+	private Player getCurrentPlayer(){
+		return board.getPlayerPlaying();
 	}
 }

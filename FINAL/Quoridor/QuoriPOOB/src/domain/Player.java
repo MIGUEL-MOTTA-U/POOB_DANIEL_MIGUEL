@@ -1,14 +1,14 @@
 package domain;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.ArrayList;
 import java.lang.reflect.Constructor;
 
-public class Player {
-	private String name;
-	private Color color;
-	private Board board;
-	private ArrayList<Wall> walls;
+public abstract class Player {
+	protected String name;
+	protected Color color;
+	protected Board board;
+	protected ArrayList<Wall> walls;
 
 	public Player(String name, Color color) {
 		this.color = color;
@@ -25,6 +25,10 @@ public class Player {
 		createWalls(WLong, "LongWall");
 		createWalls(allied, "Allied");
 	}
+
+	public abstract void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide);
+
+	public abstract void moveToken(Color color, String direction);
 
 	private void createWalls(int quantity, String type) {
 		for (int i = 0; i < quantity; i++) {

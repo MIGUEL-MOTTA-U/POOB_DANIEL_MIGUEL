@@ -23,13 +23,8 @@ public class Board {
 		this.players = players;
 	}
 
-	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
-		Wall wallToPut = null;
-		for (Wall w : walls) {
-			if (w.getClass().toString().equals(type)) {
-				wallToPut = w;
-			}
-		}
+	public void addWallToBoard(Wall w) {
+		//
 		// putWallBoard
 		// walls.remove(wallToPut);
 
