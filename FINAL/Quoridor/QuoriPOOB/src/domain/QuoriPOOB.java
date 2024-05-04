@@ -31,13 +31,13 @@ public class QuoriPOOB {
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 	}
 
-	public void moveToken(Color color, String direction){
+	public void moveToken(Color color, String direction) throws QuoriPOOBException{
 		Player player = getCurrentPlayer();
 		player.moveToken(color, direction);
 	}
 
 	// Private methods
-	
+
 	private Player getCurrentPlayer(){
 		return board.getPlayerPlaying();
 	}

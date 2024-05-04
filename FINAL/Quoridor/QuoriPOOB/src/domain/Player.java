@@ -28,7 +28,7 @@ public abstract class Player {
 
 	public abstract void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide);
 
-	public abstract void moveToken(Color color, String direction);
+	public abstract void moveToken(Color color, String direction)throws QuoriPOOBException;
 
 	private void createWalls(int quantity, String type) {
 		for (int i = 0; i < quantity; i++) {

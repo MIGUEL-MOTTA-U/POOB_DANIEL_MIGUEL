@@ -7,7 +7,9 @@ public class QuoriPOOBException extends Exception {
 	public static String SQUARE_NOT_EXIST = "The square does not exist";
 	public static String SQUARE_SIDE_NOT_EXIST = "There is not square beside";
 	public static String BOARD_UNDEFINED = "There is not board defined";
+	public static String TOKEN_WRONG_DIRECTION = "The direction is not defined";
 
+	
 	public QuoriPOOBException(String message) {
 		super(message);
 	}

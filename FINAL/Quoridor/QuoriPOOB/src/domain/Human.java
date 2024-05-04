@@ -6,8 +6,35 @@ public class Human extends Player{
     }
 
     @Override
-    public void moveToken(Color color, String direction) {
-        // Move the token in the board
+    public void moveToken(Color color, String direction) throws QuoriPOOBException{
+        switch (direction.toUpperCase()) {
+            case "UP":
+                board.moveTokenUp(color);
+                break;
+            case "DOWN":
+                board.moveTokenDown(color);
+                break;
+            case "LEFT":
+                board.moveTokenLeft(color);
+                break;
+            case "RIGHT":
+                board.moveTokenRight(color);
+                break;
+            case "UPLEFT":
+                board.moveTokenUpLeft(color);
+                break;
+            case "UPRIGHT":
+                board.moveTokenUpRight(color);
+                break;
+            case "DOWNLEFT":
+                board.moveTokenDownLeft(color);
+                break;
+            case "DOWNRIGHT":
+                board.moveTokenDownRight(color);
+                break;
+            default:
+                throw new QuoriPOOBException(QuoriPOOBException.TOKEN_WRONG_DIRECTION);
+        }
         
     }
 

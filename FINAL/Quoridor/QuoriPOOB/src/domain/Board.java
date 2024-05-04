@@ -24,10 +24,33 @@ public class Board {
 	}
 
 	public void addWallToBoard(Wall w) {
-		//
 		// putWallBoard
 		// walls.remove(wallToPut);
+	}
 
+	public void moveTokenUp(Color color){
+		// En Construccion
+	}
+	public void moveTokenDown(Color color){
+		// En Construccion
+	}
+	public void moveTokenLeft(Color color){
+		// En Construccion
+	}
+	public void moveTokenRight(Color color){
+		// En Construccion
+	}
+	public void moveTokenUpLeft(Color color){
+		// En Construccion
+	}
+	public void moveTokenUpRight(Color color){
+		// En Construccion
+	}
+	public void moveTokenDownLeft(Color color){
+		// En Construccion
+	}
+	public void moveTokenDownRight(Color color){
+		// En Construccion
 	}
 
 	public Player getPlayerPlaying() {
