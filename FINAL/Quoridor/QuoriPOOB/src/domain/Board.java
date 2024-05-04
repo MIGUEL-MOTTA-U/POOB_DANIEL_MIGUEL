@@ -1,7 +1,9 @@
 package domain;
+
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 public class Board {
 
 	private int rows;
@@ -12,33 +14,28 @@ public class Board {
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
 	private HashMap<Color, Player> players;
-	
-	
+
 	public Board(int size, HashMap<String, int[][]> specialSquares) {
 		rows = size;
-		
 	}
-	
+
 	public void setPlayers(HashMap<Color, Player> players) {
 		this.players = players;
 	}
-	
+
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
 		Wall wallToPut = null;
-		for(Wall w:walls) {
-			if(w.getClass().toString().equals(type)) {
+		for (Wall w : walls) {
+			if (w.getClass().toString().equals(type)) {
 				wallToPut = w;
-			}	
+			}
 		}
-		putWallBoard
-		walls.remove(wallToPut);
-		
+		// putWallBoard
+		// walls.remove(wallToPut);
+
 	}
-	
-	
-	
-	public void setWalls(ArrayList<Wall> w) {
-		walls = w;
+
+	public Player getPlayerPlaying() {
+		return this.playerPlaying;
 	}
-	
 }
