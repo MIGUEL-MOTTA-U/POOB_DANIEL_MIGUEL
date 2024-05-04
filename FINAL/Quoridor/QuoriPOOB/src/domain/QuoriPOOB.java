@@ -36,7 +36,19 @@ public class QuoriPOOB {
 		player.moveToken(color, direction);
 	}
 	// Getters and Setters
+	public void setTime(){
+		if(gameMode.toUpperCase().equals(board)){
+			
+		}
+	}
 	
+	public String getName(Player player){
+		return player.getName();
+	}
+
+	public Color getColor(Player player){
+		return player.getColor();
+	}
 
 	// Private methods
 
