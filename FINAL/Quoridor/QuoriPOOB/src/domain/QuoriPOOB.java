@@ -10,7 +10,7 @@ public class QuoriPOOB {
 	private HashMap<Color, Player> players;
 
 	public QuoriPOOB() {
-
+		this.players = new HashMap<>(2);
 	}
 
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
