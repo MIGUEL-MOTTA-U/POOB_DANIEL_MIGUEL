@@ -49,24 +49,25 @@ public abstract class Player {
 	// Private methods
 
 	private void createWalls(int quantity, String type) {
+		Wall wall = null;
 		for (int i = 0; i < quantity; i++) {
-			createWall(type);
+			wall = createWall(type);
+			this.walls.add(wall);
 		}
 	}
 
-	private void createWall(String type) {
+	private Wall createWall(String type) {
+		Wall wall = null;
 		try {
 			Class<?> cls = Class.forName(type);
-			if (Wall.class.isAssignableFrom(cls)) {
-				Constructor<?> constructor = cls.getDeclaredConstructor();
-				constructor.setAccessible(true);
-				Wall wall = (Wall) constructor.newInstance();
-				this.walls.add(wall);
-			} else {
-				throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
-			}
+			if (!Wall.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			Constructor<?> constructor = cls.getDeclaredConstructor();
+			constructor.setAccessible(true);
+			wall = (Wall) constructor.newInstance();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
+
+		return wall;
 	}
 }
