@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class StartGUI extends JPanel{
-    QuoridorGUI quoridorGUI;
+    private QuoridorGUI quoridorGUI;
 
     // Title
     private JPanel panelTitle;

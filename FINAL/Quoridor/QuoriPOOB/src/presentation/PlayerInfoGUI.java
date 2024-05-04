@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.net.URL;
 
 public class PlayerInfoGUI extends JPanel{
-    QuoridorGUI quoridorGUI;
+    private QuoridorGUI quoridorGUI;
 
     // West
     private JPanel panelWest;
@@ -152,6 +152,12 @@ public class PlayerInfoGUI extends JPanel{
             public void actionPerformed(ActionEvent ev) {
                 JColorChooser chooser = new JColorChooser();
                 Color selectedColor = chooser.showDialog(PlayerInfoGUI.this, "Select a color", Color.BLUE);
+            }
+        });
+
+        buttonNext.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.showSetUpGameGUI();
             }
         });
     }

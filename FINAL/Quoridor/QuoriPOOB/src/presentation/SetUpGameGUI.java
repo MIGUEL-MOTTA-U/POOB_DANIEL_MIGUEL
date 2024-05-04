@@ -10,7 +10,7 @@ import java.net.URL;
 public class SetUpGameGUI extends JPanel{
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
 
-    QuoridorGUI quoridorGUI;
+    private QuoridorGUI quoridorGUI;
 
     // West
     private JPanel panelWest;
@@ -20,9 +20,13 @@ public class SetUpGameGUI extends JPanel{
     private JPanel panelSquares;
     private JLabel labelSquareTitle;
     private JTextField textNormalSquares;
+    private JButton buttonPositionNormal;
     private JTextField textTeleporterSquares;
+    private JButton buttonPositionTeleporter;
     private JTextField textReturnSquares;
+    private JButton buttonPositionReturn;
     private JTextField textDoubleTurnSquares;
+    private JButton buttonPositionDoubleTurn;
 
     // East
     private JPanel panelEast;
@@ -62,6 +66,23 @@ public class SetUpGameGUI extends JPanel{
         container.setBorder(new EmptyBorder(0, 0, 0, 50));
         container.setBackground(Color.WHITE);
 
+        JPanel containerHeader = new JPanel(new BorderLayout());
+        containerHeader.setBackground(Color.WHITE);
+
+        containerHeader.add(prepareElementsWestHeader(), BorderLayout.WEST);
+        container.add(containerHeader);
+        container.add(Box.createVerticalStrut(50));
+        container.add(prepareElementsSquares());
+        panelWest.add(container);
+
+        content.add(panelWest, BorderLayout.WEST);
+    }
+
+    private JPanel prepareElementsWestHeader() {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
+        container.setBackground(Color.WHITE);
+
         imageGame = new JLabel();
         imageGame.setSize(50, 50);
         createImage(imageGame, "assets/Logo.png");
@@ -77,11 +98,8 @@ public class SetUpGameGUI extends JPanel{
         container.add(labelTitle);
         container.add(Box.createVerticalStrut(10));
         container.add(labelDescription);
-        container.add(Box.createVerticalStrut(50));
-        container.add(prepareElementsSquares());
-        panelWest.add(container);
 
-        content.add(panelWest, BorderLayout.WEST);
+        return container;
     }
 
     private JPanel prepareElementsSquares() {
@@ -97,15 +115,24 @@ public class SetUpGameGUI extends JPanel{
         textReturnSquares = createTextField("Number of return squares");
         textDoubleTurnSquares = createTextField("Number of double turn squares");
 
-        panelSquares.add(labelSquareTitle);
+        buttonPositionNormal = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionNormal.setBorder(new EmptyBorder(5, 5, 5, 5));
+        buttonPositionTeleporter = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionTeleporter.setBorder(new EmptyBorder(5, 5, 5, 5));
+        buttonPositionReturn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionReturn.setBorder(new EmptyBorder(5, 5, 5, 5));
+        buttonPositionDoubleTurn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionDoubleTurn.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+        panelSquares.add(prepareElementsTitle(labelSquareTitle));
         panelSquares.add(Box.createVerticalStrut(10));
-        panelSquares.add(textNormalSquares);
+        panelSquares.add(prepareElementsSquare(textNormalSquares, buttonPositionNormal));
         panelSquares.add(Box.createVerticalStrut(10));
-        panelSquares.add(textTeleporterSquares);
+        panelSquares.add(prepareElementsSquare(textTeleporterSquares, buttonPositionTeleporter));
         panelSquares.add(Box.createVerticalStrut(10));
-        panelSquares.add(textReturnSquares);
+        panelSquares.add(prepareElementsSquare(textReturnSquares, buttonPositionReturn));
         panelSquares.add(Box.createVerticalStrut(10));
-        panelSquares.add(textDoubleTurnSquares);
+        panelSquares.add(prepareElementsSquare(textDoubleTurnSquares, buttonPositionDoubleTurn));
 
         return panelSquares;
     }
@@ -154,7 +181,7 @@ public class SetUpGameGUI extends JPanel{
         textLongWalls = createTextField("Number of long walls");
         textAlliedWalls = createTextField("Number of allied walls");
 
-        panelWalls.add(labelWallTitle);
+        panelWalls.add(prepareElementsTitle(labelWallTitle));
         panelWalls.add(Box.createVerticalStrut(10));
         panelWalls.add(textNormalWalls);
         panelWalls.add(Box.createVerticalStrut(10));
@@ -165,6 +192,27 @@ public class SetUpGameGUI extends JPanel{
         panelWalls.add(textAlliedWalls);
 
         return panelWalls;
+    }
+
+    private JPanel prepareElementsSquare(JTextField textField, JButton button) {
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+        container.setBackground(Color.WHITE);
+
+        container.add(textField);
+        container.add(Box.createHorizontalStrut(10));
+        container.add(button);
+
+        return container;
+    }
+
+    private JPanel prepareElementsTitle(JLabel label) {
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBackground(Color.WHITE);
+
+        container.add(label, BorderLayout.WEST);
+
+        return container;
     }
 
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {

@@ -22,16 +22,16 @@ public class QuoridorGUI extends JFrame {
     private JPanel cardPanel;
 
     // Windows
-    StartGUI startGUI;
-    GameModeGUI gameModeGUI;
-    GameDifficultyGUI gameDifficultyGUI;
-    PlayerInfoGUI playerInfoGUI;
-    SetUpGameGUI setUpGameGUI;
+    private StartGUI startGUI;
+    private GameModeGUI gameModeGUI;
+    private GameDifficultyGUI gameDifficultyGUI;
+    private PlayerInfoGUI playerInfoGUI;
+    private SetUpGameGUI setUpGameGUI;
 
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "setUpGameGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
@@ -96,6 +96,10 @@ public class QuoridorGUI extends JFrame {
 
     public void showPlayerInfoGUI() {
         cardLayout.show(cardPanel, "playerInfoGUI");
+    }
+
+    public void showSetUpGameGUI() {
+        cardLayout.show(cardPanel, "setUpGameGUI");
     }
 
     public static void main(String args[]) {
