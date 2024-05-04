@@ -1,5 +1,8 @@
 package domain;
 
-public class Wall {
-
+public abstract class  Wall {
+	public Wall() {
+		// Creates a Wall
+	}
+	
 }

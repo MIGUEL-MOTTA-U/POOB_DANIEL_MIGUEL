@@ -21,4 +21,23 @@ public class QuoriPOOB {
 		}
 	}
 	
+	public void addWalls(int normalW, int temporaryW, int longW, int alliedW) {
+	for (int i=0;i < normalW;i++) {
+		players.get(0).addWall("NORMAL"); // Jugador 1
+		players.get(1).addWall("NORMAL"); // Jugador 2
+		}
+	for(int i=0;i< temporaryW;i++) {
+		players.get(0).addWall("TEMPORARY");
+		players.get(1).addWall("NORMAL");
+	}
+	for(int i=0;i< temporaryW;i++) {
+		players.get(0).addWall("LONG");
+		players.get(1).addWall("NORMAL");
+	}	
+	for(int i=0;i< temporaryW;i++) {
+		players.get(0).addWall("ALLIED");
+		players.get(1).addWall("NORMAL");
+	}
+	}
+	
 }
