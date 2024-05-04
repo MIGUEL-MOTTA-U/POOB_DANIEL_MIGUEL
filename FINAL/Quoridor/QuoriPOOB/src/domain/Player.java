@@ -51,10 +51,10 @@ public abstract class Player {
 			}
 		}
 
-		numberWalls.put("NORMALWALL", normalWalls);
-		numberWalls.put("TEMPORARY", temporaryWalls);
-		numberWalls.put("LONGWALL", longWalls);
-		numberWalls.put("ALLIED", alliedWalls);
+		numberWalls.put("NormalWall", normalWalls);
+		numberWalls.put("Temporary", temporaryWalls);
+		numberWalls.put("LongWal", longWalls);
+		numberWalls.put("Allied", alliedWalls);
 
 		return numberWalls;
 	}

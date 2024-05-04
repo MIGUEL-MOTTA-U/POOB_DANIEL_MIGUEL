@@ -19,6 +19,7 @@ public class Board {
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 0) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 		this.size = size;
+		this.matrixBoard = new Object[size][size];
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
 	}
@@ -75,7 +76,7 @@ public class Board {
 	}
 
 	public void setPlayerPlaying(Player player) {
-		this.playerPlaying = player;
+		// In construction
 	}
 
 	// Private Methods
@@ -93,7 +94,6 @@ public class Board {
 	}
 
 	private void createSpecialSquares(HashMap<String, int[][]> specialSquares) {
-		this.matrixBoard = new Object[this.size][this.size];
 		for (Map.Entry<String, int[][]> entry : specialSquares.entrySet()) {
 			String type = entry.getKey();
 			int[][] squares = entry.getValue();

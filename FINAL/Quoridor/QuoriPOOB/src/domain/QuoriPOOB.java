@@ -27,12 +27,16 @@ public class QuoriPOOB {
 		player.addWalls(normal, temporary, longWall, allied);
 	}
 
-	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) {
+	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con
+		// uno de los jugadores de esta clase
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 	}
 
 	public void moveToken(Color color, String direction) throws QuoriPOOBException {
+		// Toca hacer la verificacion de que el jugador jugando obtenido concuerde con
+		// uno de los jugadores de esta clase
 		Player player = getCurrentPlayer();
 		player.moveToken(color, direction);
 	}

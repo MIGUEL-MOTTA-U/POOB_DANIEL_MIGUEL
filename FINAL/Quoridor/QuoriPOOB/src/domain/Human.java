@@ -42,7 +42,7 @@ public class Human extends Player {
 
     @Override
     public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
-        if (numberWalls().get(type.toUpperCase()) <= 0) throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
+        if (numberWalls().get(type) <= 0) throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
 
         Wall wallToPut = null;
         for (Wall w : this.walls) {
