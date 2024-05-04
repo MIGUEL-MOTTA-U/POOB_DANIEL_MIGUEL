@@ -2,6 +2,7 @@ package domain;
 
 import java.util.HashMap;
 import java.awt.Color;
+import java.lang.reflect.Constructor;
 
 public class QuoriPOOB {
 	private String gameMode;
@@ -17,6 +18,24 @@ public class QuoriPOOB {
 		board.setPlayers(this.players);
 		for (Player p : players.values()) {
 			p.setBoard(board);
+		}
+	}
+
+	public void createPlayerHuman(String name, Color color) {
+		Human player = new Human(name, color);
+		this.players.put(color, player);
+	}
+
+	public void createPlayerMachine(Color color, String type) {
+		try {
+			Class<?> cls = Class.forName(type);
+			if (!Machine.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
+			constructor.setAccessible(true);
+			Machine machine = (Machine) constructor.newInstance("Machine", color);
+			this.players.put(color, machine);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -69,7 +88,7 @@ public class QuoriPOOB {
 			}
 		}
 
-		if (color == null) throw new QuoriPOOBException(QuoriPOOBException.USER_NOT_EXIST);
+		if (color == null) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 
 		return color;
 	}
