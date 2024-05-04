@@ -66,6 +66,10 @@ public class Board {
 
 	// Getters and Setters
 
+	public int getSize() {
+		return this.size;
+	}
+
 	public Player getPlayerPlaying() {
 		return this.playerPlaying;
 	}
@@ -76,7 +80,7 @@ public class Board {
 
 	// Private Methods
 
-	private void createNormalSquares() {
+	private void createNormalSquares() throws QuoriPOOBException {
 		for (int row = 0; row < this.size; row++) {
 			for (int column = 0; column < this.size; column++) {
 				if (matrixBoard[row][column] == null) {

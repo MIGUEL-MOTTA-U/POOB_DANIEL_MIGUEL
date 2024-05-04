@@ -9,7 +9,9 @@ public abstract class Square {
     protected Wall wallUp;
     protected Wall wallDown;
 
-    public Square(int row, int column, Board board) {
+    public Square(int row, int column, Board board) throws QuoriPOOBException {
+        if (row > board.getSize() || column > board.getSize()) throw new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
+        
         this.row = row;
         this.column = column;
         this.board = board;

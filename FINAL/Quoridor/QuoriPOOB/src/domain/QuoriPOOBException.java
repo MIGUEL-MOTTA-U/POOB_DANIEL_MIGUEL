@@ -3,6 +3,7 @@ package domain;
 public class QuoriPOOBException extends Exception {
 	public static String TOKEN_OUT_OF_RANGE = "The token can not move out of the board";
 	public static String WALL_OUT_OF_RANGE = "The wall can not be placed out of the board";
+	public static String SQUARE_OUT_OF_RANGE = "The square can not be placed out of the board";
 	public static String WALL_NOT_EXIST = "The wall does not exist";
 	public static String SQUARE_NOT_EXIST = "The square does not exist";
 	public static String SQUARE_SIDE_NOT_EXIST = "There is not square beside";
