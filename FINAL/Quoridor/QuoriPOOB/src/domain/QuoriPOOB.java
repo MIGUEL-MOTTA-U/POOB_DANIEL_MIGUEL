@@ -22,7 +22,7 @@ public class QuoriPOOB {
 	}
 
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
-		if (this.players.size() > 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+		if (this.players.size() >= 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
 		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
 
 		Human player = new Human(name, color);
@@ -30,11 +30,12 @@ public class QuoriPOOB {
 	}
 
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
-		if (this.players.size() > 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+		if (this.players.size() >= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
 		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
 
 		try {
 			Class<?> cls = Class.forName(type);
+			
 			if (!Machine.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
 			constructor.setAccessible(true);
