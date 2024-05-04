@@ -8,13 +8,10 @@ public class QuoriPOOBException extends Exception {
 	public static String SQUARE_SIDE_NOT_EXIST = "There is not square beside";
 	public static String BOARD_UNDEFINED = "There is not board defined";
 	public static String TOKEN_WRONG_DIRECTION = "The direction is not defined";
-
+	public static String USER_NOT_EXIST = "The user not exist";
+	public static String WRONG_SIZE = "Board size must be greater than 0";
 	
 	public QuoriPOOBException(String message) {
 		super(message);
-	}
-
-	public static final String NO_SUBCLASS_OF_WALL(String type) {
-		return "The " + type + " class is not a subclass of wall";
 	}
 }

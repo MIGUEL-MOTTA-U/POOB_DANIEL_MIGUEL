@@ -63,7 +63,7 @@ public abstract class Player {
 				Wall wall = (Wall) constructor.newInstance();
 				this.walls.add(wall);
 			} else {
-				throw new QuoriPOOBException(QuoriPOOBException.NO_SUBCLASS_OF_WALL(type));
+				throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

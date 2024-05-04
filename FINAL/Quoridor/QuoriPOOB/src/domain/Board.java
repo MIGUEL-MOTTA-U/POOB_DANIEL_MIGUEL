@@ -1,13 +1,14 @@
 package domain;
 
 import java.awt.Color;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Board {
 
-	private int rows;
-	private int numWalls;
+	private int size;
 	private Player playerPlaying;
 	private Object[][] matrixBoard;
 	private ArrayList<Token> tokens;
@@ -15,10 +16,11 @@ public class Board {
 	private ArrayList<Wall> walls;
 	private HashMap<Color, Player> players;
 
-	public Board(int size, HashMap<String, int[][]> specialSquares) {
-		rows = size;
-		createSpecialSquares(specialSquares);
-		createMatrix(size);
+	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
+		if (size <= 0) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
+		this.size = size;
+		if (specialSquares != null) createSpecialSquares(specialSquares);
+		createNormalSquares();
 	}
 
 	public void setPlayers(HashMap<Color, Player> players) {
@@ -30,57 +32,90 @@ public class Board {
 		// walls.remove(wallToPut);
 	}
 
-	public void moveTokenUp(Color color){
+	public void moveTokenUp(Color color) {
 		// In Construction
 	}
-	public void moveTokenDown(Color color){
+
+	public void moveTokenDown(Color color) {
 		// In Construction
 	}
-	public void moveTokenLeft(Color color){
+
+	public void moveTokenLeft(Color color) {
 		// In Construction
 	}
-	public void moveTokenRight(Color color){
+
+	public void moveTokenRight(Color color) {
 		// In Construction
 	}
-	public void moveTokenUpLeft(Color color){
+
+	public void moveTokenUpLeft(Color color) {
 		// In Construction
 	}
-	public void moveTokenUpRight(Color color){
+
+	public void moveTokenUpRight(Color color) {
 		// In Construction
 	}
-	public void moveTokenDownLeft(Color color){
+
+	public void moveTokenDownLeft(Color color) {
 		// In Construction
 	}
-	public void moveTokenDownRight(Color color){
+
+	public void moveTokenDownRight(Color color) {
 		// In Construction
 	}
 
 	// Getters and Setters
+
 	public Player getPlayerPlaying() {
 		return this.playerPlaying;
 	}
 
+	public void setPlayerPlaying(Player player) {
+		this.playerPlaying = player;
+	}
+
 	// Private Methods
 
-	private void createMatrix(int n){
-		matrixBoard = new Object[n][n];
-		for (int i = 0; i< n; i++){
-			for (int j = 0; j < n; j++){
-				Square emptySquare = new NormalSquare(i,j);
-				matrixBoard[i][j] = emptySquare;
-				squares.add(emptySquare);
+	private void createNormalSquares() {
+		for (int row = 0; row < this.size; row++) {
+			for (int column = 0; column < this.size; column++) {
+				if (matrixBoard[row][column] == null) {
+					Square emptySquare = new NormalSquare(row, column);
+					matrixBoard[row][column] = emptySquare;
+					squares.add(emptySquare);
+				}
 			}
 		}
 	}
 
-	private void createSpecialSquares(HashMap<String, int[][]> specialSquares){
-		for(String s:specialSquares.keySet()){
-			createSquare(s, specialSquares.get(s), specialSquares.get(s));
+	private void createSpecialSquares(HashMap<String, int[][]> specialSquares) {
+		this.matrixBoard = new Object[this.size][this.size];
+		for (Map.Entry<String, int[][]> entry : specialSquares.entrySet()) {
+			String type = entry.getKey();
+			int[][] squares = entry.getValue();
+			for (int i = 0; i < squares.length; i++) {
+				int row = squares[i][0];
+				int column = squares[i][1];
+				Square square = createSquare(type, row, column);
+				matrixBoard[row][column] = square;
+				this.squares.add(square);
+			}
 		}
 	}
 
-	private void createSquare(String type, int[][] row, int[][] column){
-		// Usando reflexion
-		
+	private Square createSquare(String type, int row, int column) {
+		Square square = null;
+		try {
+			Class<?> cls = Class.forName(type);
+			if (!Square.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.SQUARE_NOT_EXIST);
+			Constructor<?> constructor = cls.getDeclaredConstructor(int.class, int.class);
+			constructor.setAccessible(true);
+			square = (Square) constructor.newInstance();
+			this.squares.add(square);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return square;
 	}
 }
