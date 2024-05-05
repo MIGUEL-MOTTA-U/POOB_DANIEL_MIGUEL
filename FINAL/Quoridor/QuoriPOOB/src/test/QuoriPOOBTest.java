@@ -80,6 +80,16 @@ public class QuoriPOOBTest {
         }
 
     @Test
+    public void shouldCreateHumanAndMachine4()throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+            q.createPlayerHuman("Player 1", Color.BLUE);
+            q.createPlayerMachine(Color.ORANGE,"asdfasdfasdfasdfasdf");
+            q.getNames();
+            //assertArrayEquals(new String[] {"Player 1"}, q.getNames());
+        }
+
+
+    @Test
     public void shouldNotCreateHumanAndMachine1(){
         QuoriPOOB q = new QuoriPOOB();
             try{
@@ -262,7 +272,20 @@ public class QuoriPOOBTest {
         q.createBoard(2,specialQuares);
     }
 
-
+    @Test
+    public void shouldNotCreateBoard3() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Irregular", new int[][] {{0,0}});
+        try{
+            q.createBoard(1,specialQuares);
+            fail("SHOULD NOT CREATE A BOARD WITH A SIZE LOWER OR EQUAL TO 1");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.WRONG_SIZE, e.getMessage());
+        }
+    }
 
 
 

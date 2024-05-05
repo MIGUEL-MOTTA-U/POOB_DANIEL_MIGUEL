@@ -17,7 +17,7 @@ public class Board {
 	private HashMap<Color, Player> players;
 
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
-		if (size <= 0) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
+		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 		this.size = size;
 		this.matrixBoard = new Object[size][size];
 		squares = new ArrayList<>();

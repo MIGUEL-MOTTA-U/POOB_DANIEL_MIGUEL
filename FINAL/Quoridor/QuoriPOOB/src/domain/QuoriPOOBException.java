@@ -10,7 +10,7 @@ public class QuoriPOOBException extends Exception {
 	public static String SQUARE_SIDE_NOT_EXIST = "There is not square beside";
 	public static String BOARD_UNDEFINED = "There is not board defined";
 	public static String WRONG_TOKEN_DIRECTION = "The direction is not defined";
-	public static String WRONG_SIZE = "Board size must be greater than 0";
+	public static String WRONG_SIZE = "Board size must be greater than 1";
 	public static String WRONG_NUMBER_PLAYERS = "There can be no more than 2 players";
 	public static String WRONG_NUMBER_WALLS = "there must be 1 more wall to the size of the board";
 	public static String INSUFFICIENT_WALLS = "There are no walls of this type";

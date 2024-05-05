@@ -35,7 +35,6 @@ public class QuoriPOOB {
 		if(machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.TWO_MACHINES);
 		try {
 			Class<?> cls = Class.forName(type);
-			
 			if (!Machine.class.isAssignableFrom(cls)) throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
 			constructor.setAccessible(true);
