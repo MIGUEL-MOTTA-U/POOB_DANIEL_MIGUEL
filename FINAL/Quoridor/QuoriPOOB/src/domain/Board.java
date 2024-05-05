@@ -20,7 +20,7 @@ public class Board {
 		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 		this.size = size;
 		this.matrixBoard = new Object[size][size];
-		squares = new ArrayList<>();
+		this.squares = new ArrayList<>();
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
 	}
@@ -71,6 +71,7 @@ public class Board {
 	public Object[][] getMatrixBoard(){
 		return matrixBoard;
 	}
+	
 	public int getSize() {
 		return this.size;
 	}
@@ -101,7 +102,7 @@ public class Board {
 		for (Map.Entry<String, int[][]> entry : specialSquares.entrySet()) {
 			String type = entry.getKey();
 			int[][] squares = entry.getValue();
-			if (squares.length > matrixBoard.length*matrixBoard.length) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
+			if (squares.length > Math.pow(this.matrixBoard.length, 2)) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
 			for (int i = 0; i < squares.length; i++) {
 				int row = squares[i][0];
 				int column = squares[i][1];
