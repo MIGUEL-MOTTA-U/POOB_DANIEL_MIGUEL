@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 public class QuoridorGUI extends JFrame {
     public static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.6);
@@ -20,6 +21,14 @@ public class QuoridorGUI extends JFrame {
     // CardLayout
     private CardLayout cardLayout;
     private JPanel cardPanel;
+
+    // Menu
+	private JMenuBar menuBar;
+	private JMenu fileMenu;
+	private JMenuItem newItem;
+	private JMenuItem openItem;
+	private JMenuItem saveItem;
+	private JMenuItem exitItem;
 
     // Windows
     private StartGUI startGUI;
@@ -38,6 +47,7 @@ public class QuoridorGUI extends JFrame {
         setTitle("Quoridor");
         setSize(PREFERRED_DIMENSION);
         setLocationRelativeTo(null);
+        prepareElementsMenu();
 
         JPanel container = new JPanel();
         createCardPanel();
@@ -50,6 +60,24 @@ public class QuoridorGUI extends JFrame {
         container.setLayout(calculator);
         add(container, BorderLayout.CENTER);
     }
+
+    private void prepareElementsMenu(){
+		menuBar = new JMenuBar();
+		fileMenu = new JMenu("File");
+		newItem = new JMenuItem("New");
+		openItem = new JMenuItem("Open");
+		saveItem = new JMenuItem("Save");
+		exitItem = new JMenuItem("Exit");
+
+		fileMenu.add(newItem);
+		fileMenu.add(openItem);
+		fileMenu.add(saveItem);
+		fileMenu.addSeparator();
+		fileMenu.add(exitItem);
+
+		menuBar.add(fileMenu);
+		setJMenuBar(menuBar);
+	}
 
     private void createCardPanel() {
         startGUI = new StartGUI(this);
@@ -75,7 +103,39 @@ public class QuoridorGUI extends JFrame {
                 confirmClose(); 
             }
         }); 
+
+        prepareActionsMenu();
     } 
+
+    private void prepareActionsMenu(){
+		openItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showOpenDialog(QuoridorGUI.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File fileSelected = chooser.getSelectedFile();
+					JOptionPane.showMessageDialog(QuoridorGUI.this, "You chose open this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+
+		saveItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				JFileChooser chooser = new JFileChooser();
+				int returnVal = chooser.showSaveDialog(QuoridorGUI.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File fileSelected = chooser.getSelectedFile();
+					JOptionPane.showMessageDialog(QuoridorGUI.this, "You chose save this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
+				}
+			}
+		});
+
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent ev) {
+				confirmClose();
+			}
+		});	
+	}
 
     private void confirmClose() { 
         int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?", 
