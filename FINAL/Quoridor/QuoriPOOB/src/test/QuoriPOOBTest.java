@@ -21,6 +21,72 @@ public class QuoriPOOBTest {
     }
 
     @Test
+    public void shouldNotCreateModeGameUndefined1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        try {
+            q.createPlayerHuman("Player 1", Color.BLUE);
+            q.createPlayerMachine(Color.ORANGE,"domain.Beginner");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.MODE_UNDEFINED, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCreateModeGameUndefined2() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        try {
+            q.createPlayerHuman("Player 1", Color.BLUE);
+            q.createPlayerHuman("Player 2", Color.GRAY);
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.MODE_UNDEFINED, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldCreateOnePlayerMode1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE,"domain.Beginner");
+        assertArrayEquals(new String[] {"Player 1", "Machine"}, q.getNames());
+    }
+    
+    @Test
+    public void shouldCreateOnePlayerMode2() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerMachine(Color.RED,"domain.Advanced");
+        q.createPlayerHuman("Player 2", Color.BLUE);
+        assertArrayEquals(new String[] {"Machine", "Player 2"}, q.getNames());
+    }
+
+    @Test
+    public void shouldNotCreateOnePlayerMode1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
+        try {
+            q.createPlayerHuman("Player 1", Color.BLACK);
+            q.createPlayerHuman("Player 2", Color.BLUE);
+            fail("SHOULD NOT CREATE TWO HUMAN PLAYERS IN ONE PLAYER MODE");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.ONE_PLAYER_MODE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCreateOnePlayerMode2() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
+        try {
+            q.createPlayerMachine(Color.BLUE,"domain.Advanced");
+            q.createPlayerMachine(Color.RED,"domain.Beginner");
+            fail("SHOULD NOT CREATE TWO MACHINE PLAYERS IN ONE PLAYER MODE");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.ONE_PLAYER_MODE, e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldCreatePlayerHuman1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
         q.setTwoPlayers();
