@@ -87,6 +87,41 @@ public class QuoriPOOBTest {
     }
 
     @Test
+    public void shouldCreateTwoPlayersMode() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerHuman("Player 2", Color.GREEN);
+        assertArrayEquals(new String[] {"Player 2", "Player 1"}, q.getNames());
+    }
+
+    @Test
+    public void shouldNotCreateTwoPlayersMode1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        try {
+            q.createPlayerHuman("Player 1", Color.BLUE);
+            q.createPlayerMachine(Color.RED,"domain.Beginner");
+            fail("SHOULD NOT CREATE ONE MACHINE PLAYER AND ONE HUMAN PLAYER IN TWO PLAYERS MODE");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.TWO_PLAYER_MODE, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCreateTwoPlayersMode2() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        try {
+            q.createPlayerMachine(Color.RED,"domain.Beginner");
+            q.createPlayerHuman("Player 1", Color.BLUE);
+            fail("SHOULD NOT CREATE ONE MACHINE PLAYER AND ONE HUMAN PLAYER IN TWO PLAYERS MODE");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.TWO_PLAYER_MODE, e.getMessage());
+        }
+    }
+
+    @Test
     public void shouldCreatePlayerHuman1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
         q.setTwoPlayers();

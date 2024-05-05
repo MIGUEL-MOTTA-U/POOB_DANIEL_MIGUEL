@@ -89,7 +89,6 @@ public class QuoriPOOB {
 		if (onePlayer) {
 			if (machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
 		}
-		if (machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.TWO_MACHINES);
 		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
 
 		try {

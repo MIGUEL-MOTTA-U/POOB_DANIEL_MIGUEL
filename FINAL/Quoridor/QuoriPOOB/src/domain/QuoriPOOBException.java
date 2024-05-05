@@ -13,10 +13,9 @@ public class QuoriPOOBException extends Exception {
 	public static String WRONG_SIZE = "Board size must be greater than 1";
 	public static String WRONG_NUMBER_PLAYERS = "There can be no more than 2 players";
 	public static String WRONG_NUMBER_WALLS = "there must be 1 more wall to the size of the board";
+	public static String WRONG_NUMER_SQUARES = "There can be no more squares than positions in the board";
 	public static String INSUFFICIENT_WALLS = "There are no walls of this type";
 	public static String SAME_PLAYER_COLOR = "There can be no 2 players with the same color";
-	public static String TWO_MACHINES = "There can be no 2 machines";
-	public static String WRONG_NUMER_SQUARES = "There can be no more squares than positions in the board";
 	public static String MISSING_PLAYERS = "QuoriPOOB can just be played with TWO players";
 	public static String TWO_PLAYER_MODE = "There can be no machines in two players mode";
 	public static String ONE_PLAYER_MODE = "There should be only 1 machine and 1 human in one player mode";
