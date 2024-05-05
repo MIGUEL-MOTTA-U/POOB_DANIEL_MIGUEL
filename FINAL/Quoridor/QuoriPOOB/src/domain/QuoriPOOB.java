@@ -5,13 +5,32 @@ import java.awt.Color;
 import java.lang.reflect.Constructor;
 
 public class QuoriPOOB {
-	private String gameMode;
+	private boolean onePlayer;
+	private boolean twoPlayers;
 	private Board board;
 	private HashMap<Color, Player> players;
 
 	public QuoriPOOB() {
 		this.players = new HashMap<>(2);
 		this.board = null;
+		this.onePlayer = false;
+		this.twoPlayers = false;
+	}
+
+	/**
+	 * Set the game mode to one player
+	 */
+	public void setOnePlayer() {
+		this.onePlayer = true;
+		this.twoPlayers = false;
+	}
+
+	/**
+	 * Set the game mode to two players
+	 */
+	public void setTwoPlayers() {
+		this.twoPlayers = true;
+		this.onePlayer = false;
 	}
 
 	/**
@@ -24,6 +43,7 @@ public class QuoriPOOB {
 	 *                            players.
 	 */
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
+		if (modeUndefined()) throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (players.size() != 2) throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
 		board = new Board(size, specialSquares);
 		board.setPlayers(this.players);
@@ -42,7 +62,11 @@ public class QuoriPOOB {
 	 *                            parameters.
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+		if (modeUndefined()) throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+		if (onePlayer) {
+			if (humanPlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+		}
 		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
 
 		Human player = new Human(name, color);
@@ -59,9 +83,14 @@ public class QuoriPOOB {
 	 *                            there are two players already.
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+		if (modeUndefined()) throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
-		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+		if (twoPlayers) throw new QuoriPOOBException(QuoriPOOBException.TWO_PLAYER_MODE);
+		if (onePlayer) {
+			if (machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+		}
 		if (machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.TWO_MACHINES);
+		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
 
 		try {
 			Class<?> cls = Class.forName(type);
@@ -88,9 +117,10 @@ public class QuoriPOOB {
 	 *                            a Board created, also if the parameters are wrong.
 	 */
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+		if (modeUndefined()) throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+		if (this.board == null) throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 		if (players.size() != 2) throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
 		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
-		if (this.board == null) throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 
 		int numberWalls = normal + temporary + longWall + allied;
 		if (numberWalls != this.board.getSize() + 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
@@ -131,8 +161,8 @@ public class QuoriPOOB {
 	// Getters and Setters
 
 	public void setTime() {
-		if (gameMode.toUpperCase().equals(board)) {
-		}
+		// if (gameMode.toUpperCase().equals(board)) {
+		// }
 	}
 
 	/**
@@ -218,5 +248,27 @@ public class QuoriPOOB {
 		}
 
 		return exist;
+	}
+
+	/*
+	 * Verify if exist a player human
+	 */
+	private boolean humanPlayerExist() {
+		boolean exist = false;
+		for (Player player : this.players.values()) {
+			if (player instanceof Human) {
+				exist = true;
+				break;
+			}
+		}
+
+		return exist;
+	}
+
+	/*
+	 * verify if the game mode is undefined
+	 */
+	private boolean modeUndefined() {
+		return (!this.onePlayer && !this.twoPlayers);
 	}
 }

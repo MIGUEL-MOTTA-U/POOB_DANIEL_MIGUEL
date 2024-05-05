@@ -23,6 +23,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreatePlayerHuman1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
         assertArrayEquals(new String[] {"Player 1", "Player 2"}, q.getNames());
@@ -31,6 +32,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateHuman2() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 1", Color.ORANGE);
         assertArrayEquals(new String[] {"Player 1", "Player 1"}, q.getNames());
@@ -39,6 +41,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateHuman1(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
         try {
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 2", Color.BLUE);
@@ -51,6 +54,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateHuman2(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
         try {
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 1", Color.ORANGE);
@@ -64,6 +68,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateHumanAndMachine1()throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE,"domain.Beginner");
         assertArrayEquals(new String[] {"Player 1", "Machine"}, q.getNames());
@@ -73,6 +78,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateHumanAndMachine2()throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE,"domain.Intermediate");
         assertArrayEquals(new String[] {"Player 1", "Machine"}, q.getNames());
@@ -81,6 +87,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateHumanAndMachine3()throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE,"domain.Advanced");
         assertArrayEquals(new String[] {"Player 1", "Machine"}, q.getNames());
@@ -89,6 +96,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateHumanAndMachine4()throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE,"NOT A MACHINE");
         q.getNames();
@@ -99,42 +107,46 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateHumanAndMachine1(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         try{
             q.createPlayerMachine(Color.BLUE,"domain.Advanced");
             q.createPlayerMachine(Color.ORANGE,"domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
         } catch (QuoriPOOBException e){
-            assertEquals(QuoriPOOBException.TWO_MACHINES, e.getMessage());
+            assertEquals(QuoriPOOBException.ONE_PLAYER_MODE, e.getMessage());
         }
     }
 
     @Test
     public void shouldNotCreateHumanAndMachine2(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         try{
             q.createPlayerMachine(Color.BLUE,"domain.Intermediate");
             q.createPlayerMachine(Color.ORANGE,"domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
         } catch (QuoriPOOBException e){
-            assertEquals(QuoriPOOBException.TWO_MACHINES, e.getMessage());
+            assertEquals(QuoriPOOBException.ONE_PLAYER_MODE, e.getMessage());
         }
     }
     
     @Test
     public void shouldNotCreateHumanAndMachine3(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         try{
             q.createPlayerMachine(Color.BLUE,"domain.Beginner");
             q.createPlayerMachine(Color.ORANGE,"domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
         } catch (QuoriPOOBException e){
-            assertEquals(QuoriPOOBException.TWO_MACHINES, e.getMessage());
+            assertEquals(QuoriPOOBException.ONE_PLAYER_MODE, e.getMessage());
         }
     }
     
     @Test
     public void shouldNotCreateHumanAndMachine4(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
         try{
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 2", Color.ORANGE);
@@ -148,6 +160,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateHumanAndMachine5(){
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         try{
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.BLUE,"domain.Advanced");
@@ -160,6 +173,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateBoard1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -167,10 +181,11 @@ public class QuoriPOOBTest {
         q.createBoard(4,specialQuares);
         assertEquals(4, q.getBoard().getMatrixBoard().length);
     }
-    
+
     @Test
     public void shouldCreateBoard2() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -182,6 +197,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateBoard3() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -193,6 +209,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateBoard4() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -204,6 +221,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldCreateBoard5() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         q.createBoard(4,null);
@@ -213,6 +231,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldVerifyCreatedBoard() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -258,6 +277,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateBoard1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -273,6 +293,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateBoard2() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -283,6 +304,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateBoard3() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -298,6 +320,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotCreateBoard4() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         HashMap<String, int[][]> specialQuares = new HashMap<>();
         specialQuares.put("domain.Irregular", new int[][] {{0,0}});
@@ -312,6 +335,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldAddWalls1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -323,6 +347,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldAddWalls2() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -334,6 +359,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotAddWalls1() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -349,6 +375,7 @@ public class QuoriPOOBTest {
     @Test
     public void shouldNotAddWalls2() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -365,6 +392,7 @@ public class QuoriPOOBTest {
 @Test
     public void shouldNotAddWalls3() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
