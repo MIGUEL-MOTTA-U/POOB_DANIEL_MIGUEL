@@ -11,9 +11,11 @@ public class QuoriPOOB {
 
 	public QuoriPOOB() {
 		this.players = new HashMap<>(2);
+		this.board = null;
 	}
 
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
+		if(players.size() != 2) throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
 		board = new Board(size, specialSquares);
 		board.setPlayers(this.players);
 		for (Player p : players.values()) {
@@ -46,9 +48,10 @@ public class QuoriPOOB {
 	}
 
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+		if(normal<0||temporary<0||allied<0||longWall<0)throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
 		int numberWalls = normal + temporary + longWall + allied;
+		if(this.board == null) throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 		if (numberWalls != this.board.getSize() + 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
-
 		for (Player player : this.players.values()) {
 			player.addWalls(normal, temporary, longWall, allied);
 		}

@@ -83,9 +83,9 @@ public class QuoriPOOBTest {
     public void shouldCreateHumanAndMachine4()throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
             q.createPlayerHuman("Player 1", Color.BLUE);
-            q.createPlayerMachine(Color.ORANGE,"asdfasdfasdfasdfasdf");
+            q.createPlayerMachine(Color.ORANGE,"NOT A MACHINE");
             q.getNames();
-            //assertArrayEquals(new String[] {"Player 1"}, q.getNames());
+            assertArrayEquals(new String[] {"Player 1", null}, q.getNames());
         }
 
 
@@ -287,10 +287,86 @@ public class QuoriPOOBTest {
         }
     }
 
+    @Test
+    public void shouldNotCreateBoard4() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Irregular", new int[][] {{0,0}});
+        try{
+            q.createBoard(2,specialQuares);
+            fail("SHOULD NOT BE ABLE TO PLAY JUST 1 PLAYER");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.MISSING_PLAYERS, e.getMessage());
+        }
+    }
 
+    @Test
+    public void shouldAddWalls1() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Return", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        q.createBoard(4,specialQuares);
+        q.addWalls(0, 0, 0, 5);
+    }
 
+    @Test
+    public void shouldAddWalls2() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Return", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        q.createBoard(4,specialQuares);
+        q.addWalls(1, 2, 1, 1);
+    }
 
-    
-    
-    
+    @Test
+    public void shouldNotAddWalls1() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Return", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        try{
+            q.addWalls(1, 2, 1, 1);
+            fail("SHOULD NOT ADD THE WALLS IF THERE IS NOT A BOARD DEFINED");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.BOARD_UNDEFINED, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotAddWalls2() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Return", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        q.createBoard(4,specialQuares);
+        try{
+            q.addWalls(1, -1, 1, 4);
+            fail("SHOULD NOT GIVE NEGATIVE VALUES FOR A TYPE OF WALL");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.WRONG_NUMBER_WALLS, e.getMessage());
+        }
+    }
+
+@Test
+    public void shouldNotAddWalls3() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Return", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        q.createBoard(4,specialQuares);
+        try{
+            q.addWalls(1, 7, 1, 4);
+            fail("SHOULD NOT ADD A TOTAL OF WALLS DIFFERENT OF N + 1, WHEN N IS THE SIZE OF BOARD");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.WRONG_NUMBER_WALLS, e.getMessage());
+        }
+    }
 }

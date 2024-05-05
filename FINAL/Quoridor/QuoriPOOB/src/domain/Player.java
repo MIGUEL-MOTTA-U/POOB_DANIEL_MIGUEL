@@ -14,6 +14,7 @@ public abstract class Player {
 	public Player(String name, Color color) {
 		this.color = color;
 		this.name = name;
+		this.walls = new ArrayList<>();
 	}
 
 	public void setBoard(Board board) {

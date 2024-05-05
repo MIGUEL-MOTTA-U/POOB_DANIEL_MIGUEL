@@ -17,6 +17,7 @@ public class QuoriPOOBException extends Exception {
 	public static String SAME_PLAYER_COLOR = "There can be no 2 players with the same color";
 	public static String TWO_MACHINES = "There can be no 2 machines";
 	public static String WRONG_NUMER_SQUARES = "There can be no more squares than positions in the board";
+	public static String MISSING_PLAYERS = "QuoriPOOB can just be played with TWO players";
 	
 	
 	public QuoriPOOBException(String message) {
