@@ -15,6 +15,7 @@ public class QuoriPOOBException extends Exception {
 	public static String WRONG_NUMBER_WALLS = "there must be 1 more wall to the size of the board";
 	public static String INSUFFICIENT_WALLS = "There are no walls of this type";
 	public static String SAME_PLAYER_COLOR = "There can be no 2 players with the same color";
+	public static String TWO_MACHINES = "There can be no 2 machines";
 	
 	public QuoriPOOBException(String message) {
 		super(message);

@@ -30,9 +30,9 @@ public class QuoriPOOB {
 	}
 
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
-		if (this.players.size() >= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+		if (this.players.size() >= 2) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
 		if (samePlayerColor(color)) throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
-
+		if(machinePlayerExist()) throw new QuoriPOOBException(QuoriPOOBException.TWO_MACHINES);
 		try {
 			Class<?> cls = Class.forName(type);
 			
@@ -98,6 +98,9 @@ public class QuoriPOOB {
 		return color;
 	}
 
+	public Board getBoard(){
+		return board;
+	}
 	public Player getCurrentPlayer() {
 		return board.getPlayerPlaying();
 	}
@@ -110,7 +113,17 @@ public class QuoriPOOB {
 				break;
 			}
 		}
-
 		return sameColor;
+	}
+
+	private boolean machinePlayerExist(){
+		boolean res = false;
+		for (Player player : this.players.values()) {
+			if (player instanceof Machine) {
+				res = true;
+				break;
+			}
+		}
+		return res;
 	}
 }

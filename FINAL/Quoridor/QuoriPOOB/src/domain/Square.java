@@ -20,4 +20,8 @@ public abstract class Square {
         this.wallRight = null;
         this.wallUp = null;
     }
+    // Getters y Setters
+    public int[] getCoordenates(){
+        return new int[] {row, column};
+    }
 }

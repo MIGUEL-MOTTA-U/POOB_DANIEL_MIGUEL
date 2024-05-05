@@ -20,6 +20,7 @@ public class Board {
 		if (size <= 0) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 		this.size = size;
 		this.matrixBoard = new Object[size][size];
+		squares = new ArrayList<>();
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
 	}
@@ -67,6 +68,9 @@ public class Board {
 
 	// Getters and Setters
 
+	public Object[][] getMatrixBoard(){
+		return matrixBoard;
+	}
 	public int getSize() {
 		return this.size;
 	}
