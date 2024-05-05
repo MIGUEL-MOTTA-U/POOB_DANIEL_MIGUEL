@@ -82,7 +82,7 @@ public class PlayerInfoGUI extends JPanel{
         JPanel panelButtonNext = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         panelButtonNext.setBackground(Color.WHITE);
 
-        textName = new JTextField("Name");
+        textName = createTextField("Name");
         textName.setPreferredSize(new Dimension(250, 30));
 
         buttonColor = createButton("color of token and walls", Color.WHITE, Color.BLACK, new Color(240, 240, 240));
@@ -126,25 +126,30 @@ public class PlayerInfoGUI extends JPanel{
         return button;
     }
 
-    private void prepareActions()  {
-        prepareActionsTextFields();
-        prepareActionsButtons();
-    }
+    private JTextField createTextField(String text) {
+        JTextField textField = new JTextField(text);
+        textField.setFont(new Font("Arial", Font.PLAIN, 12));
+        textField.setForeground(Color.GRAY);
 
-    private void prepareActionsTextFields() {
-        textName.addFocusListener(new FocusAdapter() {
+        textField.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent ev) {
-                if (textName.getText().equals("Name")) {
-                    textName.setText("");
+                if (textField.getText().equals(text)) {
+                    textField.setText("");
                 }
             }
 
             public void focusLost(FocusEvent ev) {
-                if (textName.getText().isEmpty()) {
-                    textName.setText("Name");
+                if (textField.getText().isEmpty()) {
+                    textField.setText(text);
                 }
             }
         });
+
+        return textField;
+    }
+
+    private void prepareActions()  {
+        prepareActionsButtons();
     }
 
     private void prepareActionsButtons() {
