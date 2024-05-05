@@ -2,8 +2,7 @@ package test;
 import domain.*;
 import static org.junit.Assert.*;
 import java.awt.Color;
-import java.awt.desktop.QuitEvent;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
@@ -184,7 +183,7 @@ public class QuoriPOOBTest {
         assertEquals(4, q.getBoard().getMatrixBoard().length);
     }
 
-@Test
+    @Test
     public void shouldCreateBoard5() throws QuoriPOOBException{
         QuoriPOOB q = new QuoriPOOB();
         q.createPlayerHuman("Player 1", Color.BLUE);
@@ -199,14 +198,71 @@ public class QuoriPOOBTest {
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN,"domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
-        specialQuares.put("domain.NormalSquare",new int[][] {{0,0},{0,1},{1,0},{1,1}});
-        specialQuares.put("domain.DoubleTurn", new int[][] {{0,2},{0,3},{1,2},{1,3}});
-        specialQuares.put("domain.Teleporter",new int[][] {{2,0},{2,1},{3,0},{3,1}});
-        specialQuares.put("domain.Return", new int[][] {{2,2},{2,3},{3,2},{3,3}});
+        
+        int[][] normalArray = new int[][] {{0,0},{0,1},{1,0},{1,1}};
+        int[][] turnArray = new int[][] {{0,2},{0,3},{1,2},{1,3}};
+        int[][] teleporterArray = new int[][] {{2,0},{2,1},{3,0},{3,1}};
+        int[][] returnsArray = new int[][] {{2,2},{2,3},{3,2},{3,3}};
+        specialQuares.put("domain.NormalSquare",normalArray);
+        specialQuares.put("domain.DoubleTurn", turnArray);
+        specialQuares.put("domain.Teleporter",teleporterArray);
+        specialQuares.put("domain.Return", returnsArray);
+        
         q.createBoard(4,specialQuares);
-
-        // Verificar que se crearon efectivamente esas casillas en sus respectivas posiciones.
+        // Verify the created Board
+        Object[][] matrix = q.getBoard().getMatrixBoard();
+        for(int i = 0; i< matrix.length; i++){
+            for(int j = 0; j< matrix.length; j++){
+                Square s = (Square) matrix[i][j];
+                if (s instanceof NormalSquare){
+                    int[] c = s.getCoordenates();
+                    assertEquals(true, Arrays.equals(c,normalArray[0]) ||Arrays.equals(c,normalArray[1]) ||
+                    Arrays.equals(c,normalArray[2]) ||Arrays.equals(c,normalArray[3]));
+                } else if (s instanceof DoubleTurn){
+                    int[] c = s.getCoordenates();
+                    assertEquals(true, Arrays.equals(c,turnArray[0]) ||Arrays.equals(c,turnArray[1]) ||
+                    Arrays.equals(c,turnArray[2]) ||Arrays.equals(c,turnArray[3]));
+                } else if (s instanceof Teleporter){
+                    int[] c = s.getCoordenates();
+                    assertEquals(true, Arrays.equals(c,teleporterArray[0]) ||Arrays.equals(c,teleporterArray[1]) ||
+                    Arrays.equals(c,teleporterArray[2]) ||Arrays.equals(c,teleporterArray[3]));
+                } else if (s instanceof Return){
+                    int[] c = s.getCoordenates();
+                    assertEquals(true, Arrays.equals(c,returnsArray[0]) ||Arrays.equals(c,returnsArray[1]) ||
+                    Arrays.equals(c,returnsArray[2]) ||Arrays.equals(c,returnsArray[3]));
+                } else {
+                    fail("ALL THE POSITIONS SHOULD BE SQUARES");
+                }
+            }
+        }
     }
+
+    @Test
+    public void shouldNotCreateBoard1() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        try {
+            specialQuares.put("domain.NormalSquare", new int[][] {{0,0},{0,1},{1,0},{1,1},{2,2}});
+            q.createBoard(2,specialQuares);
+            fail("SHOULD NOT CREATE A BOARD WITH MORE PIECES THAN POSITIONS ON THE BOARD");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.WRONG_NUMER_SQUARES,e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldNotCreateBoard2() throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+        HashMap<String, int[][]> specialQuares = new HashMap<>();
+        specialQuares.put("domain.Irregular", new int[][] {{0,0},{0,1},{1,0},{1,1}});
+        q.createBoard(2,specialQuares);
+    }
+
+
 
 
 

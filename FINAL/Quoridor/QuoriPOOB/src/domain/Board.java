@@ -97,10 +97,11 @@ public class Board {
 		}
 	}
 
-	private void createSpecialSquares(HashMap<String, int[][]> specialSquares) {
+	private void createSpecialSquares(HashMap<String, int[][]> specialSquares) throws QuoriPOOBException{
 		for (Map.Entry<String, int[][]> entry : specialSquares.entrySet()) {
 			String type = entry.getKey();
 			int[][] squares = entry.getValue();
+			if (squares.length > matrixBoard.length*matrixBoard.length) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
 			for (int i = 0; i < squares.length; i++) {
 				int row = squares[i][0];
 				int column = squares[i][1];
