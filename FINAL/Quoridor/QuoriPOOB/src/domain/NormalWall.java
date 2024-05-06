@@ -6,4 +6,9 @@ public class NormalWall extends Wall {
     public NormalWall(Color color) {
         super(color);
     }
+
+    @Override
+    public void act() {
+        
+    }
 }

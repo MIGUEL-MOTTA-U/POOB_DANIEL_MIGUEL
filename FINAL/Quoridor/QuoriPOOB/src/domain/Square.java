@@ -1,5 +1,7 @@
 package domain;
 
+import java.awt.Color;
+
 public abstract class Square {
     protected Board board;
     protected int row;
@@ -52,6 +54,42 @@ public abstract class Square {
 
     public void delWallRight() {
         this.wallRight = null;
+    }
+
+    public boolean blockUp(Color token) {
+        boolean block = false;
+        if (this.wallUp != null) {
+            block = this.wallUp.blockToken(token);
+        }
+
+        return block;
+    }
+
+    public boolean blockLeft(Color token) {
+        boolean block = false;
+        if (this.wallLeft != null) {
+            block = this.wallLeft.blockToken(token);
+        }
+
+        return block;
+    }
+
+    public boolean blockDown(Color token) {
+        boolean block = false;
+        if (this.wallDown != null) {
+            block = this.wallDown.blockToken(token);
+        }
+
+        return block;
+    }
+
+    public boolean blockRight(Color token) {
+        boolean block = false;
+        if (this.wallRight != null) {
+            block = this.wallRight.blockToken(token);
+        }
+
+        return block;
     }
 
     // Getters y Setters
