@@ -24,8 +24,10 @@ public abstract class Wall {
 		if (!checkRange(initialRow, initialColumn, squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
 
-		setWallInSquare(initialRow, initialColumn, squareSide);
-		setWallInSquare(initialRow + 1, initialColumn + 1, squareSide);
+		setWallInSquare(initialRow, initialColumn, squareSide, board);
+		setWallInSquare(initialRow + 1, initialColumn + 1, squareSide, board);
+		setWallInNeighborSquare(initialRow, initialColumn, squareSide, board);
+		setWallInNeighborSquare(initialRow + 1, initialColumn + 1, squareSide, board);
 
 		this.initialColumn = initialColumn;
 		this.initialRow = initialRow;
@@ -67,8 +69,8 @@ public abstract class Wall {
 		}
 	}
 
-	private void setWallInSquare(int row, int column, String squareSide) throws QuoriPOOBException {
-		Square square = this.board.getSquare(row, column);
+	private void setWallInSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
+		Square square = board.getSquare(row, column);
 		switch (squareSide.toUpperCase()) {
 			case "UP":
 				if (square.getWallUp() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
@@ -82,6 +84,38 @@ public abstract class Wall {
 			case "RIGHT":
 				if (square.getWallRight() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 				square.addWallRight(this);
+			default:
+				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+		}
+	}
+
+	private void setWallInNeighborSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
+		Square square;
+		switch (squareSide.toUpperCase()) {
+			case "UP":
+				if (row > 0) {
+					square = board.getSquare(row - 1, column);
+					if (square.getWallDown() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+					square.addWallDown(this);
+				}
+			case "LEFT":
+				if (column > 0) {
+					square = board.getSquare(row, column - 1);
+					if (square.getWallRight() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+					square.addWallRight(this);
+				}
+			case "DOWN":
+				if (row < board.getSize()) {
+					square = board.getSquare(row + 1, column);
+					if (square.getWallUp() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+					square.addWallUp(this);
+				}
+			case "RIGHT":
+				if (column < board.getSize()) {
+					square = board.getSquare(row, column + 1);
+					if (square.getWallLeft() != null) throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+					square.addWallLeft(this);
+				}
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 		}
