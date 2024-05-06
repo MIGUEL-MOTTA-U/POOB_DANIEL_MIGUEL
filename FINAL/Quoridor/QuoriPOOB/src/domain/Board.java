@@ -82,11 +82,15 @@ public class Board {
 		if (!this.tokens.containsKey(colotToken)) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 
 		Token token = this.tokens.get(colotToken);
-		Square square = this.matrixBoard[token.getRow()][token.getColumn()];
-		square.delToken();
 		token.returnTwoMoves();
-		square = this.matrixBoard[token.getRow()][token.getColumn()];
+		int newRow = token.getRow();
+		int newColumn = token.getColumn();
+		
+		Square square = token.getSquare();
+		square.delToken();
+		square = this.matrixBoard[newRow][newColumn];
 		square.setToken(token);
+		token.setSquare(square);
 	}
 
 	// Getters and Setters

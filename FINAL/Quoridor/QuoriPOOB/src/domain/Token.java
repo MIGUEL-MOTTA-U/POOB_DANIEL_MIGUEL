@@ -82,4 +82,8 @@ public class Token {
     public int getColumn() {
         return this.column;
     }
+
+    public Square getSquare() {
+        return this.square;
+    }
 }
