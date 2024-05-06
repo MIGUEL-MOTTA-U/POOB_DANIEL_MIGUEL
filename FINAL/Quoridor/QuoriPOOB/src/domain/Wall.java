@@ -50,6 +50,8 @@ public abstract class Wall {
 		this.board = null;
 	}
 
+	public abstract void act() throws QuoriPOOBException;
+
 	private boolean checkSquareSide(String squareSide) {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
