@@ -20,7 +20,7 @@ public class QuoriPOOBException extends Exception {
 	public static String TWO_PLAYER_MODE = "There can be no machines in two players mode";
 	public static String ONE_PLAYER_MODE = "There should be only 1 machine and 1 human in one player mode";
 	public static String MODE_UNDEFINED = "The game mode is undefined";
-	
+	public static String WALL_IN_SQUARE = "There is already a wall in this square";
 	
 	public QuoriPOOBException(String message) {
 		super(message);

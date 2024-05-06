@@ -10,8 +10,9 @@ public abstract class Square {
     protected Wall wallDown;
 
     public Square(int row, int column, Board board) throws QuoriPOOBException {
-        if (row > board.getSize() || column > board.getSize()) throw new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
-        
+        if (row > board.getSize() || column > board.getSize() || row < 0 || column < 0)
+            throw new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
+
         this.row = row;
         this.column = column;
         this.board = board;
@@ -20,8 +21,57 @@ public abstract class Square {
         this.wallRight = null;
         this.wallUp = null;
     }
+
+    public void addWallUp(Wall wall) {
+        this.wallUp = wall;
+    }
+
+    public void addWallLeft(Wall wall) {
+        this.wallLeft = wall;
+    }
+
+    public void addWallDown(Wall wall) {
+        this.wallDown = wall;
+    }
+
+    public void addWallRight(Wall wall) {
+        this.wallRight = wall;
+    }
+
+    public void delWallUp() {
+        this.wallUp = null;
+    }
+
+    public void delWallLeft() {
+        this.wallLeft = null;
+    }
+
+    public void delWallDown() {
+        this.wallDown = null;
+    }
+
+    public void delWallRight() {
+        this.wallRight = null;
+    }
+
     // Getters y Setters
     public int[] getCoordenates(){
         return new int[] {row, column};
+    }
+
+    public Wall getWallUp() {
+        return this.wallUp;
+    }
+
+    public Wall getWallLeft() {
+        return this.wallUp;
+    }
+
+    public Wall getWallDown() {
+        return this.wallUp;
+    }
+
+    public Wall getWallRight() {
+        return this.wallUp;
     }
 }
