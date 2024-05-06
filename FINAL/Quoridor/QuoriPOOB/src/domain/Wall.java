@@ -16,7 +16,7 @@ public abstract class Wall {
 	}
 
 	public void addWallToBoard(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
-		if (initialRow > board.getSize() || initialColumn > board.getSize() || initialRow < 0 || initialColumn < 0)
+		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0 || initialColumn < 0)
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
 		if (!checkSquareSide(squareSide))
 			throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
@@ -74,13 +74,13 @@ public abstract class Wall {
 	private boolean checkRange(int initialRow, int initialColumn, String squareSide, Board board) {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
-				return (initialColumn >= board.getSize()) ? false : true;
+				return (initialColumn >= board.getSize() - 1) ? false : true;
 			case "LEFT":
-				return (initialRow >= board.getSize()) ? false : true;
+				return (initialRow >= board.getSize() - 1) ? false : true;
 			case "DOWN":
-				return (initialColumn >= board.getSize()) ? false : true;
+				return (initialColumn >= board.getSize() - 1) ? false : true;
 			case "RIGHT":
-				return (initialRow >= board.getSize()) ? false : true;
+				return (initialRow >= board.getSize() - 1) ? false : true;
 			default:
 				return false;
 		}
