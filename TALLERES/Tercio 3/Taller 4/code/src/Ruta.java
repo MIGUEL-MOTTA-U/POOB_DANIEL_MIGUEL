@@ -25,4 +25,11 @@ public class Ruta {
         return contadorParadas;
     }
     
+    public boolean esTransbordo(Estacion estacion1, Estacion estacion2){
+        boolean res = false;
+            if(estaciones.contains(estacion1) && !estaciones.contains(estacion2)){
+                res = true;
+            }
+        return res;
+    }
 }
