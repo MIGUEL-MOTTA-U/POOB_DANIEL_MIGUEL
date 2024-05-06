@@ -50,6 +50,10 @@ public abstract class Wall {
 		this.board = null;
 	}
 
+	public boolean blockToken(Color token) {
+		return true;
+	}
+
 	public abstract void act() throws QuoriPOOBException;
 
 	private boolean checkSquareSide(String squareSide) {
