@@ -42,6 +42,7 @@ public class Human extends Player {
 
     @Override
     public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+        if(!numberWalls().containsKey(type)) throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
         if (numberWalls().get(type) <= 0) throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
 
         Wall wallToPut = null;
@@ -52,7 +53,7 @@ public class Human extends Player {
             }
         }
 
-        board.addWallToBoard(wallToPut, initialRow, initialColumn, squareSide);
+        wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
         delWall(wallToPut);
     }
 }

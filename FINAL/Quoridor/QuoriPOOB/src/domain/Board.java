@@ -10,7 +10,7 @@ public class Board {
 
 	private int size;
 	private Player playerPlaying;
-	private Object[][] matrixBoard;
+	private Square[][] matrixBoard;
 	private ArrayList<Token> tokens;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
@@ -19,7 +19,7 @@ public class Board {
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 		this.size = size;
-		this.matrixBoard = new Object[size][size];
+		this.matrixBoard = new Square[size][size];
 		this.squares = new ArrayList<>();
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
@@ -29,40 +29,43 @@ public class Board {
 		this.players = players;
 	}
 
-	public void addWallToBoard(Wall wall, int initialRow, int initialColumn, String squareSide) {
-		// putWallBoard
-		// walls.remove(wallToPut);
+	public void addWallToBoard(Wall wall) {
+		this.walls.add(wall);
 	}
 
-	public void moveTokenUp(Color color) {
+	public void delWallFromBoard(Wall wall) {
+		this.walls.remove(wall);
+	}
+
+	public void moveTokenUp(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenDown(Color color) {
+	public void moveTokenDown(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenLeft(Color color) {
+	public void moveTokenLeft(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenRight(Color color) {
+	public void moveTokenRight(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenUpLeft(Color color) {
+	public void moveTokenUpLeft(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenUpRight(Color color) {
+	public void moveTokenUpRight(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenDownLeft(Color color) {
+	public void moveTokenDownLeft(Color token) {
 		// In Construction
 	}
 
-	public void moveTokenDownRight(Color color) {
+	public void moveTokenDownRight(Color token) {
 		// In Construction
 	}
 
@@ -74,6 +77,10 @@ public class Board {
 	
 	public int getSize() {
 		return this.size;
+	}
+
+	public Square getSquare(int row, int column) {
+		return this.matrixBoard[row][column];
 	}
 
 	public Player getPlayerPlaying() {
