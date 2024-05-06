@@ -11,7 +11,7 @@ public class Board {
 	private int size;
 	private Player playerPlaying;
 	private Square[][] matrixBoard;
-	private ArrayList<Token> tokens;
+	private HashMap<Color, Token> tokens;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
 	private HashMap<Color, Player> players;
@@ -37,36 +37,43 @@ public class Board {
 		this.walls.remove(wall);
 	}
 
-	public void moveTokenUp(Color token) {
+	public void moveTokenUp(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenDown(Color token) {
+	public void moveTokenDown(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenLeft(Color token) {
+	public void moveTokenLeft(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenRight(Color token) {
+	public void moveTokenRight(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenUpLeft(Color token) {
+	public void moveTokenUpLeft(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenUpRight(Color token) {
+	public void moveTokenUpRight(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenDownLeft(Color token) {
+	public void moveTokenDownLeft(Color colotToken) {
 		// In Construction
 	}
 
-	public void moveTokenDownRight(Color token) {
+	public void moveTokenDownRight(Color colotToken) {
 		// In Construction
+	}
+
+	public void returnTwoMoves(Color colotToken) throws QuoriPOOBException {
+		if (!this.tokens.containsKey(colotToken)) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+
+		Token token = this.tokens.get(colotToken);
+		token.returnTwoMoves();
 	}
 
 	// Getters and Setters

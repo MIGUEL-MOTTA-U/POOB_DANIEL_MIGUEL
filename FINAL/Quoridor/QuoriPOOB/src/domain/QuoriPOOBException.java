@@ -7,6 +7,7 @@ public class QuoriPOOBException extends Exception {
 	public static String WALL_NOT_EXIST = "The wall does not exist";
 	public static String SQUARE_NOT_EXIST = "The square does not exist";
 	public static String PLAYER_NOT_EXIST = "The user not exist";
+	public static String TOKEN_NOT_EXIST = "The token not exist";
 	public static String SQUARE_SIDE_NOT_EXIST = "There is not square beside";
 	public static String BOARD_UNDEFINED = "There is not board defined";
 	public static String WRONG_TOKEN_DIRECTION = "The direction is not defined";
@@ -21,6 +22,7 @@ public class QuoriPOOBException extends Exception {
 	public static String ONE_PLAYER_MODE = "There should be only 1 machine and 1 human in one player mode";
 	public static String MODE_UNDEFINED = "The game mode is undefined";
 	public static String WALL_IN_SQUARE = "There is already a wall in this square";
+	public static String RETURN_MOVES_NOT_POSSIBLE = "There are insufficient movements";
 	
 	public QuoriPOOBException(String message) {
 		super(message);
