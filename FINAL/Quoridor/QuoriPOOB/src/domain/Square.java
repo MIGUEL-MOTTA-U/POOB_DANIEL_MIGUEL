@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public abstract class Square {
     protected Board board;
+    protected Token token;
     protected int row;
     protected int column;
     protected Wall wallLeft;
@@ -22,6 +23,16 @@ public abstract class Square {
         this.wallLeft = null;
         this.wallRight = null;
         this.wallUp = null;
+    }
+
+    public void setToken(Token token) throws QuoriPOOBException {
+        if (this.token != null) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_IN_SQUARE);
+        
+        this.token = token;
+    }
+
+    public void delToken() {
+        this.token = null;
     }
 
     public void addWallUp(Wall wall) {
@@ -115,6 +126,10 @@ public abstract class Square {
 
     public Wall getWallRight() {
         return this.wallUp;
+    }
+
+    public Token getToken() {
+        return this.token;
     }
 
     public abstract void act() throws QuoriPOOBException;

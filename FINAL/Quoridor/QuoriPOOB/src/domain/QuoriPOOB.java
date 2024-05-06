@@ -9,9 +9,11 @@ public class QuoriPOOB {
 	private boolean twoPlayers;
 	private Board board;
 	private HashMap<Color, Player> players;
+	private HashMap<Color, Token> tokens;
 
 	public QuoriPOOB() {
 		this.players = new HashMap<>(2);
+		this.tokens = new HashMap<>(2);
 		this.board = null;
 		this.onePlayer = false;
 		this.twoPlayers = false;
@@ -45,8 +47,11 @@ public class QuoriPOOB {
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (modeUndefined()) throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (players.size() != 2) throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
+
 		board = new Board(size, specialSquares);
 		board.setPlayers(this.players);
+		board.setTokens(this.tokens);
+
 		for (Player p : players.values()) {
 			p.setBoard(board);
 		}
@@ -71,6 +76,9 @@ public class QuoriPOOB {
 
 		Human player = new Human(name, color);
 		this.players.put(color, player);
+
+		Token token = new Token(color);
+		this.tokens.put(color, token);
 	}
 
 	/**
@@ -99,6 +107,9 @@ public class QuoriPOOB {
 			constructor.setAccessible(true);
 			Machine machine = (Machine) constructor.newInstance("Machine", color);
 			this.players.put(color, machine);
+
+			Token token = new Token(color);
+			this.tokens.put(color, token);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}

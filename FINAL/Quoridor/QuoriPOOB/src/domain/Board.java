@@ -11,22 +11,31 @@ public class Board {
 	private int size;
 	private Player playerPlaying;
 	private Square[][] matrixBoard;
-	private HashMap<Color, Token> tokens;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
+	private HashMap<Color, Token> tokens;
 	private HashMap<Color, Player> players;
 
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
+
 		this.size = size;
 		this.matrixBoard = new Square[size][size];
 		this.squares = new ArrayList<>();
+		this.tokens = new HashMap<>(2);
+		this.players = new HashMap<>(2);
+
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
+		setTokensToBoard();
 	}
 
 	public void setPlayers(HashMap<Color, Player> players) {
 		this.players = players;
+	}
+	
+	public void setTokens(HashMap<Color, Token> tokens) {
+		this.tokens = tokens;
 	}
 
 	public void addWallToBoard(Wall wall) {
@@ -73,7 +82,11 @@ public class Board {
 		if (!this.tokens.containsKey(colotToken)) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 
 		Token token = this.tokens.get(colotToken);
+		Square square = this.matrixBoard[token.getRow()][token.getColumn()];
+		square.delToken();
 		token.returnTwoMoves();
+		square = this.matrixBoard[token.getRow()][token.getColumn()];
+		square.setToken(token);
 	}
 
 	// Getters and Setters
@@ -126,6 +139,29 @@ public class Board {
 			}
 		}
 	}
+
+	private void setTokensToBoard() throws QuoriPOOBException {
+		int position = this.size / 2;
+		Square squareToken1 = this.matrixBoard[0][position];
+		Square squareToken2 = this.matrixBoard[this.size - 1][position];
+	
+		boolean assignToken1 = false;
+		for (Token token : this.tokens.values()) {
+			if (!assignToken1) {
+				token.setInitialRow(0);
+				token.setInitialColumn(position);
+				token.setSquare(squareToken1);
+				squareToken1.setToken(token);
+				assignToken1 = true;
+			} else {
+				token.setInitialRow(this.size - 1);
+				token.setInitialColumn(position);
+				token.setSquare(squareToken2);
+				squareToken2.setToken(token);
+			}
+		}
+	}
+	
 
 	private Square createSquare(String type, int row, int column) {
 		Square square = null;

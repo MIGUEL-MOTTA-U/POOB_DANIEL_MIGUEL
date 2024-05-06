@@ -10,10 +10,20 @@ public class Token {
     private int column;
     private ArrayList<int[]> lastMovements;
 
-    public Token(Color color, int row, int column) {
+    public Token(Color color) {
         this.color = color;
-        this.row = row;
-        this.column = column;
+    }
+
+    public void setSquare(Square square) {
+        this.square = square;
+    }
+
+    public void setInitialRow(int initialRow) {
+        this.row = initialRow;
+    }
+
+    public void setInitialColumn(int initialColumn) {
+        this.column = initialColumn;
     }
 
     public void moveUp() {
@@ -63,5 +73,13 @@ public class Token {
         int[] positions = this.lastMovements.get(size - 1);
         this.row = positions[0];
         this.column = positions[1];
+    }
+
+    public int getRow() {
+        return this.row;
+    }
+
+    public int getColumn() {
+        return this.column;
     }
 }

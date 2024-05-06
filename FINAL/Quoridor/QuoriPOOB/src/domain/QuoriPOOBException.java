@@ -22,6 +22,7 @@ public class QuoriPOOBException extends Exception {
 	public static String ONE_PLAYER_MODE = "There should be only 1 machine and 1 human in one player mode";
 	public static String MODE_UNDEFINED = "The game mode is undefined";
 	public static String WALL_IN_SQUARE = "There is already a wall in this square";
+	public static String TOKEN_IN_SQUARE = "There is already a token in this square";
 	public static String RETURN_MOVES_NOT_POSSIBLE = "There are insufficient movements";
 	
 	public QuoriPOOBException(String message) {
