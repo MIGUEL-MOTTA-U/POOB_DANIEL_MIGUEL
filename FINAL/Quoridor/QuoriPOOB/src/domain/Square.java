@@ -92,6 +92,10 @@ public abstract class Square {
         return block;
     }
 
+    public boolean blockDiagonalMovements() {
+        return true;
+    }
+
     // Getters y Setters
     public int[] getCoordenates(){
         return new int[] {row, column};
