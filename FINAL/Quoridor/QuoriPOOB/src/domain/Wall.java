@@ -4,7 +4,6 @@ import java.awt.Color;
 
 public abstract class Wall {
 	protected Board board;
-	protected Square square;
 	protected Color color;
 	protected int initialRow;
 	protected int initialColumn;
