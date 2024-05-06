@@ -112,4 +112,6 @@ public abstract class Square {
     public Wall getWallRight() {
         return this.wallUp;
     }
+
+    public abstract void act() throws QuoriPOOBException;
 }
