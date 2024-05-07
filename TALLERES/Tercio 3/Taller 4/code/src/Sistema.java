@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,6 +25,7 @@ public class Sistema {
         for(Ruta r: rutas.values()){
             result.add(r.getName());
         }
+        Collections.sort(result);
         return result;
     }
 
