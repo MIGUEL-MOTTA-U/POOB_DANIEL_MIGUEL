@@ -1,11 +1,11 @@
 import java.util.LinkedList;
 
 public class Ruta {
-    private String name;
+    private String nombre;
     private LinkedList<Estacion> estaciones;
 
     public String getName() {
-        return name;
+        return nombre;
     }
 
     public int numeroParadas(String estacion1, String estacion2) {
@@ -33,7 +33,7 @@ public class Ruta {
         if (estaciones.contains(estacion1) && !estaciones.contains(estacion2)) {
             res = true;
         }
-        
+
         return res;
     }
 
