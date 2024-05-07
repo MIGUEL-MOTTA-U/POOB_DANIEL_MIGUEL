@@ -49,6 +49,24 @@ public class Sistema {
         return res;
     }
 
+    public String mejorPlan(String nombreEstacion1, String nombreEstacion2) throws SistemaException {
+        if(!estaciones.containsKey(nombreEstacion1) || !estaciones.containsKey(nombreEstacion2)) throw new SistemaException(SistemaException.NO_EXISTE_ESTACION);
 
-    
+        Estacion estacion1 = this.estaciones.get(nombreEstacion1);
+        Estacion estacion2 = this.estaciones.get(nombreEstacion2);
+        Ruta rutaMinNumeroParadas = null;
+        int minNumeroParadas = Integer.MAX_VALUE;
+
+        for (Ruta ruta : this.rutas.values()) {
+            if (ruta.contieneEstaciones(estacion1, estacion2)) {
+                int numParadas =  ruta.numeroParadas(nombreEstacion1, nombreEstacion2);
+                if (numParadas < minNumeroParadas) {
+                    minNumeroParadas = numParadas;
+                    rutaMinNumeroParadas = ruta;
+                }
+            }
+        }
+
+        return (rutaMinNumeroParadas != null) ? rutaMinNumeroParadas.getName() : null;
+    }
 }

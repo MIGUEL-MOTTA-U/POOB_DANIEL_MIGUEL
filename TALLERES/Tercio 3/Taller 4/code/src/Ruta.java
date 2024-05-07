@@ -7,6 +7,7 @@ public class Ruta {
     public String getName(){
         return name;
     }
+
     public int numeroParadas(String estacion1, String estacion2) {
         boolean encontradaEstacion1 = false;
         boolean encontradaEstacion2 = false;
@@ -27,9 +28,18 @@ public class Ruta {
     
     public boolean esTransbordo(Estacion estacion1, Estacion estacion2){
         boolean res = false;
-            if(estaciones.contains(estacion1) && !estaciones.contains(estacion2)){
-                res = true;
-            }
+        if(estaciones.contains(estacion1) && !estaciones.contains(estacion2)){
+            res = true;
+        }
         return res;
+    }
+
+    public boolean contieneEstaciones(Estacion estacion1, Estacion estacion2) {
+        boolean contiene = false;
+        if (estaciones.contains(estacion1) && estaciones.contains(estacion2)) {
+            contiene = true;
+        }
+
+        return contiene;
     }
 }
