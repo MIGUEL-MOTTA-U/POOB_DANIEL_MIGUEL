@@ -5,6 +5,11 @@ public class Estacion {
     private String nivelOcupacion;
     private HashMap<String, Integer> tiempoEsperaEstacion;
 
+    public Estacion(String nombre) {
+        this.nombre = nombre;
+        this.tiempoEsperaEstacion = new HashMap<>();
+    }
+
     public String getName() {
         return nombre;
     }

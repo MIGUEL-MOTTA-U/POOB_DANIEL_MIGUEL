@@ -4,8 +4,17 @@ public class Ruta {
     private String nombre;
     private LinkedList<Estacion> estaciones;
 
+    public Ruta(String nombre) {
+        this.nombre = nombre;
+        this.estaciones = new LinkedList<>();
+    }
+
     public String getName() {
         return nombre;
+    }
+
+    public void setEstacion(Estacion estacion) {
+        this.estaciones.add(estacion);
     }
 
     public int numeroParadas(String estacion1, String estacion2) {

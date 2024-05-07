@@ -1,3 +1,10 @@
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -25,7 +32,7 @@ public class Sistema {
         return estacion.tiempoEsperaEstacion();
     }
 
-    public ArrayList<String> nombreRutas(String name) {
+    public ArrayList<String> nombreRutas() {
         ArrayList<String> result = new ArrayList<String>();
         for (Ruta r : rutas.values()) {
             result.add(r.getName());
@@ -81,5 +88,68 @@ public class Sistema {
         }
 
         return (rutaMinNumeroParadas != null) ? rutaMinNumeroParadas.getName() : null;
+    }
+
+    public void importarRuta(File file) {
+        try {
+            BufferedReader bIn = new BufferedReader(new FileReader(file));
+            String line = bIn.readLine();
+            Ruta rutaNueva = new Ruta(line);
+
+            while (line != null) {
+                line = line.trim();
+                line = bIn.readLine();
+                Estacion estacion = new Estacion(line);
+                rutaNueva.setEstacion(estacion);
+            }
+
+            bIn.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void exportarArchivo(String nombreArchivo, String nombreEstacion1, String nombreEstacion2) throws SistemaException {
+        if (!estaciones.containsKey(nombreEstacion1) || !estaciones.containsKey(nombreEstacion2))
+            throw new SistemaException(SistemaException.NO_EXISTE_ESTACION);
+
+        Estacion estacion1 = this.estaciones.get(nombreEstacion1);
+        Estacion estacion2 = this.estaciones.get(nombreEstacion2);
+
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(nombreArchivo));
+            pw.println("Rutas que van de " + nombreEstacion1 + " a " + nombreEstacion2 + " sin transbordos:");
+
+            for (Ruta ruta : this.rutas.values()) {
+                if (ruta.contieneEstaciones(estacion1, estacion2)) {
+                    pw.println(ruta.getName());
+                }
+            }
+
+            pw.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void guardarTroncal(String nombreTroncal) throws SistemaException {
+        Troncal troncal = null;
+
+        for (Troncal t : this.troncales) {
+            if (t.getName().equals(nombreTroncal)) {
+                troncal = t;
+                break;
+            }
+        }
+
+        if (troncal == null) throw new SistemaException(SistemaException.NO_EXISTE_TRONCAL);
+
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nombreTroncal));
+            out.writeObject(troncal);
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
