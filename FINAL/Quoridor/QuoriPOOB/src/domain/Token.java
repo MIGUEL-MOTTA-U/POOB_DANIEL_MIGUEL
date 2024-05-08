@@ -75,6 +75,26 @@ public class Token {
         move();
     }
 
+    public void jumpTokenUp() throws QuoriPOOBException {
+        this.row = this.row - 2;
+        move();
+    }
+
+    public void jumpTokenLeft() throws QuoriPOOBException {
+        this.column = this.column - 2;
+        move();
+    }
+
+    public void jumpTokenDown() throws QuoriPOOBException {
+        this.row = this.row + 2;
+        move();
+    }
+
+    public void jumpTokenRight() throws QuoriPOOBException {
+        this.column = this.column + 2;
+        move();
+    }
+
     public void returnTwoMoves() throws QuoriPOOBException {
         if (this.lastMovements.size() <= 2) throw new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
 

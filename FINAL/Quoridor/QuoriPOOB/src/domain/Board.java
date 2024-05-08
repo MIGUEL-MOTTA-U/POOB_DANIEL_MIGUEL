@@ -51,82 +51,133 @@ public class Board {
 	}
 
 	public void moveTokenUp(Color colorToken) throws QuoriPOOBException {
-		// Falta implementar pasar a traves de una ficha
-
 		if (!this.tokens.containsKey(colorToken))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 		
 		Token token = this.tokens.get(colorToken);
-		
-		if (token.getRow() == 0) 
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
 		Square square = token.getSquare();
 
-		if (!square.blockUp(colorToken)) {
-			token.moveUp();
+		if (tokenAhead("UP", square)) {
+			if (token.getRow() < 2)
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+			int row = square.getCoordenates()[0];
+			int column = square.getCoordenates()[1];
+			Square nextSquare = this.matrixBoard[row - 1][column];
+			
+			if (!square.blockUp(colorToken) & !nextSquare.blockUp(colorToken)) {
+				token.jumpTokenUp();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		} else {
-			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			if (token.getRow() <= 0) 
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+			if (!square.blockUp(colorToken)) {
+				token.moveUp();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		}
 	}
 
 	public void moveTokenDown(Color colorToken) throws QuoriPOOBException {
-		// Falta implementar pasar a traves de una ficha
-
 		if (!this.tokens.containsKey(colorToken))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 		
 		Token token = this.tokens.get(colorToken);
-		
-		if (token.getRow() == this.size - 1) 
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
 		Square square = token.getSquare();
 
-		if (!square.blockUp(colorToken)) {
-			token.moveDown();
+		if (tokenAhead("DOWN", square)) {
+			if (token.getRow() > this.size - 3)
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+			int row = square.getCoordenates()[0];
+			int column = square.getCoordenates()[1];
+			Square nextSquare = this.matrixBoard[row + 1][column];
+			
+			if (!square.blockDown(colorToken) & !nextSquare.blockDown(colorToken)) {
+				token.jumpTokenDown();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		} else {
-			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			if (token.getRow() >= this.size - 1) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+
+			if (!square.blockDown(colorToken)) {
+				token.moveDown();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		}
 	}
 
 	public void moveTokenLeft(Color colorToken)  throws QuoriPOOBException {
-		// Falta implementar pasar a traves de una ficha
-
 		if (!this.tokens.containsKey(colorToken))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 		
 		Token token = this.tokens.get(colorToken);
-		
-		if (token.getColumn() == 0) 
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
 		Square square = token.getSquare();
 
-		if (!square.blockUp(colorToken)) {
-			token.moveLeft();
+		if (tokenAhead("LEFT", square)) {
+			if (token.getColumn() < 2)
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+			int row = square.getCoordenates()[0];
+			int column = square.getCoordenates()[1];
+			Square nextSquare = this.matrixBoard[row][column - 1];
+			
+			if (!square.blockLeft(colorToken) & !nextSquare.blockLeft(colorToken)) {
+				token.jumpTokenLeft();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		} else {
-			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			if (token.getColumn() == 0) 
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+
+			if (!square.blockLeft(colorToken)) {
+				token.moveLeft();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		}
 	}
 
 	public void moveTokenRight(Color colorToken) throws QuoriPOOBException{
-		// Falta implementar pasar a traves de una ficha
-
 		if (!this.tokens.containsKey(colorToken))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 		
 		Token token = this.tokens.get(colorToken);
-		
-		if (token.getColumn() == this.size - 1) 
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
 		Square square = token.getSquare();
 
-		if (!square.blockUp(colorToken)) {
-			token.moveRight();
+		if (tokenAhead("RIGHT", square)) {
+			if (token.getColumn() > this.size - 3)
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+			int row = square.getCoordenates()[0];
+			int column = square.getCoordenates()[1];
+			Square nextSquare = this.matrixBoard[row][column + 1];
+			
+			if (!square.blockRight(colorToken) & !nextSquare.blockRight(colorToken)) {
+				token.jumpTokenRight();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		} else {
-			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			if (token.getColumn() >= this.size - 1) 
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+
+			if (!square.blockRight(colorToken)) {
+				token.moveRight();
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+			}
 		}
 	}
 
@@ -256,6 +307,28 @@ public class Board {
 				this.playerPlaying = player;
 				break;
 			}
+		}
+	}
+
+	private boolean tokenAhead(String direction, Square currentSquare) throws QuoriPOOBException {
+		Square nextSquare;
+		int row = currentSquare.getCoordenates()[0];
+		int column = currentSquare.getCoordenates()[1];
+		switch (direction) {
+			case "UP":
+				nextSquare = this.matrixBoard[row - 1][column];
+				return nextSquare.getToken() != null;
+			case "LEFT":
+				nextSquare = this.matrixBoard[row][column - 1];
+				return nextSquare.getToken() != null;
+			case "DOWN":
+				nextSquare = this.matrixBoard[row + 1][column];
+				return nextSquare.getToken() != null;
+			case "RIGHT":
+				nextSquare = this.matrixBoard[row][column + 1];
+				return nextSquare.getToken() != null;
+			default:
+				throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
 		}
 	}
 }
