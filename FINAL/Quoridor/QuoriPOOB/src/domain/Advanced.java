@@ -10,7 +10,7 @@ public class Advanced extends Machine{
     }
 
     @Override
-    public void moveToken(Color color, String direction) {
+    public void moveToken(String direction) {
         // Mover y poner puentes con algoritmos de estrategia predefinida basado en el comportamiento del contrincante
     }
 

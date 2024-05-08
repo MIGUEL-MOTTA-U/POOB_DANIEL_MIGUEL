@@ -163,14 +163,13 @@ public class QuoriPOOB {
 	/**
 	 * Moves the token to the given position.
 	 * 
-	 * @param color     The color of the token to move.
 	 * @param direction The respective direction where the token is moving.
 	 * @throws QuoriPOOBException Throws an exception in case the parameters are
 	 *                            wrong or the action is not possible.
 	 */
-	public void moveToken(Color color, String direction) throws QuoriPOOBException {
+	public void moveToken(String direction) throws QuoriPOOBException {
 		Player player = getCurrentPlayer();
-		player.moveToken(color, direction);
+		player.moveToken(direction);
 	}
 
 	// Getters and Setters

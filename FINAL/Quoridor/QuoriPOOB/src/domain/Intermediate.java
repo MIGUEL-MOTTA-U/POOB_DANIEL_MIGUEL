@@ -9,7 +9,7 @@ public class Intermediate extends Machine{
     }
 
     @Override
-    public void moveToken(Color color, String direction) {
+    public void moveToken(String direction) {
         // Mover con algoritmo de dificultad media y poner puentes
     }
 

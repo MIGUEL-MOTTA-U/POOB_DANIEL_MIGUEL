@@ -64,7 +64,7 @@ public abstract class Player {
 	// Abstract Methods
 	public abstract void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException;
 
-	public abstract void moveToken(Color color, String direction)throws QuoriPOOBException;
+	public abstract void moveToken(String direction)throws QuoriPOOBException;
 
 
 	// Getters and Setters

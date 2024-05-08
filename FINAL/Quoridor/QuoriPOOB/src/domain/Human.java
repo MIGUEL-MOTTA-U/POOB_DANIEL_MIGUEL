@@ -8,7 +8,7 @@ public class Human extends Player {
     }
 
     @Override
-    public void moveToken(Color color, String direction) throws QuoriPOOBException {
+    public void moveToken(String direction) throws QuoriPOOBException {
         switch (direction.toUpperCase()) {
             case "UP":
                 board.moveTokenUp(this.color);

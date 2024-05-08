@@ -9,7 +9,7 @@ public class Beginner extends Machine{
     }
 
     @Override
-    public void moveToken(Color color, String direction) {
+    public void moveToken(String direction) {
         // Mover con dificultad baja
     }
 
