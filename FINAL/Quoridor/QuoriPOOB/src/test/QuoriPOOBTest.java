@@ -7,6 +7,7 @@ import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.validator.PublicClassValidator;
 
 public class QuoriPOOBTest {
     public QuoriPOOBTest() {
@@ -567,8 +568,51 @@ public class QuoriPOOBTest {
         }
     }
 
+    
     @Test
-    public void shouldAddWallsToBoard() throws QuoriPOOBException {
+    public void shouldNotAddWallsToBoard1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerHuman("Player 2", Color.ORANGE);
+
+        q.createBoard(10, null);
+        q.addWalls(1, 4, 2, 4);
+        // @Test
+        try {
+            q.addWallToBoard("Wrong Type", 0, 0, "UP");
+            fail("SHOULD NOT BE ABLE TO ADD A WALL THAT IS NOT DEFINED AS WALL OF THE PLAYER.");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.WALL_NOT_EXIST, e.getMessage());
+        }
+        
+        
+    }
+    
+    @Test
+    public void shouldCheckCurrentPlayerAfterAddWall()throws QuoriPOOBException{
+        // En este voy a poner una verificacion, que el jugador ya no tenga esos puentes luego de agregarlos.
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerHuman("Player 2", Color.ORANGE);
+
+        q.createBoard(10, null);
+        q.addWalls(1, 4, 2, 4);
+        Player firstPlayer = q.getCurrentPlayer();
+        // Tiene 1 normal, 4 temporales, 2 largos y 4 aliados
+        q.addWallToBoard("Temporary", 0, 0, "UP");
+        //assertEquals(firstPlayer, q.getCurrentPlayer());
+        q.addWallToBoard("Allied", 4, 2, "LEFT");
+        assertEquals(firstPlayer, q.getCurrentPlayer());
+        q.addWallToBoard("NormalWall", 9, 8, "DOWN");
+        assertEquals(firstPlayer, q.getCurrentPlayer());
+        
+
+    }
+    
+    @Test
+    public void shouldCheckAddWallsToBoard() throws QuoriPOOBException {
         QuoriPOOB q = new QuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Player 1", Color.BLUE);
