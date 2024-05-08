@@ -2,6 +2,8 @@ package test;
 import domain.*;
 import static org.junit.Assert.*;
 import java.awt.Color;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.After;
@@ -92,7 +94,7 @@ public class QuoriPOOBTest {
         q.setTwoPlayers();
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.GREEN);
-        assertArrayEquals(new String[] {"Player 2", "Player 1"}, q.getNames());
+        assertArrayEquals(new String[] {"Player 1", "Player 2"}, q.getNames());
     }
 
     @Test
@@ -430,6 +432,67 @@ public class QuoriPOOBTest {
             fail("SHOULD NOT BE ABLE TO PLAY JUST 1 PLAYER");
         } catch (QuoriPOOBException e){
             assertEquals(QuoriPOOBException.MISSING_PLAYERS, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldCreateTokensOnTheBoard1() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerHuman("Player 2", Color.RED);
+
+        q.createBoard(17, null);
+
+        Square[][] matrix = q.getBoard().getMatrixBoard();
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix.length; col++) {
+                Square square = matrix[row][col];
+                System.out.println(row + " - " + col);
+                if ((col == 8) & (row == 0)) {
+                    assertNotNull(square.getToken());
+                    assertEquals(q.getColor("Player 1"), square.getToken().getColor());
+                } else if ((col == 8) & (row == 16)) {
+                    assertNotNull(square.getToken());
+                    assertEquals(q.getColor("Player 2"), square.getToken().getColor());
+                } else {
+                    assertNull(square.getToken());
+                }
+            }
+        }
+    }
+
+    @Test
+    public void shouldCreateTokensOnTheBoard2() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerMachine(Color.GREEN,"domain.Advanced");
+
+        HashMap<String, int[][]> specialSquares = new HashMap<>();
+        specialSquares.put("domain.Teleporter", new int[][] {{0,0}, {2,3}, {7,1}});
+        specialSquares.put("domain.Return", new int[][] {{1,1}, {3,1}});
+        specialSquares.put("domain.DoubleTurn", new int[][] {{2,2}, {5,5}, {1,3}, {6,2}});
+
+        q.createBoard(10, specialSquares);
+
+        Square[][] matrix = q.getBoard().getMatrixBoard();
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix.length; col++) {
+                Square square = matrix[row][col];
+                System.out.println(row + " - " + col);
+                if ((col == 4) & (row == 0)) {
+                    assertNotNull(square.getToken());
+                    assertEquals(q.getColor("Player 1"), square.getToken().getColor());
+                } else if ((col == 4) & (row == 9)) {
+                    assertNotNull(square.getToken());
+                    assertEquals(q.getColor("Machine"), square.getToken().getColor());
+                } else {
+                    assertNull(square.getToken());
+                }
+            }
         }
     }
 

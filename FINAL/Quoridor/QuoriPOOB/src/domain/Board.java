@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Board {
@@ -13,8 +14,8 @@ public class Board {
 	private Square[][] matrixBoard;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
-	private HashMap<Color, Token> tokens;
-	private HashMap<Color, Player> players;
+	private LinkedHashMap<Color, Token> tokens;
+	private LinkedHashMap<Color, Player> players;
 
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
@@ -22,20 +23,20 @@ public class Board {
 		this.size = size;
 		this.matrixBoard = new Square[size][size];
 		this.squares = new ArrayList<>();
-		this.tokens = new HashMap<>(2);
-		this.players = new HashMap<>(2);
+		this.tokens = new LinkedHashMap<>(2);
+		this.players = new LinkedHashMap<>(2);
 
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
-		setTokensToBoard();
 	}
 
-	public void setPlayers(HashMap<Color, Player> players) {
+	public void setPlayers(LinkedHashMap<Color, Player> players) {
 		this.players = players;
 	}
 	
-	public void setTokens(HashMap<Color, Token> tokens) {
+	public void setTokens(LinkedHashMap<Color, Token> tokens) throws QuoriPOOBException {
 		this.tokens = tokens;
+		setTokensToBoard();
 	}
 
 	public void addWallToBoard(Wall wall) {
@@ -95,8 +96,8 @@ public class Board {
 
 	// Getters and Setters
 
-	public Object[][] getMatrixBoard(){
-		return matrixBoard;
+	public Square[][] getMatrixBoard(){
+		return this.matrixBoard;
 	}
 	
 	public int getSize() {
@@ -145,7 +146,7 @@ public class Board {
 	}
 
 	private void setTokensToBoard() throws QuoriPOOBException {
-		int position = this.size / 2;
+		int position = (this.size % 2 == 0) ? (this.size / 2) - 1: (this.size / 2);
 		Square squareToken1 = this.matrixBoard[0][position];
 		Square squareToken2 = this.matrixBoard[this.size - 1][position];
 	

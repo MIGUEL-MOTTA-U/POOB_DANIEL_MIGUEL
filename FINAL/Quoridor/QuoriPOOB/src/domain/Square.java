@@ -33,6 +33,7 @@ public abstract class Square {
         this.row = row;
         this.column = column;
         this.board = board;
+        this.token = null;
         this.wallDown = null;
         this.wallLeft = null;
         this.wallRight = null;

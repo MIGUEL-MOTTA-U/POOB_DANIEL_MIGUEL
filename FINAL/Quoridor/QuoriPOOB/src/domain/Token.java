@@ -75,12 +75,18 @@ public class Token {
         this.column = positions[1];
     }
 
+    //Getters & setters
+
     public int getRow() {
         return this.row;
     }
 
     public int getColumn() {
         return this.column;
+    }
+
+    public Color getColor() {
+        return this.color;
     }
 
     public Square getSquare() {

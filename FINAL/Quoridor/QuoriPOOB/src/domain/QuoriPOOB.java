@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.awt.Color;
 import java.lang.reflect.Constructor;
 
@@ -8,12 +9,12 @@ public class QuoriPOOB {
 	private boolean onePlayer;
 	private boolean twoPlayers;
 	private Board board;
-	private HashMap<Color, Player> players;
-	private HashMap<Color, Token> tokens;
+	private LinkedHashMap<Color, Player> players;
+	private LinkedHashMap<Color, Token> tokens;
 
 	public QuoriPOOB() {
-		this.players = new HashMap<>(2);
-		this.tokens = new HashMap<>(2);
+		this.players = new LinkedHashMap<>(2);
+		this.tokens = new LinkedHashMap<>(2);
 		this.board = null;
 		this.onePlayer = false;
 		this.twoPlayers = false;
