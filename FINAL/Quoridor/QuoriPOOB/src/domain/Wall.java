@@ -48,6 +48,7 @@ public abstract class Wall {
 
 		setWallInSquare(initialRow, initialColumn);
 		setWallInSquare(finalRow, finalColumn);
+		setWallInNeighborSquares();
 
 		board.addWallToBoard(this);
 	}
@@ -193,6 +194,50 @@ public abstract class Wall {
 				break;
 			case "RIGHT":
 				square.addWallRight(this);
+				break;
+			default:
+				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+		}
+	}
+
+	/*
+	 * Set the wall in the neighbor walls
+	 */
+	private void setWallInNeighborSquares() throws QuoriPOOBException {
+		Square initialSquare;
+		Square finalSquare;
+		switch (this.squareSide.toUpperCase()) {
+			case "UP":
+				if (this.initialRow > 0) {
+					initialSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn);
+					finalSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn + 1);
+					initialSquare.addWallDown(this);
+					finalSquare.addWallDown(this);
+				}
+				break;
+			case "LEFT":
+				if (this.initialColumn > 0) {
+					initialSquare = this.board.getSquare(this.initialRow, this.initialColumn - 1);
+					finalSquare = this.board.getSquare(this.initialRow + 1, this.initialColumn - 1);
+					initialSquare.addWallRight(this);
+					finalSquare.addWallRight(this);
+				}
+				break;
+			case "DOWN":
+				if (this.initialRow < this.board.getSize() - 1) {
+					initialSquare = this.board.getSquare(this.initialRow + 1, this.initialColumn);
+					finalSquare = this.board.getSquare(this.initialRow + 1, this.initialColumn + 1);
+					initialSquare.addWallUp(this);
+					finalSquare.addWallUp(this);
+				}
+				break;
+			case "RIGHT":
+				if (this.initialColumn < this.board.getSize() - 1) {
+					initialSquare = this.board.getSquare(this.initialRow, this.initialColumn + 1);
+					finalSquare = this.board.getSquare(this.initialRow + 1, this.initialColumn + 1);
+					initialSquare.addWallLeft(this);
+					finalSquare.addWallLeft(this);
+				}
 				break;
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);

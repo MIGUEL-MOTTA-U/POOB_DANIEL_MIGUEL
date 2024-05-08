@@ -580,6 +580,7 @@ public class QuoriPOOBTest {
         q.addWallToBoard("Temporary", 0, 0, "UP");
         q.addWallToBoard("Allied", 4, 2, "LEFT");
         q.addWallToBoard("NormalWall", 9, 8, "DOWN");
+        q.addWallToBoard("NormalWall", 7, 5, "UP");
         // Con longWall cuando este implementado
 
         Square[][] matrix = q.getBoard().getMatrixBoard();
@@ -593,7 +594,16 @@ public class QuoriPOOBTest {
                 } else if ((row == 4 && col == 2) || (row == 5 & col == 2)) {
                     assertNotNull(square.getWallLeft());
                     assertTrue(square.getWallLeft() instanceof Allied);
+                } else if ((row == 4 && col == 1) || (row == 5 & col == 1)) {
+                    assertNotNull(square.getWallRight());
+                    assertTrue(square.getWallRight() instanceof Allied);
                 } else if ((row == 9 && col == 8) || (row == 9 & col == 9)) {
+                    assertNotNull(square.getWallDown());
+                    assertTrue(square.getWallDown() instanceof NormalWall);
+                } else if ((row == 7 && col == 5) || (row == 7 & col == 6)) {
+                    assertNotNull(square.getWallUp());
+                    assertTrue(square.getWallUp() instanceof NormalWall);
+                } else if ((row == 6 && col == 5) || (row == 6 & col == 6)) {
                     assertNotNull(square.getWallDown());
                     assertTrue(square.getWallDown() instanceof NormalWall);
                 }
