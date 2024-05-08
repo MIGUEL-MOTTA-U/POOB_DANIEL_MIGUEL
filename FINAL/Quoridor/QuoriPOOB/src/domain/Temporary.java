@@ -3,7 +3,8 @@ package domain;
 import java.awt.Color;
 
 /**
- * Create a temporary wall.
+ * This wall's subclass has the same behaviors that a normal wall, except it
+ * after 4 turns, the wall is removed form the board
  * 
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
@@ -22,7 +23,7 @@ public class Temporary extends Wall {
     }
 
     /**
-     * Its the behavior of the wall. After 4 turns, the wall is removed form the board
+     * Its the behavior of the wall.
      */
     @Override
     public void act() throws QuoriPOOBException {

@@ -3,7 +3,8 @@ package domain;
 import java.awt.Color;
 
 /**
- * Create a allied wall.
+ * This wall's subclass has the same behaviors that a normal wall, except it
+ * allows to pass to the player who put the wall
  * 
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
