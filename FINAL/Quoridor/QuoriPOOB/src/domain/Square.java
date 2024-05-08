@@ -223,7 +223,7 @@ public abstract class Square {
      * @return an Wall object
      */
     public Wall getWallLeft() {
-        return this.wallUp;
+        return this.wallLeft;
     }
 
     /**
@@ -232,7 +232,7 @@ public abstract class Square {
      * @return an Wall object
      */
     public Wall getWallDown() {
-        return this.wallUp;
+        return this.wallDown;
     }
 
     /**
@@ -241,7 +241,7 @@ public abstract class Square {
      * @return an Wall object
      */
     public Wall getWallRight() {
-        return this.wallUp;
+        return this.wallRight;
     }
 
     /**

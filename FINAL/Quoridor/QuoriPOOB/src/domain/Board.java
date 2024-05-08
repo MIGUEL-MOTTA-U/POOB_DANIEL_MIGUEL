@@ -25,6 +25,7 @@ public class Board {
 		this.squares = new ArrayList<>();
 		this.tokens = new LinkedHashMap<>(2);
 		this.players = new LinkedHashMap<>(2);
+		this.walls = new ArrayList<>();
 
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
@@ -32,6 +33,7 @@ public class Board {
 
 	public void setPlayers(LinkedHashMap<Color, Player> players) {
 		this.players = players;
+		this.playerPlaying = this.players.entrySet().iterator().next().getValue();
 	}
 	
 	public void setTokens(LinkedHashMap<Color, Token> tokens) throws QuoriPOOBException {
@@ -41,6 +43,7 @@ public class Board {
 
 	public void addWallToBoard(Wall wall) {
 		this.walls.add(wall);
+		nextTurn();
 	}
 
 	public void delWallFromBoard(Wall wall) {
@@ -167,7 +170,6 @@ public class Board {
 		}
 	}
 	
-
 	private Square createSquare(String type, int row, int column) {
 		Square square = null;
 		try {
@@ -182,5 +184,14 @@ public class Board {
 		}
 
 		return square;
+	}
+
+	private void nextTurn() {
+		for (Player player : this.players.values()) {
+			if (player != this.playerPlaying) {
+				this.playerPlaying = player;
+				break;
+			}
+		}
 	}
 }

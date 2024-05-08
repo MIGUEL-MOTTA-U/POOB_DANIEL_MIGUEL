@@ -449,7 +449,6 @@ public class QuoriPOOBTest {
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix.length; col++) {
                 Square square = matrix[row][col];
-                System.out.println(row + " - " + col);
                 if ((col == 8) & (row == 0)) {
                     assertNotNull(square.getToken());
                     assertEquals(q.getColor("Player 1"), square.getToken().getColor());
@@ -553,8 +552,8 @@ public class QuoriPOOBTest {
         }
     }
 
-@Test
-    public void shouldNotAddWalls3() throws QuoriPOOBException{
+    @Test
+    public void shouldNotAddWalls3() throws QuoriPOOBException {
         QuoriPOOB q = new QuoriPOOB();
         q.setOnePlayer();
         q.createPlayerHuman("Player 1", Color.BLUE);
@@ -567,6 +566,40 @@ public class QuoriPOOBTest {
             fail("SHOULD NOT ADD A TOTAL OF WALLS DIFFERENT OF N + 1, WHEN N IS THE SIZE OF BOARD");
         } catch (QuoriPOOBException e){
             assertEquals(QuoriPOOBException.WRONG_NUMBER_WALLS, e.getMessage());
+        }
+    }
+
+    @Test
+    public void shouldAddWallsToBoard() throws QuoriPOOBException {
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createPlayerHuman("Player 2", Color.ORANGE);
+
+        q.createBoard(10, null);
+        q.addWalls(1, 4, 2, 4);
+
+        q.addWallToBoard("Temporary", 0, 0, "UP");
+        q.addWallToBoard("Allied", 4, 2, "LEFT");
+        q.addWallToBoard("NormalWall", 9, 8, "DOWN");
+        // Con longWall cuando este implementado
+
+        Square[][] matrix = q.getBoard().getMatrixBoard();
+
+        for (int row = 0; row < matrix.length; row++) {
+            for (int col = 0; col < matrix.length; col++) {
+                Square square = matrix[row][col];
+                if ((row == 0 && col == 0) || (row == 0 & col == 1)) {
+                    assertNotNull(square.getWallUp());
+                    assertTrue(square.getWallUp() instanceof Temporary);
+                } else if ((row == 4 && col == 2) || (row == 5 & col == 2)) {
+                    assertNotNull(square.getWallLeft());
+                    assertTrue(square.getWallLeft() instanceof Allied);
+                } else if ((row == 9 && col == 8) || (row == 9 & col == 9)) {
+                    assertNotNull(square.getWallDown());
+                    assertTrue(square.getWallDown() instanceof NormalWall);
+                }
+            }
         }
     }
 }

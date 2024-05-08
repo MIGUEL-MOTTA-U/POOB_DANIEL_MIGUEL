@@ -39,10 +39,10 @@ public abstract class Wall {
 			throws QuoriPOOBException {
 		validate(initialRow, initialColumn, squareSide, board);
 
-		this.initialColumn = initialColumn;
 		this.initialRow = initialRow;
+		this.initialColumn = initialColumn;
 		this.finalRow = finalRow(initialRow, squareSide);
-		this.finalColumn = finalColumn(finalColumn, squareSide);
+		this.finalColumn = finalColumn(initialColumn, squareSide);
 		this.squareSide = squareSide;
 		this.board = board;
 
@@ -95,11 +95,11 @@ public abstract class Wall {
 			case "UP":
 				return initialRow;
 			case "LEFT":
-				return initialRow++;
+				return ++initialRow;
 			case "DOWN":
 				return initialRow;
 			case "RIGHT":
-				return initialRow++;
+				return ++initialRow;
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 		}
@@ -108,16 +108,16 @@ public abstract class Wall {
 	/*
 	 * Calculate the final column of the wall
 	 */
-	private int finalColumn(int finalColumn, String squareSide) throws QuoriPOOBException {
+	private int finalColumn(int initialColumn, String squareSide) throws QuoriPOOBException {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
-				return finalColumn++;
+				return ++initialColumn;
 			case "LEFT":
-				return finalColumn;
+				return initialColumn;
 			case "DOWN":
-				return finalColumn++;
+				return ++initialColumn;
 			case "RIGHT":
-				return finalColumn;
+				return initialColumn;
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 		}
@@ -130,18 +130,18 @@ public abstract class Wall {
 		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0
 				|| initialColumn < 0)
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
-		if (!checkRange(initialRow, initialColumn, squareSide, board))
+		if (outRange(initialRow, initialColumn, squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
 		if (wallInSquare(initialRow, initialColumn, squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(finalColumn, squareSide), squareSide, board))
+		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 	}
 
 	/*
 	 * Check if the wall is in the range of the board
 	 */
-	private boolean checkRange(int initialRow, int initialColumn, String squareSide, Board board)
+	private boolean outRange(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		switch (squareSide.toUpperCase()) {
 			case "UP":

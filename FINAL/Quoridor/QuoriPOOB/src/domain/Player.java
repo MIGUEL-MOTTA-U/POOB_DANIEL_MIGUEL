@@ -22,10 +22,10 @@ public abstract class Player {
 	}
 
 	public void addWalls(int normal, int temporary, int WLong, int allied) {
-		createWalls(normal, "NormalWall");
-		createWalls(temporary, "Temporary");
-		createWalls(WLong, "LongWall");
-		createWalls(allied, "Allied");
+		createWalls(normal, "domain.NormalWall");
+		createWalls(temporary, "domain.Temporary");
+		createWalls(WLong, "domain.LongWall");
+		createWalls(allied, "domain.Allied");
 	}
 
 	public void delWall(Wall wall) {
@@ -54,7 +54,7 @@ public abstract class Player {
 
 		numberWalls.put("NormalWall", normalWalls);
 		numberWalls.put("Temporary", temporaryWalls);
-		numberWalls.put("LongWal", longWalls);
+		numberWalls.put("LongWall", longWalls);
 		numberWalls.put("Allied", alliedWalls);
 
 		return numberWalls;
