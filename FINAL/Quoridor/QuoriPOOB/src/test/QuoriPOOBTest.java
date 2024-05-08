@@ -2,8 +2,6 @@ package test;
 import domain.*;
 import static org.junit.Assert.*;
 import java.awt.Color;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.After;

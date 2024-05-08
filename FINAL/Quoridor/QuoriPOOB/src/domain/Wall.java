@@ -46,8 +46,8 @@ public abstract class Wall {
 		this.squareSide = squareSide;
 		this.board = board;
 
-		setWallInSquare(initialRow, initialColumn, squareSide, board);
-		setWallInSquare(finalRow, finalColumn, squareSide, board);
+		setWallInSquare(initialRow, initialColumn);
+		setWallInSquare(finalRow, finalColumn);
 
 		board.addWallToBoard(this);
 	}
@@ -179,9 +179,9 @@ public abstract class Wall {
 	/*
 	 * Add the wall in the square
 	 */
-	private void setWallInSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
-		Square square = board.getSquare(row, column);
-		switch (squareSide.toUpperCase()) {
+	private void setWallInSquare(int row, int column) throws QuoriPOOBException {
+		Square square = this.board.getSquare(row, column);
+		switch (this.squareSide.toUpperCase()) {
 			case "UP":
 				square.addWallUp(this);
 				break;

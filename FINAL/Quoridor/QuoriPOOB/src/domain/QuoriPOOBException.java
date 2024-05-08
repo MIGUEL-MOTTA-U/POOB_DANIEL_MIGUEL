@@ -24,6 +24,7 @@ public class QuoriPOOBException extends Exception {
 	public static String WALL_IN_SQUARE = "There is already a wall in this square";
 	public static String TOKEN_IN_SQUARE = "There is already a token in this square";
 	public static String RETURN_MOVES_NOT_POSSIBLE = "There are insufficient movements";
+	public static String FORWARD_WALL = "The token cannot pass through a wall";
 	
 	public QuoriPOOBException(String message) {
 		super(message);

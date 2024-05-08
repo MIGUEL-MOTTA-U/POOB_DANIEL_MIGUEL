@@ -56,6 +56,10 @@ public class QuoriPOOB {
 		for (Player p : players.values()) {
 			p.setBoard(board);
 		}
+
+		for (Token token : this.tokens.values()) {
+			token.setBoard(board);
+		}
 	}
 
 	/**

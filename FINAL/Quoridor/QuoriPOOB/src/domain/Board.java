@@ -50,42 +50,106 @@ public class Board {
 		this.walls.remove(wall);
 	}
 
-	public void moveTokenUp(Color colotToken) {
+	public void moveTokenUp(Color colorToken) throws QuoriPOOBException {
+		// Falta implementar pasar a traves de una ficha
+
+		if (!this.tokens.containsKey(colorToken))
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+		
+		Token token = this.tokens.get(colorToken);
+		
+		if (token.getRow() == 0) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+		Square square = token.getSquare();
+
+		if (!square.blockUp(colorToken)) {
+			token.moveUp();
+		} else {
+			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+		}
+	}
+
+	public void moveTokenDown(Color colorToken) throws QuoriPOOBException {
+		// Falta implementar pasar a traves de una ficha
+
+		if (!this.tokens.containsKey(colorToken))
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+		
+		Token token = this.tokens.get(colorToken);
+		
+		if (token.getRow() == this.size - 1) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+		Square square = token.getSquare();
+
+		if (!square.blockUp(colorToken)) {
+			token.moveDown();
+		} else {
+			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+		}
+	}
+
+	public void moveTokenLeft(Color colorToken)  throws QuoriPOOBException {
+		// Falta implementar pasar a traves de una ficha
+
+		if (!this.tokens.containsKey(colorToken))
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+		
+		Token token = this.tokens.get(colorToken);
+		
+		if (token.getColumn() == 0) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+		Square square = token.getSquare();
+
+		if (!square.blockUp(colorToken)) {
+			token.moveLeft();
+		} else {
+			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+		}
+	}
+
+	public void moveTokenRight(Color colorToken) throws QuoriPOOBException{
+		// Falta implementar pasar a traves de una ficha
+
+		if (!this.tokens.containsKey(colorToken))
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+		
+		Token token = this.tokens.get(colorToken);
+		
+		if (token.getColumn() == this.size - 1) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
+		Square square = token.getSquare();
+
+		if (!square.blockUp(colorToken)) {
+			token.moveRight();
+		} else {
+			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
+		}
+	}
+
+	public void moveTokenUpLeft(Color colorToken) {
 		// In Construction
 	}
 
-	public void moveTokenDown(Color colotToken) {
+	public void moveTokenUpRight(Color colorToken) {
 		// In Construction
 	}
 
-	public void moveTokenLeft(Color colotToken) {
+	public void moveTokenDownLeft(Color colorToken) {
 		// In Construction
 	}
 
-	public void moveTokenRight(Color colotToken) {
+	public void moveTokenDownRight(Color colorToken) {
 		// In Construction
 	}
 
-	public void moveTokenUpLeft(Color colotToken) {
-		// In Construction
-	}
+	public void returnTwoMoves(Color colorToken) throws QuoriPOOBException {
+		if (!this.tokens.containsKey(colorToken)) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 
-	public void moveTokenUpRight(Color colotToken) {
-		// In Construction
-	}
-
-	public void moveTokenDownLeft(Color colotToken) {
-		// In Construction
-	}
-
-	public void moveTokenDownRight(Color colotToken) {
-		// In Construction
-	}
-
-	public void returnTwoMoves(Color colotToken) throws QuoriPOOBException {
-		if (!this.tokens.containsKey(colotToken)) throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
-
-		Token token = this.tokens.get(colotToken);
+		Token token = this.tokens.get(colorToken);
 		token.returnTwoMoves();
 		int newRow = token.getRow();
 		int newColumn = token.getColumn();

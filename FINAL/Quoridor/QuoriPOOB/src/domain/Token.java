@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 public class Token {
+    private Board board;
     private Square square;
     private Color color;
     private int row;
@@ -12,6 +13,10 @@ public class Token {
 
     public Token(Color color) {
         this.color = color;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     public void setSquare(Square square) {
@@ -26,40 +31,48 @@ public class Token {
         this.column = initialColumn;
     }
 
-    public void moveUp() {
-        this.row--;
+    public void moveUp() throws QuoriPOOBException {
+        --this.row;
+        move();
     }
 
-    public void moveLeft() {
-        this.column--;
+    public void moveLeft() throws QuoriPOOBException {
+        --this.column;   
+        move();
     }
 
-    public void moveDown() {
-        this.row++;
+    public void moveDown() throws QuoriPOOBException {
+        ++this.row;
+        move();
     }
 
-    public void moveRight() {
-        this.column++;
+    public void moveRight() throws QuoriPOOBException {
+        ++this.column;
+        move();
     }
 
-    public void moveUpLeft() {
-        this.row--;
-        this.column--;
+    public void moveUpLeft() throws QuoriPOOBException {
+        --this.row;
+        --this.column;
+        move();
     }
     
-    public void moveUpRight() {
-        this.row--;
-        this.column++;
+    public void moveUpRight() throws QuoriPOOBException {
+        --this.row;
+        ++this.column;
+        move();
     }
     
-    public void moveDownLeft() {
-        this.row++;
-        this.column--;
+    public void moveDownLeft() throws QuoriPOOBException {
+        ++this.row;
+        --this.column;
+        move();
     }
     
-    public void moveDownRight() {
-        this.row++;
-        this.column++;
+    public void moveDownRight() throws QuoriPOOBException {
+        ++this.row;
+        ++this.column;
+        move();
     }
 
     public void returnTwoMoves() throws QuoriPOOBException {
@@ -91,5 +104,12 @@ public class Token {
 
     public Square getSquare() {
         return this.square;
+    }
+
+    private void move() throws QuoriPOOBException {
+        this.square.delToken();
+        Square square = this.board.getSquare(this.row, this.column);
+        setSquare(square);
+        square.setToken(this);
     }
 }
