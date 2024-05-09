@@ -7,7 +7,6 @@ import java.util.HashMap;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.validator.PublicClassValidator;
 
 public class QuoriPOOBTest {
     public QuoriPOOBTest() {
@@ -602,11 +601,11 @@ public class QuoriPOOBTest {
         Player firstPlayer = q.getCurrentPlayer();
         // Tiene 1 normal, 4 temporales, 2 largos y 4 aliados
         q.addWallToBoard("Temporary", 0, 0, "UP");
-        //assertEquals(firstPlayer, q.getCurrentPlayer());
+        assertNotEquals(firstPlayer, q.getCurrentPlayer());
         q.addWallToBoard("Allied", 4, 2, "LEFT");
         assertEquals(firstPlayer, q.getCurrentPlayer());
         q.addWallToBoard("NormalWall", 9, 8, "DOWN");
-        assertEquals(firstPlayer, q.getCurrentPlayer());
+        assertNotEquals(firstPlayer, q.getCurrentPlayer());
         
 
     }
