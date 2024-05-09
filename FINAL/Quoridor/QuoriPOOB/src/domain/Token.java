@@ -32,65 +32,77 @@ public class Token {
     }
 
     public void moveUp() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         --this.row;
         move();
     }
 
     public void moveLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         --this.column;   
         move();
     }
 
     public void moveDown() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         ++this.row;
         move();
     }
 
     public void moveRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         ++this.column;
         move();
     }
 
     public void moveUpLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         --this.row;
         --this.column;
         move();
     }
     
     public void moveUpRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         --this.row;
         ++this.column;
         move();
     }
     
     public void moveDownLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         ++this.row;
         --this.column;
         move();
     }
     
     public void moveDownRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         ++this.row;
         ++this.column;
         move();
     }
 
     public void jumpTokenUp() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         this.row = this.row - 2;
         move();
     }
 
     public void jumpTokenLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         this.column = this.column - 2;
         move();
     }
 
     public void jumpTokenDown() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         this.row = this.row + 2;
         move();
     }
 
     public void jumpTokenRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[]{this.row, this.column});
         this.column = this.column + 2;
         move();
     }
