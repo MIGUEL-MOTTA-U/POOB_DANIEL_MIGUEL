@@ -202,7 +202,9 @@ public class Quopripoobvi
         assertTrue(q.getBoard().getSquare(0,1).getToken()!=null);
         
         q.moveToken("LEFT");
-        
+        assertTrue(q.getBoard().getSquare(0,0).getToken()!=null);
+        // Esto va a fallar pero quiero ver que tipo de error sale:
+        q.moveToken("LEFT"); // --> Falta checkear que no se salga el token
 
     }     
 
