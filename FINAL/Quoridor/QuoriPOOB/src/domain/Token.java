@@ -13,7 +13,6 @@ public class Token {
 
     public Token(Color color) {
         this.color = color;
-        lastMovements = new ArrayList<>();
     }
 
     public void setBoard(Board board) {
