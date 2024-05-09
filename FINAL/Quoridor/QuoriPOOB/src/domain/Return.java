@@ -7,8 +7,6 @@ package domain;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-import java.awt.Color;
-
 public class Return extends Square {
     /**
      * Constructor for objects of class NormalSquare
@@ -32,8 +30,8 @@ public class Return extends Square {
         if (this.board == null)
             throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 
-        Player playerPlaying = this.board.getPlayerPlaying();
-        Color colorToken = playerPlaying.getColor();
-        this.board.returnTwoMoves(colorToken);
+        if (this.token != null) {
+            this.board.returnTwoMoves(this.token.getColor());
+        }
     }
 }
