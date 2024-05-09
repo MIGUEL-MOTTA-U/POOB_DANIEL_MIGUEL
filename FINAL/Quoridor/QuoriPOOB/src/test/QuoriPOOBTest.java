@@ -584,8 +584,6 @@ public class QuoriPOOBTest {
         } catch (QuoriPOOBException e){
             assertEquals(QuoriPOOBException.WALL_NOT_EXIST, e.getMessage());
         }
-        
-        
     }
     
     @Test
