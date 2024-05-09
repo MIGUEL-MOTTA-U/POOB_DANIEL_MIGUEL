@@ -30,7 +30,6 @@ public class DoubleTurn extends Square {
         if (this.board == null)
             throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 
-        Player playerPlaying = this.board.getPlayerPlaying();
-        this.board.setPlayerPlaying(playerPlaying);
+        this.board.nextTurn();
     }
 }

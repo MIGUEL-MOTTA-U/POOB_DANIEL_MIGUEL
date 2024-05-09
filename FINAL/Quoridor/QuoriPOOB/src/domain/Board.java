@@ -80,6 +80,8 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenDown(Color colorToken) throws QuoriPOOBException {
@@ -113,6 +115,8 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenLeft(Color colorToken)  throws QuoriPOOBException {
@@ -146,6 +150,8 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenRight(Color colorToken) throws QuoriPOOBException {
@@ -179,6 +185,8 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenUpLeft(Color colorToken) throws QuoriPOOBException {
@@ -199,6 +207,8 @@ public class Board {
 		} else {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenUpRight(Color colorToken)  throws QuoriPOOBException {
@@ -219,6 +229,8 @@ public class Board {
 		} else {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenDownLeft(Color colorToken) throws QuoriPOOBException {
@@ -239,6 +251,8 @@ public class Board {
 		} else {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
+
+		nextTurn();
 	}
 
 	public void moveTokenDownRight(Color colorToken)  throws QuoriPOOBException {
@@ -259,6 +273,8 @@ public class Board {
 		} else {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
+
+		nextTurn();
 	}
 
 	public void returnTwoMoves(Color colorToken) throws QuoriPOOBException {
@@ -274,6 +290,15 @@ public class Board {
 		square = this.matrixBoard[newRow][newColumn];
 		square.setToken(token);
 		token.setSquare(square);
+	}
+
+	public void nextTurn() {
+		for (Player player : this.players.values()) {
+			if (player != this.playerPlaying) {
+				this.playerPlaying = player;
+				break;
+			}
+		}
 	}
 
 	// Getters and Setters
@@ -363,15 +388,6 @@ public class Board {
 		}
 
 		return square;
-	}
-
-	private void nextTurn() {
-		for (Player player : this.players.values()) {
-			if (player != this.playerPlaying) {
-				this.playerPlaying = player;
-				break;
-			}
-		}
 	}
 
 	private boolean tokenAhead(String direction, Square currentSquare) throws QuoriPOOBException {
