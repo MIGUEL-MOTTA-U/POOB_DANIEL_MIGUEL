@@ -81,6 +81,8 @@ public class Board {
 			}
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -116,6 +118,8 @@ public class Board {
 			}
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -151,6 +155,8 @@ public class Board {
 			}
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -186,6 +192,8 @@ public class Board {
 			}
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -208,6 +216,8 @@ public class Board {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -230,6 +240,8 @@ public class Board {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -252,6 +264,8 @@ public class Board {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -274,6 +288,8 @@ public class Board {
 			throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 		}
 
+		squaresAct();
+		wallsAct();
 		nextTurn();
 	}
 
@@ -409,6 +425,18 @@ public class Board {
 				return nextSquare.getToken() != null;
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
+		}
+	}
+
+	private void squaresAct() throws QuoriPOOBException {
+		for (Square square : this.squares) {
+			square.act();
+		}
+	}
+
+	private void wallsAct() throws QuoriPOOBException {
+		for (Wall wall : this.walls) {
+			wall.act();
 		}
 	}
 }
