@@ -193,8 +193,17 @@ public class Quopripoobvi
     }
 
     @Test
-    public void shouldMoveOrthogonallyAPawn(){
+    public void shouldMoveOrthogonallyAPawn()throws QuoriPOOBException{
+        QuoriPOOB q = new QuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(4, null);
+        assertTrue(q.getBoard().getSquare(0,1).getToken()!=null);
         
+        q.moveToken("LEFT");
+        
+
     }     
 
     /* 

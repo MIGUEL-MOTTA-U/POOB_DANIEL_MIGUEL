@@ -64,7 +64,7 @@ public class QuoriPOOB {
 
 	/**
 	 * Creates a Human Player for QuoriPOOB and integrate it to the Game
-	 * 
+	 *  
 	 * @param name  The name of the Player
 	 * @param color The respective color of the Player
 	 * @throws QuoriPOOBException Throws an Exception in case the attempt to more
