@@ -26,7 +26,9 @@ public class QuoriPOOBException extends Exception {
 	public static String RETURN_MOVES_NOT_POSSIBLE = "There are insufficient movements";
 	public static String FORWARD_WALL = "The token cannot pass through a wall";
 	public static String DIAGONAL_MOVES_BLOCK = "The token cannot be moved diagonally";
-	
+	public static String NEGATIVE_QUANTITY = "You must enter a positive number";
+	public static String INVALID_NUMBER = "You must enter a number";
+
 	public QuoriPOOBException(String message) {
 		super(message);
 	}
