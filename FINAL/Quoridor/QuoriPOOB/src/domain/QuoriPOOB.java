@@ -230,6 +230,13 @@ public class QuoriPOOB {
 		return names;
 	}
 
+	public HashMap<Color, HashMap<String, Integer>> numerWalls(){
+		HashMap<Color, HashMap<String, Integer>> res = new HashMap<>();
+		for(Player p: players.values()){
+			res.put(p.getColor(), p.numberWalls());
+		}
+		return res;
+	}
 	/**
 	 * Returns the respective color by the given name.
 	 * 

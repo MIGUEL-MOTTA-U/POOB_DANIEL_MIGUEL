@@ -30,15 +30,15 @@ public abstract class Player {
 
 	public void delWall(Wall wall) {
 		this.walls.remove(wall);
-	}
 
+	}
+	
 	public HashMap<String, Integer> numberWalls() {
 		HashMap<String, Integer> numberWalls = new HashMap<>();
 		int normalWalls = 0;
 		int temporaryWalls = 0;
 		int longWalls = 0;
 		int alliedWalls = 0;
-
 		for (Wall wall : this.walls) {
 			String cls = wall.getClass().getSimpleName().toUpperCase();
 			if (cls.equals("NORMALWALL")) {

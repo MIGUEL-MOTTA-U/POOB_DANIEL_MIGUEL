@@ -428,8 +428,8 @@ public class Board {
 	}
 
 	private void wallsAct() throws QuoriPOOBException {
-		for (Wall wall : this.walls) {
-			wall.act();
+		for (int i = 0; i < walls.size(); i++) {
+			walls.get(i).act();
 		}
 	}
 }

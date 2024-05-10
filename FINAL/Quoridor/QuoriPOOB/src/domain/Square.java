@@ -18,6 +18,8 @@ public abstract class Square {
     protected Wall wallUp;
     protected Wall wallDown;
 
+    
+
     /**
      * Constructor for objects of class Square
      * 
@@ -100,28 +102,40 @@ public abstract class Square {
      * Delete the wall at the top of the square
      */
     public void delWallUp() {
-        this.wallUp = null;
+        setWallUp(null);
+        if(this.row >0){
+            board.getMatrixBoard()[row-1][column].setWallDown(null);
+        }
     }
 
     /**
      * Delete the wall to the left of the square
      */
     public void delWallLeft() {
-        this.wallLeft = null;
+        setWallLeft(null);
+        if(this.column >0){
+            board.getMatrixBoard()[row][column-1].setWallRight(null);
+        }
     }
 
     /**
      * Delete the wall at the bottom of the square
      */
     public void delWallDown() {
-        this.wallDown = null;
+        setWallDown(null);
+        if(this.row < board.getSize()-1){
+            board.getMatrixBoard()[row+1][column].setWallUp(null);
+        }
     }
 
     /**
      * Delete the wall to the right of the square
      */
     public void delWallRight() {
-        this.wallRight = null;
+        setWallRight(null);
+        if(this.column < board.getSize() -1 ){
+            board.getMatrixBoard()[row][column+1].setWallLeft(null);
+        }
     }
 
     /**
@@ -244,6 +258,38 @@ public abstract class Square {
      */
     public Wall getWallRight() {
         return this.wallRight;
+    }
+
+    /**
+     * Sets the left wall of the Square
+     * @param wallLeft
+     */
+    public void setWallLeft(Wall wallLeft) {
+        this.wallLeft = wallLeft;
+    }
+
+    /**
+     * Sets the right wall of the Square
+     * @param wallRight
+     */
+    public void setWallRight(Wall wallRight) {
+        this.wallRight = wallRight;
+    }
+
+    /**
+     * Sets the up wall of the Square
+     * @param wallUp
+     */
+    public void setWallUp(Wall wallUp) {
+        this.wallUp = wallUp;
+    }
+
+    /**
+     * Sets the down wall of the Square
+     * @param wallDown
+     */
+    public void setWallDown(Wall wallDown) {
+        this.wallDown = wallDown;
     }
 
     /**

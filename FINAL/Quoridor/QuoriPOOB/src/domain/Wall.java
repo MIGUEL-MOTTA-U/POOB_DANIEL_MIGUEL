@@ -63,6 +63,7 @@ public abstract class Wall {
 			throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
 
 		this.board.delWallFromBoard(this);
+		delWallFromBoardMatrix();
 		this.initialColumn = 0;
 		this.initialRow = 0;
 		this.finalRow = 0;
@@ -87,6 +88,27 @@ public abstract class Wall {
 	 * @throws QuoriPOOBException
 	 */
 	public abstract void act() throws QuoriPOOBException;
+
+	/*
+	 * Deletes the wall from the board Matrix
+	 */
+	private void delWallFromBoardMatrix(){
+		for(int i=initialRow;i <= finalRow; i++){
+			for(int j=initialColumn;j <= finalColumn; j++){
+				switch (squareSide.toUpperCase()) {
+					case "UP":
+						board.getMatrixBoard()[i][j].delWallUp();
+					case "LEFT":
+						board.getMatrixBoard()[i][j].delWallLeft();
+					case "DOWN":
+						board.getMatrixBoard()[i][j].delWallDown();					
+					case "RIGHT":
+						board.getMatrixBoard()[i][j].delWallRight();				
+					default:
+						}
+			}
+		}
+	}
 
 	/*
 	 * Calculate the final row of the wall
