@@ -30,6 +30,9 @@ public class QuoriPOOBException extends Exception {
 	public static String COLOR_NULL = "The color of the player can not be empty";
 	public static String TYPE_MACHINE_NULL = "The type of machine has to be defined";
 	
+	public static String NEGATIVE_QUANTITY = "You must enter a positive number";
+	public static String INVALID_NUMBER = "You must enter a number";
+
 	public QuoriPOOBException(String message) {
 		super(message);
 	}
