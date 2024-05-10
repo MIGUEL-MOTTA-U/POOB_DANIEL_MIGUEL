@@ -28,13 +28,17 @@ public class StartGUI extends JPanel{
     }
 
     private void prepareElements() {
+        JPanel container = new JPanel(new GridBagLayout());
+        container.setPreferredSize(QuoridorGUI.PREFERRED_DIMENSION);
+
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
         prepareElementsTitle(content); 
         prepareElementsButtons(content); 
 
-        add(content); 
+        container.add(content);
+        add(container); 
     }
 
     private void prepareElementsTitle(JPanel content) {
