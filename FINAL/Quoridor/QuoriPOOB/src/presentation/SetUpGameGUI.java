@@ -1,5 +1,4 @@
 package presentation;
-import domain.QuoriPOOBException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -218,15 +217,15 @@ public class SetUpGameGUI extends JPanel{
 
     private void showPositionsDialog(int quantity) {
         JPanel panel = new JPanel(new GridLayout(quantity, 1));
-    
+
         for (int i = 0; i < quantity; i++) {
             panel.add(createPositionsDialog());
         }
-    
+
         int result = JOptionPane.showConfirmDialog(this, panel, "Enter Positions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    
+
         if (result == JOptionPane.OK_OPTION) {
-           
+
         }
     }
 
@@ -235,18 +234,18 @@ public class SetUpGameGUI extends JPanel{
 
         JTextField textRow = new JTextField();
         textRow.setPreferredSize(new Dimension(50, 20));
-        
+
         JTextField textColumn = new JTextField();
         textColumn.setPreferredSize(new Dimension(50, 20));
 
         JLabel labelRow = new JLabel("Row: ");
         JLabel labelColumn = new JLabel("Column: ");
-        
+
         container.add(labelRow);
         container.add(textRow);
         container.add(labelColumn);
         container.add(textColumn);
-        
+
         return container;
     }
 
@@ -261,13 +260,13 @@ public class SetUpGameGUI extends JPanel{
                 button.setBackground(hover);
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
-        
+
             public void mouseExited(MouseEvent ev) {
                 button.setBackground(background);
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-    
+
         return button;
     }
 
@@ -304,7 +303,7 @@ public class SetUpGameGUI extends JPanel{
                 JButton sourceButton = (JButton) ev.getSource();
                 JTextField textField = null;
                 String quantityString = "";
-    
+
                 if (sourceButton == buttonPositionNormal) {
                     textField = textNormalSquares;
                 } else if (sourceButton == buttonPositionTeleporter) {
@@ -314,28 +313,30 @@ public class SetUpGameGUI extends JPanel{
                 } else if (sourceButton == buttonPositionDoubleTurn) {
                     textField = textDoubleTurnSquares;
                 }
-    
+
                 if (textField != null) {
                     quantityString = textField.getText();
                 }
-    
-                int quantity = 0;
-    
+
                 try {
-                    quantity = getQuantity(quantityString);
-                    if (quantity != 0) showPositionsDialog(quantity);
-                } catch (QuoriPOOBException e) {
-                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    int quantity = getQuantity(quantityString);
+                    if (quantity > 0) {
+                        showPositionsDialog(quantity);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Please enter a positive number for the quantity of squares.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number for the quantity of squares.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
-    
+
         buttonPositionNormal.addActionListener(positionButtonListener);
         buttonPositionTeleporter.addActionListener(positionButtonListener);
         buttonPositionReturn.addActionListener(positionButtonListener);
         buttonPositionDoubleTurn.addActionListener(positionButtonListener);
     }
-    
+
 
     private void createImage(JLabel label, String path) {
 		URL url = getClass().getResource(path);
@@ -347,17 +348,7 @@ public class SetUpGameGUI extends JPanel{
 		}
 	}
 
-    private int getQuantity(String text) throws QuoriPOOBException {
-        int quantity = 0;
-
-        try {
-            quantity = Integer.parseInt(text);
-        } catch (NumberFormatException  e) {
-            throw new QuoriPOOBException(QuoriPOOBException.INVALID_NUMBER);
-        }
-
-        if (quantity < 0) throw new QuoriPOOBException(QuoriPOOBException.NEGATIVE_QUANTITY);
-
-        return quantity;
+    private int getQuantity(String text) throws NumberFormatException {
+        return Integer.parseInt(text);
     }
 }
