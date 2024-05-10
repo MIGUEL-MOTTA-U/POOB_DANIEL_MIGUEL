@@ -156,7 +156,7 @@ public class PlayerInfoGUI extends JPanel{
         buttonColor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 JColorChooser chooser = new JColorChooser();
-                Color selectedColor = chooser.showDialog(PlayerInfoGUI.this, "Select a color", Color.BLUE);
+                Color playerColor = chooser.showDialog(PlayerInfoGUI.this, "Select a color", Color.BLUE);
             }
         });
 

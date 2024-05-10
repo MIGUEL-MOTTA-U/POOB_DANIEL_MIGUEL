@@ -235,7 +235,7 @@ public class SetUpGameGUI extends JPanel{
 
         JTextField textRow = new JTextField();
         textRow.setPreferredSize(new Dimension(50, 20));
-
+        
         JTextField textColumn = new JTextField();
         textColumn.setPreferredSize(new Dimension(50, 20));
 

@@ -40,7 +40,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "setUpGameGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
