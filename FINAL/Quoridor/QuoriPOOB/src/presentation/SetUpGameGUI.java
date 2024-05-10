@@ -92,7 +92,7 @@ public class SetUpGameGUI extends JPanel{
         createImage(imageGame, "assets/Logo.png");
 
         labelTitle = new JLabel("Set up the game");
-        labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 25));
+        labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.PLAIN, 25));
 
         labelDescription = new JLabel("Enter the game data");
         labelDescription.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 15));
@@ -339,6 +339,12 @@ public class SetUpGameGUI extends JPanel{
         buttonPositionTeleporter.addActionListener(positionButtonListener);
         buttonPositionReturn.addActionListener(positionButtonListener);
         buttonPositionDoubleTurn.addActionListener(positionButtonListener);
+
+        buttonNext.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.showBoardGUI();
+            }
+        });
     }
 
 

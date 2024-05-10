@@ -36,6 +36,7 @@ public class QuoridorGUI extends JFrame {
     private GameDifficultyGUI gameDifficultyGUI;
     private PlayerInfoGUI playerInfoGUI;
     private SetUpGameGUI setUpGameGUI;
+    private BoardGUI boardGUI;
 
     private QuoridorGUI() {
         prepareElements();
@@ -85,6 +86,7 @@ public class QuoridorGUI extends JFrame {
         gameDifficultyGUI = new GameDifficultyGUI(this);
         playerInfoGUI = new PlayerInfoGUI(this);
         setUpGameGUI = new SetUpGameGUI(this);
+        boardGUI = new BoardGUI(this);
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
@@ -94,6 +96,7 @@ public class QuoridorGUI extends JFrame {
         cardPanel.add(gameDifficultyGUI, "gameDifficultyGUI");
         cardPanel.add(playerInfoGUI, "playerInfoGUI");
         cardPanel.add(setUpGameGUI, "setUpGameGUI");
+        cardPanel.add(boardGUI, "boardGUI");
     }
 
     private void prepareActions() { 
@@ -160,6 +163,10 @@ public class QuoridorGUI extends JFrame {
 
     public void showSetUpGameGUI() {
         cardLayout.show(cardPanel, "setUpGameGUI");
+    }
+
+    public void showBoardGUI() {
+        cardLayout.show(cardPanel, "boardGUI");
     }
 
     public static void main(String args[]) {
