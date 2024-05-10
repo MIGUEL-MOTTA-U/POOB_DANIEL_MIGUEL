@@ -26,6 +26,9 @@ public class QuoriPOOBException extends Exception {
 	public static String RETURN_MOVES_NOT_POSSIBLE = "There are insufficient movements";
 	public static String FORWARD_WALL = "The token cannot pass through a wall";
 	public static String DIAGONAL_MOVES_BLOCK = "The token cannot be moved diagonally";
+	public static String NAME_NULL = "The name of the player can not be empty";
+	public static String COLOR_NULL = "The color of the player can not be empty";
+	public static String TYPE_MACHINE_NULL = "The type of machine has to be defined";
 	
 	public QuoriPOOBException(String message) {
 		super(message);

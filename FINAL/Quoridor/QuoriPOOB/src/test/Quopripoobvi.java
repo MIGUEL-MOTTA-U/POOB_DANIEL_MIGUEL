@@ -193,34 +193,123 @@ public class Quopripoobvi {
     }
 
     @Test
-    public void shouldMoveOrthogonallyAPawn() throws QuoriPOOBException {
+    public void shouldMoveOrthogonallyAPawn1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
         assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
-
         q.moveToken("LEFT");
         assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
-        // Esto va a fallar pero quiero ver que tipo de error sale:
-        q.moveToken("LEFT"); // --> Falta checkear que no se salga el token
-
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() == null);
     }
+
+    @Test
+    public void shouldMoveOrthogonallyAPawn2() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(4, null);
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
+        q.moveToken("LEFT");
+        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() == null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
+        q.moveToken("LEFT");
+        assertTrue(q.getBoard().getSquare(3, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
+    }
+
+    @Test
+    public void shouldMoveOrthogonallyAPawn3() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(4, null);
+        
+        // Token Daniel
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
+        q.moveToken("LEFT");
+        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() == null);
+        
+        // Token Miguel
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
+        q.moveToken("RIGHT");
+        assertTrue(q.getBoard().getSquare(3, 2).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
+        
+        // Token Daniel
+        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
+        q.moveToken("DOWN");
+        assertTrue(q.getBoard().getSquare(1, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(0, 0).getToken() == null);
+        
+        // Token Miguel
+        assertTrue(q.getBoard().getSquare(3, 2).getToken() != null);
+        q.moveToken("UP");
+        assertTrue(q.getBoard().getSquare(2, 2).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
+    }
+
+    @Test
+    public void shouldNotMoveOrthogonallyAPawn1() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(4, null);
+        q.moveToken("LEFT");
+        try{
+            q.moveToken("DOWN");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
+        }
+        // Check the position of the Token is the same
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
+    }
+
+    @Test
+    public void shouldNotMoveOrthogonallyAPawn2() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(4, null);
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        try{
+            q.moveToken("LEFT");
+        } catch (QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
+        }
+        // Check the position of the Token is the same
+        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
+    }
+
+    @Test
+    public void shouldMoveDiagonallyAPawn() throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(5, null);
+        assertTrue(q.getBoard().getSquare(0, 2).getToken() != null);
+        q.moveToken("DOWNLEFT");// Solo si es diagonal teleporter
+        assertTrue(q.getBoard().getSquare(1, 1).getToken() != null);
+        assertTrue(q.getBoard().getSquare(0, 2).getToken() == null);
+    }
+
 
     /*
      * 
      * 
-     * @Test
-     * public void shouldMoveOrthogonallyAPawn(){
-     * fail();
-     * }
      * 
      * 
-     * @Test
-     * public void shouldMoveDiagonallyAPawn(){
-     * fail();
-     * }
+     * 
      * 
      * @Test
      * public void shouldPlaceANormalBarrier(){
@@ -312,17 +401,6 @@ public class Quopripoobvi {
      * 
      * --> Borra este -->
      */
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-
-    // @Before
-    // public void setUp()
-    // {
-    // }
 
     // /**
     // * Tears down the test fixture.

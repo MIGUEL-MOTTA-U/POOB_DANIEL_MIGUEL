@@ -83,6 +83,8 @@ public class QuoriPOOB {
 	 *                            parameters.
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+		if(name == null) throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
+		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2)
@@ -113,6 +115,8 @@ public class QuoriPOOB {
 	 *                            there are two players already.
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+		if(type == null) throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
+		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2)

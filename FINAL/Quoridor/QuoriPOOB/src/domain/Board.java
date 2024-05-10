@@ -56,6 +56,8 @@ public class Board {
 		
 		Token token = this.tokens.get(colorToken);
 		Square square = token.getSquare();
+		if (token.getRow() <= 0) 
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 
 		if (tokenAhead("UP", square)) {
 			if (token.getRow() < 2)
@@ -71,9 +73,6 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		} else {
-			if (token.getRow() <= 0) 
-				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
 			if (!square.blockUp(colorToken)) {
 				token.moveUp();
 			} else {
@@ -92,6 +91,8 @@ public class Board {
 		
 		Token token = this.tokens.get(colorToken);
 		Square square = token.getSquare();
+		if (token.getRow() >= this.size - 1) 
+		throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 
 		if (tokenAhead("DOWN", square)) {
 			if (token.getRow() > this.size - 3)
@@ -107,10 +108,6 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		} else {
-			if (token.getRow() >= this.size - 1) 
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
-
 			if (!square.blockDown(colorToken)) {
 				token.moveDown();
 			} else {
@@ -129,7 +126,9 @@ public class Board {
 		
 		Token token = this.tokens.get(colorToken);
 		Square square = token.getSquare();
-
+		if (token.getColumn() <= 0) 
+				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+		
 		if (tokenAhead("LEFT", square)) {
 			if (token.getColumn() < 2)
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
@@ -144,10 +143,6 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		} else {
-			if (token.getColumn() <= 0) 
-				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
-
 			if (!square.blockLeft(colorToken)) {
 				token.moveLeft();
 			} else {
@@ -166,7 +161,9 @@ public class Board {
 		
 		Token token = this.tokens.get(colorToken);
 		Square square = token.getSquare();
-
+		if (token.getColumn() >= this.size - 1)  
+		throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+		
 		if (tokenAhead("RIGHT", square)) {
 			if (token.getColumn() > this.size - 3)
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
@@ -181,10 +178,6 @@ public class Board {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		} else {
-			if (token.getColumn() >= this.size - 1) 
-				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-
-
 			if (!square.blockRight(colorToken)) {
 				token.moveRight();
 			} else {

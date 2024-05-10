@@ -194,7 +194,9 @@ public abstract class Square {
      * @return TRUE, if the square block the diagonal movements. FALSE, otherwise;
      */
     public boolean blockDiagonalMovements() {
-        return true;
+        boolean res = true;
+        // res puede variar si square es de tipo Teleporter?
+        return res;
     }
 
     // Getters y Setters
