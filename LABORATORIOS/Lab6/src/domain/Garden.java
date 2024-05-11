@@ -201,26 +201,14 @@ public class Garden  implements Serializable {
     }
 
     /**
-     * Open a file given by the user
-     * @param file  the file to open
-     * @return  the garden saved in the file
+     * Save the game in a file
+     * @param file  the file to save
      * @throws GardenException
      */
-    public static Garden openFile(File file) throws GardenException{
-        Garden garden = null;
-
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            String s = (String) in.readObject();
-            garden = (Garden) in.readObject();
-            in.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
-        }
+    public void saveFile00(File file) throws GardenException{
         
-        return garden;
     }
-
+    
     /**
      * Open a file given by the user
      * @param file  the file to open
@@ -248,11 +236,32 @@ public class Garden  implements Serializable {
     }
 
     /**
-     * Save the game in a file
-     * @param file  the file to save
+     * Open a file given by the user
+     * @param file  the file to open
+     * @return  the garden saved in the file
      * @throws GardenException
      */
-    public void saveFile00(File file) throws GardenException{
+    public static Garden openFile(File file) throws GardenException{
+        Garden garden = null;
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            String s = (String) in.readObject();
+            garden = (Garden) in.readObject();
+            in.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return garden;
+    }
+
+    /**
+     * Export a file
+     * @param file  the file to export
+     * @throws GardenException
+     */
+    public void exportFile00(File file) throws GardenException{
         
     }
 
@@ -262,8 +271,7 @@ public class Garden  implements Serializable {
      * @return  the garden saved in the file
      * @throws GardenException
      */
-    public static Garden importFile(File file) throws GardenException{
-        
+    public static Garden importFile00(File file) throws GardenException{
         return null;
     }
 
@@ -273,6 +281,51 @@ public class Garden  implements Serializable {
      * @throws GardenException
      */
     public void exportFile(File file) throws GardenException{
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file));
+            for (int row = 0; row < LENGTH; row++) {
+                for (int column = 0; column < LENGTH; column++) {
+                    if (garden[row][column] != null) {
+                        String type = garden[row][column].getClass().getSimpleName();
+                        pw.println(type + " " + row + " " + column);
+                    }
+                }
+            }
+
+            pw.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al exportar el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+
+    /**
+     * Import a file
+     * @param file  the file to import
+     * @return  the garden saved in the file
+     * @throws GardenException
+     */
+    public static Garden importFile(File file) throws GardenException{
+        return null;
+    }
+
+
+    /**
+     * Method to check the equality between two gardens
+     * @return 
+     */
+    public boolean equals(Garden g){
+        boolean res = true;
         
+        if(g.getThings().length == this.getThings().length) 
+        {
+            for(int i = 0; i < Garden.LENGTH;i++){
+                for(int j = 0; j < Garden.LENGTH;j++){
+                    if(!g.getThings()[i][j].equals(this.getThings()[i][j])) res = false;
+                }
+            }
+        }
+        return res;
+
     }
 }
