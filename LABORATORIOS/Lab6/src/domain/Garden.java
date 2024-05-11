@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.security.Principal;
 import java.util.*;
 import java.util.random.RandomGenerator.LeapableGenerator;
@@ -19,7 +20,7 @@ import javax.swing.tree.VariableHeightLayoutCache;
  * 
  * @author  Daniel Diaz && Miguel Motta
  */
-public class Garden{
+public class Garden  implements Serializable {
     static public int LENGTH=40;
     private Thing[][] garden;
     
@@ -224,13 +225,12 @@ public class Garden{
      */
     public void saveFile(File file) throws GardenException{
         try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file.getName()));
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
             out.writeObject("Garden storage\n");
             out.writeObject(this);
             out.close();
-
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "File not found", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
         }
     }
 

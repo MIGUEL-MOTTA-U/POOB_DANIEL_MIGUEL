@@ -1,13 +1,14 @@
 package domain;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * It is the entity that interact with the garden
  *
  * @author Daniel Diaz && Miguel Motta
  */
-public abstract class Agent{
+public abstract class Agent implements Serializable {
     public final static char UNKNOWN='u', ALIVE='a', DEAD='d';
     protected char state;
     private int time;
