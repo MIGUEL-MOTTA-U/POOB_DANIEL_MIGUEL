@@ -392,6 +392,28 @@ public class GardenTest{
     }
 
     @Test
+    public void shouldOpenFile() throws GardenException{
+        File copy = new File("./test/onegarden.dat");
+        garden.saveFile(copy);
+        Garden otherGarden = Garden.openFile(copy);
+        assertTrue(garden.equals(otherGarden));
+    }
+
+    @Test 
+    public void shouldNotOpenCorrupted() throws GardenException{
+        File copy = new File("./test/input.txt");
+        Garden otherGarden = Garden.openFile(copy);
+        assertTrue(otherGarden==null);
+    }
+
+    @Test
+    public void shouldNotOpenInexistentFile()throws GardenException{
+        File copy = new File("./test/NOT A REAL FILE.txt");
+        Garden otherGarden = Garden.openFile(copy);
+        assertTrue(otherGarden==null);
+    }
+
+    @Test
     public void shouldExportAndImport() throws GardenException{
         File copy = new File("./test/input.txt");
         garden.exportFile(copy);;
@@ -399,6 +421,6 @@ public class GardenTest{
         //assertTrue(garden.equals(other));
     }
 
-
+    
 
 }
