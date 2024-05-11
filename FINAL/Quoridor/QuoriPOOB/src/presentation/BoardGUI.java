@@ -40,6 +40,8 @@ public class BoardGUI extends JPanel{
 
     // Player 1
     private JPanel panelPlayer1;
+    private JPanel panelNamePlayer1;
+    private JPanel panelWallsPlayer1;
     private JLabel imagePlayer1;
     private JLabel labelNamePlayer1;
     private JLabel labelWallsPlayer1;
@@ -50,6 +52,8 @@ public class BoardGUI extends JPanel{
 
     // Player 2
     private JPanel panelPlayer2;
+    private JPanel panelNamePlayer2;
+    private JPanel panelWallsPlayer2;
     private JLabel imagePlayer2;
     private JLabel labelNamePlayer2;
     private JLabel labelWallsPlayer2;
@@ -116,21 +120,24 @@ public class BoardGUI extends JPanel{
     }
 
     private JPanel prepareElementsTime() {
-        panelTime = new JPanel();
-        panelTime.setLayout(new BoxLayout(panelTime, BoxLayout.X_AXIS));
+        panelTime = new JPanel(new GridBagLayout());
         panelTime.setBorder(new RoundBorder(Color.BLACK, Color.WHITE, 20));
 
+        JPanel container = new JPanel();
+        container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
+        container.setBackground(Color.WHITE);
+
         imageStopWatch = new JLabel();
-		imageStopWatch.setSize(50, 50);
-		createImage(imageStopWatch, "assets/stopWatch.png");
+        imageStopWatch.setSize(50, 50);
+        createImage(imageStopWatch, "assets/stopWatch.png");
 
         labelTime = new JLabel("2:24");
         labelTime.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 20));
-        labelTime.setBorder(new EmptyBorder(0, 0, 0, 20));
 
-        panelTime.add(imageStopWatch);
-        panelTime.add(Box.createHorizontalStrut(30));
-        panelTime.add(labelTime);
+        container.add(imageStopWatch);
+        container.add(Box.createHorizontalStrut(40));
+        container.add(labelTime);
+        panelTime.add(container);
 
         return panelTime;
     }
