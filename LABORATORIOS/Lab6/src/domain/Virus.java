@@ -142,7 +142,7 @@ public class Virus extends Agent implements Thing {
         boolean res = false;
         if(t instanceof Virus){
             Virus v = (Virus) t;
-            if(v.isEqual(this) && 
+            if(v.isEqual((Agent) this) && 
             v.getHunger() == this.getHunger()){
                 res = true;
             }

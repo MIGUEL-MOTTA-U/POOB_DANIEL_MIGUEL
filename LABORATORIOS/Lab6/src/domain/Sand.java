@@ -62,10 +62,8 @@ public class Sand extends Agent implements Thing{
     public boolean equals(Thing t){
         boolean res = false;
         if(t instanceof Sand){
-            Sand s = (Sand) t;
-            if(isEqual((Agent) s)){
-                res = true;
-            }
+            Agent s = (Agent) t;
+            res = isEqual(s);
         }
         return res;
     }

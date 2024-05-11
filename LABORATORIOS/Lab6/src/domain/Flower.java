@@ -87,4 +87,37 @@ public class Flower extends Agent implements Thing{
             this.lasTime = time;
         }
     }
+
+    /**
+     * Checks if the given flower has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
+     */
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+        if(t instanceof Flower){
+            Flower s = (Flower) t;
+            res = isEqual((Agent)s) && 
+            s.getLastTime() == this.getLastTime() &&
+            s.getNextState() == this.getNextState() ;
+        }
+        return res;
+    }
+
+    /**
+     * Returns the next state
+     * @return the next state of the flower
+     */
+    public char getNextState(){
+        return this.nextState;
+    }
+
+    /**
+     * Returns the last time
+     * @return the last time of the flower
+     */
+    public int getLastTime(){
+        return this.lasTime;
+    }
 }

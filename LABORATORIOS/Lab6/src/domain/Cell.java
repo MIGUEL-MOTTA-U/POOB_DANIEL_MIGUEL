@@ -67,6 +67,29 @@ public class Cell extends Agent implements Thing
      */
     public void move(){
     }
+    /**
+     * Checks if the given Cell has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
+     */
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+    if(t instanceof Cell){
+            Cell s = (Cell) t;
+            res = isEqual((Agent)s) 
+            && s.getNextState() == this.getNextState();
+        }
+        return res;
+    }
+
+    /**
+     * Return the next state
+     * @return the next state of the Cell
+     */
+    public char getNextState(){
+        return this.nextState;
+    }
     
     /**
      * Defines the action to be performed by the cell
