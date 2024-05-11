@@ -51,6 +51,22 @@ public class Sand extends Agent implements Thing{
      * Move the sand along the garden
      */
     public void move(){
+    }
 
+    /**
+     * Checks if the given Virus has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
+     */
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+        if(t instanceof Sand){
+            Sand s = (Sand) t;
+            if(isEqual((Agent) s)){
+                res = true;
+            }
+        }
+        return res;
     }
 }

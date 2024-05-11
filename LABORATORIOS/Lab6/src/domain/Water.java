@@ -13,4 +13,18 @@ public final class Water implements Thing, Serializable {
      */
     public void act(){
     }
+
+    /**
+     * Checks if the given Water has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
+     */
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+        if(t instanceof Water){
+            res = true;
+        }
+        return res;
+    }
 }

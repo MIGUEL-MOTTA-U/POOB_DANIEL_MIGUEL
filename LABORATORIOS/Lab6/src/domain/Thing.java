@@ -31,6 +31,13 @@ public interface Thing{
     default public Color getColor(){
         return Color.blue;
     };
+
+    /**
+     * Returns true if the thing has the same attributes
+     * @param t, the thin to compare with
+     * @return the result of the comparison
+     */
+    public abstract boolean equals(Thing t);
     
     /**
      * Return if an object implements this interface

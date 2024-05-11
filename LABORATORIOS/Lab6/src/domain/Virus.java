@@ -122,19 +122,31 @@ public class Virus extends Agent implements Thing {
         return Thing.ROUND;
     }
 
+    
+
     /**
-     * Returns the row
-     * @return  the row where is locate the virus
+     * Returns hunger
+     * @return the hunger of the virus
      */
-    public int getRow(){
-        return this.row;
+    public int getHunger(){
+        return this.hunger;
     }
 
     /**
-     * Returns the column
-     * @return  the column where is locate the virus
+     * Checks if the given Virus has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
      */
-    public int getColumn(){
-        return this.column;
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+        if(t instanceof Virus){
+            Virus v = (Virus) t;
+            if(v.isEqual(this) && 
+            v.getHunger() == this.getHunger()){
+                res = true;
+            }
+        }
+        return res;
     }
 }

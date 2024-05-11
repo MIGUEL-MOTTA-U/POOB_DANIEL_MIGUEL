@@ -38,7 +38,7 @@ public abstract class Agent implements Serializable {
      */
     public abstract void move();
     
-     /**
+    /**
       * Returns the time
       * @return an integer representing the time
      */   
@@ -53,4 +53,52 @@ public abstract class Agent implements Serializable {
     public final boolean isAlive(){
         return (state == Agent.ALIVE) ;
     }  
+
+    /**
+     * Return the color
+     * @return the color of the agent
+     */
+    public Color getColor(){
+        return this.color;
+    }
+    
+    /**
+     * Return the state
+     * @return the state of the agent
+     */
+    public char getState(){
+        return this.state;
+    }
+
+    /**
+     * Returns the row
+     * @return  the row where is locate the Agent
+     */
+    public int getRow(){
+        return this.row;
+    }
+
+    /**
+     * Returns the column
+     * @return  the column where is locate the Agent
+     */
+    public int getColumn(){
+        return this.column;
+    }
+
+    /**
+     * 
+     */
+    public boolean isEqual(Agent s){
+        boolean res = false;
+        if(s.getState()== this.getState() && 
+            s.getColor().equals(this.getColor()) && 
+            s.getTime() == this.getTime() &&
+            s.isAlive() == this.isAlive() && 
+            s.getColumn() == this.getColumn() && 
+            s.getRow() == this.getRow()){
+            res = true;
+        }
+        return res;
+    }
 }

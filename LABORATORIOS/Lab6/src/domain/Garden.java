@@ -1,8 +1,10 @@
 package domain;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
@@ -306,7 +308,25 @@ public class Garden  implements Serializable {
      * @throws GardenException
      */
     public static Garden importFile(File file) throws GardenException{
-        return null;
+        Garden garden = new Garden();
+
+        try {
+            BufferedReader bIn = new BufferedReader(new FileReader(file));
+            String line = bIn.readLine();
+            while (line != null) {
+                String[] data = line.split("\\s+");
+
+                for (String string : data) {
+                    string = string.trim();
+                }
+                
+
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return garden;
     }
 
 
