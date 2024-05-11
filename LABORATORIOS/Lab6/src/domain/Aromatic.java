@@ -90,4 +90,30 @@ public class Aromatic extends Flower{
             }
         }
     }
+
+    /**
+     * Checks if the given Cell has the same attributes
+     * @param t, the thing to compare this
+     * @return the result of the comparison
+     */
+    @Override
+    public boolean equals(Thing t){
+        boolean res = false;
+        if(t instanceof Aromatic){
+            Aromatic s = (Aromatic) t;
+            res = isEqual((Agent)s) && 
+            s.getLastTime() == this.getLastTime() &&
+            s.getNextState() == this.getNextState() &&
+            s.getEmissions() == this.getEmissions();
+        }
+        return res;
+    }
+
+    /**
+     * Returns the emissions of the Aromatic flower
+     * @return the emissions
+     */
+    public int getEmissions(){
+        return this.emissions;
+    }
 }

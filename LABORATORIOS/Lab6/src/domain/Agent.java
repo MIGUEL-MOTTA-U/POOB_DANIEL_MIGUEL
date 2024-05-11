@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @author Daniel Diaz && Miguel Motta
  */
-public abstract class Agent implements Serializable {
+public abstract class Agent implements Serializable, Thing {
     public final static char UNKNOWN='u', ALIVE='a', DEAD='d';
     protected char state;
     private int time;
