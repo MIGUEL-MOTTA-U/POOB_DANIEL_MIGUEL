@@ -1,11 +1,11 @@
 package presentation;
 import domain.*;
 
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.concurrent.TimeUnit;
 
 public class GardenGUI extends JFrame{  
     public static final int SIDE=21;
@@ -200,26 +200,6 @@ public class GardenGUI extends JFrame{
     public static void main(String[] args) {
         GardenGUI cg=new GardenGUI();
         cg.setVisible(true);
-        int opcion = JOptionPane.showConfirmDialog(null, "Desea ejecutar la prueba de aceptacion?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION){
-            
-            JOptionPane.showMessageDialog(null, "Se van a ejecutar 6 Tic-Tac", "6 Tic-Tac", JOptionPane.INFORMATION_MESSAGE);
-            for(int i= 0; i < 6 ; i++){
-                cg.getGarden().ticTac();
-                cg.repaint();
-                try {
-                    TimeUnit.SECONDS.sleep(1); // Esperar 1 segundo
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Por favor Guarde el archivo", "Guardar archivo", JOptionPane.INFORMATION_MESSAGE);
-            // Aqui deberia abrir el archivo
-            
-            JOptionPane.showMessageDialog(null, "Hay que corregir esto para que deje guardar el archivo", "Guardar archivo", JOptionPane.INFORMATION_MESSAGE);
-            
-            
-        }
     }  
 }
 

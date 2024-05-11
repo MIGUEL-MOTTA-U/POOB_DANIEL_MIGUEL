@@ -232,6 +232,46 @@ public class Garden implements Serializable {
      * @param file the file to save
      * @throws GardenException
      */
+    public void saveFile01(File file) throws GardenException {
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+            out.writeObject("Garden storage\n");
+            out.writeObject(this);
+            out.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Open a file given by the user
+     * 
+     * @param file the file to open
+     * @return the garden saved in the file
+     * @throws GardenException
+     */
+    public static Garden openFile01(File file) throws GardenException {
+        Garden garden = null;
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            String s = (String) in.readObject();
+            garden = (Garden) in.readObject();
+            in.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return garden;
+    }
+
+    /**
+     * Save the game in a file
+     * 
+     * @param file the file to save
+     * @throws GardenException
+     */
     public void saveFile(File file) throws GardenException {
         try {
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
