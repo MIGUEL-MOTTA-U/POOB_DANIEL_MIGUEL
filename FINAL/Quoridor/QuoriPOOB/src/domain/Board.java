@@ -1,13 +1,14 @@
 package domain;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class Board {
+public class Board implements Serializable{
 
 	private int size;
 	private Player playerPlaying;

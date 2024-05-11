@@ -3,6 +3,7 @@ package test;
 import domain.*;
 import static org.junit.Assert.*;
 import java.awt.Color;
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import org.junit.After;
@@ -1096,6 +1097,30 @@ public class QuoriPOOBTest {
         q.addWallToBoard("Temporary", 3, 3, "UP");
         assertEquals(playersNumberWalls,q.numerWalls());
 
+
+    }
+
+    @Test
+    public void shouldBeEquals()throws QuoriPOOBException{
+        QuoriPOOB q1 = QuoriPOOB.getQuoriPOOB();
+        q1.setTwoPlayers();
+        q1.createPlayerHuman("Daniel", Color.BLUE);
+        q1.createPlayerHuman("Miguel", Color.ORANGE);
+        q1.createBoard(5, null);
+        q1.addWalls(3, 2, 0, 1);
+        
+        Board tablero = q1.getBoard();
+        //Player miguel = q1.getCurrentPlayer();
+
+        File copy = new File("./test/guardado.dat");
+        q1.saveFile(copy);
+        q1 = null;
+        QuoriPOOB q2 = QuoriPOOB.openFile(copy);
+        // Va a fallar porque el equals lo que hace es comprobar la direccion en memoria
+        assertEquals(tablero,q2.getBoard());
+        //assertEquals(miguel,q2.getCurrentPlayer());
+        
+        assertTrue(null == q1);
 
     }
 }

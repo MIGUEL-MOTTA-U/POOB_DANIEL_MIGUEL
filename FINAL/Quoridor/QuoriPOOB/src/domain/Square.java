@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * Create a square.
@@ -8,7 +9,7 @@ import java.awt.Color;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public abstract class Square {
+public abstract class Square implements Serializable{
     protected Board board;
     protected Token token;
     protected int row;

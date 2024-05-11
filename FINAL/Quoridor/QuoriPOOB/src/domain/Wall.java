@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.Color;
+import java.io.Serializable;
 
 /**
  * Create a wall.
@@ -8,7 +9,7 @@ import java.awt.Color;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public abstract class Wall {
+public abstract class Wall implements Serializable{
 	protected Board board;
 	protected Color color;
 	protected int initialRow;

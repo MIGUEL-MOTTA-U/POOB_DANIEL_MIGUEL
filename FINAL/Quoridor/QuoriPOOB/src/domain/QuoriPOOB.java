@@ -2,10 +2,19 @@ package domain;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
-public class QuoriPOOB {
+public class QuoriPOOB implements Serializable{
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private boolean onePlayer;
@@ -332,4 +341,42 @@ public class QuoriPOOB {
 	private boolean modeUndefined() {
 		return (!this.onePlayer && !this.twoPlayers);
 	}
+
+
+	/**
+     * Save the game in a file
+     * @param file  the file to save
+     */
+    public void saveFile(File file){
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+            out.writeObject("QuoriPOOB storage\n");
+            out.writeObject(this);
+            out.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /**
+     * Open a file given by the user
+     * @param file  the file to open
+     * @return  the garden saved in the file
+     * @throws QuoriPOOBException
+     */
+    public static QuoriPOOB openFile(File file) throws QuoriPOOBException{
+        QuoriPOOB quori = null;
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            String s = (String) in.readObject();
+            quori = (QuoriPOOB) in.readObject();
+            in.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return quori;
+    }
+	
 }

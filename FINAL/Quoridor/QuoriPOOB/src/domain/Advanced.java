@@ -2,7 +2,7 @@ package domain;
 
 import java.awt.Color;
 
-public class Advanced extends Machine{
+public class Advanced extends Machine {
 
     public Advanced(String name, Color color) {
         super(name, color);
