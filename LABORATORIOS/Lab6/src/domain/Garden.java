@@ -1,8 +1,10 @@
 package domain;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
@@ -205,7 +207,18 @@ public class Garden  implements Serializable {
      * @throws GardenException
      */
     public static Garden openFile(File file) throws GardenException{
-        return null;
+        Garden garden = null;
+
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+            String s = (String) in.readObject();
+            garden = (Garden) in.readObject();
+            in.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        return garden;
     }
 
     /**
@@ -229,7 +242,7 @@ public class Garden  implements Serializable {
             out.writeObject("Garden storage\n");
             out.writeObject(this);
             out.close();
-        } catch (IOException e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
         }
     }

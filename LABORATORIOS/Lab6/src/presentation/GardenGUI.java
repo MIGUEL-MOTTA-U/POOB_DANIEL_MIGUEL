@@ -139,7 +139,7 @@ public class GardenGUI extends JFrame{
         }
     }
     
-    private void optionSave(){
+    private void optionSave() {
         JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
