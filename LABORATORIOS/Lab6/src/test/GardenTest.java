@@ -1,9 +1,12 @@
 package test;
 import domain.*;
 import java.awt.Color;
+import java.io.File;
+
+import javax.sound.midi.Soundbank;
 
 import org.junit.*;
-
+import static org.junit.Assert.*;
 /**
  * The test class GardenTest.
  *
@@ -301,4 +304,91 @@ public class GardenTest{
             }
         }
     }
+
+    @Test 
+    public void shouldBeEqual1(){
+        assertTrue(garden.equals(new Garden()));
+    }
+
+    @Test 
+    public void shouldBeEqual2(){
+        Garden other = new Garden();
+        other.ticTac();
+        garden.ticTac();
+        other.ticTac();
+        garden.ticTac();
+        other.ticTac();
+        garden.ticTac();
+        assertTrue(garden.equals(other));
+    }
+    @Test 
+    public void shouldBeEqual3(){
+        Garden other = new Garden();
+        for(int i= 0; i < 100; i ++){
+            other.ticTac();
+            garden.ticTac();
+            assertTrue(garden.equals(other));
+        }
+        assertTrue(garden.equals(other));
+    }
+
+
+    @Test 
+    public void shouldBeEqual4(){
+        Garden other = new Garden();
+        other.setThing(4, 4, null);
+        garden.setThing(4,4,null);
+        assertTrue(garden.equals(other));
+    }
+
+    @Test 
+    public void shoulNotdBeEqual1(){
+        Garden other = new Garden();
+        other.ticTac();
+        assertFalse(garden.equals(other));
+    }
+
+    @Test 
+    public void shoulNotdBeEqual2(){
+        Garden other = new Garden();
+        other.setThing(4, 4, new Carnivorou(other,4,4));
+        assertFalse(garden.equals(other));
+    }
+
+    @Test 
+    public void shoulNotdBeEqual3(){
+        assertFalse(garden.equals(null));
+    }
+
+    @Test 
+    public void shouldSaveAndOpen1() throws GardenException{
+        File copy = new File("./test/input.dat");
+        garden.saveFile(copy);
+        Garden other = Garden.openFile(copy);
+        assertTrue(garden.equals(other));
+    }
+    @Test 
+    public void shouldSaveAndOpen2() throws GardenException{
+        File copy = new File("./test/input.dat");
+        garden.ticTac();
+        garden.ticTac();
+        garden.ticTac();
+        garden.saveFile(copy);
+        Garden other = Garden.openFile(copy);
+        assertTrue(garden.equals(other));
+    }
+    @Test 
+    public void shouldSaveAndOpen3() throws GardenException{
+        File copy = new File("./test/input.dat");
+        garden.saveFile(copy);
+        Garden other = Garden.openFile(copy);
+        garden.ticTac();
+        other.ticTac();
+        garden.ticTac();
+        other.ticTac();
+        garden.ticTac();
+        other.ticTac();
+        assertTrue(garden.equals(other));
+    }
+
 }

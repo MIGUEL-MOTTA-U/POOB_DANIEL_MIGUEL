@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.*;
-import java.util.random.RandomGenerator.LeapableGenerator;
+//import java.util.random.RandomGenerator.LeapableGenerator;
 
 import javax.swing.JOptionPane;
 import javax.swing.tree.VariableHeightLayoutCache;
@@ -336,12 +336,15 @@ public class Garden  implements Serializable {
      */
     public boolean equals(Garden g){
         boolean res = true;
-        
-        if(g.getThings().length == this.getThings().length) 
+        if(g == null) res = false;
+        if(g != null &&g.getThings().length == this.getThings().length) 
         {
             for(int i = 0; i < Garden.LENGTH;i++){
                 for(int j = 0; j < Garden.LENGTH;j++){
-                    if(!g.getThings()[i][j].equals(this.getThings()[i][j])) res = false;
+                    if(g.getThings()[i][j] != null){
+                        if(!g.getThings()[i][j].equals(this.getThings()[i][j])) res = false;
+                    }
+                    
                 }
             }
         }
