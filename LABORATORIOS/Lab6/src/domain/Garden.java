@@ -332,7 +332,7 @@ public class Garden  implements Serializable {
 
     /**
      * Method to check the equality between two gardens
-     * @return 
+     * @return the boolean
      */
     public boolean equals(Garden g){
         boolean res = true;

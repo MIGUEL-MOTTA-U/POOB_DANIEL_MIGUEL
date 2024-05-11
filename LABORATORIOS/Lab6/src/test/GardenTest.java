@@ -391,6 +391,14 @@ public class GardenTest{
         assertTrue(garden.equals(other));
     }
 
-    
+    @Test
+    public void shouldExportAndImport() throws GardenException{
+        File copy = new File("./test/input.txt");
+        garden.exportFile(copy);;
+        //Garden other = Garden.importFile(copy);
+        //assertTrue(garden.equals(other));
+    }
+
+
 
 }
