@@ -330,6 +330,9 @@ public class Garden implements Serializable {
             String line = bIn.readLine();
             while (line != null) {
                 String[] data = line.split("\\s+");
+                for (String string : data) {
+                    string = string.trim();
+                }
                 addThingToBoard(data, newGarden);
                 line = bIn.readLine();
             }
@@ -344,52 +347,36 @@ public class Garden implements Serializable {
     }
 
     private static void addThingToBoard(String[] data, Garden garden) {
-        for (String string : data) {
-            string = string.trim();
-        }
-
         int row = Integer.parseInt(data[1]);
         int column = Integer.parseInt(data[2]);
 
         if (data[0].equals("Null")) {
             garden.setThing(row, column, null);
-        } else if (data[0].equals("Water")) {
-            garden.setThing(row, column, createWater(data[0]));
         } else {
-            garden.setThing(row, column, createAgent(data[0], garden, row, column));
+            garden.setThing(row, column, createThing(data[0], garden, row, column));
         }
     }
 
-    private static Water createWater(String type) {
-        Water water = null;
+    private static Thing createThing(String type, Garden garden, int row, int column) {
+        Thing thing = null;
         type = "domain." + type;
-
+    
         try {
-			Class<?> cls = Class.forName(type);
-            Constructor<?> constructor = cls.getDeclaredConstructor();
-            constructor.setAccessible(true);
-            water = (Water) constructor.newInstance();
-		} catch (Exception e) {
+            Class<?> cls = Class.forName(type);
+            if (type.equals("domain.Water")) {
+                Constructor<?> constructor = cls.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                thing = (Thing) constructor.newInstance();
+            } else {
+                Constructor<?> constructor = cls.getDeclaredConstructor(Garden.class, int.class, int.class);
+                constructor.setAccessible(true);
+                thing = (Thing) constructor.newInstance(garden, row, column);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
-		}
-
-		return water;	
-    }
-
-    private static Agent createAgent(String type, Garden garden, int row, int column) {
-        Agent agent = null;
-        type = "domain." + type;
-
-        try {
-			Class<?> cls = Class.forName(type);
-            Constructor<?> constructor = cls.getDeclaredConstructor(Garden.class, int.class, int.class);
-            constructor.setAccessible(true);
-            agent = (Agent) constructor.newInstance(garden, row, column);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-        return agent;
+        }
+    
+        return thing;
     }
 
     /**
