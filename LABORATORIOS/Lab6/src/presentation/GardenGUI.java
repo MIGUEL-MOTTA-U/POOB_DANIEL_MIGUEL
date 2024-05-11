@@ -16,10 +16,6 @@ public class GardenGUI extends JFrame{
     private PhotoGarden photo;
     private Garden garden;
 
-    public void setGarden(Garden garden) {
-        this.garden = garden;
-    }
-
     // Menu
     private JMenuBar menuBar;
 	private JMenu fileMenu;
@@ -204,60 +200,7 @@ public class GardenGUI extends JFrame{
     public static void main(String[] args) {
         GardenGUI cg=new GardenGUI();
         cg.setVisible(true);
-        int opcion = JOptionPane.showConfirmDialog(null, "Desea ejecutar la prueba de aceptacion?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION){
-            
-            JOptionPane.showMessageDialog(null, "Se van a ejecutar 6 Tic-Tac", "6 Tic-Tac", JOptionPane.INFORMATION_MESSAGE);
-            for(int i= 0; i < 6 ; i++){
-                cg.getGarden().ticTac();
-                cg.repaint();
-                try {
-                    TimeUnit.SECONDS.sleep(1); // Esperar 1 segundo
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Por favor Guarde el archivo", "Guardar archivo", JOptionPane.INFORMATION_MESSAGE);
-            // Aqui deberia abrir el archivo
-            String rutaActual = System.getProperty("user.dir");
-            String path = rutaActual + File.separator + "prueba.dat";
-            
-            try {
-                // Crear un nuevo objeto File con la ruta completa
-                File archivo = new File(path);
-    
-                // Verificar si el archivo no existe
-                if (!archivo.exists()) {
-                    // Crear el nuevo archivo
-                    archivo.createNewFile();
-                    JOptionPane.showMessageDialog(null, "El archivo no existia asi que lo creamos.", "Creando archivo", JOptionPane.INFORMATION_MESSAGE);    
-                }
-                JOptionPane.showMessageDialog(null, path, "La ruta donde quedo", JOptionPane.INFORMATION_MESSAGE);
-                cg.getGarden().saveFile(archivo);
-                JOptionPane.showMessageDialog(null, "Ahora vamos a ejecutar otros 6 tic-tac luego de guardar el archivo", "Seguir Jugando", JOptionPane.INFORMATION_MESSAGE);
-                
-                for(int i= 0; i < 6 ; i++){
-                    cg.getGarden().ticTac();
-                    cg.repaint();
-                    try {
-                        TimeUnit.SECONDS.sleep(1); // Esperar 1 segundo
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } JOptionPane.showMessageDialog(null, "Ahora vamos a cargar el juego que creamos", "Abrir el juego", JOptionPane.INFORMATION_MESSAGE);
-                cg.setGarden(Garden.openFile(archivo));;
-                cg.repaint();
-                if (archivo != null && archivo.exists()) {
-                    archivo.delete();
-                    JOptionPane.showMessageDialog(null, "Cargamos el archivo de juego que se guardo", "Archivo cargado", JOptionPane.INFORMATION_MESSAGE);    
-                    JOptionPane.showMessageDialog(null, "Borramos el archivo", "Borrar archivo", JOptionPane.INFORMATION_MESSAGE);
-                }
-                JOptionPane.showConfirmDialog(null, "Es el comportamiento esperado?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
-            } catch (IOException|GardenException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
-                        }
-        } System.exit(0);
-    }  
+        }  
 }
 
 class PhotoGarden extends JPanel{
