@@ -41,7 +41,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "boardGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
@@ -50,15 +50,11 @@ public class QuoridorGUI extends JFrame {
         setLocationRelativeTo(null);
         prepareElementsMenu();
 
-        JPanel container = new JPanel();
+        JPanel container = new JPanel(new BorderLayout());
         createCardPanel();
 
-        SpringLayout calculator = new SpringLayout();
-        calculator.putConstraint(SpringLayout.HORIZONTAL_CENTER, cardPanel, 0, SpringLayout.HORIZONTAL_CENTER, container);
-        calculator.putConstraint(SpringLayout.VERTICAL_CENTER, cardPanel, 0, SpringLayout.VERTICAL_CENTER, container);
-
         container.add(cardPanel);
-        container.setLayout(calculator);
+
         add(container, BorderLayout.CENTER);
     }
 

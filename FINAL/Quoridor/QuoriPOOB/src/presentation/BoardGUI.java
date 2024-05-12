@@ -9,6 +9,7 @@ import java.net.URL;
 
 
 public class BoardGUI extends JPanel{
+    private static final Color BACKGROUND = new Color(250, 250, 250);
     private QuoridorGUI quoridorGUI;
 
     // Header
@@ -17,7 +18,6 @@ public class BoardGUI extends JPanel{
 	private JLabel labelTitle;
     
     // Board
-    private JPanel panelWest;
     private JPanel panelBoard;
 
     // Time and moves
@@ -40,8 +40,6 @@ public class BoardGUI extends JPanel{
 
     // Player 1
     private JPanel panelPlayer1;
-    private JPanel panelNamePlayer1;
-    private JPanel panelWallsPlayer1;
     private JLabel imagePlayer1;
     private JLabel labelNamePlayer1;
     private JLabel labelWallsPlayer1;
@@ -52,8 +50,6 @@ public class BoardGUI extends JPanel{
 
     // Player 2
     private JPanel panelPlayer2;
-    private JPanel panelNamePlayer2;
-    private JPanel panelWallsPlayer2;
     private JLabel imagePlayer2;
     private JLabel labelNamePlayer2;
     private JLabel labelWallsPlayer2;
@@ -71,23 +67,28 @@ public class BoardGUI extends JPanel{
     }
 
     private void prepareElements() {
+        setLayout(new BorderLayout());
+
         JPanel content = new JPanel(new BorderLayout());
-        content.setPreferredSize(QuoridorGUI.PREFERRED_DIMENSION);
 
         prepareElementsHeader(content);
+        prepareElementsBoard(content);
         prepareElementsEast(content);
+        prepareElementsSouth(content);
 
         add(content);
     }
 
     private void prepareElementsHeader(JPanel content) {
         panelNorth = new JPanel();
+        panelNorth.setBackground(BACKGROUND);
         panelNorth.setLayout(new BoxLayout(panelNorth, BoxLayout.Y_AXIS));
-        panelNorth.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
+        panelNorth.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
 
 		JPanel panelHeader = new JPanel();
+        panelHeader.setBackground(BACKGROUND);
         panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.X_AXIS));
-        panelHeader.setBorder(new EmptyBorder(50, 20, 20, 20));
+        panelHeader.setBorder(new EmptyBorder(20, 0, 20, 0));
 
 		imageGame = new JLabel();
 		imageGame.setSize(50, 50);
@@ -106,8 +107,10 @@ public class BoardGUI extends JPanel{
 
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel(new GridBagLayout());
-
+        panelEast.setBackground(BACKGROUND);
+        
         JPanel container = new JPanel();
+        container.setBackground(BACKGROUND);
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBorder(new EmptyBorder(0, 30, 0, 30));
         
@@ -121,6 +124,7 @@ public class BoardGUI extends JPanel{
 
     private JPanel prepareElementsTime() {
         panelTime = new JPanel(new GridBagLayout());
+        panelTime.setBackground(BACKGROUND);
         panelTime.setBorder(new RoundBorder(Color.BLACK, Color.WHITE, 20));
 
         JPanel container = new JPanel();
@@ -144,6 +148,7 @@ public class BoardGUI extends JPanel{
 
     private JPanel prepareElementsMove() {
         panelMoves = new JPanel(new GridLayout(3, 3));
+        panelMoves.setBackground(BACKGROUND);
         panelMoves.setBorder(new RoundBorder(Color.BLACK, Color.WHITE, 20));
 
         JPanel panelLeftUp = new JPanel(new GridBagLayout());
@@ -237,6 +242,126 @@ public class BoardGUI extends JPanel{
         return panelMoves;
     }
 
+    private void prepareElementsBoard(JPanel content) {
+        JPanel container = new JPanel(new BorderLayout());
+        container.setBackground(BACKGROUND);
+        container.setBorder(new EmptyBorder(30, 30, 30, 30));
+
+        panelBoard = new JPanel();
+        panelBoard.setBackground(Color.WHITE);
+        panelBoard.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+        container.add(panelBoard);
+        content.add(container, BorderLayout.CENTER);
+    }
+
+    private void prepareElementsSouth(JPanel content) {
+        panelSouth = new JPanel(new BorderLayout());
+        panelSouth.setBackground(BACKGROUND);
+        panelSouth.setBorder(new EmptyBorder(0, 30, 15, 30));
+
+        JPanel container = new JPanel(new GridLayout(1, 2));
+        container.setBackground(BACKGROUND);
+        container.setBorder(new RoundBorder(Color.BLACK, Color.WHITE, 20));
+
+        container.add(prepareElementsPlayer1());
+        container.add(prepareElementsPlayer2());
+        panelSouth.add(container, BorderLayout.CENTER);
+
+        content.add(panelSouth, BorderLayout.SOUTH);
+    }
+
+    private JPanel prepareElementsPlayer1() {
+        JPanel container = new JPanel(new GridBagLayout());
+        container.setBackground(Color.WHITE);
+
+        panelPlayer1 = new JPanel();
+        panelPlayer1.setBackground(Color.WHITE);
+        panelPlayer1.setLayout(new BoxLayout(panelPlayer1, BoxLayout.X_AXIS));
+        panelPlayer1.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        imagePlayer1 = new JLabel();
+        imagePlayer1.setSize(50, 50);
+        createImage(imagePlayer1, "assets/stopWatch.png");
+
+        labelNamePlayer1 = new JLabel("Daniel Diaz");
+        labelNamePlayer1.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
+
+        labelWallsPlayer1 = createLabel("Remaining walls: 2");
+        labelNormalWallsPlayer1 = createLabel("Normal: 2");
+        labelTemporaryWallsPlayer1 = createLabel("Temporary: 2");
+        labelLongWallsPlayer1 = createLabel("Long: 2");
+        labelAlliedWallsPlayer1 = createLabel("Allied: 2");
+
+        panelPlayer1.add(imagePlayer1);
+        panelPlayer1.add(Box.createHorizontalStrut(20));
+        panelPlayer1.add(prepareElemetsNamePlayer(labelNamePlayer1, labelWallsPlayer1));
+        panelPlayer1.add(Box.createHorizontalStrut(25));
+        panelPlayer1.add(prepareElementsWallsPlayer(labelNormalWallsPlayer1, labelTemporaryWallsPlayer1, labelLongWallsPlayer1, labelAlliedWallsPlayer1));
+        container.add(panelPlayer1);
+
+        return container;
+    }
+
+    private JPanel prepareElementsPlayer2() {
+        JPanel container = new JPanel(new GridBagLayout());
+        container.setBackground(Color.WHITE);
+
+        panelPlayer2 = new JPanel();
+        panelPlayer2.setBackground(Color.WHITE);
+        panelPlayer2.setLayout(new BoxLayout(panelPlayer2, BoxLayout.X_AXIS));
+        panelPlayer2.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        imagePlayer2 = new JLabel();
+        imagePlayer2.setSize(50, 50);
+        createImage(imagePlayer2, "assets/stopWatch.png");
+
+        labelNamePlayer2 = new JLabel("Miguel Motta");
+        labelNamePlayer2.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
+
+        labelWallsPlayer2 = createLabel("Remaining walls: 2");
+        labelNormalWallsPlayer2 = createLabel("Normal: 2");
+        labelTemporaryWallsPlayer2 = createLabel("Temporary: 2");
+        labelLongWallsPlayer2 = createLabel("Long: 2");
+        labelAlliedWallsPlayer2 = createLabel("Allied: 2");
+
+        panelPlayer2.add(imagePlayer2);
+        panelPlayer2.add(Box.createHorizontalStrut(20));
+        panelPlayer2.add(prepareElemetsNamePlayer(labelNamePlayer2, labelWallsPlayer2));
+        panelPlayer2.add(Box.createHorizontalStrut(25));
+        panelPlayer2.add(prepareElementsWallsPlayer(labelNormalWallsPlayer2, labelTemporaryWallsPlayer2, labelLongWallsPlayer2, labelAlliedWallsPlayer2));
+        container.add(panelPlayer2);
+
+        return container;
+    }
+
+    private JPanel prepareElemetsNamePlayer(JLabel playerName, JLabel playerWalls) {
+        JPanel content = new JPanel();
+        content.setBackground(Color.WHITE);
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        content.add(playerName);
+        content.add(playerWalls);
+
+        return content;
+    }
+
+    private JPanel prepareElementsWallsPlayer(JLabel normal, JLabel temporary, JLabel longW, JLabel allied) {
+        JPanel content = new JPanel();
+        content.setBackground(Color.WHITE);
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        content.add(normal);
+        content.add(Box.createVerticalStrut(5));
+        content.add(temporary);
+        content.add(Box.createVerticalStrut(5));
+        content.add(longW);
+        content.add(Box.createVerticalStrut(5));
+        content.add(allied);
+
+        return content;
+    }
+
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -258,6 +383,13 @@ public class BoardGUI extends JPanel{
         });
 
         return button;
+    }
+
+    private JLabel createLabel(String text) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 10));
+
+        return label;
     }
 
     private void prepareActions() {

@@ -36,8 +36,7 @@ public class GameModeGUI extends JPanel{
     }
 
     private void prepareElements() {
-        JPanel container = new JPanel(new GridBagLayout());
-        container.setPreferredSize(QuoridorGUI.PREFERRED_DIMENSION);
+        JPanel container = new JPanel();
 
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
