@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
+import static presentation.GardenGUI.*;
 import javax.sound.midi.Soundbank;
 import javax.swing.JOptionPane;
 
@@ -424,61 +424,59 @@ public class GardenTest{
         //assertTrue(garden.equals(other));
     }
     @Test
-    public void acceptanceTest(){
-        int opcion = JOptionPane.showConfirmDialog(null, "Desea ejecutar la prueba de aceptacion?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
-        if(opcion == JOptionPane.YES_OPTION){
-            
-            JOptionPane.showMessageDialog(null, "Se van a ejecutar 6 Tic-Tac", "6 Tic-Tac", JOptionPane.INFORMATION_MESSAGE);
-            for(int i= 0; i < 6 ; i++){
-                garden.ticTac();
-                
-                try {
-                    TimeUnit.SECONDS.sleep(1); // Esperar 1 segundo
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            JOptionPane.showMessageDialog(null, "Por favor Guarde el archivo", "Guardar archivo", JOptionPane.INFORMATION_MESSAGE);
-            // Aqui deberia abrir el archivo
-            String rutaActual = System.getProperty("user.dir");
-            String path = rutaActual + File.separator + "prueba.dat";
-            
-            try {
-                // Crear un nuevo objeto File con la ruta completa
-                File archivo = new File(path);
-    
-                // Verificar si el archivo no existe
-                if (!archivo.exists()) {
-                    // Crear el nuevo archivo
-                    archivo.createNewFile();
-                    JOptionPane.showMessageDialog(null, "El archivo no existia asi que lo creamos.", "Creando archivo", JOptionPane.INFORMATION_MESSAGE);    
-                }
-                JOptionPane.showMessageDialog(null, path, "La ruta donde quedo", JOptionPane.INFORMATION_MESSAGE);
-                garden.saveFile(archivo);
-                JOptionPane.showMessageDialog(null, "Ahora vamos a ejecutar otros 6 tic-tac luego de guardar el archivo", "Seguir Jugando", JOptionPane.INFORMATION_MESSAGE);
-                
-                for(int i= 0; i < 6 ; i++){
-                    garden.ticTac();
-                    
-                    try {
-                        TimeUnit.SECONDS.sleep(1); // Esperar 1 segundo
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } JOptionPane.showMessageDialog(null, "Ahora vamos a cargar el juego que creamos", "Abrir el juego", JOptionPane.INFORMATION_MESSAGE);
-                
-                if (archivo != null && archivo.exists()) {
-                    archivo.delete();
-                    JOptionPane.showMessageDialog(null, "Cargamos el archivo de juego que se guardo", "Archivo cargado", JOptionPane.INFORMATION_MESSAGE);    
-                    JOptionPane.showMessageDialog(null, "Borramos el archivo", "Borrar archivo", JOptionPane.INFORMATION_MESSAGE);
-                }
-                JOptionPane.showConfirmDialog(null, "Es el comportamiento esperado?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
-            } catch (IOException|GardenException e) {
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
-                        }
+    public void acceptanceTestSaveAndOpen() throws InterruptedException{
+        JOptionPane.showMessageDialog(null, "Se va a abrir la interfaz de juego", "INICIO", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Por favor de unos clicks en tic-tac y luego guarde el archivo", "Guardar", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Despues, haga unos clicks mas y abra el juego que guardo", "Abrir", JOptionPane.INFORMATION_MESSAGE);
+        main(null);
+        Thread.sleep(15000);
+        int res = JOptionPane.showConfirmDialog(null, "Ya guardo el archivo y lo abrio?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
+        while (res!= JOptionPane.YES_OPTION) {
+            Thread.sleep(18000);
+            res = JOptionPane.showConfirmDialog(null, "Ya guardo el archivo y lo abrio?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
         }
-    
+        Thread.sleep(2000);
+        
+        JOptionPane.showConfirmDialog(null, "El juego se guardo y cargo correctamente?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showConfirmDialog(null, "Si presento algun problema, pudo ver el motivo?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        
     }
-    
 
+    @Test
+    public void acceptanceTestImportAndExport() throws InterruptedException{
+        JOptionPane.showMessageDialog(null, "Se va a abrir la interfaz de juego", "INICIO", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Por favor de unos clicks en tic-tac y luego exporte el archivo", "IMPORTAR", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Despues, de unos clicks mas importe el juego que exporto", "EXPORTAR", JOptionPane.INFORMATION_MESSAGE);
+        main(null);
+        Thread.sleep(15000);
+        int res = JOptionPane.showConfirmDialog(null, "Ya guardo el archivo y lo importo?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
+        while (res!= JOptionPane.YES_OPTION) {
+            Thread.sleep(18000);
+            res = JOptionPane.showConfirmDialog(null, "Ya guardo el archivo y lo importo?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
+        }
+        Thread.sleep(2000);
+        
+        JOptionPane.showConfirmDialog(null, "El juego se guardo y cargo correctamente?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showConfirmDialog(null, "Si presento algun problema, pudo ver el motivo?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        
+    }
+
+    @Test
+    public void acceptanceTestExceptions() throws InterruptedException{
+        JOptionPane.showMessageDialog(null, "Se va a abrir la interfaz de juego", "INICIO", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Por favor de unos clicks en tic-tac y luego exporte el juego en un archivo", "IMPORTAR Ok", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Despues, de unos clicks pero intente importar el juego de un archivo no compatible", "EXPORTAR No OK", JOptionPane.INFORMATION_MESSAGE);
+        main(null);
+        Thread.sleep(15000);
+        int res = JOptionPane.showConfirmDialog(null, "Ya intento importar el archivo incompatible?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
+        while (res!= JOptionPane.YES_OPTION) {
+            Thread.sleep(18000);
+            res = JOptionPane.showConfirmDialog(null, "Ya intento importar el archivo incompatible?", "Tiempo de Espera", JOptionPane.YES_NO_OPTION);
+        }
+        Thread.sleep(2000);
+        
+        JOptionPane.showConfirmDialog(null, "El juego se guardo y cargo correctamente?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        JOptionPane.showConfirmDialog(null, "Si presento algun problema, pudo ver el motivo del fallo?", "Confirmacion prueba de aceptacion", JOptionPane.YES_NO_OPTION);
+        
+    }
 }
