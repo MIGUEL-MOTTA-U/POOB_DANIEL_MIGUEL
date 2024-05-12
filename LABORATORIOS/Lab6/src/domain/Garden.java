@@ -455,18 +455,23 @@ public class Garden implements Serializable {
         return newGarden;
     }
 
-    private static void addThingToBoard(String[] data, Garden garden) {
-        int row = Integer.parseInt(data[1]);
-        int column = Integer.parseInt(data[2]);
-
-        if (data[0].equals("Null")) {
-            garden.setThing(row, column, null);
-        } else {
-            garden.setThing(row, column, createThing(data[0], garden, row, column));
+    private static void addThingToBoard(String[] data, Garden garden) throws GardenException{
+        try {
+            int row = Integer.parseInt(data[1]);
+            int column = Integer.parseInt(data[2]);
+            
+            if (data[0].equals("Null")) {
+                garden.setThing(row, column, null);
+            } else {
+                garden.setThing(row, column, createThing(data[0], garden, row, column));
+            }
+        } catch (NumberFormatException e) {
+            throw new GardenException(GardenException.NUMBER_ERROR);
         }
+
     }
 
-    private static Thing createThing(String type, Garden garden, int row, int column) {
+    private static Thing createThing(String type, Garden garden, int row, int column) throws GardenException{
         Thing thing = null;
         type = "domain." + type;
     
@@ -490,7 +495,7 @@ public class Garden implements Serializable {
         } catch (IllegalAccessException e) {
             throw new GardenException(GardenException.CONSTRUCTOR_ACCESS_FOUND(type));
         } catch (IllegalArgumentException e) {
-            throw new GardenException(GardenException.);
+            throw new GardenException(GardenException.ILLEGAL_ARGUMENT(type));
         } catch (InvocationTargetException e) {
             throw new GardenException(GardenException.INVOCATION_ERROR(type));
         }

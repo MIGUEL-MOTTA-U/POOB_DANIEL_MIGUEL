@@ -3,6 +3,7 @@ package domain;
 public class GardenException extends Exception {
     public static final String CLASS_NOT_FOUND = "No se pudo encontrar la clase necesaria para deserializar el objeto";
     public static final String FILE_NULL = "El archivo proporcionado es nulo";
+    public static final String NUMBER_ERROR = "No se puede convertir la cadena a numero";
 
     public GardenException(String message) {
         super(message);
