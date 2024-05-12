@@ -7,6 +7,7 @@ import domain.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.util.HashMap;
 
 public class QuoridorGUI extends JFrame {
     public static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.6);
@@ -46,7 +47,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "startGUI");
+        cardLayout.show(cardPanel, "setUpGameGUI");
     }
 
     private void prepareElements() {
@@ -205,6 +206,10 @@ public class QuoridorGUI extends JFrame {
 
     public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
         quoriPOOB.createPlayerHuman(name, color);
+    }
+
+    public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
+        quoriPOOB.createBoard(size, specialSquares);
     }
 
     public static void main(String args[]) {

@@ -6,11 +6,17 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import java.util.*;
 
 public class SetUpGameGUI extends JPanel{
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
 
     private QuoridorGUI quoridorGUI;
+    private ArrayList<JTextField[]> normalPositions;
+    private ArrayList<JTextField[]> teleporterPositions;
+    private ArrayList<JTextField[]> returnPositions;
+    private ArrayList<JTextField[]> doubleTurnPositions;
+    HashMap<String, int[][]> specialSquares;
 
     // West
     private JPanel panelWest;
@@ -42,6 +48,11 @@ public class SetUpGameGUI extends JPanel{
 
     public SetUpGameGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
+        normalPositions = new ArrayList<>();
+        teleporterPositions = new ArrayList<>();
+        returnPositions = new ArrayList<>();
+        doubleTurnPositions = new ArrayList<>();
+        specialSquares = new HashMap<>();
         prepareElements();
         prepareActions();
         setVisible(true);
@@ -218,21 +229,31 @@ public class SetUpGameGUI extends JPanel{
         return container;
     }
 
-    private void showPositionsDialog(int quantity) {
-        JPanel panel = new JPanel(new GridLayout(quantity, 1));
+    private void showPositionsDialog(int quantity, JButton button) {
+        String type = getTypeFromButton(button);
+        
+        boolean success = false;
+        do {
+            JPanel panel = new JPanel(new GridLayout(quantity, 1));
 
-        for (int i = 0; i < quantity; i++) {
-            panel.add(createPositionsDialog());
-        }
+            for (int i = 0; i < quantity; i++) {
+                panel.add(createPositionsDialog(type));
+            }
+    
+            int result = JOptionPane.showConfirmDialog(this, panel, "Enter Positions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+    
+            if (result == JOptionPane.OK_OPTION) {
+                int[][] squares = createSpecialSquares(type);
 
-        int result = JOptionPane.showConfirmDialog(this, panel, "Enter Positions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-
-        }
+                if (squares != null) {
+                    specialSquares.put(type, squares);
+                    success = true;
+                }
+            }   
+        } while (!success);
     }
 
-    private JPanel createPositionsDialog() {
+    private JPanel createPositionsDialog(String type) {
         JPanel container = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
         JTextField textRow = new JTextField();
@@ -243,6 +264,8 @@ public class SetUpGameGUI extends JPanel{
 
         JLabel labelRow = new JLabel("Row: ");
         JLabel labelColumn = new JLabel("Column: ");
+
+        addPositions(type, textRow, textColumn);
 
         container.add(labelRow);
         container.add(textRow);
@@ -324,12 +347,12 @@ public class SetUpGameGUI extends JPanel{
                 try {
                     int quantity = getQuantity(quantityString);
                     if (quantity > 0) {
-                        showPositionsDialog(quantity);
+                        showPositionsDialog(quantity, sourceButton);
                     } else {
-                        JOptionPane.showMessageDialog(null, "Please enter a positive number for the quantity of squares.", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "You must enter a positive number", "Invalid number", JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number for the quantity of squares.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
@@ -341,11 +364,19 @@ public class SetUpGameGUI extends JPanel{
 
         buttonNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.showBoardGUI();
+                if (!emptyInfo()) {
+                    String stringSize = textBoardSize.getText();
+                    try {
+                        int size = Integer.parseInt(stringSize);
+                        quoridorGUI.showBoardGUI();
+                    } catch (NumberFormatException e) {
+                        JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+
             }
         });
     }
-
 
     private void createImage(JLabel label, String path) {
 		URL url = getClass().getResource(path);
@@ -359,5 +390,106 @@ public class SetUpGameGUI extends JPanel{
 
     private int getQuantity(String text) throws NumberFormatException {
         return Integer.parseInt(text);
+    }
+
+    private boolean emptyInfo() {
+        boolean empty = false;
+        if (textBoardSize.getText().equals("Board size")) {
+            JOptionPane.showMessageDialog(null, "You must enter the size of the board", "Board size not entered", JOptionPane.INFORMATION_MESSAGE);
+            empty = true;
+        }
+
+        return empty;
+    }
+
+    private String getTypeFromButton(JButton button) {
+        if (button == buttonPositionNormal) {
+            return "Normal";
+        } else if (button == buttonPositionTeleporter) {
+            return "Teleporter";
+        } else if (button == buttonPositionReturn) {
+            return "Return";
+        } else if (button == buttonPositionDoubleTurn) {
+            return "DoubleTurn";
+        } else {
+            return null;
+        }
+    }
+
+    private void addPositions(String type, JTextField row, JTextField column) {
+        JTextField[] textPositions = new JTextField[2];
+        textPositions[0] = row;
+        textPositions[1] = column;
+
+        switch (type) {
+            case "Normal":
+                normalPositions.add(textPositions);
+                break;
+            case "Teleporter":
+                teleporterPositions.add(textPositions);
+                break;
+            case "Return":
+                returnPositions.add(textPositions);
+                break;
+            case "DoubleTurn":
+                doubleTurnPositions.add(textPositions);
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private int[][] createSpecialSquares(String type) {
+        ArrayList<JTextField[]> positions = null;
+
+        switch (type) {
+            case "Normal":
+                positions = normalPositions;
+                break;
+            case "Teleporter":
+                positions = teleporterPositions;
+                break;
+            case "Return":
+                positions = returnPositions;
+                break;
+            case "DoubleTurn":
+                positions = doubleTurnPositions;
+                break;
+            default:
+                break;
+        }
+
+        if (positions != null) {
+            int[][] squares = new int[positions.size()][2];
+            int i = 0;
+            try {
+                for (JTextField[] position : positions) {
+                    squares[i][0] = Integer.parseInt(position[0].getText());
+                    squares[i][1] = Integer.parseInt(position[1].getText());
+                    i++;
+                }
+                return squares;
+            } catch (NumberFormatException e) {
+                switch (type) {
+                    case "Normal":
+                        normalPositions.clear();
+                        break;
+                    case "Teleporter":
+                        teleporterPositions.clear();
+                        break;
+                    case "Return":
+                        returnPositions.clear();
+                        break;
+                    case "DoubleTurn":
+                        doubleTurnPositions.clear();
+                        break;
+                    default:
+                        break;
+                }
+                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid number", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+        return null;
     }
 }
