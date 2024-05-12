@@ -1,7 +1,8 @@
 package domain;
 
 public class GardenException extends Exception {
-    
+    public static final String CLASS_NOT_FOUND = "No se pudo encontrar la clase necesaria para deserializar el objeto";
+    public static final String FILE_NULL = "El archivo proporcionado es nulo";
 
     public GardenException(String message) {
         super(message);
@@ -16,6 +17,10 @@ public class GardenException extends Exception {
     }
 
     public static final String SAVE_FILE_ERROR(String fileName) {
+        return "Error al guardar el archivo: " + fileName;
+    }
+
+    public static final String OPEN_FILE_ERROR(String fileName) {
         return "Error al abrir el archivo: " + fileName;
     }
 }

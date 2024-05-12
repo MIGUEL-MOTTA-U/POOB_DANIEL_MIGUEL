@@ -278,9 +278,12 @@ public class Garden implements Serializable {
             out.writeObject("Garden storage\n");
             out.writeObject(this);
             out.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo",
-                    JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        } catch (IOException e) {
+            throw new GardenException(GardenException.SAVE_FILE_ERROR(file.getName()));
+        } catch (NullPointerException e) {
+            throw new GardenException(GardenException.FILE_NULL);
         }
     }
 
@@ -299,8 +302,14 @@ public class Garden implements Serializable {
             String s = (String) in.readObject();
             garden = (Garden) in.readObject();
             in.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        } catch (IOException e) {
+            throw new GardenException(GardenException.OPEN_FILE_ERROR(file.getName()));
+        } catch (ClassNotFoundException e) {
+            throw new GardenException(GardenException.CLASS_NOT_FOUND);
+        } catch (NullPointerException e) {
+            throw new GardenException(GardenException.FILE_NULL);
         }
 
         return garden;
