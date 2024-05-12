@@ -639,63 +639,8 @@ public class Quopripoobvi {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()==null);
     }
 
-    /*
-     * 
-     * 
-     * 
-     * @Test
-     * public void shouldKnowWhenSomeoneWonTheGame(){
-     * fail();
-     * }
-     * 
-     * 
-     * 
-     * @Test
-     * public void shouldNotBlockThePassageOfAPlayer(){
-     * fail();
-     * }
-     * 
-     * @Test
-     * public void shouldMeetNormalBarrierConditions(){
-     * fail();
-     * }
-     * 
-     * 
-     * 
-     * @Test
-     * public void shouldMeetLongBarrierConditions(){
-     * fail();
-     * }
-     * 
-     * @Test
-     * public void shouldMeetAlliedBarrierConditions(){
-     * fail();
-     * }
-     * 
-     * @Test
-     * public void shouldNotMoveDiagonallyAPawnIfItsNotPossible(){
-     * fail();
-     * }
-     * 
 
-     * 
-     * 
-     * @Test
-     * public void shouldNotMoveAPawnOverAPawnIfItsNotPossible(){
-     * fail();
-     * }
-     * 
-     * --> Borra este -->
-     */
-    // /**
-    // * Tears down the test fixture.
-    // *
-    // * Called after every test case method.
-    // */
-    // @After
-    // public void tearDown()
-    // {
-    // }
+    
 }
 
 
