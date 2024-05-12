@@ -13,6 +13,7 @@ import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.security.Principal;
 import java.util.*;
 //import java.util.random.RandomGenerator.LeapableGenerator;
@@ -342,7 +343,7 @@ public class Garden implements Serializable {
      * @param file the file to export
      * @throws GardenException
      */
-    public void exportFile(File file) throws GardenException {
+    public void exportFile01(File file) throws GardenException {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(file));
             for (int row = 0; row < LENGTH; row++) {
@@ -371,7 +372,7 @@ public class Garden implements Serializable {
      * @return the garden saved in the file
      * @throws GardenException
      */
-    public static Garden importFile(File file) throws GardenException {
+    public static Garden importFile01(File file) throws GardenException {
         Garden newGarden = new Garden();
 
         try {
@@ -390,6 +391,65 @@ public class Garden implements Serializable {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error al importar el archivo",
                     JOptionPane.ERROR_MESSAGE);
+        }
+
+        return newGarden;
+    }
+
+    /**
+     * Export a file
+     * 
+     * @param file the file to export
+     * @throws GardenException
+     */
+    public void exportFile(File file) throws GardenException {
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file));
+            for (int row = 0; row < LENGTH; row++) {
+                for (int column = 0; column < LENGTH; column++) {
+                    if (garden[row][column] != null) {
+                        String type = garden[row][column].getClass().getSimpleName();
+                        pw.println(type + " " + row + " " + column);
+                    } else {
+                        pw.println("Null" + " " + row + " " + column);
+                    }
+                }
+            }
+
+            pw.close();
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        }
+
+    }
+
+    /**
+     * Import a file
+     * 
+     * @param file the file to import
+     * @return the garden saved in the file
+     * @throws GardenException
+     */
+    public static Garden importFile(File file) throws GardenException {
+        Garden newGarden = new Garden();
+
+        try {
+            BufferedReader bIn = new BufferedReader(new FileReader(file));
+            String line = bIn.readLine();
+            while (line != null) {
+                String[] data = line.split("\\s+");
+                for (String string : data) {
+                    string = string.trim();
+                }
+                addThingToBoard(data, newGarden);
+                line = bIn.readLine();
+            }
+
+            bIn.close();
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        } catch (IOException e) {
+            throw new GardenException(GardenException.IMPORT_FILE_ERROR(file.getName()));
         }
 
         return newGarden;
@@ -421,8 +481,18 @@ public class Garden implements Serializable {
                 constructor.setAccessible(true);
                 thing = (Thing) constructor.newInstance(garden, row, column);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        }  catch (ClassNotFoundException e) {
+            throw new GardenException(GardenException.CLASS_NOT_FOUND(type));
+        } catch (NoSuchMethodException e) {
+            throw new GardenException(GardenException.CONSTRUCTOR_NOT_FOUND(type));
+        } catch (InstantiationException e) {
+            throw new GardenException(GardenException.INSTANTIATION_ERROR(type));
+        } catch (IllegalAccessException e) {
+            throw new GardenException(GardenException.CONSTRUCTOR_ACCESS_FOUND(type));
+        } catch (IllegalArgumentException e) {
+            throw new GardenException(GardenException.);
+        } catch (InvocationTargetException e) {
+            throw new GardenException(GardenException.INVOCATION_ERROR(type));
         }
     
         return thing;
