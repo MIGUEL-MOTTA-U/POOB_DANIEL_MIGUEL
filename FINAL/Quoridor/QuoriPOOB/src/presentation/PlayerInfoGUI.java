@@ -3,12 +3,15 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import domain.QuoriPOOBException;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 
 public class PlayerInfoGUI extends JPanel{
     private QuoridorGUI quoridorGUI;
+    private Color playerColor;
 
     // West
     private JPanel panelWest;
@@ -158,14 +161,30 @@ public class PlayerInfoGUI extends JPanel{
     private void prepareActionsButtons() {
         buttonColor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                JColorChooser chooser = new JColorChooser();
-                Color playerColor = chooser.showDialog(PlayerInfoGUI.this, "Select a color", Color.BLUE);
+                playerColor = JColorChooser.showDialog(PlayerInfoGUI.this, "Select a color", Color.BLUE);
             }
         });
 
         buttonNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.showSetUpGameGUI();
+                if (playerColor == null) {
+                    JOptionPane.showMessageDialog(null, "You have to choose your color", "color not selected", JOptionPane.INFORMATION_MESSAGE);
+                }  else if (textName.getText().equals("Name")) {
+                    JOptionPane.showMessageDialog(null, "You must enter your name", "name not entered", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    try {
+                        quoridorGUI.createPlayerHuman(textName.getText(), playerColor);
+                        if (quoridorGUI.twoPlayers() & !quoridorGUI.getPlayerTwo()) {
+                            quoridorGUI.setPlayerTwo();
+                            restart();
+                            quoridorGUI.showPlayerInfoGUI();
+                        } else {
+                            quoridorGUI.showSetUpGameGUI();
+                        }
+                    } catch (QuoriPOOBException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
     }
@@ -179,4 +198,9 @@ public class PlayerInfoGUI extends JPanel{
         	label.setVerticalAlignment(SwingConstants.CENTER);
 		}
 	}
+
+    private void restart() {
+        textName.setText("Name");
+        playerColor = null;
+    }
 }

@@ -286,6 +286,15 @@ public class QuoriPOOB implements Serializable{
 		return board.getPlayerPlaying();
 	}
 
+	public boolean twoPlayers() {
+		boolean check = false;
+		if (this.twoPlayers) {
+			check = true;
+		}
+		
+		return check;
+	}
+
 	public void resetSingleton() {
 		quoriPOOBSingleton = null;
 	}

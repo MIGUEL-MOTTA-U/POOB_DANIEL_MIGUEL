@@ -21,6 +21,7 @@ public class QuoridorGUI extends JFrame {
     public static final String FONT_TEXT = "Candara";
 
     private QuoriPOOB quoriPOOB = QuoriPOOB.getQuoriPOOB();
+    private boolean playerTwo = false;
 
     // CardLayout
     private CardLayout cardLayout;
@@ -165,6 +166,19 @@ public class QuoridorGUI extends JFrame {
         cardLayout.show(cardPanel, "setUpGameGUI");
     }
 
+    public void setPlayerTwo() {
+        this.playerTwo = true;
+    }
+
+    public boolean getPlayerTwo() {
+        return this.playerTwo;
+    }
+
+    // Controlador
+    public boolean twoPlayers() {
+        return quoriPOOB.twoPlayers();
+    }
+
     public void showBoardGUI() {
         cardLayout.show(cardPanel, "boardGUI");
     }
@@ -187,6 +201,10 @@ public class QuoridorGUI extends JFrame {
 
     public void createAdvancedMachine() throws QuoriPOOBException {
         quoriPOOB.createPlayerMachine(Color.RED, "domain.Advanced");
+    }
+
+    public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+        quoriPOOB.createPlayerHuman(name, color);
     }
 
     public static void main(String args[]) {
