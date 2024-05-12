@@ -1,11 +1,11 @@
 package presentation;
 import domain.*;
 
+import java.awt.Color;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.concurrent.TimeUnit;
 
 public class GardenGUI extends JFrame{  
     public static final int SIDE=21;
@@ -200,7 +200,7 @@ public class GardenGUI extends JFrame{
     public static void main(String[] args) {
         GardenGUI cg=new GardenGUI();
         cg.setVisible(true);
-        }  
+    }  
 }
 
 class PhotoGarden extends JPanel{
