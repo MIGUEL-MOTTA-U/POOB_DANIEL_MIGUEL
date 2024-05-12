@@ -1285,17 +1285,6 @@ public class QuoriPOOBTest {
         assertEquals(q.getWinner(), null);
     }
 
-    @Test
-    public void shouldNotMoveMachinePlayer()throws QuoriPOOBException{
-        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setOnePlayer();
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
-        q.createBoard(5, null);
-        q.addWalls(3, 2, 0, 1);
-        q.moveToken("DOWN");
-        
-
-    }
+    
     
 }

@@ -14,6 +14,8 @@ public class Beginner extends Machine{
         
     }
 
-    
-    
+    @Override
+    public void play(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+        play(null);
+    }
 }

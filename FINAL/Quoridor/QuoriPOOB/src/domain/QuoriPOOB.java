@@ -212,7 +212,8 @@ public class QuoriPOOB implements Serializable{
 			throws QuoriPOOBException {
 		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		Player player = getCurrentPlayer();
-		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
+		player.play(type, initialRow, initialColumn, squareSide);
+		if(getCurrentPlayer() instanceof Machine) moveToken(null);
 	}
 
 	/**

@@ -97,7 +97,7 @@ public abstract class Player implements Serializable{
         }
 
     }
-	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+	protected void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
         if(!numberWalls().containsKey(type)) throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
         if (numberWalls().get(type) <= 0) throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
 
@@ -117,8 +117,8 @@ public abstract class Player implements Serializable{
 	
 	// Abstract Methods
 	public abstract void play(String direction) throws QuoriPOOBException;
-	//public abstract void moveToken(String direction)throws QuoriPOOBException;
-
+	public abstract void play(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException;
+	
 
 	// Getters and Setters
 	public String getName(){

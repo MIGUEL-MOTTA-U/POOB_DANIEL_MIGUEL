@@ -13,5 +13,9 @@ public class Intermediate extends Machine{
         moveToken(direction);
     }
 
+    @Override
+    public void play(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+        play(null);
+    }
     
 }

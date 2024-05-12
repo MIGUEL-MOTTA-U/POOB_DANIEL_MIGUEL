@@ -16,7 +16,9 @@ public class Advanced extends Machine {
     }
 
     @Override
-    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide){
-		
-	}
+    public void play(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+        play(null);
+    }
+
+
 }
