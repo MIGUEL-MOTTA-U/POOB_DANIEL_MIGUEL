@@ -22,6 +22,10 @@ public class QuoriPOOB implements Serializable{
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
+	private boolean gameOver;
+	private Player winner;
+
+	
 
 	private QuoriPOOB() {
 		this.players = new LinkedHashMap<>(2);
@@ -29,6 +33,7 @@ public class QuoriPOOB implements Serializable{
 		this.board = null;
 		this.onePlayer = false;
 		this.twoPlayers = false;
+		this.gameOver = false;
 	}
 
 	public static QuoriPOOB getQuoriPOOB() {
@@ -92,6 +97,7 @@ public class QuoriPOOB implements Serializable{
 	 *                            parameters.
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		if(name == null) throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
 		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
@@ -124,6 +130,8 @@ public class QuoriPOOB implements Serializable{
 	 *                            there are two players already.
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		
 		if(type == null) throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
 		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
@@ -167,6 +175,8 @@ public class QuoriPOOB implements Serializable{
 	 *                            a Board created, also if the parameters are wrong.
 	 */
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.board == null)
@@ -200,6 +210,7 @@ public class QuoriPOOB implements Serializable{
 	 */
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
 			throws QuoriPOOBException {
+		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 	}
@@ -212,13 +223,26 @@ public class QuoriPOOB implements Serializable{
 	 *                            wrong or the action is not possible.
 	 */
 	public void moveToken(String direction) throws QuoriPOOBException {
+		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		Player player = getCurrentPlayer();
-		player.moveToken(direction);
+		player.play(direction);
+		if(player.checkWin()) finishGame(player);
+		if(getCurrentPlayer() instanceof Machine) moveToken(null);
+	}
+
+	/*
+	 * Finish the game by throwing the GAME_OVER exception and setting the winner player of QuoriPOOB
+	 */
+	private void finishGame(Player p)throws QuoriPOOBException{
+		// Finalizar el juego ()
+		gameOver = true;
+		winner = p;
+		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(p.getName()));
 	}
 
 	// Getters and Setters
 
-	public void setTime() {
+	public void setTime() throws QuoriPOOBException{
 		// if (gameMode.toUpperCase().equals(board)) {
 		// }
 	}
@@ -278,6 +302,14 @@ public class QuoriPOOB implements Serializable{
 	}
 
 	/**
+	 * The winner player
+	 * @return the winner player
+	 */
+	public Player getWinner() {
+		return winner;
+	}
+
+	/**
 	 * Returns the player that is actually playing.
 	 * 
 	 * @return The player that has the turn to play.
@@ -296,7 +328,25 @@ public class QuoriPOOB implements Serializable{
 	}
 
 	public void resetSingleton() {
+		if(quoriPOOBSingleton != null){
+			quoriPOOBSingleton.resetAll();
+		}
 		quoriPOOBSingleton = null;
+	}
+
+	private void resetAll(){
+		this.onePlayer = false;
+		this.twoPlayers = false;
+		this.gameOver=false;
+		
+		this.players.clear();
+		this.players = null;
+		
+		this.tokens.clear();
+		this.tokens = null;
+		
+		this.board=null;
+		this.winner=null;
 	}
 
 	/*

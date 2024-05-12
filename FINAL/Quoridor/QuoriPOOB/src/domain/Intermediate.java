@@ -9,12 +9,9 @@ public class Intermediate extends Machine{
     }
 
     @Override
-    public void moveToken(String direction) {
-        // Mover con algoritmo de dificultad media y poner puentes
+    public void play(String direction) throws QuoriPOOBException{
+        moveToken(direction);
     }
 
-    @Override
-    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide){
-        
-	}
+    
 }

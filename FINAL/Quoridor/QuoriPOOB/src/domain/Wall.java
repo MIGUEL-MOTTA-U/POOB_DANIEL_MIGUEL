@@ -174,7 +174,7 @@ public abstract class Wall implements Serializable{
 				return initialRow >= (board.getSize() - 1);
 			case "DOWN":
 				return initialColumn >= (board.getSize() - 1);
-			case "RIGHT":
+			case "RIGHT": 
 				return initialRow >= (board.getSize() - 1);
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);

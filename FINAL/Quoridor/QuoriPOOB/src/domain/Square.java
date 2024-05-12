@@ -293,6 +293,10 @@ public abstract class Square implements Serializable{
         this.wallDown = wallDown;
     }
 
+    public boolean checkWin(){
+        return (row==0)?(wallUp == null):(wallDown==null);
+    }
+
     /**
      * return the token that is on the square
      * 

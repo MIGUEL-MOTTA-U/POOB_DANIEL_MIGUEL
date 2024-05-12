@@ -32,6 +32,11 @@ public class Board implements Serializable{
 		createNormalSquares();
 	}
 
+	public boolean checkWin(Color colorPlayer){
+		Token tokenPlayer = tokens.get(colorPlayer);
+		return tokenPlayer.checkWin();
+	}
+
 	public void setPlayers(LinkedHashMap<Color, Player> players) {
 		this.players = players;
 		this.playerPlaying = this.players.entrySet().iterator().next().getValue();
@@ -40,6 +45,7 @@ public class Board implements Serializable{
 	public void setTokens(LinkedHashMap<Color, Token> tokens) throws QuoriPOOBException {
 		this.tokens = tokens;
 		setTokensToBoard();
+		
 	}
 
 	public void addWallToBoard(Wall wall) {
@@ -370,13 +376,13 @@ public class Board implements Serializable{
 		boolean assignToken1 = false;
 		for (Token token : this.tokens.values()) {
 			if (!assignToken1) {
-				token.setInitialRow(0);
+				token.setInitialRow(0,size-1);
 				token.setInitialColumn(position);
 				token.setSquare(squareToken1);
 				squareToken1.setToken(token);
 				assignToken1 = true;
 			} else {
-				token.setInitialRow(this.size - 1);
+				token.setInitialRow(this.size - 1,size-1);
 				token.setInitialColumn(position);
 				token.setSquare(squareToken2);
 				squareToken2.setToken(token);

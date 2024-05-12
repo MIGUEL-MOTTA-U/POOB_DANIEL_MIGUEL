@@ -11,10 +11,15 @@ public class Token implements Serializable{
     private int row;
     private int column;
     private ArrayList<int[]> lastMovements;
+    private int destiny;
 
     public Token(Color color) {
         this.color = color;
         lastMovements = new ArrayList<>();
+    }
+
+    public boolean checkWin(){
+        return (destiny == row)&&(square.checkWin());
     }
 
     public void setBoard(Board board) {
@@ -25,8 +30,9 @@ public class Token implements Serializable{
         this.square = square;
     }
 
-    public void setInitialRow(int initialRow) {
+    public void setInitialRow(int initialRow, int lastRow) {
         this.row = initialRow;
+        this.destiny = (initialRow == 0) ? lastRow : 0;
     }
 
     public void setInitialColumn(int initialColumn) {

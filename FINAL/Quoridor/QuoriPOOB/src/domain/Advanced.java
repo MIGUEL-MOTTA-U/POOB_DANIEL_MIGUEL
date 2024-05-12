@@ -10,8 +10,9 @@ public class Advanced extends Machine {
     }
 
     @Override
-    public void moveToken(String direction) {
-        // Mover y poner puentes con algoritmos de estrategia predefinida basado en el comportamiento del contrincante
+    public void play(String direction) throws QuoriPOOBException{
+        // Calculate the best direction or movement
+        moveToken("UP");
     }
 
     @Override

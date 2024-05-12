@@ -8,6 +8,8 @@ import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import java.awt.Color;
+import java.io.File;
+
 import domain.Token;
 import domain.Allied;
 import domain.NormalWall;
@@ -639,7 +641,165 @@ public class Quopripoobvi {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()==null);
     }
 
+    // 12/05/2024
+    @Test
+    public void shouldWin()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        try{
+            q.moveToken("UP");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        assertEquals(q.getWinner().getName(), "Miguel");
+    }
 
+    @Test
+    public void shouldNotLetPlayAfterWin()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        try{
+            q.moveToken("UP");
+            fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        assertEquals(q.getWinner().getName(), "Miguel");
+        try{
+            q.moveToken("RIGHT");
+            fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        try{
+            q.addWallToBoard(null, 0, 0, null);;
+            fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        
+    }
+
+    @Test
+    public void shouldBeAbleToConsultAfterWin()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        try{
+            q.moveToken("UP");
+            fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        assertArrayEquals(new String[] {"Daniel","Miguel" }, q.getNames());
+        assertEquals(Color.ORANGE, q.getColor("Miguel"));
+        assertEquals(Color.BLUE, q.getColor("Daniel"));
+    }
+
+    @Test
+    public void shouldBeAbleToSaveAfterWin()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        try{
+            q.moveToken("UP");
+            fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        File copy = new File("./test/guardado.dat");
+        q.saveFile(copy);
+        q.resetSingleton();
+        q =null;
+        assertEquals(q,null);
+        q = QuoriPOOB.openFile(copy);
+        assertArrayEquals(new String[] {"Daniel","Miguel" }, q.getNames());
+        assertEquals(Color.ORANGE, q.getColor("Miguel"));
+        assertEquals(Color.BLUE, q.getColor("Daniel"));
+        assertEquals(q.getWinner().getName(), "Miguel");
+    }
+
+    @Test
+    public void shouldResetQuoriPOOB() throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        
+        q.resetSingleton();
+        q =null;
+        assertEquals(q,null);
+        q = QuoriPOOB.getQuoriPOOB();
+        assertEquals(q.getBoard(),null);
+        assertEquals(q.getWinner(),null);
+        for(String s:q.getNames()){
+            assertEquals(s,null);
+        }
+        for(HashMap<String, Integer> walls:q.numerWalls().values()){
+            assertEquals(walls,null);
+        }
+    }
+    @Test
+    public void shouldNotWinIfWallAhead()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
+        q.moveToken("DOWN");
+        q.addWallToBoard("Temporary", 0, 2, "UP");
+        q.moveToken("UP");
+        assertArrayEquals(new String[] {"Daniel","Miguel" }, q.getNames());
+        assertEquals(Color.ORANGE, q.getColor("Miguel"));
+        assertEquals(Color.BLUE, q.getColor("Daniel"));
+        assertEquals(q.getWinner(), null);
+    }
     
 }
 

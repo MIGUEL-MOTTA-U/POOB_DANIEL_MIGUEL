@@ -9,13 +9,11 @@ public class Beginner extends Machine{
     }
 
     @Override
-    public void moveToken(String direction) {
-        // Mover con dificultad baja
+    public void play(String direction) throws QuoriPOOBException{
+        moveToken(direction); // No se va a mover si no 
+        
     }
 
-    @Override
-    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide){
-		
-	}
+    
     
 }
