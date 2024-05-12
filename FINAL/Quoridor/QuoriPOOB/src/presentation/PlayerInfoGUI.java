@@ -167,11 +167,7 @@ public class PlayerInfoGUI extends JPanel{
 
         buttonNext.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                if (playerColor == null) {
-                    JOptionPane.showMessageDialog(null, "You have to choose your color", "color not selected", JOptionPane.INFORMATION_MESSAGE);
-                }  else if (textName.getText().equals("Name")) {
-                    JOptionPane.showMessageDialog(null, "You must enter your name", "name not entered", JOptionPane.INFORMATION_MESSAGE);
-                } else {
+                if (!emptyInfo()) {
                     try {
                         quoridorGUI.createPlayerHuman(textName.getText(), playerColor);
                         if (quoridorGUI.twoPlayers() & !quoridorGUI.getPlayerTwo()) {
@@ -198,6 +194,19 @@ public class PlayerInfoGUI extends JPanel{
         	label.setVerticalAlignment(SwingConstants.CENTER);
 		}
 	}
+
+    private boolean emptyInfo() {
+        boolean empty = false;
+        if (playerColor == null) {
+            JOptionPane.showMessageDialog(null, "You have to choose your color", "color not selected", JOptionPane.INFORMATION_MESSAGE);
+            empty = true;
+        }  else if (textName.getText().equals("Name")) {
+            JOptionPane.showMessageDialog(null, "You must enter your name", "name not entered", JOptionPane.INFORMATION_MESSAGE);
+            empty = true;
+        }
+
+        return empty;
+    }
 
     private void restart() {
         textName.setText("Name");
