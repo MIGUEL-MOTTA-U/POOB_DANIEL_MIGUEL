@@ -11,11 +11,6 @@ import java.net.URL;
 public class BoardGUI extends JPanel{
     private static final Color BACKGROUND = new Color(250, 250, 250);
     private QuoridorGUI quoridorGUI;
-
-    // Header
-    private JPanel panelNorth;
-    private JLabel imageGame;
-	private JLabel labelTitle;
     
     // Board
     private JPanel panelBoard;
@@ -71,39 +66,12 @@ public class BoardGUI extends JPanel{
 
         JPanel content = new JPanel(new BorderLayout());
 
-        prepareElementsHeader(content);
         prepareElementsBoard(content);
         prepareElementsEast(content);
         prepareElementsSouth(content);
 
         add(content);
     }
-
-    private void prepareElementsHeader(JPanel content) {
-        panelNorth = new JPanel();
-        panelNorth.setBackground(BACKGROUND);
-        panelNorth.setLayout(new BoxLayout(panelNorth, BoxLayout.Y_AXIS));
-        panelNorth.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.BLACK));
-
-		JPanel panelHeader = new JPanel();
-        panelHeader.setBackground(BACKGROUND);
-        panelHeader.setLayout(new BoxLayout(panelHeader, BoxLayout.X_AXIS));
-        panelHeader.setBorder(new EmptyBorder(20, 0, 20, 0));
-
-		imageGame = new JLabel();
-		imageGame.setSize(50, 50);
-		createImage(imageGame, "assets/Logo.png");
-
-		labelTitle = new JLabel("Quoridor");
-		labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 35));
-
-		panelHeader.add(imageGame);
-        panelHeader.add(Box.createHorizontalStrut(70));
-		panelHeader.add(labelTitle);
-        panelNorth.add(panelHeader);
-
-		content.add(panelNorth, BorderLayout.NORTH);
-	}
 
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel(new GridBagLayout());
@@ -247,9 +215,14 @@ public class BoardGUI extends JPanel{
         container.setBackground(BACKGROUND);
         container.setBorder(new EmptyBorder(30, 30, 30, 30));
 
-        panelBoard = new JPanel();
+        panelBoard = new JPanel(new GridLayout(9, 9));
         panelBoard.setBackground(Color.WHITE);
-        panelBoard.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                panelBoard.add(new SquareGUI(quoridorGUI));
+            }
+        }
 
         container.add(panelBoard);
         content.add(container, BorderLayout.CENTER);
@@ -294,9 +267,9 @@ public class BoardGUI extends JPanel{
         labelAlliedWallsPlayer1 = createLabel("Allied: 2");
 
         panelPlayer1.add(imagePlayer1);
-        panelPlayer1.add(Box.createHorizontalStrut(20));
+        panelPlayer1.add(Box.createHorizontalStrut(30));
         panelPlayer1.add(prepareElemetsNamePlayer(labelNamePlayer1, labelWallsPlayer1));
-        panelPlayer1.add(Box.createHorizontalStrut(25));
+        panelPlayer1.add(Box.createHorizontalStrut(30));
         panelPlayer1.add(prepareElementsWallsPlayer(labelNormalWallsPlayer1, labelTemporaryWallsPlayer1, labelLongWallsPlayer1, labelAlliedWallsPlayer1));
         container.add(panelPlayer1);
 
@@ -326,9 +299,9 @@ public class BoardGUI extends JPanel{
         labelAlliedWallsPlayer2 = createLabel("Allied: 2");
 
         panelPlayer2.add(imagePlayer2);
-        panelPlayer2.add(Box.createHorizontalStrut(20));
+        panelPlayer2.add(Box.createHorizontalStrut(30));
         panelPlayer2.add(prepareElemetsNamePlayer(labelNamePlayer2, labelWallsPlayer2));
-        panelPlayer2.add(Box.createHorizontalStrut(25));
+        panelPlayer2.add(Box.createHorizontalStrut(30));
         panelPlayer2.add(prepareElementsWallsPlayer(labelNormalWallsPlayer2, labelTemporaryWallsPlayer2, labelLongWallsPlayer2, labelAlliedWallsPlayer2));
         container.add(panelPlayer2);
 
