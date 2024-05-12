@@ -119,12 +119,14 @@ public class StartGUI extends JPanel{
     private void prepareActionsButtons() {
         buttonOnePlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.setOnePlayer();
                 quoridorGUI.showGameDifficultyGUI();
             }
         });
         
         buttonTwoPlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.setTwoPlayers();
                 quoridorGUI.showGameModeGUI();
             }
         });

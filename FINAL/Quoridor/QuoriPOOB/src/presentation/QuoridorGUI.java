@@ -2,6 +2,8 @@ package presentation;
 
 import javax.swing.*;
 
+import domain.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -17,6 +19,8 @@ public class QuoridorGUI extends JFrame {
     public static final String FONT_TITLE = "Tahoma";
     public static final String FONT_SUBTITLE = "Bahnschrift";
     public static final String FONT_TEXT = "Candara";
+
+    private QuoriPOOB quoriPOOB = QuoriPOOB.getQuoriPOOB();
 
     // CardLayout
     private CardLayout cardLayout;
@@ -41,7 +45,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "boardGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
@@ -163,6 +167,26 @@ public class QuoridorGUI extends JFrame {
 
     public void showBoardGUI() {
         cardLayout.show(cardPanel, "boardGUI");
+    }
+
+    public void setOnePlayer() {
+        quoriPOOB.setOnePlayer();
+    }
+    
+    public void setTwoPlayers() {
+        quoriPOOB.setTwoPlayers();
+    }
+
+    public void createBeginnerMachine() throws QuoriPOOBException {
+        quoriPOOB.createPlayerMachine(Color.RED, "domain.Beginner");
+    }
+
+    public void createIntermediateMachine() throws QuoriPOOBException {
+        quoriPOOB.createPlayerMachine(Color.RED, "domain.Intermediate");
+    }
+
+    public void createAdvancedMachine() throws QuoriPOOBException {
+        quoriPOOB.createPlayerMachine(Color.RED, "domain.Advanced");
     }
 
     public static void main(String args[]) {

@@ -3,6 +3,8 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import domain.QuoriPOOBException;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -161,19 +163,34 @@ public class GameDifficultyGUI extends JPanel{
     private void prepareActionsButtons() {
         buttonBeginner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.showGameModeGUI();
+                try {
+                    quoridorGUI.createBeginnerMachine();
+                    quoridorGUI.showGameModeGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
         
         buttonIntermediate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.showGameModeGUI();
+                try {
+                    quoridorGUI.createIntermediateMachine();
+                    quoridorGUI.showGameModeGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         buttonAdvanced.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.showGameModeGUI();
+                try {
+                    quoridorGUI.createAdvancedMachine();
+                    quoridorGUI.showGameModeGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
