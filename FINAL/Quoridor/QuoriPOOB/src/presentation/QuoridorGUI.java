@@ -41,7 +41,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "boardGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {

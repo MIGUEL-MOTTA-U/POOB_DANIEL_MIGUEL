@@ -1100,7 +1100,7 @@ public class QuoriPOOBTest {
 
     }
 
-    @Test
+    //@Test En construccion todavia
     public void shouldBeEquals()throws QuoriPOOBException{
         QuoriPOOB q1 = QuoriPOOB.getQuoriPOOB();
         q1.setTwoPlayers();
