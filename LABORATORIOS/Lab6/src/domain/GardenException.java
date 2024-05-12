@@ -52,4 +52,8 @@ public class GardenException extends Exception {
     public static final String INVOCATION_ERROR(String type) {
         return "Error durante la invocación del constructor de la clase: " + type;
     }
+    
+    public static final String IMPORT_ERROR(int line, String message, String lineContent) {
+        return "Error en la linea " + line + ": " + lineContent + ".\n" + "--> " + message;
+    }
 }

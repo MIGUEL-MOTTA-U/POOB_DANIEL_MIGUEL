@@ -402,7 +402,7 @@ public class Garden implements Serializable {
      * @param file the file to export
      * @throws GardenException
      */
-    public void exportFile(File file) throws GardenException {
+    public void exportFile02(File file) throws GardenException {
         try {
             PrintWriter pw = new PrintWriter(new FileOutputStream(file));
             for (int row = 0; row < LENGTH; row++) {
@@ -430,7 +430,7 @@ public class Garden implements Serializable {
      * @return the garden saved in the file
      * @throws GardenException
      */
-    public static Garden importFile(File file) throws GardenException {
+    public static Garden importFile02(File file) throws GardenException {
         Garden newGarden = new Garden();
 
         try {
@@ -459,7 +459,7 @@ public class Garden implements Serializable {
         try {
             int row = Integer.parseInt(data[1]);
             int column = Integer.parseInt(data[2]);
-            
+
             if (data[0].equals("Null")) {
                 garden.setThing(row, column, null);
             } else {
@@ -498,6 +498,116 @@ public class Garden implements Serializable {
             throw new GardenException(GardenException.ILLEGAL_ARGUMENT(type));
         } catch (InvocationTargetException e) {
             throw new GardenException(GardenException.INVOCATION_ERROR(type));
+        }
+    
+        return thing;
+    }
+
+    /**
+     * Export a file
+     * 
+     * @param file the file to export
+     * @throws GardenException
+     */
+    public void exportFile(File file) throws GardenException {
+        try {
+            PrintWriter pw = new PrintWriter(new FileOutputStream(file));
+            for (int row = 0; row < LENGTH; row++) {
+                for (int column = 0; column < LENGTH; column++) {
+                    if (garden[row][column] != null) {
+                        String type = garden[row][column].getClass().getSimpleName();
+                        pw.println(type + " " + row + " " + column);
+                    } else {
+                        pw.println("Null" + " " + row + " " + column);
+                    }
+                }
+            }
+
+            pw.close();
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        }
+
+    }
+
+    /**
+     * Import a file
+     * 
+     * @param file the file to import
+     * @return the garden saved in the file
+     * @throws GardenException
+     */
+    public static Garden importFile(File file) throws GardenException {
+        Garden newGarden = new Garden();
+        int lineNumber = 0;
+
+        try {
+            BufferedReader bIn = new BufferedReader(new FileReader(file));
+            String line = bIn.readLine();
+            while (line != null) {
+                lineNumber++;
+                String[] data = line.split("\\s+");
+                for (String string : data) {
+                    string = string.trim();
+                }
+
+                addThingToBoard01(data, newGarden, lineNumber, line);
+                line = bIn.readLine();
+            }
+
+            bIn.close();
+        } catch (FileNotFoundException e) {
+            throw new GardenException(GardenException.FILE_NOT_FOUND(file.getName()));
+        } catch (IOException e) {
+            throw new GardenException(GardenException.IMPORT_FILE_ERROR(file.getName()));
+        }
+
+        return newGarden;
+    }
+
+    private static void addThingToBoard01(String[] data, Garden garden, int lineNumber, String line) throws GardenException{
+        try {
+            int row = Integer.parseInt(data[1]);
+            int column = Integer.parseInt(data[2]);
+
+            if (data[0].equals("Null")) {
+                garden.setThing(row, column, null);
+            } else {
+                garden.setThing(row, column, createThing01(data[0], garden, row, column, lineNumber, line));
+            }
+        } catch (NumberFormatException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        }
+
+    }
+
+    private static Thing createThing01(String type, Garden garden, int row, int column, int lineNumber, String line) throws GardenException{
+        Thing thing = null;
+        type = "domain." + type;
+    
+        try {
+            Class<?> cls = Class.forName(type);
+            if (type.equals("domain.Water")) {
+                Constructor<?> constructor = cls.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                thing = (Thing) constructor.newInstance();
+            } else {
+                Constructor<?> constructor = cls.getDeclaredConstructor(Garden.class, int.class, int.class);
+                constructor.setAccessible(true);
+                thing = (Thing) constructor.newInstance(garden, row, column);
+            }
+        }  catch (ClassNotFoundException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        } catch (NoSuchMethodException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        } catch (InstantiationException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        } catch (IllegalAccessException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        } catch (IllegalArgumentException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
+        } catch (InvocationTargetException e) {
+            throw new GardenException(GardenException.IMPORT_ERROR(lineNumber, e.getMessage(), line));
         }
     
         return thing;
