@@ -7,6 +7,7 @@ import javax.swing.*;
 
 public class SquareGUI extends JPanel {
     private static final Color COLOR_HOVER = new Color(235, 235, 235);
+    private boolean drawCircle = false;
     private QuoridorGUI quoridorGUI;
 
     // Botones
@@ -18,6 +19,14 @@ public class SquareGUI extends JPanel {
     public SquareGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
+    }
+
+    public void drawCircle() {
+        this.drawCircle = true;
+    }
+
+    public void eraseCircle() {
+        this.drawCircle = false;
     }
 
     private void prepareElements() {
@@ -61,6 +70,27 @@ public class SquareGUI extends JPanel {
         });
 
         return button;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        // Dibujar el círculo solo si drawCircle es verdadero
+        if (drawCircle) {
+            // Obtener las dimensiones del panel
+            int panelWidth = getWidth();
+            int panelHeight = getHeight();
+
+            // Calcular las coordenadas para dibujar el círculo en el centro
+            int circleRadius = Math.min(panelWidth, panelHeight) / 4;
+            int circleX = (panelWidth - circleRadius * 2) / 2;
+            int circleY = (panelHeight - circleRadius * 2) / 2;
+
+            // Dibujar el círculo
+            g.setColor(Color.RED);
+            g.fillOval(circleX, circleY, circleRadius * 2, circleRadius * 2);
+        }
     }
 }
 
