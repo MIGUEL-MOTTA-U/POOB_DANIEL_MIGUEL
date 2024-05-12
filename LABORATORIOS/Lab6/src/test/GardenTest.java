@@ -403,17 +403,26 @@ public class GardenTest{
     }
 
     @Test 
-    public void shouldNotOpenCorrupted() throws GardenException{
+    public void shouldNotOpenCorrupted(){
         File copy = new File("./test/input.txt");
-        Garden otherGarden = Garden.openFile(copy);
-        assertTrue(otherGarden==null);
+        try{
+            Garden otherGarden = Garden.openFile(copy);
+            fail("SHOULD NOT BE ABLE TO OPEN A CORRUPTED FILE");
+        } catch(GardenException e) {
+            assertEquals(GardenException.OPEN_FILE_ERROR(copy.getName()),e.getMessage());
+        }
+        
     }
 
     @Test
     public void shouldNotOpenInexistentFile()throws GardenException{
         File copy = new File("./test/NOT A REAL FILE.txt");
-        Garden otherGarden = Garden.openFile(copy);
-        assertTrue(otherGarden==null);
+        try{
+            Garden otherGarden = Garden.openFile(copy);
+        
+        } catch(GardenException e) {
+            assertEquals(GardenException.FILE_NOT_FOUND(copy.getName()), e.getMessage());
+        }
     }
 
     @Test
@@ -423,6 +432,7 @@ public class GardenTest{
         //Garden other = Garden.importFile(copy);
         //assertTrue(garden.equals(other));
     }
+    
     @Test
     public void acceptanceTestSaveAndOpen() throws InterruptedException{
         JOptionPane.showMessageDialog(null, "Se va a abrir la interfaz de juego", "INICIO", JOptionPane.INFORMATION_MESSAGE);
