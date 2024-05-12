@@ -3,6 +3,8 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import domain.QuoriPOOBException;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -246,7 +248,7 @@ public class SetUpGameGUI extends JPanel{
                 int[][] squares = createSpecialSquares(type);
 
                 if (squares != null) {
-                    specialSquares.put(type, squares);
+                    specialSquares.put("domain." + type, squares);
                     success = true;
                 }
             }   
@@ -368,9 +370,22 @@ public class SetUpGameGUI extends JPanel{
                     String stringSize = textBoardSize.getText();
                     try {
                         int size = Integer.parseInt(stringSize);
-                        quoridorGUI.showBoardGUI();
+
+                        if (specialSquares.isEmpty()) {
+                            quoridorGUI.createBoard(size, null);
+                        } else {
+                            quoridorGUI.createBoard(size, specialSquares);
+                        }
+
+                        int[] numberWalls = getNumberWalls();
+                        if (numberWalls != null) {
+                            quoridorGUI.addWalls(numberWalls[0], numberWalls[1], numberWalls[2], numberWalls[3]);
+                            quoridorGUI.showBoardGUI();
+                        }
                     } catch (NumberFormatException e) {
                         JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                    } catch (QuoriPOOBException e) {
+                        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
                 }
 
@@ -404,7 +419,7 @@ public class SetUpGameGUI extends JPanel{
 
     private String getTypeFromButton(JButton button) {
         if (button == buttonPositionNormal) {
-            return "Normal";
+            return "NormalSquare";
         } else if (button == buttonPositionTeleporter) {
             return "Teleporter";
         } else if (button == buttonPositionReturn) {
@@ -422,7 +437,7 @@ public class SetUpGameGUI extends JPanel{
         textPositions[1] = column;
 
         switch (type) {
-            case "Normal":
+            case "NormalSquare":
                 normalPositions.add(textPositions);
                 break;
             case "Teleporter":
@@ -443,7 +458,7 @@ public class SetUpGameGUI extends JPanel{
         ArrayList<JTextField[]> positions = null;
 
         switch (type) {
-            case "Normal":
+            case "NormalSquare":
                 positions = normalPositions;
                 break;
             case "Teleporter":
@@ -471,7 +486,7 @@ public class SetUpGameGUI extends JPanel{
                 return squares;
             } catch (NumberFormatException e) {
                 switch (type) {
-                    case "Normal":
+                    case "NormalSquare":
                         normalPositions.clear();
                         break;
                     case "Teleporter":
@@ -486,8 +501,23 @@ public class SetUpGameGUI extends JPanel{
                     default:
                         break;
                 }
-                JOptionPane.showMessageDialog(null, e.getMessage(), "Invalid number", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
             }
+        }
+
+        return null;
+    }
+
+    public int[] getNumberWalls() {
+        try {
+            int[] numberWalls = new int[4];
+            numberWalls[0] = Integer.parseInt(textNormalWalls.getText());
+            numberWalls[1] = Integer.parseInt(textTemporaryWalls.getText());
+            numberWalls[2] = Integer.parseInt(textLongWalls.getText());
+            numberWalls[3] = Integer.parseInt(textAlliedWalls.getText());
+            return numberWalls;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
         }
 
         return null;

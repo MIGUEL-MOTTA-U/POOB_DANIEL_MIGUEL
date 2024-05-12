@@ -47,7 +47,7 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "setUpGameGUI");
+        cardLayout.show(cardPanel, "startGUI");
     }
 
     private void prepareElements() {
@@ -210,6 +210,10 @@ public class QuoridorGUI extends JFrame {
 
     public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
         quoriPOOB.createBoard(size, specialSquares);
+    }
+
+    public void addWalls(int normal, int temporary, int longW, int allied) throws QuoriPOOBException {
+        quoriPOOB.addWalls(normal, temporary, longW, allied);
     }
 
     public static void main(String args[]) {
