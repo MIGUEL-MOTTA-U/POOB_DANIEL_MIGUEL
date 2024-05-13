@@ -3,6 +3,8 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import domain.Square;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -10,8 +12,10 @@ import java.net.URL;
 
 public class BoardGUI extends JPanel{
     private static final Color BACKGROUND = new Color(250, 250, 250);
+
     private QuoridorGUI quoridorGUI;
-    
+    private SquareGUI[][] squaresGUI;
+
     // Board
     private JPanel panelBoard;
 
@@ -66,7 +70,7 @@ public class BoardGUI extends JPanel{
 
         JPanel content = new JPanel(new BorderLayout());
 
-        prepareElementsBoard(content);
+        content.add(prepareElementsBoard(), BorderLayout.CENTER);
         prepareElementsEast(content);
         prepareElementsSouth(content);
 
@@ -210,28 +214,62 @@ public class BoardGUI extends JPanel{
         return panelMoves;
     }
 
-    private void prepareElementsBoard(JPanel content) {
+    private JPanel prepareElementsBoard() {
         JPanel container = new JPanel(new BorderLayout());
         container.setBackground(BACKGROUND);
         container.setBorder(new EmptyBorder(30, 30, 30, 30));
-
-        panelBoard = new JPanel(new GridLayout(9, 9));
+    
+        int size = quoridorGUI.getBoardSize();
+        squaresGUI = new SquareGUI[size][size];
+        
+        panelBoard = new JPanel(new GridLayout(size, size));
         panelBoard.setBackground(Color.WHITE);
+    
+        for (int row = 0; row < size; row++) {
+            for (int column = 0; column < size; column++) {
+                SquareGUI squareGUI = new SquareGUI(quoridorGUI, row, column);
+                panelBoard.add(squareGUI);
+                squaresGUI[row][column] = squareGUI;
+            }
+        }
+    
+        updateBoard();
+    
+        container.add(panelBoard);
 
-        for (int row = 0; row < 9; row++) {
-            for (int column = 0; column < 9; column++) {
-                if (row == 8 & column == 4) {
-                    SquareGUI a = new SquareGUI(quoridorGUI);
-                    panelBoard.add(a);
-                    a.drawCircle();
+        return container;
+    }
+
+    private void updateBoard() {
+        Square[][] squares = quoridorGUI.getBoardMatrix();
+        int size = quoridorGUI.getBoardSize();
+    
+        for (int row = 0; row < size; row++) {
+            for (int column = 0; column < size; column++) {
+                SquareGUI squareGUI = squaresGUI[row][column];
+                Square square = squares[row][column];
+    
+                if (square.getToken() != null) {
+                    Color color = square.getToken().getColor();
+                    squareGUI.setColorToken(color);
+                    squareGUI.drawToken();
                 } else {
-                    panelBoard.add(new SquareGUI(quoridorGUI));
+                    squareGUI.eraseToken();
+                }
+    
+                if (square.getWallUp() != null) {
+                    squareGUI.setWallUp();
+                } else if (square.getWallLeft() != null) {
+                    squareGUI.setWallLeft();
+                } else if (square.getWallDown() != null) {
+                    squareGUI.setWallDown();
+                } else if (square.getWallRight() != null) {
+                    squareGUI.setWallRight();
                 }
             }
         }
-
-        container.add(panelBoard);
-        content.add(container, BorderLayout.CENTER);
+    
+        repaint();
     }
 
     private void prepareElementsSouth(JPanel content) {
@@ -372,7 +410,53 @@ public class BoardGUI extends JPanel{
     }
 
     private void prepareActions() {
+        prepareActionButtonsMove();
+    }
 
+    private void prepareActionButtonsMove() {
+        buttonUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("UP");
+                    refresh();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonLeft.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("LEFT");
+                    refresh();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonDown.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("DOWN");
+                    refresh();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonRight.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("RIGHT");
+                    refresh();
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 
      private void createImage(JLabel label, String path) {
@@ -383,5 +467,9 @@ public class BoardGUI extends JPanel{
 			label.setHorizontalAlignment(SwingConstants.CENTER);
         	label.setVerticalAlignment(SwingConstants.CENTER);
 		}
+	}
+
+    private void refresh() {
+		updateBoard();
 	}
 }

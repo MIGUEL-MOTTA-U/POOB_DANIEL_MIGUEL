@@ -233,6 +233,7 @@ public class SetUpGameGUI extends JPanel{
 
     private void showPositionsDialog(int quantity, JButton button) {
         String type = getTypeFromButton(button);
+        clearSquares(type);
         
         boolean success = false;
         do {
@@ -521,5 +522,24 @@ public class SetUpGameGUI extends JPanel{
         }
 
         return null;
+    }
+
+    private void clearSquares(String type) {
+        switch (type) {
+            case "NormalSquare":
+                normalPositions.clear();
+                break;
+            case "Teleporter":
+                teleporterPositions.clear();
+                break;
+            case "Return":
+                returnPositions.clear();
+                break;
+            case "DoubleTurn":
+                doubleTurnPositions.clear();
+                break;
+            default:
+                break;
+        }
     }
 }

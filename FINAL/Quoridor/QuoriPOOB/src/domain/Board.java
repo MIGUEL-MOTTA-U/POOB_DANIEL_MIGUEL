@@ -371,10 +371,11 @@ public class Board implements Serializable{
 		for (Map.Entry<String, int[][]> entry : specialSquares.entrySet()) {
 			String type = entry.getKey();
 			int[][] squares = entry.getValue();
-			if (squares.length > Math.pow(this.matrixBoard.length, 2)) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
+			if (squares.length > Math.pow(this.size, 2)) throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
 			for (int i = 0; i < squares.length; i++) {
 				int row = squares[i][0];
 				int column = squares[i][1];
+				if (row > this.size - 1 || column > this.size - 1) throw new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
 				Square square = createSquare(type, row, column);
 				matrixBoard[row][column] = square;
 				this.squares.add(square);
