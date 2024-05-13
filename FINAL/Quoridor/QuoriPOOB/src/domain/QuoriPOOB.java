@@ -293,6 +293,14 @@ public class QuoriPOOB implements Serializable{
 		return color;
 	}
 
+	public Square[][] getMatrixBoard() {
+		return this.board.getMatrixBoard();
+	}
+
+	public int getSize() {
+		return this.board.getSize();
+	}
+
 	/**
 	 * Returns the board
 	 * 

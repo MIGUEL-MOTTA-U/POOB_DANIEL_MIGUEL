@@ -47,7 +47,6 @@ public class QuoridorGUI extends JFrame {
     private QuoridorGUI() {
         prepareElements();
         prepareActions();
-        cardLayout.show(cardPanel, "boardGUI");
     }
 
     private void prepareElements() {
@@ -57,7 +56,9 @@ public class QuoridorGUI extends JFrame {
         prepareElementsMenu();
 
         JPanel container = new JPanel(new BorderLayout());
-        createCardPanel();
+        cardLayout = new CardLayout();
+        cardPanel = new JPanel(cardLayout);
+        showStartGUI();
 
         container.add(cardPanel);
 
@@ -81,25 +82,6 @@ public class QuoridorGUI extends JFrame {
 		menuBar.add(fileMenu);
 		setJMenuBar(menuBar);
 	}
-
-    private void createCardPanel() {
-        startGUI = new StartGUI(this);
-        gameModeGUI = new GameModeGUI(this);
-        gameDifficultyGUI = new GameDifficultyGUI(this);
-        playerInfoGUI = new PlayerInfoGUI(this);
-        setUpGameGUI = new SetUpGameGUI(this);
-        boardGUI = new BoardGUI(this);
-
-        cardLayout = new CardLayout();
-        cardPanel = new JPanel(cardLayout);
-
-        cardPanel.add(startGUI, "startGUI");
-        cardPanel.add(gameModeGUI, "gameModeGUI");
-        cardPanel.add(gameDifficultyGUI, "gameDifficultyGUI");
-        cardPanel.add(playerInfoGUI, "playerInfoGUI");
-        cardPanel.add(setUpGameGUI, "setUpGameGUI");
-        cardPanel.add(boardGUI, "boardGUI");
-    }
 
     private void prepareActions() { 
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
@@ -151,20 +133,52 @@ public class QuoridorGUI extends JFrame {
         } 
     } 
 
+    public void showStartGUI() {
+        if (startGUI == null) {
+            startGUI = new StartGUI(this);
+            cardPanel.add(startGUI, "startGUI");
+        }
+        cardLayout.show(cardPanel, "startGUI");
+    }
+
     public void showGameModeGUI() {
+        if (gameModeGUI == null) {
+            gameModeGUI = new GameModeGUI(this);
+            cardPanel.add(gameModeGUI, "gameModeGUI");
+        }
         cardLayout.show(cardPanel, "gameModeGUI");
     }
 
     public void showGameDifficultyGUI() {
+        if (gameDifficultyGUI == null) {
+            gameDifficultyGUI = new GameDifficultyGUI(this);
+            cardPanel.add(gameDifficultyGUI, "gameDifficultyGUI");
+        }
         cardLayout.show(cardPanel, "gameDifficultyGUI");
     }
 
     public void showPlayerInfoGUI() {
+        if (playerInfoGUI == null) {
+            playerInfoGUI = new PlayerInfoGUI(this);
+            cardPanel.add(playerInfoGUI, "playerInfoGUI");
+        }
         cardLayout.show(cardPanel, "playerInfoGUI");
     }
 
     public void showSetUpGameGUI() {
+        if (setUpGameGUI == null) {
+            setUpGameGUI = new SetUpGameGUI(this);
+            cardPanel.add(setUpGameGUI, "setUpGameGUI");
+        }
         cardLayout.show(cardPanel, "setUpGameGUI");
+    }
+
+    public void showBoardGUI() {
+        if (boardGUI == null) {
+            boardGUI = new BoardGUI(this);
+            cardPanel.add(boardGUI, "boardGUI");
+        }
+        cardLayout.show(cardPanel, "boardGUI");
     }
 
     public void setPlayerTwo() {
@@ -178,10 +192,6 @@ public class QuoridorGUI extends JFrame {
     // Controlador
     public boolean twoPlayers() {
         return quoriPOOB.twoPlayers();
-    }
-
-    public void showBoardGUI() {
-        cardLayout.show(cardPanel, "boardGUI");
     }
 
     public void setOnePlayer() {
@@ -226,6 +236,14 @@ public class QuoridorGUI extends JFrame {
 
     public Player getPlayerPlaying() {
         return quoriPOOB.getCurrentPlayer();
+    }
+
+    public Square[][] getBoardMatrix() {
+        return quoriPOOB.getMatrixBoard();
+    }
+
+    public int getBoardSize() {
+        return quoriPOOB.getSize();
     }
 
     public static void main(String args[]) {
