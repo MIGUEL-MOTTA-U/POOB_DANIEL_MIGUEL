@@ -258,13 +258,35 @@ public class BoardGUI extends JPanel{
                 }
     
                 if (square.getWallUp() != null) {
-                    squareGUI.setWallUp();
+                    if (!squareGUI.getWallUp()) {
+                        squareGUI.setWallUp();
+                        squareGUI.setWallUp(true);
+                    }
                 } else if (square.getWallLeft() != null) {
-                    squareGUI.setWallLeft();
+                    if (!squareGUI.getWallLeft()) {
+                        squareGUI.setWallLeft();
+                        squareGUI.setWallLeft(true);
+                    }
                 } else if (square.getWallDown() != null) {
-                    squareGUI.setWallDown();
+                    if (!squareGUI.getWallDown()) {
+                        squareGUI.setWallDown();
+                        squareGUI.setWallDown(true);
+                    }
                 } else if (square.getWallRight() != null) {
-                    squareGUI.setWallRight();
+                    if (!squareGUI.getWallRight()) {
+                        squareGUI.setWallRight();
+                        squareGUI.setWallRight(true);
+                    }
+                } else {
+                    if (squareGUI.getWallUp()) {
+                        squareGUI.delWallUp();
+                    } else if (squareGUI.getWallLeft()) {
+                        squareGUI.delWallLeft();
+                    }  else if (squareGUI.getWallDown()) {
+                        squareGUI.delWallDown();
+                    }  else if (squareGUI.getWallRight()) {
+                        squareGUI.delWallRight();
+                    }
                 }
             }
         }
