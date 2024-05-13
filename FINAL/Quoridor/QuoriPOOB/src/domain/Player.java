@@ -173,7 +173,6 @@ public abstract class Player implements Serializable{
         List<Integer> path = new ArrayList<>();
         List<Integer> minPath= new ArrayList<>();
         int currentNode = ((playerToken.getRow())*size)+playerToken.getColumn();
-		System.out.println(currentNode);
         for(int i = destiny*size; i < destiny * size+size;i++){
             path = graph.shortestWay(currentNode, i);
             if(i==destiny*size||path.size() < minPath.size()&&

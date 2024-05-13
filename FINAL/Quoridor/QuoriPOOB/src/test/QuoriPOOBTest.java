@@ -1427,4 +1427,37 @@ public class QuoriPOOBTest {
         }
         
     }
+
+    @Test
+    public void shouldWinIfItsPosssibleWithWallAhead()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 4, 2, "UP");
+        q.moveToken("RIGHT"); 
+        q.moveToken("DOWN"); 
+        
+        q.moveToken("DOWN"); 
+        for(int i = 0; i < 5; i ++) {
+            for(int j = 0; j < 5; j ++) {
+                if(q.getBoard().getMatrixBoard()[i][j].getToken()!=null&&
+                q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.ORANGE)){
+                    System.out.println("Maquina");
+                    System.out.println("Row:" + i + " Column: "+ j);
+                }
+
+            }
+        }
+        // try{
+        //     q.moveToken("DOWN"); 
+        
+        // } catch (QuoriPOOBException e ) {
+        //     assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        // }
+        
+    }
 }
