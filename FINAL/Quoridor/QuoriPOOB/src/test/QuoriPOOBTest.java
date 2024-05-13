@@ -1096,7 +1096,7 @@ public class QuoriPOOBTest {
 
         q.moveToken("DOWN");
         q.addWallToBoard("Temporary", 3, 3, "UP");
-        assertEquals(playersNumberWalls,q.numerWalls());
+        assertEquals(playersNumberWalls,q.numberWalls());
 
 
     }
@@ -1260,7 +1260,7 @@ public class QuoriPOOBTest {
         for(String s:q.getNames()){
             assertEquals(s,null);
         }
-        for(HashMap<String, Integer> walls:q.numerWalls().values()){
+        for(HashMap<String, Integer> walls:q.numberWalls().values()){
             assertEquals(walls,null);
         }
     }

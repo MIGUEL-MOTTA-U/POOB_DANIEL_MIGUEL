@@ -264,7 +264,7 @@ public class QuoriPOOB implements Serializable{
 		return names;
 	}
 
-	public HashMap<Color, HashMap<String, Integer>> numerWalls(){
+	public HashMap<Color, HashMap<String, Integer>> numberWalls(){
 		HashMap<Color, HashMap<String, Integer>> res = new HashMap<>();
 		for(Player p: players.values()){
 			res.put(p.getColor(), p.numberWalls());

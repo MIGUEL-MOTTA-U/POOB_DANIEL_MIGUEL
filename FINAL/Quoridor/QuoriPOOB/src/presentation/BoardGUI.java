@@ -221,11 +221,11 @@ public class BoardGUI extends JPanel{
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 9; column++) {
                 if (row == 8 & column == 4) {
-                    SquareGUI a = new SquareGUI(quoridorGUI);
+                    SquareGUI a = new SquareGUI(quoridorGUI, row, column);
                     panelBoard.add(a);
                     a.drawCircle();
                 } else {
-                    panelBoard.add(new SquareGUI(quoridorGUI));
+                    panelBoard.add(new SquareGUI(quoridorGUI, row, column));
                 }
             }
         }
@@ -362,6 +362,52 @@ public class BoardGUI extends JPanel{
         });
 
         return button;
+    }
+
+    private void prepareAction() {
+
+    }
+
+    private void prepareActionButtonsMove() {
+        buttonUp.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("UP");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonLeft.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("LEFT");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonDown.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("DOWN");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        buttonRight.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                try {
+                    quoridorGUI.moveToken("RIGHT");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
     }
 
     private JLabel createLabel(String text) {
