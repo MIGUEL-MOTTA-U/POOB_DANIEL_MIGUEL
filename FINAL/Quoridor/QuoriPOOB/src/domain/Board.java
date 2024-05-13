@@ -16,20 +16,25 @@ public class Board implements Serializable{
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
 	private LinkedHashMap<Color, Token> tokens;
+	
+	
 	private LinkedHashMap<Color, Player> players;
-
+	
 	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 1) throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
-
+		
 		this.size = size;
 		this.matrixBoard = new Square[size][size];
 		this.squares = new ArrayList<>();
 		this.tokens = new LinkedHashMap<>(2);
 		this.players = new LinkedHashMap<>(2);
 		this.walls = new ArrayList<>();
-
+		
 		if (specialSquares != null) createSpecialSquares(specialSquares);
 		createNormalSquares();
+	}
+	public LinkedHashMap<Color, Token> getTokens() {
+		return tokens;
 	}
 
 	public boolean checkWin(Color colorPlayer){
@@ -339,6 +344,15 @@ public class Board implements Serializable{
 		// In construction
 	}
 
+	public Player getOtherPlayer(){
+		Player res = null;
+		for(Player p:players.values()){
+			if(p!=playerPlaying){
+				res = p;
+			}
+		}
+		return res;
+	}
 	// Private Methods
 
 	private void createNormalSquares() throws QuoriPOOBException {
@@ -439,5 +453,29 @@ public class Board implements Serializable{
 		for (int i = 0; i < walls.size(); i++) {
 			walls.get(i).act();
 		}
+	}
+	public String getDirection(Color colour, Square square)throws QuoriPOOBException{
+		Token token = tokens.get(colour);
+		int row = token.getRow();
+		int column = token.getColumn();
+		int[] coordenates = square.getCoordenates();
+		String res="";
+		System.out.println("De la casilla más cercana");
+		System.out.println("Row: " + coordenates[0] + " Column: " + coordenates[1]);
+		System.out.println("De la maquina");
+		System.out.println("Row: " + row + " Column: " + column);
+		
+		if(coordenates[0]==row && coordenates[1]==1+column){
+			res = "RIGHT";
+		} else if(coordenates[0]==row && coordenates[1]==column-1){
+			res = "LEFT";
+		} else if(coordenates[0]==row+1 && coordenates[1]==column){
+			res = "DOWN";
+		} else if(coordenates[0]==row-1 && coordenates[1]==column){
+			res = "UP";
+		} else {
+			throw new QuoriPOOBException(QuoriPOOBException.MACHINE_ERROR);
+		}
+		return res;
 	}
 }

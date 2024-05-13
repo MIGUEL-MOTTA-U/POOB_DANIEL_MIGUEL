@@ -11,13 +11,17 @@ public class Token implements Serializable{
     private int row;
     private int column;
     private ArrayList<int[]> lastMovements;
+    
+    
     private int destiny;
-
     public Token(Color color) {
         this.color = color;
         lastMovements = new ArrayList<>();
     }
-
+    
+    public int getDestiny() {
+        return destiny;
+    }
     public boolean checkWin(){
         return (destiny == row)&&(square.checkWin());
     }

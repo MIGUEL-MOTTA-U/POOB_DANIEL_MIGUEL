@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.reflect.Constructor;
-
+import java.util.List;
 public abstract class Player implements Serializable{
 	protected String name;
 	protected Color color;
@@ -65,7 +65,10 @@ public abstract class Player implements Serializable{
 
 		return numberWalls;
 	}
-	
+	// En Construccion checkear que siempre haya un camino para ganar
+	protected boolean isNotBlocked(){
+		return true;
+	}
 	protected void moveToken(String direction) throws QuoriPOOBException {
         switch (direction.toUpperCase()) {
             case "UP":
@@ -157,5 +160,66 @@ public abstract class Player implements Serializable{
 
 		return wall;
 	}
+
+	protected Player getOtherPlayer(){
+		return board.getOtherPlayer();
+	}
+
+	protected ArrayList<Square> calculateMyShorestPath(){
+        ArrayList<Square> res = new ArrayList<>();
+        Grafo graph = mapBoard();
+        Token playerToken = board.getTokens().get(color);
+        int destiny = playerToken.getDestiny(),size = board.getSize(); 
+        List<Integer> path = new ArrayList<>();
+        List<Integer> minPath= new ArrayList<>();
+        int currentNode = ((playerToken.getRow())*size)+playerToken.getColumn();
+        for(int i = destiny*size; i < destiny * size+size;i++){
+            path = graph.shortestWay(currentNode, i);
+            if(i==destiny*size||path.size() < minPath.size()&&
+            checkDestinySquare((Square)graph.getNodes().get(i),destiny)) minPath = path;
+        }
+        
+        
+        for(int node: minPath){
+            res.add((Square) graph.getNodes().get(node));
+        }
+        return res;
+    }
+
+    private boolean checkDestinySquare(Square box,int destiny) {
+        if(destiny==0){
+            return box.getWallUp() == null;
+        } else {
+            return box.getWallDown()==null;
+        }
+    }
+
+    private Grafo mapBoard(){
+        Grafo graph = new Grafo(board.getSize()*board.getSize());
+        int id = 0;
+        int size = board.getSize();
+        for(int i = 0;i < size;i++){
+            for(int j = 0;j < size;j++){
+                Square box = board.getMatrixBoard()[i][j];
+                graph.addNode(id, box);
+                if(makeConectionLeft(box)){
+                    graph.addVertex(id, id-1, 1);
+                }
+                if(makeConectionUp(box)){
+                    graph.addVertex(id, id-size, 1);
+                }
+                
+                id++;
+            }
+        }
+        return graph;
+    }
+    private boolean makeConectionUp(Square box) {
+        return box.getCoordenates()[0]!=0&&box.getWallUp()==null;
+        }
+
+    private boolean makeConectionLeft(Square box) {
+        return box.getCoordenates()[1]!=0&&box.getWallLeft()==null;    
+    }
 
 }
