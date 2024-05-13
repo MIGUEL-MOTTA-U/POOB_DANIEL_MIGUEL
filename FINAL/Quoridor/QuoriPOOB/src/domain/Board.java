@@ -460,10 +460,10 @@ public class Board implements Serializable{
 		int column = token.getColumn();
 		int[] coordenates = square.getCoordenates();
 		String res="";
-		System.out.println("De la casilla más cercana");
-		System.out.println("Row: " + coordenates[0] + " Column: " + coordenates[1]);
-		System.out.println("De la maquina");
-		System.out.println("Row: " + row + " Column: " + column);
+		// System.out.println("De la casilla más cercana");
+		// System.out.println("Row: " + coordenates[0] + " Column: " + coordenates[1]);
+		// System.out.println("De la maquina");
+		// System.out.println("Row: " + row + " Column: " + column);
 		
 		if(coordenates[0]==row && coordenates[1]==1+column){
 			res = "RIGHT";

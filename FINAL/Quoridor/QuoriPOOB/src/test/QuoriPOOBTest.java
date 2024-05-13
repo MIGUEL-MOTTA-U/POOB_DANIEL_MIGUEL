@@ -1330,7 +1330,7 @@ public class QuoriPOOBTest {
     }
 
     @Test
-    public void probarGrafo(){
+    public void probarGrafo()throws QuoriPOOBException{
         Grafo grafo = new Grafo(15); // Crear un grafo con 5 nodos
 
         // Agregar nodos con sus objetos asociados
@@ -1442,22 +1442,167 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN"); 
         
         q.moveToken("DOWN"); 
-        for(int i = 0; i < 5; i ++) {
-            for(int j = 0; j < 5; j ++) {
-                if(q.getBoard().getMatrixBoard()[i][j].getToken()!=null&&
-                q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.ORANGE)){
-                    System.out.println("Maquina");
-                    System.out.println("Row:" + i + " Column: "+ j);
-                }
-
-            }
-        }
-        // try{
-        //     q.moveToken("DOWN"); 
         
-        // } catch (QuoriPOOBException e ) {
-        //     assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
-        // }
+        try{
+            q.moveToken("DOWN"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
         
     }
+    @Test
+    public void shouldWinIfItsPosssibleWithWallLEFT()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 3, 2, "RIGHT");
+        q.moveToken("RIGHT"); 
+        q.moveToken("DOWN"); 
+        
+        try{
+            q.moveToken("DOWN"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+    @Test
+    public void shouldWinIfItsPosssibleWithWallright()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("Allied", 3, 2, "RIGHT");
+        q.moveToken("RIGHT"); 
+        q.moveToken("DOWN"); 
+        
+        try{
+            q.moveToken("DOWN"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+    @Test
+    public void shouldWinIfItsPosssibleWithSomeWallsBlocking()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 4, 1, "UP");
+        q.addWallToBoard("NormalWall", 3, 2, "UP");
+        
+        q.moveToken("LEFT"); 
+        q.moveToken("DOWN"); 
+        
+        q.moveToken("DOWN"); 
+        
+        try{
+            q.moveToken("DOWN"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+    @Test
+    public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer1()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 1, 2, "UP");
+        q.addWallToBoard("NormalWall", 0, 2, "LEFT");
+        
+        q.moveToken("RIGHT"); 
+        q.moveToken("LEFT"); 
+        
+        
+        try{
+            q.moveToken("RIGHT"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+
+
+    @Test
+    public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer2()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(4, 1, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 3, 1, "UP");
+        q.addWallToBoard("NormalWall", 2, 0, "RIGHT");
+        q.addWallToBoard("NormalWall", 2, 2, "UP");
+        q.addWallToBoard("NormalWall", 1, 3, "RIGHT");
+        
+        q.moveToken("RIGHT"); 
+        q.moveToken("LEFT"); 
+        
+        
+        try{
+            q.moveToken("RIGHT"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+    //@Test // De este lo que ocurre es que intenta saltar al jugador, pero hay un muro detras
+    public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer3()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(4, 1, 0, 1);
+        // Daniel moves
+        q.addWallToBoard("NormalWall", 0, 3, "UP");
+        q.addWallToBoard("NormalWall", 0, 1, "UP");
+        q.addWallToBoard("NormalWall", 1, 0, "RIGHT");
+        q.addWallToBoard("NormalWall", 0, 2, "RIGHT");
+        
+        q.moveToken("RIGHT"); 
+        q.moveToken("LEFT"); 
+        
+        
+        try{
+            q.moveToken("RIGHT"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
+
+    // Test de Squares
+    
+
 }

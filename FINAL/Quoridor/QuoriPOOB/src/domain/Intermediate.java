@@ -18,12 +18,11 @@ public class Intermediate extends Machine{
         // Si es posible, si no es posible debo moverme yo.
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
-        
         if(machinePath.size()<= humanPath.size()){
             direction = getDirection(machinePath.get(1)); // Si toma con indice 0, toma la casilla actual
             moveToken(direction);
         }else {
-            
+            System.out.println("Comportamiento EN CONSTRUCCION");
             //addWallToBoard(direction, 0, 0, direction);
             moveToken("UP");
             
