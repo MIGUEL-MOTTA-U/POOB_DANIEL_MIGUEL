@@ -144,7 +144,13 @@ public class SquareGUI extends JPanel {
         button.setBorderPainted(false);
         button.setBackground(Color.WHITE);
 
-         button.addMouseListener(new MouseAdapter() {
+        createMouseListener(button);
+
+        return button;
+    }
+
+    private void createMouseListener(JButton button) {
+        button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent ev) {
                 Color color = quoridorGUI.getPlayerPlaying().getColor();
                 setBorder(paintBorder(button, color));
@@ -156,32 +162,19 @@ public class SquareGUI extends JPanel {
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-
-        return button;
     }
 
     private void prepareActions() {
-        buttonWallUp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallUp);
-            }
-        });
+        createActionListener(buttonWallUp);
+        createActionListener(buttonWallLeft);
+        createActionListener(buttonWallDown);
+        createActionListener(buttonWallRight);
+    }
 
-        buttonWallLeft.addActionListener(new ActionListener() {
+    private void createActionListener(JButton button) {
+        button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallLeft);
-            }
-        });
-
-        buttonWallDown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallDown);
-            }
-        });
-
-        buttonWallRight.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallRight);
+                showTypeWallDialog(button);
             }
         });
     }
@@ -217,25 +210,29 @@ public class SquareGUI extends JPanel {
     public void delWallUp() {
         setBorder(paintBorder(buttonWallUp, Color.BLACK));
         this.colorBorderUp = Color.BLACK;
-        removeButtonMouseListeners(buttonWallUp);
+        createMouseListener(buttonWallUp);
+        createActionListener(buttonWallUp);
     }
 
     public void delWallLeft() {
         setBorder(paintBorder(buttonWallLeft, Color.BLACK));
         this.colorBorderLeft = Color.BLACK;
-        removeButtonMouseListeners(buttonWallLeft);
+        createMouseListener(buttonWallLeft);
+        createActionListener(buttonWallLeft);
     }
 
     public void delWallDown() {
         setBorder(paintBorder(buttonWallDown, Color.BLACK));
         this.colorBorderDown = Color.BLACK;
-        removeButtonMouseListeners(buttonWallDown);
+        createMouseListener(buttonWallDown);
+        createActionListener(buttonWallDown);
     }
 
     public void delWallRight() {
         setBorder(paintBorder(buttonWallRight, Color.BLACK));
         this.colorBorderRight = Color.BLACK;
-        removeButtonMouseListeners(buttonWallRight);
+        createMouseListener(buttonWallRight);
+        createActionListener(buttonWallRight);
     }
 
     private void addWall(String type, JButton button) {

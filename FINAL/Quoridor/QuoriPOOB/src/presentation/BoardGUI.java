@@ -280,12 +280,16 @@ public class BoardGUI extends JPanel{
                 } else {
                     if (squareGUI.getWallUp()) {
                         squareGUI.delWallUp();
+                        squareGUI.setWallUp(false);
                     } else if (squareGUI.getWallLeft()) {
                         squareGUI.delWallLeft();
+                        squareGUI.setWallLeft(false);
                     }  else if (squareGUI.getWallDown()) {
                         squareGUI.delWallDown();
+                        squareGUI.setWallDown(false);
                     }  else if (squareGUI.getWallRight()) {
                         squareGUI.delWallRight();
+                        squareGUI.setWallRight(false);
                     }
                 }
             }
