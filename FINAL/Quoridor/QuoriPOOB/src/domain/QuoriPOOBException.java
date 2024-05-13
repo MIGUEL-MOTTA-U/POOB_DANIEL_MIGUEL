@@ -29,6 +29,8 @@ public class QuoriPOOBException extends Exception {
 	public static String NAME_NULL = "The name of the player can not be empty";
 	public static String COLOR_NULL = "The color of the player can not be empty";
 	public static String TYPE_MACHINE_NULL = "The type of machine has to be defined";
+	public static String MACHINE_ERROR = "The machine made a mistake calculating the path";
+	
 	
 	public QuoriPOOBException(String message) {
 		super(message);

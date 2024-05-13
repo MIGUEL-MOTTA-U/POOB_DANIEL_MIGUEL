@@ -7,6 +7,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -1286,5 +1288,143 @@ public class QuoriPOOBTest {
     }
 
     
-    
+    //@Test
+    public void shouldPlayWithMachineChangingPosition()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        int pasx=4, pasy=2;
+        int x=pasx,y=pasy;
+        q.moveToken("DOWN"); 
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                if((q.getBoard().getMatrixBoard()[i][j].getToken()!=null)&& q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
+                pasx=x; pasy=y;
+                x = i; y = j;
+            }   
+        }
+        assertFalse(pasx == x && pasy == y);      
+        q.moveToken("DOWN");      
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                if((q.getBoard().getMatrixBoard()[i][j].getToken()!=null)&& q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
+                pasx=x; pasy=y;
+                x = i; y = j;
+            }   
+        }
+        assertFalse(pasx == x && pasy == y); 
+        q.moveToken("DOWN"); 
+        for(int i = 0; i < 5; i++) {
+            for(int j = 0; j < 5; j++) {
+                if((q.getBoard().getMatrixBoard()[i][j].getToken()!=null)&& q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
+                pasx=x; pasy=y;
+                x = i; y = j;
+
+            }   
+        }
+        assertFalse(pasx == x && pasy == y);
+    }
+
+    @Test
+    public void probarGrafo(){
+        Grafo grafo = new Grafo(15); // Crear un grafo con 5 nodos
+
+        // Agregar nodos con sus objetos asociados
+
+        grafo.addNode(0,"A");
+        grafo.addNode(1,"B");
+        grafo.addNode(2,"C");
+        grafo.addNode(3,"D");
+        grafo.addNode(4,"E");
+        grafo.addNode(5,"F");
+        grafo.addNode(6,"G");
+        grafo.addNode(7,"H");
+        grafo.addNode(8,"I");
+        grafo.addNode(9,"J");
+        grafo.addNode(10,"K");
+        grafo.addNode(11,"L");
+        grafo.addNode(12,"M");
+        grafo.addNode(13,"N");
+        grafo.addNode(14,"P");
+
+        // Agregar aristas con sus pesos
+        grafo.addVertex(0, 1, 8);
+        grafo.addVertex(0, 4, 4);
+        grafo.addVertex(0, 3, 5);
+
+        grafo.addVertex(1, 4, 12);
+        grafo.addVertex(1, 5, 4);
+        grafo.addVertex(1, 2, 3);
+
+        grafo.addVertex(2, 5, 9);
+        grafo.addVertex(2, 6, 11);
+
+        grafo.addVertex(3, 4, 9);
+        grafo.addVertex(3, 7, 6);
+
+        grafo.addVertex(4, 8, 8);
+        grafo.addVertex(4, 9, 5);
+        grafo.addVertex(4, 5, 3);
+
+        grafo.addVertex(5, 10, 8);
+        grafo.addVertex(5, 6, 1);
+
+        grafo.addVertex(6, 10, 8);
+        grafo.addVertex(6, 11, 7);
+
+        grafo.addVertex(7, 8, 2);
+        grafo.addVertex(7, 12, 7);
+
+        grafo.addVertex(8, 9, 10);
+        grafo.addVertex(8, 12, 6);
+
+        grafo.addVertex(9, 13, 9);
+        grafo.addVertex(9, 10, 6);
+
+        grafo.addVertex(10, 14, 7);
+        grafo.addVertex(10, 11, 5);
+
+        grafo.addVertex(11, 14, 6);
+
+        grafo.addVertex(12, 13, 2);
+
+        grafo.addVertex(13, 14, 2);
+        grafo.addVertex(14, 13, 12);
+
+        // Encontrar el camino más corto entre los nodos 0 y 4
+        List<Integer> ruta = grafo.shortestWay(0, 14);
+
+        // Imprimir la ruta más corta
+        System.out.println("Ruta más corta: ");
+        for (int nodo : ruta) {
+            System.out.print(grafo.getNodes().get(nodo) + " -> ");
+        }
+        System.out.println("Fin");
+    }
+    @Test
+    public void shouldWinIfItsPosssible()throws QuoriPOOBException{
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
+        q.createBoard(5, null);
+        q.addWalls(3, 2, 0, 1);
+        // Daniel moves
+        q.moveToken("LEFT"); 
+        
+        q.moveToken("RIGHT"); 
+        
+        q.moveToken("LEFT"); 
+        try{
+            q.moveToken("LEFT"); 
+        
+        } catch (QuoriPOOBException e ) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
+        
+    }
 }
