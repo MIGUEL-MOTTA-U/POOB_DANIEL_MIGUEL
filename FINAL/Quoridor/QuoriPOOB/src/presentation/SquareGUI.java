@@ -14,8 +14,16 @@ public class SquareGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
     private int row;
     private int column;
-    private boolean drawToken = false;
+    private boolean wallUp;
+    private boolean wallLeft;
+    private boolean wallDown;
+    private boolean wallRight;
+    private boolean drawToken;
     private Color colorToken;
+    private Color colorBorderUp;
+    private Color colorBorderLeft;
+    private Color colorBorderDown;
+    private Color colorBorderRight;
 
     // Botones
     JButton buttonWallUp;
@@ -27,6 +35,16 @@ public class SquareGUI extends JPanel {
         this.quoridorGUI = quoridorGUI;
         this.row = row;
         this.column = column;
+        this.wallUp = false;
+        this.wallLeft = false;
+        this.wallDown = false;
+        this.wallRight = false;
+        this.drawToken = false;
+        this.colorToken = null;
+        this.colorBorderUp = Color.BLACK;
+        this.colorBorderLeft = Color.BLACK;
+        this.colorBorderDown = Color.BLACK;
+        this.colorBorderRight = Color.BLACK;
         prepareElements();
         prepareActions();
     }
@@ -43,10 +61,42 @@ public class SquareGUI extends JPanel {
         this.colorToken = color;
     }
 
+    public void setWallUp(boolean bool) {
+        this.wallUp = bool;
+    }
+
+    public void setWallLeft(boolean bool) {
+        this.wallLeft = bool;
+    }
+
+    public void setWallDown(boolean bool) {
+        this.wallDown = bool;
+    }
+
+    public void setWallRight(boolean bool) {
+        this.wallRight = bool;
+    }
+
+    public boolean getWallUp() {
+        return this.wallUp;
+    }
+
+    public boolean getWallLeft() {
+        return this.wallLeft;
+    }
+
+    public boolean getWallDown() {
+        return this.wallDown;
+    }
+
+    public boolean getWallRight() {
+        return this.wallRight;
+    }
+
     private void prepareElements() {
         setBackground(Color.WHITE);
         setLayout(new BorderLayout());
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 
         buttonWallUp = createButton();
         buttonWallDown = createButton();
@@ -94,7 +144,13 @@ public class SquareGUI extends JPanel {
         button.setBorderPainted(false);
         button.setBackground(Color.WHITE);
 
-         button.addMouseListener(new MouseAdapter() {
+        createMouseListener(button);
+
+        return button;
+    }
+
+    private void createMouseListener(JButton button) {
+        button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent ev) {
                 Color color = quoridorGUI.getPlayerPlaying().getColor();
                 setBorder(paintBorder(button, color));
@@ -102,66 +158,91 @@ public class SquareGUI extends JPanel {
             }
 
             public void mouseExited(MouseEvent ev) {
-                setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                setBorder(defaultBorder());
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-
-        return button;
     }
 
     private void prepareActions() {
-        buttonWallUp.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallUp);
-            }
-        });
+        createActionListener(buttonWallUp);
+        createActionListener(buttonWallLeft);
+        createActionListener(buttonWallDown);
+        createActionListener(buttonWallRight);
+    }
 
-        buttonWallLeft.addActionListener(new ActionListener() {
+    private void createActionListener(JButton button) {
+        button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallLeft);
-            }
-        });
-
-        buttonWallDown.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallDown);
-            }
-        });
-
-        buttonWallRight.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(buttonWallRight);
+                showTypeWallDialog(button);
             }
         });
     }
 
     public void setWallUp() {
         Color color = quoridorGUI.getPlayerPlaying().getColor();
-        paintBorder(buttonWallUp, color);
+        setBorder(paintBorder(buttonWallUp, color));
+        this.colorBorderUp = color;
         removeButtonMouseListeners(buttonWallUp);
     }
 
     public void setWallLeft() {
         Color color = quoridorGUI.getPlayerPlaying().getColor();
-        paintBorder(buttonWallLeft, color);
+        setBorder(paintBorder(buttonWallLeft, color));
+        this.colorBorderLeft = color;
         removeButtonMouseListeners(buttonWallLeft);
     }
 
     public void setWallDown() {
         Color color = quoridorGUI.getPlayerPlaying().getColor();
-        paintBorder(buttonWallDown, color);
+        setBorder(paintBorder(buttonWallDown, color));
+        this.colorBorderDown = color;
         removeButtonMouseListeners(buttonWallDown);
     }
 
     public void setWallRight() {
         Color color = quoridorGUI.getPlayerPlaying().getColor();
-        paintBorder(buttonWallRight, color);
+        setBorder(paintBorder(buttonWallRight, color));
+        this.colorBorderRight = color;
         removeButtonMouseListeners(buttonWallRight);
+    }
+    
+    public void delWallUp() {
+        setBorder(paintBorder(buttonWallUp, Color.BLACK));
+        this.colorBorderUp = Color.BLACK;
+        createMouseListener(buttonWallUp);
+        createActionListener(buttonWallUp);
+    }
+
+    public void delWallLeft() {
+        setBorder(paintBorder(buttonWallLeft, Color.BLACK));
+        this.colorBorderLeft = Color.BLACK;
+        createMouseListener(buttonWallLeft);
+        createActionListener(buttonWallLeft);
+    }
+
+    public void delWallDown() {
+        setBorder(paintBorder(buttonWallDown, Color.BLACK));
+        this.colorBorderDown = Color.BLACK;
+        createMouseListener(buttonWallDown);
+        createActionListener(buttonWallDown);
+    }
+
+    public void delWallRight() {
+        setBorder(paintBorder(buttonWallRight, Color.BLACK));
+        this.colorBorderRight = Color.BLACK;
+        createMouseListener(buttonWallRight);
+        createActionListener(buttonWallRight);
     }
 
     private void addWall(String type, JButton button) {
         String squareSide;
+
+        if (type.equals("Normal")) {
+            type = "NormalWall";
+        } else if (type.equals("Long")) {
+            type = "LongWall";
+        }
 
         if (button == buttonWallUp) {
             squareSide = "UP";
@@ -181,20 +262,48 @@ public class SquareGUI extends JPanel {
     }
 
     private Border paintBorder(JButton button, Color color) {
-        Border blackBorder = BorderFactory.createLineBorder(Color.BLACK);
-        Border coloredBorder;
+        Border borderUp;
+        Border borderLeft;
+        Border borderDown;
+        Border borderRight;
 
         if (button == buttonWallUp) {
-            coloredBorder = BorderFactory.createMatteBorder(2, 0, 0, 0, color);
+            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, color);
+            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
+            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
+            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
         } else if (button == buttonWallLeft) {
-            coloredBorder = BorderFactory.createMatteBorder(0, 2, 0, 0, color);
+            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
+            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, color);
+            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
+            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
         } else if (button == buttonWallDown) {
-            coloredBorder = BorderFactory.createMatteBorder(0, 0, 2, 0, color);
+            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
+            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
+            borderDown = BorderFactory.createMatteBorder(0, 0, 1, 0, color);
+            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
         } else {
-            coloredBorder = BorderFactory.createMatteBorder(0, 0, 0, 2, color);
+            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
+            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
+            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
+            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, color);
         }
 
-        Border compoundBorder = BorderFactory.createCompoundBorder(blackBorder, coloredBorder);
+        Border compoundBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createCompoundBorder(borderUp, borderDown),
+                BorderFactory.createCompoundBorder(borderLeft, borderRight));
+        return compoundBorder;
+    }
+
+    private Border defaultBorder() {
+        Border borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
+        Border borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
+        Border borderDown = BorderFactory.createMatteBorder(0, 0, 1, 0, colorBorderDown);
+        Border borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
+        Border compoundBorder = BorderFactory.createCompoundBorder(
+                BorderFactory.createCompoundBorder(borderUp, borderDown),
+                BorderFactory.createCompoundBorder(borderLeft, borderRight));
+                
         return compoundBorder;
     }
 
