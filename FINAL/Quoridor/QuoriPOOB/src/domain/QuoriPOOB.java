@@ -228,7 +228,7 @@ public class QuoriPOOB implements Serializable{
 		Player player = getCurrentPlayer();
 		player.play(direction);
 		if(player.checkWin()) finishGame(player);
-		if(getCurrentPlayer() instanceof Machine) moveToken(null);
+		if(getCurrentPlayer() instanceof Machine) this.moveToken(null);
 	}
 
 	/*

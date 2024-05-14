@@ -124,7 +124,7 @@ public class Token implements Serializable{
 
         int size = this.lastMovements.size();
         this.lastMovements.remove(size - 1);
-        this.lastMovements.remove(size - 2);
+        //this.lastMovements.remove(size - 2);
         size = this.lastMovements.size();
 
         int[] positions = this.lastMovements.get(size - 1);

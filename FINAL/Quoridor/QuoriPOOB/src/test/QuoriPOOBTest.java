@@ -1630,14 +1630,8 @@ public class QuoriPOOBTest {
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
-        int[][] normalArray = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
-        int[][] turnArray = new int[][] { { 0, 2 }, { 0, 3 }, { 1, 2 }, { 1, 3 } };
         int[][] teleporterArray = new int[][] { {3,0} };
-        int[][] returnsArray = new int[][] { { 2, 2 }, { 2, 3 }, { 3, 2 }, { 3, 3 } };
         squares.put("domain.Teleporter", teleporterArray);
-        // squares.put("domain.DoubleTurn", turnArray);
-        // squares.put("domain.NormalSquare", normalArray);
-        // squares.put("domain.Return", returnsArray);
         q.createBoard(5,squares);
 
         q.moveToken("LEFT"); 
@@ -1665,61 +1659,62 @@ public class QuoriPOOBTest {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Daniel", Color.BLACK);
+        q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
-        int[][] turnArray = new int[][] { {3,0} };
-        squares.put("domain.Teleporter", turnArray);
+        int[][] turnArray = new int[][] { {3,2} };
+        squares.put("domain.DoubleTurn", turnArray);
         q.createBoard(5,squares);
 
         q.moveToken("LEFT"); 
-        q.moveToken("LEFT"); 
+        q.moveToken("UP"); // Miguel
+        assertTrue(q.getBoard().getMatrixBoard()[3][2].getToken().getColor().equals(Color.BLACK));
+        assertTrue(q.getBoard().getMatrixBoard()[0][1].getToken().getColor().equals(Color.BLUE));
+        q.moveToken("UP"); // Miguel?
+        assertTrue(q.getBoard().getMatrixBoard()[2][2].getToken().getColor().equals(Color.BLACK));
+        assertTrue(q.getBoard().getMatrixBoard()[0][1].getToken().getColor().equals(Color.BLUE));
+        q.moveToken("DOWN"); 
         
-        q.moveToken("RIGHT"); 
-        q.moveToken("LEFT"); 
-        
-        q.moveToken("LEFT"); 
+        q.moveToken("UP");  
+        assertEquals(q.getBoard().getMatrixBoard()[1][2].getToken().getColor(),Color.BLACK);
         q.moveToken("UP");
-        
-        q.moveToken("RIGHT"); 
         try{
-            q.moveToken("UPLEFT");
+            q.moveToken("UP");
         } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getClass().getSimpleName(),"Teleporter");
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getToken().getColor(),Color.BLACK);
-        
+        assertEquals(q.getBoard().getMatrixBoard()[3][2].getClass().getSimpleName(),"DoubleTurn");
+        assertEquals(q.getBoard().getMatrixBoard()[0][2].getToken().getColor(),Color.BLACK);
     }
     
     @Test 
-    public void shouldNotJumpReturnSquare()throws QuoriPOOBException{
+    public void shouldJumpReturnSquare()throws QuoriPOOBException{
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
         int[][] turnArray = new int[][] { {3,0} };
-        squares.put("domain.Teleporter", turnArray);
+        squares.put("domain.Return", turnArray);
         q.createBoard(5,squares);
         q.createBoard(5,squares);
 
         q.moveToken("LEFT"); 
         q.moveToken("LEFT"); 
-        
+
         q.moveToken("RIGHT"); 
         q.moveToken("LEFT"); 
-        
+
         q.moveToken("LEFT"); 
         q.moveToken("UP");
-        
+        assertTrue(q.getBoard().getMatrixBoard()[4][1].getToken().getColor().equals(Color.BLACK));
+
         q.moveToken("RIGHT"); 
-        try{
-            q.moveToken("UPLEFT");
-        } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
-        }
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getClass().getSimpleName(),"Teleporter");
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getToken().getColor(),Color.BLACK);
+        q.moveToken("UP"); 
+        q.moveToken("LEFT"); 
+        q.moveToken("LEFT"); 
+        
+        assertEquals(q.getBoard().getMatrixBoard()[3][0].getClass().getSimpleName(),"Return");
+        assertEquals(q.getBoard().getMatrixBoard()[4][1].getToken().getColor(),Color.BLACK);
         
     }
 
@@ -1730,51 +1725,8 @@ public class QuoriPOOBTest {
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
-        int[][] normalArray = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
-        int[][] turnArray = new int[][] { { 0, 2 }, { 0, 3 }, { 1, 2 }, { 1, 3 } };
         int[][] teleporterArray = new int[][] { {3,0} };
-        int[][] returnsArray = new int[][] { { 2, 2 }, { 2, 3 }, { 3, 2 }, { 3, 3 } };
         squares.put("domain.Teleporter", teleporterArray);
-        // squares.put("domain.DoubleTurn", turnArray);
-        // squares.put("domain.NormalSquare", normalArray);
-        // squares.put("domain.Return", returnsArray);
-        q.createBoard(5,squares);
-
-        q.moveToken("LEFT"); 
-        q.moveToken("LEFT"); 
-        
-        q.moveToken("RIGHT"); 
-        q.moveToken("LEFT"); 
-        
-        q.moveToken("LEFT"); 
-        q.moveToken("UP");
-        
-        q.moveToken("RIGHT"); 
-        try{
-            q.moveToken("UPLEFT");
-        } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
-        }
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getClass().getSimpleName(),"Teleporter");
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getToken().getColor(),Color.BLACK);
-        
-    }
-    
-    @Test 
-    public void shouldNotJumpReturnSquare1()throws QuoriPOOBException{
-        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setTwoPlayers();
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Daniel", Color.BLACK);
-        HashMap<String, int[][]> squares = new HashMap<>();
-        int[][] normalArray = new int[][] { { 0, 0 }, { 0, 1 }, { 1, 0 }, { 1, 1 } };
-        int[][] turnArray = new int[][] { { 0, 2 }, { 0, 3 }, { 1, 2 }, { 1, 3 } };
-        int[][] teleporterArray = new int[][] { {3,0} };
-        int[][] returnsArray = new int[][] { { 2, 2 }, { 2, 3 }, { 3, 2 }, { 3, 3 } };
-        squares.put("domain.Teleporter", teleporterArray);
-        // squares.put("domain.DoubleTurn", turnArray);
-        // squares.put("domain.NormalSquare", normalArray);
-        // squares.put("domain.Return", returnsArray);
         q.createBoard(5,squares);
 
         q.moveToken("LEFT"); 

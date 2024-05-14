@@ -443,9 +443,12 @@ public class Board implements Serializable{
 	}
 
 	private void squaresAct() throws QuoriPOOBException {
-		for (Square square : this.squares) {
-			square.act();
-		}
+		Player p = this.playerPlaying;
+		Token t = tokens.get(p.getColor());
+		t.getSquare().act();
+		// for (Square square : this.squares) {
+		// 	square.act();
+		// }
 	}
 
 	private void wallsAct() throws QuoriPOOBException {

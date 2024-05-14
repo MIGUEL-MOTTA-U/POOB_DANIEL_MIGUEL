@@ -1,7 +1,7 @@
 package domain;
 
 import java.awt.*;
-import javax.sound.midi.Soundbank;
+//import javax.sound.midi.Soundbank;
 
 public class Human extends Player{
     public Human(String name, Color color) {
