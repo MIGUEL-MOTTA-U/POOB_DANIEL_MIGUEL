@@ -44,7 +44,7 @@ public class BoardGUI extends JPanel{
 
     // Player 1
     private JPanel panelPlayer1;
-    private JLabel imagePlayer1;
+    private CirclePanel imagePlayer1;
     private JLabel labelNamePlayer1;
     private JLabel labelWallsPlayer1;
     private JLabel labelNormalWallsPlayer1;
@@ -54,7 +54,7 @@ public class BoardGUI extends JPanel{
 
     // Player 2
     private JPanel panelPlayer2;
-    private JLabel imagePlayer2;
+    private CirclePanel imagePlayer2;
     private JLabel labelNamePlayer2;
     private JLabel labelWallsPlayer2;
     private JLabel labelNormalWallsPlayer2;
@@ -247,6 +247,13 @@ public class BoardGUI extends JPanel{
     private void updateBoard() {
         Square[][] squares = quoridorGUI.getBoardMatrix();
         int size = quoridorGUI.getBoardSize();
+        Color playerColor = null;
+
+        for (int i = 0; i < quoridorGUI.getNames().length; i++) {
+            if (!quoridorGUI.getNames()[i].equals(quoridorGUI.getPlayerPlaying().getName())) {
+                playerColor = getColorPlayer(quoridorGUI.getNames()[i]);
+            }
+        }
     
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
@@ -261,45 +268,53 @@ public class BoardGUI extends JPanel{
                     squareGUI.eraseToken();
                 }
     
-                if (square.getWallUp() != null) {
-                    if (!squareGUI.getWallUp()) {
-                        squareGUI.setWallUp();
-                        squareGUI.setWallUp(true);
-                    }
-                } else if (square.getWallLeft() != null) {
-                    if (!squareGUI.getWallLeft()) {
-                        squareGUI.setWallLeft();
-                        squareGUI.setWallLeft(true);
-                    }
-                } else if (square.getWallDown() != null) {
-                    if (!squareGUI.getWallDown()) {
-                        squareGUI.setWallDown();
-                        squareGUI.setWallDown(true);
-                    }
-                } else if (square.getWallRight() != null) {
-                    if (!squareGUI.getWallRight()) {
-                        squareGUI.setWallRight();
-                        squareGUI.setWallRight(true);
-                    }
-                } else {
-                    if (squareGUI.getWallUp()) {
-                        squareGUI.delWallUp();
-                        squareGUI.setWallUp(false);
-                    } else if (squareGUI.getWallLeft()) {
-                        squareGUI.delWallLeft();
-                        squareGUI.setWallLeft(false);
-                    }  else if (squareGUI.getWallDown()) {
-                        squareGUI.delWallDown();
-                        squareGUI.setWallDown(false);
-                    }  else if (squareGUI.getWallRight()) {
-                        squareGUI.delWallRight();
-                        squareGUI.setWallRight(false);
-                    }
-                }
+                paintWalls(squareGUI, square, playerColor);
             }
         }
     
         repaint();
+    }
+
+    private void paintWalls(SquareGUI squareGUI, Square square, Color color) {
+        if (square.getWallUp() != null) {
+            if (!squareGUI.getWallUp()) {
+                squareGUI.setWallUp(color);
+                squareGUI.setWallUp(true);
+            }
+        } else if (square.getWallLeft() != null) {
+            if (!squareGUI.getWallLeft()) {
+                squareGUI.setWallLeft(color);
+                squareGUI.setWallLeft(true);
+            }
+        } else if (square.getWallDown() != null) {
+            if (!squareGUI.getWallDown()) {
+                squareGUI.setWallDown(color);
+                squareGUI.setWallDown(true);
+            }
+        } else if (square.getWallRight() != null) {
+            if (!squareGUI.getWallRight()) {
+                squareGUI.setWallRight(color);
+                squareGUI.setWallRight(true);
+            }
+        } else {
+            eraseWalls(squareGUI, square);
+        }
+    }
+
+    private void eraseWalls(SquareGUI squareGUI, Square square) {
+        if (squareGUI.getWallUp()) {
+            squareGUI.delWallUp();
+            squareGUI.setWallUp(false);
+        } else if (squareGUI.getWallLeft()) {
+            squareGUI.delWallLeft();
+            squareGUI.setWallLeft(false);
+        }  else if (squareGUI.getWallDown()) {
+            squareGUI.delWallDown();
+            squareGUI.setWallDown(false);
+        }  else if (squareGUI.getWallRight()) {
+            squareGUI.delWallRight();
+            squareGUI.setWallRight(false);
+        }
     }
 
     private void prepareElementsSouth(JPanel content) {
@@ -327,11 +342,10 @@ public class BoardGUI extends JPanel{
         panelPlayer1.setLayout(new BoxLayout(panelPlayer1, BoxLayout.X_AXIS));
         panelPlayer1.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        imagePlayer1 = new JLabel();
-        imagePlayer1.setSize(50, 50);
-        createImage(imagePlayer1, "assets/stopWatch.png");
-
         String namePlayer = this.quoridorGUI.getNames()[0];
+        imagePlayer1 = new CirclePanel(getColorPlayer(namePlayer));
+        imagePlayer1.setPreferredSize(new Dimension(100, 100));
+
         labelNamePlayer1 = new JLabel(namePlayer);
         labelNamePlayer1.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
 
@@ -342,7 +356,7 @@ public class BoardGUI extends JPanel{
         labelAlliedWallsPlayer1 = createLabel("Allied: " + getRemainingWalls(namePlayer).get("Allied"));
 
         panelPlayer1.add(imagePlayer1);
-        panelPlayer1.add(Box.createHorizontalStrut(30));
+        panelPlayer1.add(Box.createHorizontalStrut(20));
         panelPlayer1.add(prepareElemetsNamePlayer(labelNamePlayer1, labelWallsPlayer1));
         panelPlayer1.add(Box.createHorizontalStrut(30));
         panelPlayer1.add(prepareElementsWallsPlayer(labelNormalWallsPlayer1, labelTemporaryWallsPlayer1, labelLongWallsPlayer1, labelAlliedWallsPlayer1));
@@ -360,11 +374,10 @@ public class BoardGUI extends JPanel{
         panelPlayer2.setLayout(new BoxLayout(panelPlayer2, BoxLayout.X_AXIS));
         panelPlayer2.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        imagePlayer2 = new JLabel();
-        imagePlayer2.setSize(50, 50);
-        createImage(imagePlayer2, "assets/stopWatch.png");
-
         String namePlayer = this.quoridorGUI.getNames()[1];
+        imagePlayer2 = new CirclePanel(getColorPlayer(namePlayer));
+        imagePlayer2.setPreferredSize(new Dimension(100, 100));
+
         labelNamePlayer2 = new JLabel(namePlayer);
         labelNamePlayer2.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
 
@@ -375,7 +388,7 @@ public class BoardGUI extends JPanel{
         labelAlliedWallsPlayer2 = createLabel("Allied: " + getRemainingWalls(namePlayer).get("Allied"));
 
         panelPlayer2.add(imagePlayer2);
-        panelPlayer2.add(Box.createHorizontalStrut(30));
+        panelPlayer2.add(Box.createHorizontalStrut(20));
         panelPlayer2.add(prepareElemetsNamePlayer(labelNamePlayer2, labelWallsPlayer2));
         panelPlayer2.add(Box.createHorizontalStrut(30));
         panelPlayer2.add(prepareElementsWallsPlayer(labelNormalWallsPlayer2, labelTemporaryWallsPlayer2, labelLongWallsPlayer2, labelAlliedWallsPlayer2));
@@ -573,7 +586,7 @@ public class BoardGUI extends JPanel{
         return total;
     }
 
-    public void updateNumWalls() {
+    private void updateNumWalls() {
         String namePlayer1 = this.quoridorGUI.getNames()[0];
         String namePlayer2 = this.quoridorGUI.getNames()[1];
 
@@ -589,8 +602,21 @@ public class BoardGUI extends JPanel{
         labelAlliedWallsPlayer2.setText("Allied: " + getRemainingWalls(namePlayer2).get("Allied"));
     }
 
-    private void refresh() {
+    private Color getColorPlayer(String name) {
+        Color color = null;
+
+        try {
+            color = this.quoridorGUI.getColorPlayer(name);
+        } catch (QuoriPOOBException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return color;
+    }
+
+    public void refresh() {
 		updateBoard();
+        updateNumWalls();
         tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
 	}
 }

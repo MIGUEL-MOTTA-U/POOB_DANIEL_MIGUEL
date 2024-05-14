@@ -128,7 +128,9 @@ public class SquareGUI extends JPanel {
             String wall = (String) walls.getSelectedItem();
             boolean wallAdded = addWall(wall, button);
 
-            if (wallAdded) boardGUI.updateNumWalls();
+            if (wallAdded) {
+                boardGUI.refresh();
+            }
         }
     }
 
@@ -183,29 +185,25 @@ public class SquareGUI extends JPanel {
         });
     }
 
-    public void setWallUp() {
-        Color color = quoridorGUI.getPlayerPlaying().getColor();
+    public void setWallUp(Color color) {
         setBorder(paintBorder(buttonWallUp, color));
         this.colorBorderUp = color;
         removeButtonMouseListeners(buttonWallUp);
     }
 
-    public void setWallLeft() {
-        Color color = quoridorGUI.getPlayerPlaying().getColor();
+    public void setWallLeft(Color color) {
         setBorder(paintBorder(buttonWallLeft, color));
         this.colorBorderLeft = color;
         removeButtonMouseListeners(buttonWallLeft);
     }
 
-    public void setWallDown() {
-        Color color = quoridorGUI.getPlayerPlaying().getColor();
+    public void setWallDown(Color color) {
         setBorder(paintBorder(buttonWallDown, color));
         this.colorBorderDown = color;
         removeButtonMouseListeners(buttonWallDown);
     }
 
-    public void setWallRight() {
-        Color color = quoridorGUI.getPlayerPlaying().getColor();
+    public void setWallRight(Color color) {
         setBorder(paintBorder(buttonWallRight, color));
         this.colorBorderRight = color;
         removeButtonMouseListeners(buttonWallRight);
