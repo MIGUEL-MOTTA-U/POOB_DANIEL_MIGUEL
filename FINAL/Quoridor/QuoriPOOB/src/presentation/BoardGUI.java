@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 
 import domain.QuoriPOOBException;
 import domain.Square;
+import presentation.assets.CirclePanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -36,6 +37,7 @@ public class BoardGUI extends JPanel{
     private JButton buttonRightDown;
     private JButton buttonRight;
     private JButton buttonRightUp;
+    private CirclePanel tokenPlaying;
 
     // Information
     private JPanel panelSouth;
@@ -134,8 +136,7 @@ public class BoardGUI extends JPanel{
         panelRightUp.setBackground(Color.WHITE);
 		JPanel panelLeft = new JPanel(new GridBagLayout());
         panelLeft.setBackground(Color.WHITE);
-        JPanel panelCenter = new JPanel(new GridBagLayout());
-        panelCenter.setBackground(Color.WHITE);
+        tokenPlaying = new CirclePanel(this.quoridorGUI.getPlayerPlaying().getColor());
 		JPanel panelRight = new JPanel(new GridBagLayout());
         panelRight.setBackground(Color.WHITE);
 		JPanel panelLeftDown = new JPanel(new GridBagLayout());
@@ -208,7 +209,7 @@ public class BoardGUI extends JPanel{
         panelMoves.add(panelUp);
         panelMoves.add(panelButtonRightUp);
         panelMoves.add(panelLeft);
-        panelMoves.add(panelCenter);
+        panelMoves.add(tokenPlaying);
         panelMoves.add(panelRight);
         panelMoves.add(panelLeftDown);
         panelMoves.add(panelButtonDown);
@@ -230,7 +231,7 @@ public class BoardGUI extends JPanel{
     
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
-                SquareGUI squareGUI = new SquareGUI(quoridorGUI, row, column);
+                SquareGUI squareGUI = new SquareGUI(quoridorGUI, this, row, column);
                 panelBoard.add(squareGUI);
                 squaresGUI[row][column] = squareGUI;
             }
@@ -572,7 +573,7 @@ public class BoardGUI extends JPanel{
         return total;
     }
 
-    private void updateNumWalls() {
+    public void updateNumWalls() {
         String namePlayer1 = this.quoridorGUI.getNames()[0];
         String namePlayer2 = this.quoridorGUI.getNames()[1];
 
@@ -590,6 +591,6 @@ public class BoardGUI extends JPanel{
 
     private void refresh() {
 		updateBoard();
-        updateNumWalls();
+        tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
 	}
 }

@@ -12,6 +12,7 @@ public class SquareGUI extends JPanel {
     private static final Color COLOR_HOVER = new Color(235, 235, 235);
     
     private QuoridorGUI quoridorGUI;
+    private BoardGUI boardGUI;
     private int row;
     private int column;
     private boolean wallUp;
@@ -31,8 +32,9 @@ public class SquareGUI extends JPanel {
     JButton buttonWallLeft;
     JButton buttonWallRight;
 
-    public SquareGUI(QuoridorGUI quoridorGUI, int row, int column) {
+    public SquareGUI(QuoridorGUI quoridorGUI, BoardGUI boardGUI, int row, int column) {
         this.quoridorGUI = quoridorGUI;
+        this.boardGUI = boardGUI;
         this.row = row;
         this.column = column;
         this.wallUp = false;
@@ -124,7 +126,9 @@ public class SquareGUI extends JPanel {
 
         if (result == JOptionPane.OK_OPTION) {
             String wall = (String) walls.getSelectedItem();
-            addWall(wall, button);
+            boolean wallAdded = addWall(wall, button);
+
+            if (wallAdded) boardGUI.updateNumWalls();
         }
     }
 
@@ -235,8 +239,9 @@ public class SquareGUI extends JPanel {
         createActionListener(buttonWallRight);
     }
 
-    private void addWall(String type, JButton button) {
+    private boolean addWall(String type, JButton button) {
         String squareSide;
+        boolean wallAdded = true;
 
         if (type.equals("Normal")) {
             type = "NormalWall";
@@ -257,8 +262,11 @@ public class SquareGUI extends JPanel {
         try {
             quoridorGUI.addWallToBoard(type, this.row, this.column, squareSide);
         } catch (QuoriPOOBException e) {
+            wallAdded = false;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        return wallAdded;
     }
 
     private Border paintBorder(JButton button, Color color) {
