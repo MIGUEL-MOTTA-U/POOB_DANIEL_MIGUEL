@@ -3,11 +3,14 @@ package presentation;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import domain.QuoriPOOBException;
 import domain.Square;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class BoardGUI extends JPanel{
@@ -327,14 +330,15 @@ public class BoardGUI extends JPanel{
         imagePlayer1.setSize(50, 50);
         createImage(imagePlayer1, "assets/stopWatch.png");
 
-        labelNamePlayer1 = new JLabel("Daniel Diaz");
+        String namePlayer = this.quoridorGUI.getNames()[0];
+        labelNamePlayer1 = new JLabel(namePlayer);
         labelNamePlayer1.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
 
-        labelWallsPlayer1 = createLabel("Remaining walls: 2");
-        labelNormalWallsPlayer1 = createLabel("Normal: 2");
-        labelTemporaryWallsPlayer1 = createLabel("Temporary: 2");
-        labelLongWallsPlayer1 = createLabel("Long: 2");
-        labelAlliedWallsPlayer1 = createLabel("Allied: 2");
+        labelWallsPlayer1 = createLabel("Remaining walls: " + getTotalRemainingWalls(namePlayer));
+        labelNormalWallsPlayer1 = createLabel("Normal: " + getRemainingWalls(namePlayer).get("NormalWall"));
+        labelTemporaryWallsPlayer1 = createLabel("Temporary: " + getRemainingWalls(namePlayer).get("Temporary"));
+        labelLongWallsPlayer1 = createLabel("Long: " + getRemainingWalls(namePlayer).get("LongWall"));
+        labelAlliedWallsPlayer1 = createLabel("Allied: " + getRemainingWalls(namePlayer).get("Allied"));
 
         panelPlayer1.add(imagePlayer1);
         panelPlayer1.add(Box.createHorizontalStrut(30));
@@ -359,14 +363,15 @@ public class BoardGUI extends JPanel{
         imagePlayer2.setSize(50, 50);
         createImage(imagePlayer2, "assets/stopWatch.png");
 
-        labelNamePlayer2 = new JLabel("Miguel Motta");
+        String namePlayer = this.quoridorGUI.getNames()[1];
+        labelNamePlayer2 = new JLabel(namePlayer);
         labelNamePlayer2.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
 
-        labelWallsPlayer2 = createLabel("Remaining walls: 2");
-        labelNormalWallsPlayer2 = createLabel("Normal: 2");
-        labelTemporaryWallsPlayer2 = createLabel("Temporary: 2");
-        labelLongWallsPlayer2 = createLabel("Long: 2");
-        labelAlliedWallsPlayer2 = createLabel("Allied: 2");
+        labelWallsPlayer2 = createLabel("Remaining walls: " + getTotalRemainingWalls(namePlayer));
+        labelNormalWallsPlayer2 = createLabel("Normal: " + getRemainingWalls(namePlayer).get("NormalWall"));
+        labelTemporaryWallsPlayer2 = createLabel("Temporary: " + getRemainingWalls(namePlayer).get("Temporary"));
+        labelLongWallsPlayer2 = createLabel("Long: " + getRemainingWalls(namePlayer).get("LongWall"));
+        labelAlliedWallsPlayer2 = createLabel("Allied: " + getRemainingWalls(namePlayer).get("Allied"));
 
         panelPlayer2.add(imagePlayer2);
         panelPlayer2.add(Box.createHorizontalStrut(30));
@@ -538,7 +543,53 @@ public class BoardGUI extends JPanel{
 		}
 	}
 
+    private HashMap<String, Integer> getRemainingWalls(String namePlayer) {
+        try {
+            Color colorPlayer = this.quoridorGUI.getColorPlayer(namePlayer);
+            HashMap<Color, HashMap<String, Integer>> numberWalls = this.quoridorGUI.getReaminingWalls();
+
+            for (Map.Entry<Color, HashMap<String, Integer>> entry : numberWalls.entrySet()) {
+                Color color = entry.getKey();
+                if (color.equals(colorPlayer)) {
+                    return entry.getValue();
+                }
+            }
+        } catch (QuoriPOOBException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return null;
+    }
+
+    private int getTotalRemainingWalls(String namePlayer) {
+        HashMap<String, Integer> numWalls = getRemainingWalls(namePlayer);
+        int total = 0;
+
+        for (int numWall : numWalls.values()) {
+            total += numWall;
+        }
+
+        return total;
+    }
+
+    private void updateNumWalls() {
+        String namePlayer1 = this.quoridorGUI.getNames()[0];
+        String namePlayer2 = this.quoridorGUI.getNames()[1];
+
+        labelWallsPlayer1.setText("Remaining walls: " + getTotalRemainingWalls(namePlayer1));
+        labelNormalWallsPlayer1.setText("Normal: " + getRemainingWalls(namePlayer1).get("NormalWall"));
+        labelTemporaryWallsPlayer1.setText("Temporary: " + getRemainingWalls(namePlayer1).get("Temporary"));
+        labelLongWallsPlayer1.setText("Long: " + getRemainingWalls(namePlayer1).get("LongWall"));
+        labelAlliedWallsPlayer1.setText("Allied: " + getRemainingWalls(namePlayer1).get("Allied"));
+        labelWallsPlayer2.setText("Remaining walls: " + getTotalRemainingWalls(namePlayer2));
+        labelNormalWallsPlayer2.setText("Normal: " + getRemainingWalls(namePlayer2).get("NormalWall"));
+        labelTemporaryWallsPlayer2.setText("Temporary: " + getRemainingWalls(namePlayer2).get("Temporary"));
+        labelLongWallsPlayer2.setText("Long: " + getRemainingWalls(namePlayer2).get("LongWall"));
+        labelAlliedWallsPlayer2.setText("Allied: " + getRemainingWalls(namePlayer2).get("Allied"));
+    }
+
     private void refresh() {
 		updateBoard();
+        updateNumWalls();
 	}
 }

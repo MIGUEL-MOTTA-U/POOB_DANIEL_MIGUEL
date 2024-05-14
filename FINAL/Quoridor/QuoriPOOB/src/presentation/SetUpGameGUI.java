@@ -252,6 +252,8 @@ public class SetUpGameGUI extends JPanel{
                     specialSquares.put("domain." + type, squares);
                     success = true;
                 }
+            } else {
+                break;
             }   
         } while (!success);
     }

@@ -246,6 +246,18 @@ public class QuoridorGUI extends JFrame {
         return quoriPOOB.getSize();
     }
 
+    public String[] getNames() {
+        return this.quoriPOOB.getNames();
+    }
+
+    public HashMap<Color, HashMap<String, Integer>> getReaminingWalls() {
+        return this.quoriPOOB.numberWalls();
+    }
+
+    public Color getColorPlayer(String name) throws QuoriPOOBException {
+        return this.quoriPOOB.getColor(name);
+    }
+
     public static void main(String args[]) {
         QuoridorGUI gui = new QuoridorGUI();
         gui.setVisible(true);
