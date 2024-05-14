@@ -232,7 +232,6 @@ public class Board implements Serializable{
 
 		Token token = this.tokens.get(colorToken);
 		Square square = token.getSquare();
-
 		if (square.blockDiagonalMovements())
 			throw new QuoriPOOBException(QuoriPOOBException.DIAGONAL_MOVES_BLOCK);
 

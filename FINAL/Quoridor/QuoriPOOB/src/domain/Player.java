@@ -240,8 +240,14 @@ public abstract class Player implements Serializable{
 	private boolean notEnemy(int row, int column){
 		// Si no hay nada, si lo puedo conectar
 		// Si esta mi propio token, tambien lo puedo conectar
-		return board.getMatrixBoard()[row][column].getToken()==null||
-		board.getMatrixBoard()[row][column].getToken().getColor().equals(color);
+		boolean res = false;
+		if(board.getMatrixBoard()[row][column].getToken()==null){
+			res = true;
+		} else if(board.getMatrixBoard()[row][column].getToken().getColor().equals(color)){
+			res= true;
+		}
+		
+		return res;
 	}
 
     private boolean makeConectionUp(Square box) {
