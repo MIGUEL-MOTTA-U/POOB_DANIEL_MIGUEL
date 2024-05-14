@@ -5,7 +5,6 @@ import javax.swing.border.EmptyBorder;
 
 import domain.QuoriPOOBException;
 import domain.Square;
-import presentation.assets.CirclePanel;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -344,7 +343,7 @@ public class BoardGUI extends JPanel{
 
         String namePlayer = this.quoridorGUI.getNames()[0];
         imagePlayer1 = new CirclePanel(getColorPlayer(namePlayer));
-        imagePlayer1.setPreferredSize(new Dimension(100, 100));
+        imagePlayer1.setPreferredSize(new Dimension(50, 50));
 
         labelNamePlayer1 = new JLabel(namePlayer);
         labelNamePlayer1.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
@@ -376,7 +375,7 @@ public class BoardGUI extends JPanel{
 
         String namePlayer = this.quoridorGUI.getNames()[1];
         imagePlayer2 = new CirclePanel(getColorPlayer(namePlayer));
-        imagePlayer2.setPreferredSize(new Dimension(100, 100));
+        imagePlayer2.setPreferredSize(new Dimension(50, 50));
 
         labelNamePlayer2 = new JLabel(namePlayer);
         labelNamePlayer2.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 20));
