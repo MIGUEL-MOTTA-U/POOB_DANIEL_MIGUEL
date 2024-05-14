@@ -18,7 +18,11 @@ public class Beginner extends Machine{
         if(option ==0) {
             jump();
         } else {
-            putWall();
+            if(this.walls.size()>0){
+                putWall();
+            } else {
+                jump();
+            }
         }
     }
 

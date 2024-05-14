@@ -24,7 +24,7 @@ public class Intermediate extends Machine{
         }else {
             System.out.println("Comportamiento EN CONSTRUCCION");
             //addWallToBoard(direction, 0, 0, direction);
-            moveToken("UP");
+            moveToken("DOWN");
             
         }
 
