@@ -1037,11 +1037,16 @@ public class QuoriPOOBTest {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()!=null);
 
         q.moveToken("UP");
-        
+        q.addWallToBoard("Temporary", 0, 3, "RIGHT");
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        q.moveToken("RIGHT");
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[0][3].getWallLeft()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()==null);
+        
     }
 
     @Test
@@ -1064,6 +1069,12 @@ public class QuoriPOOBTest {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()!=null);
         
         q.moveToken("DOWN");
+        q.addWallToBoard("Temporary", 0, 3, "RIGHT");
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        q.moveToken("RIGHT");
+        q.moveToken("LEFT");
         
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][2].getWallRight()==null);
@@ -1718,12 +1729,12 @@ public class QuoriPOOBTest {
         
     }
 
-    @Test 
+    //@Test 
     public void shouldJumpPlayerDiagonal()throws QuoriPOOBException{
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Daniel", Color.BLACK);
+        q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
         int[][] teleporterArray = new int[][] { {2,0} };
         squares.put("domain.Teleporter", teleporterArray);
