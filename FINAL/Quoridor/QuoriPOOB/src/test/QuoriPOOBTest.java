@@ -1238,7 +1238,7 @@ public class QuoriPOOBTest {
         } catch(QuoriPOOBException e){
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
-        File copy = new File("./test/guardado.dat");
+        File copy = new File("./guardado.dat");
         q.saveFile(copy);
         q.resetSingleton();
         q =null;

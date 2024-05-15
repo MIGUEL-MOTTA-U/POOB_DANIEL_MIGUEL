@@ -607,11 +607,16 @@ public class Quopripoobvi {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()!=null);
 
         q.moveToken("UP");
-        
+        q.addWallToBoard("Temporary", 0, 3, "RIGHT");
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        q.moveToken("RIGHT");
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[0][3].getWallLeft()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()==null);
+        
     }
 
     @Test
@@ -634,6 +639,12 @@ public class Quopripoobvi {
         assertTrue(q.getBoard().getMatrixBoard()[1][3].getWallLeft()!=null);
         
         q.moveToken("DOWN");
+        q.addWallToBoard("Temporary", 0, 3, "RIGHT");
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        q.moveToken("RIGHT");
+        q.moveToken("LEFT");
         
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight()==null);
         assertTrue(q.getBoard().getMatrixBoard()[1][2].getWallRight()==null);
