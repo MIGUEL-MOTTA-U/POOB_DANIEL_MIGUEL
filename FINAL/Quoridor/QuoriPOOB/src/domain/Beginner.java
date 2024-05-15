@@ -35,7 +35,7 @@ public class Beginner extends Machine{
         }
     }
 
-    private void putWall()throws QuoriPOOBException{
+    private void putWall() {
         ArrayList<String> types = new ArrayList<>(Arrays.asList("Temporary", "NormalWall", "Allied"));
         ArrayList<String> orientation = new ArrayList<>(Arrays.asList("UP", "DOWN", "LEFT", "RIGHT"));
         int type,oriented, row, column;

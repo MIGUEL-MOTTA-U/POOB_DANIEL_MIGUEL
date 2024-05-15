@@ -29,7 +29,7 @@ public class Temporary extends Wall {
     public void act() throws QuoriPOOBException {
         if (this.board != null) {
             this.turn++;
-            if (this.turn == 4) delWallFromBoard();
+            if (this.turn == 8) delWallFromBoard();
         }
     }
 
