@@ -69,6 +69,8 @@ public abstract class Player implements Serializable{
 	protected boolean isNotBlocked(){
 		return true;
 	}
+
+	// Abstract Methods
 	protected void moveToken(String direction) throws QuoriPOOBException {
         switch (direction.toUpperCase()) {
             case "UP":
@@ -98,9 +100,9 @@ public abstract class Player implements Serializable{
             default:
                 throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
         }
-
     }
-	protected void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+
+    protected void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
         if(!numberWalls().containsKey(type)) throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
         if (numberWalls().get(type) <= 0) throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
 
@@ -114,15 +116,9 @@ public abstract class Player implements Serializable{
 
         wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
         
-        delWall(wallToPut);
-        
+        delWall(wallToPut);  
     }
 	
-	// Abstract Methods
-	public abstract void play(String direction) throws QuoriPOOBException;
-	public abstract void play(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException;
-	
-
 	// Getters and Setters
 	public String getName(){
 		return name;

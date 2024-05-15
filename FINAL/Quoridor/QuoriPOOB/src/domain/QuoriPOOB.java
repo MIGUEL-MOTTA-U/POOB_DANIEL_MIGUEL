@@ -212,7 +212,7 @@ public class QuoriPOOB implements Serializable{
 			throws QuoriPOOBException {
 		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		Player player = getCurrentPlayer();
-		player.play(type, initialRow, initialColumn, squareSide);
+		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 		if(this.onePlayer) moveToken(null);
 	}
 
@@ -226,7 +226,7 @@ public class QuoriPOOB implements Serializable{
 	public void moveToken(String direction) throws QuoriPOOBException {
 		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		Player player = getCurrentPlayer();
-		player.play(direction);
+		player.moveToken(direction);
 		if(player.checkWin()) finishGame(player);
 		if(getCurrentPlayer() instanceof Machine) this.moveToken(null);
 	}
