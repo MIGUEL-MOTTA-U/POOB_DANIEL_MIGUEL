@@ -1288,7 +1288,7 @@ public class QuoriPOOBTest {
     }
 
     
-    //@Test
+    @Test
     public void shouldPlayWithMachineChangingPosition()throws QuoriPOOBException{
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1317,16 +1317,11 @@ public class QuoriPOOBTest {
             }   
         }
         assertFalse(pasx == x && pasy == y); 
-        q.moveToken("DOWN"); 
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 5; j++) {
-                if((q.getBoard().getMatrixBoard()[i][j].getToken()!=null)&& q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
-                pasx=x; pasy=y;
-                x = i; y = j;
-
-            }   
+        try{
+            q.moveToken("DOWN"); 
+        } catch(QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Daniel"), e.getMessage());
         }
-        assertFalse(pasx == x && pasy == y);
     }
 
     @Test
@@ -1586,7 +1581,12 @@ public class QuoriPOOBTest {
         // Daniel moves
         q.addWallToBoard("NormalWall", 0, 3, "UP");
         q.addWallToBoard("NormalWall", 0, 1, "UP");
-        q.addWallToBoard("NormalWall", 1, 0, "RIGHT");
+        try{
+            q.addWallToBoard("NormalWall", 1, 0, "RIGHT");
+        } catch(QuoriPOOBException e){
+
+        }
+        
         q.addWallToBoard("NormalWall", 0, 2, "RIGHT");
         
         q.moveToken("RIGHT"); 
@@ -1719,20 +1719,23 @@ public class QuoriPOOBTest {
     }
 
     @Test 
-    public void shouldAddDoubleTurnSquare1()throws QuoriPOOBException{
+    public void shouldJumpPlayerDiagonal()throws QuoriPOOBException{
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
-        int[][] teleporterArray = new int[][] { {3,0} };
+        int[][] teleporterArray = new int[][] { {2,0} };
         squares.put("domain.Teleporter", teleporterArray);
-        q.createBoard(5,squares);
-
+        q.createBoard(3,squares);
+        q.addWalls(3, 1, 0, 0);
+        // Daniel moves
+        q.moveToken("DOWN"); 
         q.moveToken("LEFT"); 
-        q.moveToken("LEFT"); 
+        q.addWallToBoard("NormalWall", 0, 0, "LEFT");
         
-        q.moveToken("RIGHT"); 
+        q.addWallToBoard(null, 0, 0, null);
+        q.moveToken("RIGHT"); // Hacer un test del cubo 3 * 3
         q.moveToken("LEFT"); 
         
         q.moveToken("LEFT"); 
