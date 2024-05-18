@@ -2,11 +2,10 @@ package presentation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameModeGUI extends JPanel{
+public class GameModeGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
     // Title
@@ -41,7 +40,7 @@ public class GameModeGUI extends JPanel{
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        prepareElementsTitle(content); 
+        prepareElementsTitle(content);
         content.add(Box.createVerticalStrut(40));
         prepareElementsNormalMode(content);
         content.add(Box.createVerticalStrut(20));
@@ -95,7 +94,8 @@ public class GameModeGUI extends JPanel{
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         buttonClockMode = createButton("Against the clock");
-        labelClockModeDescription = createLabel("Players have a parameterized time limit to perform an action or else they will lose their turn.");
+        labelClockModeDescription = createLabel(
+                "Players have a parameterized time limit to perform an action or else they will lose their turn.");
 
         container.add(buttonClockMode);
         container.add(labelClockModeDescription);
@@ -124,7 +124,7 @@ public class GameModeGUI extends JPanel{
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setOpaque(false); 
+        button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
@@ -154,9 +154,9 @@ public class GameModeGUI extends JPanel{
         return label;
     }
 
-    private void prepareActions() { 
+    private void prepareActions() {
         prepareActionsButtons();
-    } 
+    }
 
     private void prepareActionsButtons() {
         buttonNormalMode.addActionListener(new ActionListener() {
@@ -164,7 +164,7 @@ public class GameModeGUI extends JPanel{
                 quoridorGUI.showPlayerInfoGUI();
             }
         });
-        
+
         buttonClockMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 quoridorGUI.showPlayerInfoGUI();

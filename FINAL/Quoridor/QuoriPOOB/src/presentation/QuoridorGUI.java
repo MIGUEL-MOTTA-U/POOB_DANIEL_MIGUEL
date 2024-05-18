@@ -1,9 +1,8 @@
 package presentation;
 
-import javax.swing.*;
-
 import domain.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -29,12 +28,12 @@ public class QuoridorGUI extends JFrame {
     private JPanel cardPanel;
 
     // Menu
-	private JMenuBar menuBar;
-	private JMenu fileMenu;
-	private JMenuItem newItem;
-	private JMenuItem openItem;
-	private JMenuItem saveItem;
-	private JMenuItem exitItem;
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenuItem newItem;
+    private JMenuItem openItem;
+    private JMenuItem saveItem;
+    private JMenuItem exitItem;
 
     // Windows
     private StartGUI startGUI;
@@ -65,73 +64,68 @@ public class QuoridorGUI extends JFrame {
         add(container, BorderLayout.CENTER);
     }
 
-    private void prepareElementsMenu(){
-		menuBar = new JMenuBar();
-		fileMenu = new JMenu("File");
-		newItem = new JMenuItem("New");
-		openItem = new JMenuItem("Open");
-		saveItem = new JMenuItem("Save");
-		exitItem = new JMenuItem("Exit");
+    private void prepareElementsMenu() {
+        menuBar = new JMenuBar();
+        fileMenu = new JMenu("File");
+        newItem = new JMenuItem("New");
+        openItem = new JMenuItem("Open");
+        saveItem = new JMenuItem("Save");
+        exitItem = new JMenuItem("Exit");
 
-		fileMenu.add(newItem);
-		fileMenu.add(openItem);
-		fileMenu.add(saveItem);
-		fileMenu.addSeparator();
-		fileMenu.add(exitItem);
+        fileMenu.add(newItem);
+        fileMenu.add(openItem);
+        fileMenu.add(saveItem);
+        fileMenu.addSeparator();
+        fileMenu.add(exitItem);
 
-		menuBar.add(fileMenu);
-		setJMenuBar(menuBar);
-	}
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
+    }
 
-    private void prepareActions() { 
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); 
-        addWindowListener(new WindowAdapter() { 
-            public void windowClosing(WindowEvent windowEvent) { 
-                confirmClose(); 
+    private void prepareActions() {
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent windowEvent) {
+                confirmClose();
             }
-        }); 
+        });
 
         prepareActionsMenu();
-    } 
+    }
 
-    private void prepareActionsMenu(){
-		openItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
-				JFileChooser chooser = new JFileChooser();
-				int returnVal = chooser.showOpenDialog(QuoridorGUI.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File fileSelected = chooser.getSelectedFile();
-					JOptionPane.showMessageDialog(QuoridorGUI.this, "You chose open this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-		});
+    private void prepareActionsMenu() {
+        openItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                JFileChooser chooser = new JFileChooser();
+                int returnVal = chooser.showOpenDialog(QuoridorGUI.this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File fileSelected = chooser.getSelectedFile();
+                    JOptionPane.showMessageDialog(QuoridorGUI.this,
+                            "You chose open this file: " + fileSelected.getName(), "Action under construction",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 
-		saveItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
-				JFileChooser chooser = new JFileChooser();
-				int returnVal = chooser.showSaveDialog(QuoridorGUI.this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File fileSelected = chooser.getSelectedFile();
-					JOptionPane.showMessageDialog(QuoridorGUI.this, "You chose save this file: " + fileSelected.getName(), "Action under construction", JOptionPane.INFORMATION_MESSAGE);
-				}
-			}
-		});
+        saveItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                JFileChooser chooser = new JFileChooser();
+                int returnVal = chooser.showSaveDialog(QuoridorGUI.this);
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    File fileSelected = chooser.getSelectedFile();
+                    JOptionPane.showMessageDialog(QuoridorGUI.this,
+                            "You chose save this file: " + fileSelected.getName(), "Action under construction",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
 
-		exitItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ev) {
-				confirmClose();
-			}
-		});	
-	}
-
-    private void confirmClose() { 
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?", 
-        "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
-    
-        if (option == JOptionPane.YES_OPTION) { 
-            System.exit(0);
-        } 
-    } 
+        exitItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                confirmClose();
+            }
+        });
+    }
 
     public void showStartGUI() {
         if (startGUI == null) {
@@ -197,7 +191,7 @@ public class QuoridorGUI extends JFrame {
     public void setOnePlayer() {
         quoriPOOB.setOnePlayer();
     }
-    
+
     public void setTwoPlayers() {
         quoriPOOB.setTwoPlayers();
     }
@@ -230,7 +224,8 @@ public class QuoridorGUI extends JFrame {
         quoriPOOB.moveToken(direction);
     }
 
-    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide) throws QuoriPOOBException {
+    public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
+            throws QuoriPOOBException {
         quoriPOOB.addWallToBoard(type, initialRow, initialColumn, squareSide);
     }
 
@@ -256,6 +251,15 @@ public class QuoridorGUI extends JFrame {
 
     public Color getColorPlayer(String name) throws QuoriPOOBException {
         return this.quoriPOOB.getColor(name);
+    }
+
+    private void confirmClose() {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
+                "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
     }
 
     public static void main(String args[]) {

@@ -1,16 +1,14 @@
 package presentation;
 
+import domain.QuoriPOOBException;
+
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 
-import domain.QuoriPOOBException;
 
 public class SquareGUI extends JPanel {
-    private static final Color COLOR_HOVER = new Color(235, 235, 235);
-    
     private QuoridorGUI quoridorGUI;
     private BoardGUI boardGUI;
     private int row;
@@ -49,6 +47,93 @@ public class SquareGUI extends JPanel {
         this.colorBorderRight = Color.BLACK;
         prepareElements();
         prepareActions();
+    }
+
+    private void prepareElements() {
+        setBackground(Color.WHITE);
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
+
+        buttonWallUp = createButton(getWidth(), 10);
+        buttonWallDown = createButton(getWidth(), 10);
+        buttonWallLeft = createButton(10, getHeight());
+        buttonWallRight = createButton(10, getHeight());
+
+        add(buttonWallUp, BorderLayout.NORTH);
+        add(buttonWallDown, BorderLayout.SOUTH);
+        add(buttonWallLeft, BorderLayout.WEST);
+        add(buttonWallRight, BorderLayout.EAST);
+    }
+
+    private void showTypeWallDialog(JButton button) {
+        JComboBox<String> walls = createWallComboBox();
+
+        JPanel panel = new JPanel(new FlowLayout());
+        panel.add(walls);
+
+        int result = JOptionPane.showConfirmDialog(this, panel, "Select the wall type", JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+
+        if (result == JOptionPane.OK_OPTION) {
+            String wall = (String) walls.getSelectedItem();
+            boolean wallAdded = addWall(wall, button);
+
+            if (wallAdded) {
+                boardGUI.refresh();
+            }
+        }
+    }
+
+    private JComboBox<String> createWallComboBox() {
+        JComboBox<String> walls = new JComboBox<>();
+        walls.addItem("Normal");
+        walls.addItem("Temporary");
+        walls.addItem("Long");
+        walls.addItem("Allied");
+
+        return walls;
+    }
+
+    private JButton createButton(int width, int height) {
+        JButton button = new JButton();
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setBackground(Color.WHITE);
+        button.setPreferredSize(new Dimension(width, height));
+
+        createMouseListener(button);
+
+        return button;
+    }
+
+    private void createMouseListener(JButton button) {
+        button.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent ev) {
+                Color color = quoridorGUI.getPlayerPlaying().getColor();
+                setBorder(paintBorder(button, color));
+                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+            }
+
+            public void mouseExited(MouseEvent ev) {
+                setBorder(defaultBorder());
+                setCursor(Cursor.getDefaultCursor());
+            }
+        });
+    }
+
+    private void prepareActions() {
+        createActionListener(buttonWallUp);
+        createActionListener(buttonWallLeft);
+        createActionListener(buttonWallDown);
+        createActionListener(buttonWallRight);
+    }
+
+    private void createActionListener(JButton button) {
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                showTypeWallDialog(button);
+            }
+        });
     }
 
     public void drawToken() {
@@ -95,96 +180,6 @@ public class SquareGUI extends JPanel {
         return this.wallRight;
     }
 
-    private void prepareElements() {
-        setBackground(Color.WHITE);
-        setLayout(new BorderLayout());
-        setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
-
-        buttonWallUp = createButton();
-        buttonWallDown = createButton();
-        buttonWallLeft = createButton();
-        buttonWallRight = createButton();
-        
-        buttonWallUp.setPreferredSize(new Dimension(getWidth(), 10));
-        buttonWallDown.setPreferredSize(new Dimension(getWidth(), 10));
-        buttonWallLeft.setPreferredSize(new Dimension(10, getHeight())); 
-        buttonWallRight.setPreferredSize(new Dimension(10, getHeight()));
-
-        add(buttonWallUp, BorderLayout.NORTH);
-        add(buttonWallDown, BorderLayout.SOUTH);
-        add(buttonWallLeft, BorderLayout.WEST);
-        add(buttonWallRight, BorderLayout.EAST);
-    }
-
-    private void showTypeWallDialog(JButton button) {
-        JComboBox<String> walls = createWallComboBox();
-
-        JPanel panel = new JPanel(new FlowLayout());
-        panel.add(walls);
-
-        int result = JOptionPane.showConfirmDialog(this, panel, "Select the wall type", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-        if (result == JOptionPane.OK_OPTION) {
-            String wall = (String) walls.getSelectedItem();
-            boolean wallAdded = addWall(wall, button);
-
-            if (wallAdded) {
-                boardGUI.refresh();
-            }
-        }
-    }
-
-    private JComboBox<String> createWallComboBox() {
-        JComboBox<String> walls = new JComboBox<>();
-        walls.addItem("Normal");
-        walls.addItem("Temporary");
-        walls.addItem("Long");
-        walls.addItem("Allied");
-    
-        return walls;
-    }
-
-    private JButton createButton() {
-        JButton button = new JButton();
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.setBackground(Color.WHITE);
-
-        createMouseListener(button);
-
-        return button;
-    }
-
-    private void createMouseListener(JButton button) {
-        button.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent ev) {
-                Color color = quoridorGUI.getPlayerPlaying().getColor();
-                setBorder(paintBorder(button, color));
-                setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            public void mouseExited(MouseEvent ev) {
-                setBorder(defaultBorder());
-                setCursor(Cursor.getDefaultCursor());
-            }
-        });
-    }
-
-    private void prepareActions() {
-        createActionListener(buttonWallUp);
-        createActionListener(buttonWallLeft);
-        createActionListener(buttonWallDown);
-        createActionListener(buttonWallRight);
-    }
-
-    private void createActionListener(JButton button) {
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
-                showTypeWallDialog(button);
-            }
-        });
-    }
-
     public void setWallUp(Color color) {
         setBorder(paintBorder(buttonWallUp, color));
         this.colorBorderUp = color;
@@ -208,7 +203,7 @@ public class SquareGUI extends JPanel {
         this.colorBorderRight = color;
         removeButtonMouseListeners(buttonWallRight);
     }
-    
+
     public void delWallUp() {
         setBorder(paintBorder(buttonWallUp, Color.BLACK));
         this.colorBorderUp = Color.BLACK;
@@ -268,49 +263,29 @@ public class SquareGUI extends JPanel {
     }
 
     private Border paintBorder(JButton button, Color color) {
-        Border borderUp;
-        Border borderLeft;
-        Border borderDown;
-        Border borderRight;
-
-        if (button == buttonWallUp) {
-            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, color);
-            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
-            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
-            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
-        } else if (button == buttonWallLeft) {
-            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
-            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, color);
-            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
-            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
-        } else if (button == buttonWallDown) {
-            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
-            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
-            borderDown = BorderFactory.createMatteBorder(0, 0, 1, 0, color);
-            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
-        } else {
-            borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
-            borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
-            borderDown = BorderFactory.createMatteBorder(0, 0,1 , 0, colorBorderDown);
-            borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, color);
-        }
-
-        Border compoundBorder = BorderFactory.createCompoundBorder(
+        Border borderUp = createMatteBorder(button == buttonWallUp ? color : colorBorderUp, 1, 0, 0, 0);
+        Border borderLeft = createMatteBorder(button == buttonWallLeft ? color : colorBorderLeft, 0, 1, 0, 0);
+        Border borderDown = createMatteBorder(button == buttonWallDown ? color : colorBorderDown, 0, 0, 1, 0);
+        Border borderRight = createMatteBorder(button != buttonWallUp && button != buttonWallLeft && button != buttonWallDown ? color : colorBorderRight, 0, 0, 0, 1);
+    
+        return BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(borderUp, borderDown),
                 BorderFactory.createCompoundBorder(borderLeft, borderRight));
-        return compoundBorder;
     }
 
     private Border defaultBorder() {
-        Border borderUp = BorderFactory.createMatteBorder(1, 0, 0, 0, colorBorderUp);
-        Border borderLeft = BorderFactory.createMatteBorder(0, 1, 0, 0, colorBorderLeft);
-        Border borderDown = BorderFactory.createMatteBorder(0, 0, 1, 0, colorBorderDown);
-        Border borderRight = BorderFactory.createMatteBorder(0, 0, 0, 1, colorBorderRight);
-        Border compoundBorder = BorderFactory.createCompoundBorder(
+        Border borderUp = createMatteBorder(colorBorderUp, 1, 0, 0, 0);
+        Border borderLeft = createMatteBorder(colorBorderLeft, 0, 1, 0, 0);
+        Border borderDown = createMatteBorder(colorBorderDown, 0, 0, 1, 0);
+        Border borderRight = createMatteBorder(colorBorderRight, 0, 0, 0, 1);
+    
+        return BorderFactory.createCompoundBorder(
                 BorderFactory.createCompoundBorder(borderUp, borderDown),
                 BorderFactory.createCompoundBorder(borderLeft, borderRight));
-                
-        return compoundBorder;
+    }
+    
+    private Border createMatteBorder(Color color, int top, int left, int bottom, int right) {
+        return BorderFactory.createMatteBorder(top, left, bottom, right, color);
     }
 
     private void removeButtonMouseListeners(JButton button) {
@@ -336,4 +311,3 @@ public class SquareGUI extends JPanel {
         }
     }
 }
-

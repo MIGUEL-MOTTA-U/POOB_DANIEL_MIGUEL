@@ -1,14 +1,13 @@
 package presentation;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import domain.QuoriPOOBException;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameDifficultyGUI extends JPanel{
+public class GameDifficultyGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
     // Title
@@ -43,7 +42,7 @@ public class GameDifficultyGUI extends JPanel{
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        prepareElementsTitle(content); 
+        prepareElementsTitle(content);
         content.add(Box.createVerticalStrut(40));
         prepareElementsBeginner(content);
         content.add(Box.createVerticalStrut(20));
@@ -52,7 +51,7 @@ public class GameDifficultyGUI extends JPanel{
         prepareElementsAdvanced(content);
 
         container.add(content);
-        add(container); 
+        add(container);
     }
 
     private void prepareElementsTitle(JPanel content) {
@@ -90,14 +89,16 @@ public class GameDifficultyGUI extends JPanel{
 
     private void prepareElementsIntermediate(JPanel content) {
         panelIntermediate = new JPanel();
-        panelIntermediate.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
+        panelIntermediate
+                .setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
         panelIntermediate.setLayout(new BorderLayout());
 
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         buttonIntermediate = createButton("Intermediate");
-        labelIntermediateDescription = createLabel("The movements of the machine will take into account a winning path of the user and its own.");
+        labelIntermediateDescription = createLabel(
+                "The movements of the machine will take into account a winning path of the user and its own.");
 
         container.add(buttonIntermediate);
         container.add(labelIntermediateDescription);
@@ -115,7 +116,8 @@ public class GameDifficultyGUI extends JPanel{
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         buttonAdvanced = createButton("Advanced");
-        labelAdvancedDescription = createLabel("Include an advanced strategy, to be defined according to your creativity.");
+        labelAdvancedDescription = createLabel(
+                "Include an advanced strategy, to be defined according to your creativity.");
 
         container.add(buttonAdvanced);
         container.add(labelAdvancedDescription);
@@ -126,7 +128,7 @@ public class GameDifficultyGUI extends JPanel{
 
     private JButton createButton(String text) {
         JButton button = new JButton(text);
-        button.setOpaque(false); 
+        button.setOpaque(false);
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
@@ -156,9 +158,9 @@ public class GameDifficultyGUI extends JPanel{
         return label;
     }
 
-    private void prepareActions() { 
+    private void prepareActions() {
         prepareActionsButtons();
-    } 
+    }
 
     private void prepareActionsButtons() {
         buttonBeginner.addActionListener(new ActionListener() {
@@ -171,7 +173,7 @@ public class GameDifficultyGUI extends JPanel{
                 }
             }
         });
-        
+
         buttonIntermediate.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {

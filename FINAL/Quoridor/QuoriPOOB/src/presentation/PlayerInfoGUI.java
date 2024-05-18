@@ -1,15 +1,14 @@
 package presentation;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import domain.QuoriPOOBException;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 
-public class PlayerInfoGUI extends JPanel{
+public class PlayerInfoGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
     private Color playerColor;
 
@@ -122,13 +121,13 @@ public class PlayerInfoGUI extends JPanel{
                 button.setBackground(hover);
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
-        
+
             public void mouseExited(MouseEvent ev) {
                 button.setBackground(background);
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-    
+
         return button;
     }
 
@@ -154,7 +153,7 @@ public class PlayerInfoGUI extends JPanel{
         return textField;
     }
 
-    private void prepareActions()  {
+    private void prepareActions() {
         prepareActionsButtons();
     }
 
@@ -186,22 +185,27 @@ public class PlayerInfoGUI extends JPanel{
     }
 
     private void createImage(JLabel label, String path) {
-		URL url = getClass().getResource(path);
-		if (url != null) {
-			ImageIcon img = new ImageIcon(url);
-			label.setIcon(new ImageIcon(img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-        	label.setVerticalAlignment(SwingConstants.CENTER);
-		}
-	}
+        URL url = getClass().getResource(path);
+        
+        if (url != null) {
+            ImageIcon img = new ImageIcon(url);
+            label.setIcon(new ImageIcon(
+                    img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setVerticalAlignment(SwingConstants.CENTER);
+        }
+    }
 
     private boolean emptyInfo() {
         boolean empty = false;
+
         if (playerColor == null) {
-            JOptionPane.showMessageDialog(null, "You have to choose your color", "color not selected", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You have to choose your color", "color not selected",
+                    JOptionPane.INFORMATION_MESSAGE);
             empty = true;
-        }  else if (textName.getText().equals("Name")) {
-            JOptionPane.showMessageDialog(null, "You must enter your name", "name not entered", JOptionPane.INFORMATION_MESSAGE);
+        } else if (textName.getText().equals("Name")) {
+            JOptionPane.showMessageDialog(null, "You must enter your name", "name not entered",
+                    JOptionPane.INFORMATION_MESSAGE);
             empty = true;
         }
 

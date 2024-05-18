@@ -1,16 +1,15 @@
 package presentation;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import domain.QuoriPOOBException;
 
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.util.*;
 
-public class SetUpGameGUI extends JPanel{
+public class SetUpGameGUI extends JPanel {
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
 
     private QuoridorGUI quoridorGUI;
@@ -131,13 +130,17 @@ public class SetUpGameGUI extends JPanel{
         textReturnSquares = createTextField("Number of return squares");
         textDoubleTurnSquares = createTextField("Number of double turn squares");
 
-        buttonPositionNormal = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionNormal = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
+                QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonPositionNormal.setBorder(new EmptyBorder(5, 5, 5, 5));
-        buttonPositionTeleporter = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionTeleporter = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
+                QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonPositionTeleporter.setBorder(new EmptyBorder(5, 5, 5, 5));
-        buttonPositionReturn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionReturn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
+                QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonPositionReturn.setBorder(new EmptyBorder(5, 5, 5, 5));
-        buttonPositionDoubleTurn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
+        buttonPositionDoubleTurn = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
+                QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonPositionDoubleTurn.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         panelSquares.add(prepareElementsTitle(labelSquareTitle));
@@ -234,7 +237,7 @@ public class SetUpGameGUI extends JPanel{
     private void showPositionsDialog(int quantity, JButton button) {
         String type = getTypeFromButton(button);
         clearSquares(type);
-        
+
         boolean success = false;
         do {
             JPanel panel = new JPanel(new GridLayout(quantity, 1));
@@ -242,9 +245,10 @@ public class SetUpGameGUI extends JPanel{
             for (int i = 0; i < quantity; i++) {
                 panel.add(createPositionsDialog(type));
             }
-    
-            int result = JOptionPane.showConfirmDialog(this, panel, "Enter Positions", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-    
+
+            int result = JOptionPane.showConfirmDialog(this, panel, "Enter Positions", JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.PLAIN_MESSAGE);
+
             if (result == JOptionPane.OK_OPTION) {
                 int[][] squares = createSpecialSquares(type);
 
@@ -254,7 +258,7 @@ public class SetUpGameGUI extends JPanel{
                 }
             } else {
                 break;
-            }   
+            }
         } while (!success);
     }
 
@@ -351,13 +355,16 @@ public class SetUpGameGUI extends JPanel{
 
                 try {
                     int quantity = getQuantity(quantityString);
+
                     if (quantity > 0) {
                         showPositionsDialog(quantity, sourceButton);
                     } else {
-                        JOptionPane.showMessageDialog(null, "You must enter a positive number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "You must enter a positive number", "Invalid number",
+                                JOptionPane.ERROR_MESSAGE);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         };
@@ -381,12 +388,14 @@ public class SetUpGameGUI extends JPanel{
                         }
 
                         int[] numberWalls = getNumberWalls();
+
                         if (numberWalls != null) {
                             quoridorGUI.addWalls(numberWalls[0], numberWalls[1], numberWalls[2], numberWalls[3]);
                             quoridorGUI.showBoardGUI();
                         }
                     } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
+                                JOptionPane.ERROR_MESSAGE);
                     } catch (QuoriPOOBException e) {
                         JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
@@ -397,14 +406,16 @@ public class SetUpGameGUI extends JPanel{
     }
 
     private void createImage(JLabel label, String path) {
-		URL url = getClass().getResource(path);
-		if (url != null) {
-			ImageIcon img = new ImageIcon(url);
-			label.setIcon(new ImageIcon(img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-        	label.setVerticalAlignment(SwingConstants.CENTER);
-		}
-	}
+        URL url = getClass().getResource(path);
+
+        if (url != null) {
+            ImageIcon img = new ImageIcon(url);
+            label.setIcon(new ImageIcon(
+                    img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setVerticalAlignment(SwingConstants.CENTER);
+        }
+    }
 
     private int getQuantity(String text) throws NumberFormatException {
         return Integer.parseInt(text);
@@ -412,8 +423,10 @@ public class SetUpGameGUI extends JPanel{
 
     private boolean emptyInfo() {
         boolean empty = false;
+
         if (textBoardSize.getText().equals("Board size")) {
-            JOptionPane.showMessageDialog(null, "You must enter the size of the board", "Board size not entered", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You must enter the size of the board", "Board size not entered",
+                    JOptionPane.INFORMATION_MESSAGE);
             empty = true;
         }
 
@@ -456,7 +469,7 @@ public class SetUpGameGUI extends JPanel{
                 break;
         }
     }
-    
+
     private int[][] createSpecialSquares(String type) {
         ArrayList<JTextField[]> positions = null;
 
@@ -480,12 +493,14 @@ public class SetUpGameGUI extends JPanel{
         if (positions != null) {
             int[][] squares = new int[positions.size()][2];
             int i = 0;
+
             try {
                 for (JTextField[] position : positions) {
                     squares[i][0] = Integer.parseInt(position[0].getText());
                     squares[i][1] = Integer.parseInt(position[1].getText());
                     i++;
                 }
+
                 return squares;
             } catch (NumberFormatException e) {
                 switch (type) {
@@ -504,7 +519,8 @@ public class SetUpGameGUI extends JPanel{
                     default:
                         break;
                 }
-                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
+                        JOptionPane.ERROR_MESSAGE);
             }
         }
 
@@ -518,9 +534,11 @@ public class SetUpGameGUI extends JPanel{
             numberWalls[1] = Integer.parseInt(textTemporaryWalls.getText());
             numberWalls[2] = Integer.parseInt(textLongWalls.getText());
             numberWalls[3] = Integer.parseInt(textAlliedWalls.getText());
+            
             return numberWalls;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         return null;

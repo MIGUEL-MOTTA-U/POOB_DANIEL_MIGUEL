@@ -1,10 +1,10 @@
 package presentation;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
 import domain.QuoriPOOBException;
 import domain.Square;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -12,8 +12,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-
-public class BoardGUI extends JPanel{
+public class BoardGUI extends JPanel {
     private static final Color BACKGROUND = new Color(250, 250, 250);
 
     private QuoridorGUI quoridorGUI;
@@ -61,7 +60,6 @@ public class BoardGUI extends JPanel{
     private JLabel labelLongWallsPlayer2;
     private JLabel labelAlliedWallsPlayer2;
 
-
     public BoardGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
@@ -84,12 +82,12 @@ public class BoardGUI extends JPanel{
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel(new GridBagLayout());
         panelEast.setBackground(BACKGROUND);
-        
+
         JPanel container = new JPanel();
         container.setBackground(BACKGROUND);
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
         container.setBorder(new EmptyBorder(0, 30, 0, 30));
-        
+
         container.add(prepareElementsTime());
         container.add(Box.createVerticalStrut(50));
         container.add(prepareElementsMove());
@@ -129,53 +127,53 @@ public class BoardGUI extends JPanel{
 
         JPanel panelLeftUp = new JPanel(new GridBagLayout());
         panelLeftUp.setBackground(Color.WHITE);
-		JPanel panelUp = new JPanel(new GridBagLayout());
+        JPanel panelUp = new JPanel(new GridBagLayout());
         panelUp.setBackground(Color.WHITE);
-		JPanel panelRightUp = new JPanel(new GridBagLayout());
+        JPanel panelRightUp = new JPanel(new GridBagLayout());
         panelRightUp.setBackground(Color.WHITE);
-		JPanel panelLeft = new JPanel(new GridBagLayout());
+        JPanel panelLeft = new JPanel(new GridBagLayout());
         panelLeft.setBackground(Color.WHITE);
         tokenPlaying = new CirclePanel(this.quoridorGUI.getPlayerPlaying().getColor());
-		JPanel panelRight = new JPanel(new GridBagLayout());
+        JPanel panelRight = new JPanel(new GridBagLayout());
         panelRight.setBackground(Color.WHITE);
-		JPanel panelLeftDown = new JPanel(new GridBagLayout());
+        JPanel panelLeftDown = new JPanel(new GridBagLayout());
         panelLeftDown.setBackground(Color.WHITE);
-		JPanel panelDown = new JPanel(new GridBagLayout());
+        JPanel panelDown = new JPanel(new GridBagLayout());
         panelDown.setBackground(Color.WHITE);
-		JPanel panelRightDown = new JPanel(new GridBagLayout());
+        JPanel panelRightDown = new JPanel(new GridBagLayout());
         panelRightDown.setBackground(Color.WHITE);
 
-		JPanel panelButtonLeftUp = new JPanel(new GridBagLayout());
+        JPanel panelButtonLeftUp = new JPanel(new GridBagLayout());
         panelButtonLeftUp.setBackground(Color.WHITE);
-		panelButtonLeftUp.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonLeftUp.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel  panelButtonUp = new JPanel(new GridBagLayout());
+        JPanel panelButtonUp = new JPanel(new GridBagLayout());
         panelButtonUp.setBackground(Color.WHITE);
-		panelButtonUp.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonUp.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JPanel panelButtonRightUp = new JPanel(new GridBagLayout());
+        JPanel panelButtonRightUp = new JPanel(new GridBagLayout());
         panelButtonRightUp.setBackground(Color.WHITE);
-		panelButtonRightUp.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonRightUp.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JPanel panelButtonLeft = new JPanel(new GridBagLayout());
+        JPanel panelButtonLeft = new JPanel(new GridBagLayout());
         panelButtonLeft.setBackground(Color.WHITE);
-		panelButtonLeft.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonLeft.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JPanel panelButtonRight = new JPanel(new GridBagLayout());
+        JPanel panelButtonRight = new JPanel(new GridBagLayout());
         panelButtonRight.setBackground(Color.WHITE);
-		panelButtonRight.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonRight.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JPanel panelButtonLeftDown = new JPanel(new GridBagLayout());
+        JPanel panelButtonLeftDown = new JPanel(new GridBagLayout());
         panelButtonLeftDown.setBackground(Color.WHITE);
-		panelButtonLeftDown.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonLeftDown.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        JPanel  panelButtonDown = new JPanel(new GridBagLayout());
+        JPanel panelButtonDown = new JPanel(new GridBagLayout());
         panelButtonDown.setBackground(Color.WHITE);
-		panelButtonDown.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonDown.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-		JPanel panelButtonRightDown = new JPanel(new GridBagLayout());
+        JPanel panelButtonRightDown = new JPanel(new GridBagLayout());
         panelButtonRightDown.setBackground(Color.WHITE);
-		panelButtonRightDown.setBorder(new EmptyBorder(10, 10, 10, 10));
+        panelButtonRightDown.setBorder(new EmptyBorder(10, 10, 10, 10));
 
         buttonLeftUp = createButton("LU", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonUp = createButton("U", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
@@ -196,13 +194,13 @@ public class BoardGUI extends JPanel{
         panelButtonRightDown.add(buttonRightDown);
 
         panelLeftUp.add(panelButtonLeftUp);
-		panelUp.add(panelButtonUp);
-		panelRightUp.add(panelButtonRightUp);
-		panelLeft.add(panelButtonLeft);
-		panelRight.add(panelButtonRight);
-		panelLeftDown.add(panelButtonLeftDown);
-		panelDown.add(panelButtonDown);
-		panelRightDown.add(panelButtonRightDown);
+        panelUp.add(panelButtonUp);
+        panelRightUp.add(panelButtonRightUp);
+        panelLeft.add(panelButtonLeft);
+        panelRight.add(panelButtonRight);
+        panelLeftDown.add(panelButtonLeftDown);
+        panelDown.add(panelButtonDown);
+        panelRightDown.add(panelButtonRightDown);
 
         panelMoves.add(panelLeftUp);
         panelMoves.add(panelUp);
@@ -221,13 +219,13 @@ public class BoardGUI extends JPanel{
         JPanel container = new JPanel(new BorderLayout());
         container.setBackground(BACKGROUND);
         container.setBorder(new EmptyBorder(30, 30, 30, 30));
-    
+
         int size = quoridorGUI.getBoardSize();
         squaresGUI = new SquareGUI[size][size];
-        
+
         panelBoard = new JPanel(new GridLayout(size, size));
         panelBoard.setBackground(Color.WHITE);
-    
+
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
                 SquareGUI squareGUI = new SquareGUI(quoridorGUI, this, row, column);
@@ -235,9 +233,9 @@ public class BoardGUI extends JPanel{
                 squaresGUI[row][column] = squareGUI;
             }
         }
-    
+
         updateBoard();
-    
+
         container.add(panelBoard);
 
         return container;
@@ -253,12 +251,12 @@ public class BoardGUI extends JPanel{
                 playerColor = getColorPlayer(quoridorGUI.getNames()[i]);
             }
         }
-    
+
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
                 SquareGUI squareGUI = squaresGUI[row][column];
                 Square square = squares[row][column];
-    
+
                 if (square.getToken() != null) {
                     Color color = square.getToken().getColor();
                     squareGUI.setColorToken(color);
@@ -266,11 +264,11 @@ public class BoardGUI extends JPanel{
                 } else {
                     squareGUI.eraseToken();
                 }
-    
+
                 paintWalls(squareGUI, square, playerColor);
             }
         }
-    
+
         repaint();
     }
 
@@ -307,10 +305,10 @@ public class BoardGUI extends JPanel{
         } else if (squareGUI.getWallLeft()) {
             squareGUI.delWallLeft();
             squareGUI.setWallLeft(false);
-        }  else if (squareGUI.getWallDown()) {
+        } else if (squareGUI.getWallDown()) {
             squareGUI.delWallDown();
             squareGUI.setWallDown(false);
-        }  else if (squareGUI.getWallRight()) {
+        } else if (squareGUI.getWallRight()) {
             squareGUI.delWallRight();
             squareGUI.setWallRight(false);
         }
@@ -358,7 +356,8 @@ public class BoardGUI extends JPanel{
         panelPlayer1.add(Box.createHorizontalStrut(20));
         panelPlayer1.add(prepareElemetsNamePlayer(labelNamePlayer1, labelWallsPlayer1));
         panelPlayer1.add(Box.createHorizontalStrut(30));
-        panelPlayer1.add(prepareElementsWallsPlayer(labelNormalWallsPlayer1, labelTemporaryWallsPlayer1, labelLongWallsPlayer1, labelAlliedWallsPlayer1));
+        panelPlayer1.add(prepareElementsWallsPlayer(labelNormalWallsPlayer1, labelTemporaryWallsPlayer1,
+                labelLongWallsPlayer1, labelAlliedWallsPlayer1));
         container.add(panelPlayer1);
 
         return container;
@@ -390,7 +389,8 @@ public class BoardGUI extends JPanel{
         panelPlayer2.add(Box.createHorizontalStrut(20));
         panelPlayer2.add(prepareElemetsNamePlayer(labelNamePlayer2, labelWallsPlayer2));
         panelPlayer2.add(Box.createHorizontalStrut(30));
-        panelPlayer2.add(prepareElementsWallsPlayer(labelNormalWallsPlayer2, labelTemporaryWallsPlayer2, labelLongWallsPlayer2, labelAlliedWallsPlayer2));
+        panelPlayer2.add(prepareElementsWallsPlayer(labelNormalWallsPlayer2, labelTemporaryWallsPlayer2,
+                labelLongWallsPlayer2, labelAlliedWallsPlayer2));
         container.add(panelPlayer2);
 
         return container;
@@ -546,15 +546,17 @@ public class BoardGUI extends JPanel{
         });
     }
 
-     private void createImage(JLabel label, String path) {
-		URL url = getClass().getResource(path);
-		if (url != null) {
-			ImageIcon img = new ImageIcon(url);
-			label.setIcon(new ImageIcon(img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
-			label.setHorizontalAlignment(SwingConstants.CENTER);
-        	label.setVerticalAlignment(SwingConstants.CENTER);
-		}
-	}
+    private void createImage(JLabel label, String path) {
+        URL url = getClass().getResource(path);
+        
+        if (url != null) {
+            ImageIcon img = new ImageIcon(url);
+            label.setIcon(new ImageIcon(
+                    img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            label.setVerticalAlignment(SwingConstants.CENTER);
+        }
+    }
 
     private HashMap<String, Integer> getRemainingWalls(String namePlayer) {
         try {
@@ -614,8 +616,8 @@ public class BoardGUI extends JPanel{
     }
 
     public void refresh() {
-		updateBoard();
+        updateBoard();
         updateNumWalls();
         tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
-	}
+    }
 }

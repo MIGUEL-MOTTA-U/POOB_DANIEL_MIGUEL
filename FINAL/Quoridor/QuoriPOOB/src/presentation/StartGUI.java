@@ -2,11 +2,10 @@ package presentation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import java.awt.*;
 import java.awt.event.*;
 
-public class StartGUI extends JPanel{
+public class StartGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
     // Title
@@ -33,11 +32,11 @@ public class StartGUI extends JPanel{
         JPanel content = new JPanel();
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        prepareElementsTitle(content); 
-        prepareElementsButtons(content); 
+        prepareElementsTitle(content);
+        prepareElementsButtons(content);
 
         container.add(content);
-        add(container); 
+        add(container);
     }
 
     private void prepareElementsTitle(JPanel content) {
@@ -78,14 +77,14 @@ public class StartGUI extends JPanel{
         panelButtonOnePlayer.add(buttonOnePlayer);
         panelButtonTwoPlayers.add(buttonTwoPlayers);
         panelButtonExit.add(buttonExit);
-        
+
         panelButtons.add(Box.createVerticalStrut(20));
         panelButtons.add(panelButtonOnePlayer);
         panelButtons.add(panelButtonTwoPlayers);
-        panelButtons.add(panelButtonExit);       
+        panelButtons.add(panelButtonExit);
         panelButtons.add(Box.createVerticalStrut(20));
 
-        content.add(panelButtons); 
+        content.add(panelButtons);
     }
 
     private JButton createButton(String text) {
@@ -102,19 +101,19 @@ public class StartGUI extends JPanel{
                 button.setBackground(QuoridorGUI.BUTTONS_COLOR_HOVER);
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
-        
+
             public void mouseExited(MouseEvent ev) {
                 button.setBackground(QuoridorGUI.BUTTONS_COLOR);
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-    
+
         return button;
     }
 
-    private void prepareActions() { 
+    private void prepareActions() {
         prepareActionsButtons();
-    } 
+    }
 
     private void prepareActionsButtons() {
         buttonOnePlayer.addActionListener(new ActionListener() {
@@ -123,7 +122,7 @@ public class StartGUI extends JPanel{
                 quoridorGUI.showGameDifficultyGUI();
             }
         });
-        
+
         buttonTwoPlayers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 quoridorGUI.setTwoPlayers();
@@ -138,12 +137,12 @@ public class StartGUI extends JPanel{
         });
     }
 
-    private void confirmClose() { 
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?", 
-        "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); 
-    
-        if (option == JOptionPane.YES_OPTION) { 
+    private void confirmClose() {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
+                "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.YES_OPTION) {
             System.exit(0);
-        } 
-    } 
+        }
+    }
 }
