@@ -8,6 +8,7 @@ import java.io.*;
 import java.lang.reflect.Constructor;
 
 public class QuoriPOOB implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private Board board;
@@ -33,6 +34,15 @@ public class QuoriPOOB implements Serializable {
 		}
 		return quoriPOOBSingleton;
 	}
+
+	private Object readResolve() {
+        quoriPOOBSingleton = this;
+        return quoriPOOBSingleton;
+    }
+
+    private Object writeReplace() {
+        return this;
+    }
 
 	/**
 	 * Set the game mode to one player
@@ -390,6 +400,7 @@ public class QuoriPOOB implements Serializable {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
 		}
 
+		quoriPOOBSingleton = quoriPOOB;
 		return quoriPOOB;
 	}
 

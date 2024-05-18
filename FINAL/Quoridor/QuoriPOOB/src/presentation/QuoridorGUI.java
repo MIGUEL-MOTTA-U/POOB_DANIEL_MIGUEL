@@ -96,27 +96,13 @@ public class QuoridorGUI extends JFrame {
     private void prepareActionsMenu() {
         openItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                JFileChooser chooser = new JFileChooser();
-                int returnVal = chooser.showOpenDialog(QuoridorGUI.this);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File fileSelected = chooser.getSelectedFile();
-                    JOptionPane.showMessageDialog(QuoridorGUI.this,
-                            "You chose open this file: " + fileSelected.getName(), "Action under construction",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
+                optionOpen();
             }
         });
 
         saveItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                JFileChooser chooser = new JFileChooser();
-                int returnVal = chooser.showSaveDialog(QuoridorGUI.this);
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    File fileSelected = chooser.getSelectedFile();
-                    JOptionPane.showMessageDialog(QuoridorGUI.this,
-                            "You chose save this file: " + fileSelected.getName(), "Action under construction",
-                            JOptionPane.INFORMATION_MESSAGE);
-                }
+                optionSave();
             }
         });
 
@@ -259,6 +245,35 @@ public class QuoridorGUI extends JFrame {
 
         if (option == JOptionPane.YES_OPTION) {
             System.exit(0);
+        }
+    }
+
+    private void optionOpen() {
+        File directory = new File("D:\\dadic\\Documentos\\Universidad\\Semestre 5\\POOB\\GitHub\\POOB_DANIEL_MIGUEL\\FINAL\\Quoridor\\QuoriPOOB\\src\\test");
+        JFileChooser chooser = new JFileChooser(directory);
+        int returnVal = chooser.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                quoriPOOB = QuoriPOOB.openFile(file);
+                boardGUI = null;
+                showBoardGUI();
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void optionSave() {
+        JFileChooser chooser = new JFileChooser();
+        int returnVal = chooser.showSaveDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = chooser.getSelectedFile();
+            try {
+                quoriPOOB.saveFile(file);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
