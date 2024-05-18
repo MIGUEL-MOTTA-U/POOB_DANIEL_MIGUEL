@@ -13,10 +13,10 @@ public class Temporary extends Wall {
     private int turn;
 
     /**
-	 * Constructor for objects of class TemporaryWall
-	 * 
-	 * @param color the color of the wall
-	 */
+     * Constructor for objects of class TemporaryWall
+     * 
+     * @param color the color of the wall
+     */
     public Temporary(Color color) {
         super(color);
         this.turn = 0;
@@ -29,15 +29,17 @@ public class Temporary extends Wall {
     public void act() throws QuoriPOOBException {
         if (this.board != null) {
             this.turn++;
-            if (this.turn == 8) delWallFromBoard();
+            
+            if (this.turn == 8)
+                delWallFromBoard();
         }
     }
 
     /**
-	 * Delete the wall from the board
-	 * 
-	 * @throws QuoriPOOBException
-	 */
+     * Delete the wall from the board
+     * 
+     * @throws QuoriPOOBException
+     */
     @Override
     public void delWallFromBoard() throws QuoriPOOBException {
         super.delWallFromBoard();

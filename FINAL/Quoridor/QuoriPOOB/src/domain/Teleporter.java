@@ -2,8 +2,6 @@ package domain;
 
 import java.awt.Color;
 
-import javax.sound.midi.Soundbank;
-
 /**
  * This square's subclass has the same behaviors that a normal square, except it
  * allows the token to move around regardless of walls (including diagonal

@@ -1,14 +1,11 @@
 package domain;
+
 import java.util.*;
 
 public class Grafo {
     private int numNodes;
     private int[][] matrix;
     private HashMap<Integer, Object> nodes;
-
-    public HashMap<Integer, Object> getNodes() {
-        return nodes;
-    }
 
     public Grafo(int numNodes) {
         this.numNodes = numNodes;
@@ -49,6 +46,7 @@ public class Grafo {
 
         List<Integer> way = new ArrayList<>();
         int currentNode = nodoB;
+
         while (currentNode != -1) {
             way.add(0, currentNode);
             currentNode = previos[currentNode];
@@ -70,5 +68,8 @@ public class Grafo {
 
         return minIndex;
     }
-}
 
+    public HashMap<Integer, Object> getNodes() {
+        return nodes;
+    }
+}

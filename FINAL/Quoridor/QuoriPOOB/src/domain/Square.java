@@ -9,17 +9,15 @@ import java.io.Serializable;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public abstract class Square implements Serializable{
+public abstract class Square implements Serializable {
     protected Board board;
     protected Token token;
-    protected int row;
-    protected int column;
     protected Wall wallLeft;
     protected Wall wallRight;
     protected Wall wallUp;
     protected Wall wallDown;
-
-    
+    protected int row;
+    protected int column;
 
     /**
      * Constructor for objects of class Square
@@ -104,8 +102,9 @@ public abstract class Square implements Serializable{
      */
     public void delWallUp() {
         setWallUp(null);
-        if(this.row >0){
-            board.getMatrixBoard()[row-1][column].setWallDown(null);
+
+        if (this.row > 0) {
+            board.getMatrixBoard()[row - 1][column].setWallDown(null);
         }
     }
 
@@ -114,8 +113,9 @@ public abstract class Square implements Serializable{
      */
     public void delWallLeft() {
         setWallLeft(null);
-        if(this.column >0){
-            board.getMatrixBoard()[row][column-1].setWallRight(null);
+
+        if (this.column > 0) {
+            board.getMatrixBoard()[row][column - 1].setWallRight(null);
         }
     }
 
@@ -124,8 +124,9 @@ public abstract class Square implements Serializable{
      */
     public void delWallDown() {
         setWallDown(null);
-        if(this.row < board.getSize()-1){
-            board.getMatrixBoard()[row+1][column].setWallUp(null);
+
+        if (this.row < board.getSize() - 1) {
+            board.getMatrixBoard()[row + 1][column].setWallUp(null);
         }
     }
 
@@ -134,8 +135,9 @@ public abstract class Square implements Serializable{
      */
     public void delWallRight() {
         setWallRight(null);
-        if(this.column < board.getSize() -1 ){
-            board.getMatrixBoard()[row][column+1].setWallLeft(null);
+
+        if (this.column < board.getSize() - 1) {
+            board.getMatrixBoard()[row][column + 1].setWallLeft(null);
         }
     }
 
@@ -148,6 +150,7 @@ public abstract class Square implements Serializable{
      */
     public boolean blockUp(Color token) {
         boolean block = false;
+
         if (this.wallUp != null) {
             block = this.wallUp.blockToken(token);
         }
@@ -164,6 +167,7 @@ public abstract class Square implements Serializable{
      */
     public boolean blockLeft(Color token) {
         boolean block = false;
+
         if (this.wallLeft != null) {
             block = this.wallLeft.blockToken(token);
         }
@@ -180,6 +184,7 @@ public abstract class Square implements Serializable{
      */
     public boolean blockDown(Color token) {
         boolean block = false;
+
         if (this.wallDown != null) {
             block = this.wallDown.blockToken(token);
         }
@@ -196,6 +201,7 @@ public abstract class Square implements Serializable{
      */
     public boolean blockRight(Color token) {
         boolean block = false;
+
         if (this.wallRight != null) {
             block = this.wallRight.blockToken(token);
         }
@@ -210,11 +216,12 @@ public abstract class Square implements Serializable{
      */
     public boolean blockDiagonalMovements() {
         boolean res = true;
-        // res puede variar si square es de tipo Teleporter?
         return res;
     }
 
-    // Getters y Setters
+    public boolean checkWin() {
+        return (row == 0) ? (wallUp == null) : (wallDown == null);
+    }
 
     /**
      * return the position in the board of the
@@ -223,6 +230,15 @@ public abstract class Square implements Serializable{
      */
     public int[] getCoordenates() {
         return new int[] { row, column };
+    }
+
+    /**
+     * return the token that is on the square
+     * 
+     * @return an Token object
+     */
+    public Token getToken() {
+        return this.token;
     }
 
     /**
@@ -263,6 +279,7 @@ public abstract class Square implements Serializable{
 
     /**
      * Sets the left wall of the Square
+     * 
      * @param wallLeft
      */
     public void setWallLeft(Wall wallLeft) {
@@ -271,6 +288,7 @@ public abstract class Square implements Serializable{
 
     /**
      * Sets the right wall of the Square
+     * 
      * @param wallRight
      */
     public void setWallRight(Wall wallRight) {
@@ -279,6 +297,7 @@ public abstract class Square implements Serializable{
 
     /**
      * Sets the up wall of the Square
+     * 
      * @param wallUp
      */
     public void setWallUp(Wall wallUp) {
@@ -287,23 +306,11 @@ public abstract class Square implements Serializable{
 
     /**
      * Sets the down wall of the Square
+     * 
      * @param wallDown
      */
     public void setWallDown(Wall wallDown) {
         this.wallDown = wallDown;
-    }
-
-    public boolean checkWin(){
-        return (row==0)?(wallUp == null):(wallDown==null);
-    }
-
-    /**
-     * return the token that is on the square
-     * 
-     * @return an Token object
-     */
-    public Token getToken() {
-        return this.token;
     }
 
     /**

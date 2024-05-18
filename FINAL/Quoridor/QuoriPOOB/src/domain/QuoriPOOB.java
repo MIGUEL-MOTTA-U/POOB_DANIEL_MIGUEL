@@ -1,31 +1,22 @@
 package domain;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.*;
+import javax.swing.*;
+import java.awt.*;
+import java.io.*;
 
-import javax.swing.JOptionPane;
-
-import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
-public class QuoriPOOB implements Serializable{
+public class QuoriPOOB implements Serializable {
 	private static QuoriPOOB quoriPOOBSingleton;
 
-	private boolean onePlayer;
-	private boolean twoPlayers;
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
+	private boolean onePlayer;
+	private boolean twoPlayers;
 	private boolean gameOver;
 	private Player winner;
-
-	
 
 	private QuoriPOOB() {
 		this.players = new LinkedHashMap<>(2);
@@ -97,9 +88,12 @@ public class QuoriPOOB implements Serializable{
 	 *                            parameters.
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
-		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
-		if(name == null) throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
-		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
+		if (gameOver)
+			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		if (name == null)
+			throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
+		if (color == null)
+			throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2)
@@ -130,10 +124,12 @@ public class QuoriPOOB implements Serializable{
 	 *                            there are two players already.
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
-		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
-		
-		if(type == null) throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
-		if(color == null) throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
+		if (gameOver)
+			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		if (type == null)
+			throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
+		if (color == null)
+			throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.players.size() >= 2)
@@ -149,8 +145,6 @@ public class QuoriPOOB implements Serializable{
 
 		try {
 			Class<?> cls = Class.forName(type);
-			if (!Machine.class.isAssignableFrom(cls))
-				throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
 			constructor.setAccessible(true);
 			Machine machine = (Machine) constructor.newInstance("Machine", color);
@@ -159,7 +153,7 @@ public class QuoriPOOB implements Serializable{
 			Token token = new Token(color);
 			this.tokens.put(color, token);
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 		}
 	}
 
@@ -175,8 +169,8 @@ public class QuoriPOOB implements Serializable{
 	 *                            a Board created, also if the parameters are wrong.
 	 */
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
-		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
-		
+		if (gameOver)
+			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (this.board == null)
@@ -210,10 +204,14 @@ public class QuoriPOOB implements Serializable{
 	 */
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
 			throws QuoriPOOBException {
-		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		if (gameOver)
+			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
-		if(this.onePlayer) moveToken(null);
+
+		if (this.onePlayer)
+			moveToken(null);
 	}
 
 	/**
@@ -224,26 +222,49 @@ public class QuoriPOOB implements Serializable{
 	 *                            wrong or the action is not possible.
 	 */
 	public void moveToken(String direction) throws QuoriPOOBException {
-		if(gameOver) throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		if (gameOver)
+			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+
 		Player player = getCurrentPlayer();
 		player.moveToken(direction);
-		if(player.checkWin()) finishGame(player);
-		if(getCurrentPlayer() instanceof Machine) this.moveToken(null);
+
+		if (player.checkWin())
+			finishGame(player);
+
+		if (getCurrentPlayer() instanceof Machine)
+			this.moveToken(null);
 	}
 
-	/*
-	 * Finish the game by throwing the GAME_OVER exception and setting the winner player of QuoriPOOB
-	 */
-	private void finishGame(Player p)throws QuoriPOOBException{
-		// Finalizar el juego ()
-		gameOver = true;
-		winner = p;
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(p.getName()));
+	public boolean twoPlayers() {
+		boolean check = false;
+
+		if (this.twoPlayers) {
+			check = true;
+		}
+
+		return check;
 	}
 
-	// Getters and Setters
+	public void resetSingleton() {
+		if (quoriPOOBSingleton != null) {
+			this.onePlayer = false;
+			this.twoPlayers = false;
+			this.gameOver = false;
 
-	public void setTime() throws QuoriPOOBException{
+			this.players.clear();
+			this.players = null;
+
+			this.tokens.clear();
+			this.tokens = null;
+
+			this.board = null;
+			this.winner = null;
+		}
+		
+		quoriPOOBSingleton = null;
+	}
+
+	public void setTime() throws QuoriPOOBException {
 		// if (gameMode.toUpperCase().equals(board)) {
 		// }
 	}
@@ -256,6 +277,7 @@ public class QuoriPOOB implements Serializable{
 	public String[] getNames() {
 		String[] names = new String[2];
 		int i = 0;
+
 		for (Player player : players.values()) {
 			names[i] = player.getName();
 			i++;
@@ -264,13 +286,16 @@ public class QuoriPOOB implements Serializable{
 		return names;
 	}
 
-	public HashMap<Color, HashMap<String, Integer>> numberWalls(){
+	public HashMap<Color, HashMap<String, Integer>> numberWalls() {
 		HashMap<Color, HashMap<String, Integer>> res = new HashMap<>();
-		for(Player p: players.values()){
+
+		for (Player p : players.values()) {
 			res.put(p.getColor(), p.numberWalls());
 		}
+
 		return res;
 	}
+
 	/**
 	 * Returns the respective color by the given name.
 	 * 
@@ -281,6 +306,7 @@ public class QuoriPOOB implements Serializable{
 	 */
 	public Color getColor(String name) throws QuoriPOOBException {
 		Color color = null;
+
 		for (Player player : players.values()) {
 			if (player.getName().equals(name)) {
 				color = player.getColor();
@@ -312,6 +338,7 @@ public class QuoriPOOB implements Serializable{
 
 	/**
 	 * The winner player
+	 * 
 	 * @return the winner player
 	 */
 	public Player getWinner() {
@@ -327,35 +354,43 @@ public class QuoriPOOB implements Serializable{
 		return board.getPlayerPlaying();
 	}
 
-	public boolean twoPlayers() {
-		boolean check = false;
-		if (this.twoPlayers) {
-			check = true;
+	/**
+	 * Save the game in a file
+	 * 
+	 * @param file the file to save
+	 */
+	public void saveFile(File file) {
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
+			out.writeObject("QuoriPOOB storage\n");
+			out.writeObject(this);
+			out.close();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo",
+					JOptionPane.ERROR_MESSAGE);
 		}
-		
-		return check;
 	}
 
-	public void resetSingleton() {
-		if(quoriPOOBSingleton != null){
-			quoriPOOBSingleton.resetAll();
-		}
-		quoriPOOBSingleton = null;
-	}
+	/**
+	 * Open a file given by the user
+	 * 
+	 * @param file the file to open
+	 * @return the garden saved in the file
+	 * @throws QuoriPOOBException
+	 */
+	public static QuoriPOOB openFile(File file) throws QuoriPOOBException {
+		QuoriPOOB quoriPOOB = null;
 
-	private void resetAll(){
-		this.onePlayer = false;
-		this.twoPlayers = false;
-		this.gameOver=false;
-		
-		this.players.clear();
-		this.players = null;
-		
-		this.tokens.clear();
-		this.tokens = null;
-		
-		this.board=null;
-		this.winner=null;
+		try {
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+			String s = (String) in.readObject();
+			quoriPOOB = (QuoriPOOB) in.readObject();
+			in.close();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return quoriPOOB;
 	}
 
 	/*
@@ -363,6 +398,7 @@ public class QuoriPOOB implements Serializable{
 	 */
 	private boolean samePlayerColor(Color color) {
 		boolean sameColor = false;
+
 		for (Player player : this.players.values()) {
 			if (player.getColor().equals(color)) {
 				sameColor = true;
@@ -378,6 +414,7 @@ public class QuoriPOOB implements Serializable{
 	 */
 	private boolean machinePlayerExist() {
 		boolean exist = false;
+
 		for (Player player : this.players.values()) {
 			if (player instanceof Machine) {
 				exist = true;
@@ -393,6 +430,7 @@ public class QuoriPOOB implements Serializable{
 	 */
 	private boolean humanPlayerExist() {
 		boolean exist = false;
+
 		for (Player player : this.players.values()) {
 			if (player instanceof Human) {
 				exist = true;
@@ -410,41 +448,13 @@ public class QuoriPOOB implements Serializable{
 		return (!this.onePlayer && !this.twoPlayers);
 	}
 
-
-	/**
-     * Save the game in a file
-     * @param file  the file to save
-     */
-    public void saveFile(File file){
-        try {
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-            out.writeObject("QuoriPOOB storage\n");
-            out.writeObject(this);
-            out.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    /**
-     * Open a file given by the user
-     * @param file  the file to open
-     * @return  the garden saved in the file
-     * @throws QuoriPOOBException
-     */
-    public static QuoriPOOB openFile(File file) throws QuoriPOOBException{
-        QuoriPOOB quori = null;
-
-        try {
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            String s = (String) in.readObject();
-            quori = (QuoriPOOB) in.readObject();
-            in.close();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
-        }
-
-        return quori;
-    }
-	
+	/*
+	 * Finish the game by throwing the GAME_OVER exception and setting the winner
+	 * player of QuoriPOOB
+	 */
+	private void finishGame(Player player) throws QuoriPOOBException {
+		gameOver = true;
+		winner = player;
+		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+	}
 }

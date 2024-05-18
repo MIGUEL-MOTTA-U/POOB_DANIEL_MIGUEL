@@ -9,6 +9,6 @@ public class LongWall extends Wall {
 
     @Override
     public void act() {
-        
+
     }
 }

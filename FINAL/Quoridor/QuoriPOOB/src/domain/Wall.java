@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Daniel Diaz && Miguel Motta
  * @version (a version number or a date)
  */
-public abstract class Wall implements Serializable{
+public abstract class Wall implements Serializable {
 	protected Board board;
 	protected Color color;
 	protected int initialRow;
@@ -93,20 +93,20 @@ public abstract class Wall implements Serializable{
 	/*
 	 * Deletes the wall from the board Matrix
 	 */
-	private void delWallFromBoardMatrix(){
-		for(int i=initialRow;i <= finalRow; i++){
-			for(int j=initialColumn;j <= finalColumn; j++){
+	private void delWallFromBoardMatrix() {
+		for (int i = initialRow; i <= finalRow; i++) {
+			for (int j = initialColumn; j <= finalColumn; j++) {
 				switch (squareSide.toUpperCase()) {
 					case "UP":
 						board.getMatrixBoard()[i][j].delWallUp();
 					case "LEFT":
 						board.getMatrixBoard()[i][j].delWallLeft();
 					case "DOWN":
-						board.getMatrixBoard()[i][j].delWallDown();					
+						board.getMatrixBoard()[i][j].delWallDown();
 					case "RIGHT":
-						board.getMatrixBoard()[i][j].delWallRight();				
+						board.getMatrixBoard()[i][j].delWallRight();
 					default:
-						}
+				}
 			}
 		}
 	}
@@ -174,7 +174,7 @@ public abstract class Wall implements Serializable{
 				return initialRow >= (board.getSize() - 1);
 			case "DOWN":
 				return initialColumn >= (board.getSize() - 1);
-			case "RIGHT": 
+			case "RIGHT":
 				return initialRow >= (board.getSize() - 1);
 			default:
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
@@ -186,6 +186,7 @@ public abstract class Wall implements Serializable{
 	 */
 	private boolean wallInSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
 		Square square = board.getSquare(row, column);
+
 		switch (squareSide.toUpperCase()) {
 			case "UP":
 				return square.getWallUp() != null;
@@ -205,6 +206,7 @@ public abstract class Wall implements Serializable{
 	 */
 	private void setWallInSquare(int row, int column) throws QuoriPOOBException {
 		Square square = this.board.getSquare(row, column);
+
 		switch (this.squareSide.toUpperCase()) {
 			case "UP":
 				square.addWallUp(this);
@@ -229,6 +231,7 @@ public abstract class Wall implements Serializable{
 	private void setWallInNeighborSquares() throws QuoriPOOBException {
 		Square initialSquare;
 		Square finalSquare;
+		
 		switch (this.squareSide.toUpperCase()) {
 			case "UP":
 				if (this.initialRow > 0) {

@@ -10,10 +10,10 @@ import java.awt.Color;
  */
 public class NormalWall extends Wall {
     /**
-	 * Constructor for objects of class NormalWall
-	 * 
-	 * @param color the color of the wall
-	 */
+     * Constructor for objects of class NormalWall
+     * 
+     * @param color the color of the wall
+     */
     public NormalWall(Color color) {
         super(color);
     }
@@ -23,6 +23,6 @@ public class NormalWall extends Wall {
      */
     @Override
     public void act() {
-        
+
     }
 }
