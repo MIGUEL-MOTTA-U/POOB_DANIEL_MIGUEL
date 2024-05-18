@@ -83,6 +83,10 @@ public abstract class Wall implements Serializable {
 		return true;
 	}
 
+	public Color getColor() {
+		return this.color;
+	}
+
 	/**
 	 * Its the behavior of the wall
 	 * 

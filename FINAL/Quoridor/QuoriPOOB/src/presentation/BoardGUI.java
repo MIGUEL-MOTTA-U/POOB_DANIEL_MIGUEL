@@ -244,13 +244,6 @@ public class BoardGUI extends JPanel {
     private void updateBoard() {
         Square[][] squares = quoridorGUI.getBoardMatrix();
         int size = quoridorGUI.getBoardSize();
-        Color playerColor = null;
-
-        for (int i = 0; i < quoridorGUI.getNames().length; i++) {
-            if (!quoridorGUI.getNames()[i].equals(quoridorGUI.getPlayerPlaying().getName())) {
-                playerColor = getColorPlayer(quoridorGUI.getNames()[i]);
-            }
-        }
 
         for (int row = 0; row < size; row++) {
             for (int column = 0; column < size; column++) {
@@ -258,39 +251,38 @@ public class BoardGUI extends JPanel {
                 Square square = squares[row][column];
 
                 if (square.getToken() != null) {
-                    Color color = square.getToken().getColor();
-                    squareGUI.setColorToken(color);
+                    squareGUI.setColorToken(square.getToken().getColor());
                     squareGUI.drawToken();
                 } else {
                     squareGUI.eraseToken();
                 }
 
-                paintWalls(squareGUI, square, playerColor);
+                paintWalls(squareGUI, square);
             }
         }
 
         repaint();
     }
 
-    private void paintWalls(SquareGUI squareGUI, Square square, Color color) {
+    private void paintWalls(SquareGUI squareGUI, Square square) {
         if (square.getWallUp() != null) {
             if (!squareGUI.getWallUp()) {
-                squareGUI.setWallUp(color);
+                squareGUI.setWallUp(square.getWallUp().getColor());
                 squareGUI.setWallUp(true);
             }
         } else if (square.getWallLeft() != null) {
             if (!squareGUI.getWallLeft()) {
-                squareGUI.setWallLeft(color);
+                squareGUI.setWallLeft(square.getWallLeft().getColor());
                 squareGUI.setWallLeft(true);
             }
         } else if (square.getWallDown() != null) {
             if (!squareGUI.getWallDown()) {
-                squareGUI.setWallDown(color);
+                squareGUI.setWallDown(square.getWallDown().getColor());
                 squareGUI.setWallDown(true);
             }
         } else if (square.getWallRight() != null) {
             if (!squareGUI.getWallRight()) {
-                squareGUI.setWallRight(color);
+                squareGUI.setWallRight(square.getWallRight().getColor());
                 squareGUI.setWallRight(true);
             }
         } else {
