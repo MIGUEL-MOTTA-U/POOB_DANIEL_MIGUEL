@@ -97,7 +97,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Deletes the wall from the board Matrix
 	 */
-	private void delWallFromBoardMatrix() {
+	protected void delWallFromBoardMatrix() {
 		for (int i = initialRow; i <= finalRow; i++) {
 			for (int j = initialColumn; j <= finalColumn; j++) {
 				switch (squareSide.toUpperCase()) {
@@ -118,7 +118,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Calculate the final row of the wall
 	 */
-	private int finalRow(int initialRow, String squareSide) throws QuoriPOOBException {
+	protected int finalRow(int initialRow, String squareSide) throws QuoriPOOBException {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
 				return initialRow;
@@ -136,7 +136,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Calculate the final column of the wall
 	 */
-	private int finalColumn(int initialColumn, String squareSide) throws QuoriPOOBException {
+	protected int finalColumn(int initialColumn, String squareSide) throws QuoriPOOBException {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
 				return ++initialColumn;
@@ -154,7 +154,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Check if the wall can be placed in the position desired by the player
 	 */
-	private void validate(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
+	protected void validate(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
 		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0
 				|| initialColumn < 0)
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
@@ -169,7 +169,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Check if the wall is in the range of the board
 	 */
-	private boolean outRange(int initialRow, int initialColumn, String squareSide, Board board)
+	protected boolean outRange(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		switch (squareSide.toUpperCase()) {
 			case "UP":
@@ -188,7 +188,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Check if there is already a wall in the square where the wall will be placed
 	 */
-	private boolean wallInSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
+	protected boolean wallInSquare(int row, int column, String squareSide, Board board) throws QuoriPOOBException {
 		Square square = board.getSquare(row, column);
 
 		switch (squareSide.toUpperCase()) {
@@ -208,7 +208,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Add the wall in the square
 	 */
-	private void setWallInSquare(int row, int column) throws QuoriPOOBException {
+	protected void setWallInSquare(int row, int column) throws QuoriPOOBException {
 		Square square = this.board.getSquare(row, column);
 
 		switch (this.squareSide.toUpperCase()) {
@@ -232,7 +232,7 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Set the wall in the neighbor walls
 	 */
-	private void setWallInNeighborSquares() throws QuoriPOOBException {
+	protected void setWallInNeighborSquares() throws QuoriPOOBException {
 		Square initialSquare;
 		Square finalSquare;
 		
