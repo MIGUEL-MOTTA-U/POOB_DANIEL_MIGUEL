@@ -25,7 +25,7 @@ public abstract class Mode implements Serializable {
         observers.remove(observer);
     }
 
-    protected void endTurn() {
+    protected void endTurn() throws QuoriPOOBException {
         this.quoridor.nextTurn();
         notifyObservers();
     }

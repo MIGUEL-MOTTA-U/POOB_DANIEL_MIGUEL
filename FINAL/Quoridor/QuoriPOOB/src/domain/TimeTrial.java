@@ -4,6 +4,8 @@ import java.sql.Time;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JOptionPane;
+
 public class TimeTrial extends Mode {
     TurnTimerTask task;
 
@@ -28,11 +30,15 @@ public class TimeTrial extends Mode {
     
         @Override
         public void run() {
-            if (remainingTime <= 0) {
-                endTurn();
-            } else {
-                updateTime(remainingTime);
-                remainingTime--;
+            try {
+                if (remainingTime <= 0) {
+                    endTurn();
+                } else {
+                    updateTime(remainingTime);
+                    remainingTime--;
+                }
+            } catch (QuoriPOOBException e) {
+                JOptionPane.showConfirmDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

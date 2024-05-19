@@ -543,7 +543,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
     @Override
     public void timeIsUp() {
         refresh();
-        System.out.println("Finish time");
     }
 
     @Override
