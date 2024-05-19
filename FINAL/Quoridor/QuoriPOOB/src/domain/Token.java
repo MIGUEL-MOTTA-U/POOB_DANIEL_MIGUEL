@@ -80,6 +80,34 @@ public class Token implements Serializable {
         move();
     }
 
+    public void jumpTokenUpRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[] { this.row, this.column });
+        this.row = this.row - 2;
+        this.column = this.column + 2;
+        move();
+    }
+
+    public void jumpTokenUpLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[] { this.row, this.column });
+        this.row = this.row - 2;
+        this.column = this.column - 2;
+        move();
+    }
+
+    public void jumpTokenDownRight() throws QuoriPOOBException {
+        this.lastMovements.add(new int[] { this.row, this.column });
+        this.row = this.row + 2;
+        this.column = this.column + 2;
+        move();
+    }
+
+    public void jumpTokenDownLeft() throws QuoriPOOBException {
+        this.lastMovements.add(new int[] { this.row, this.column });
+        this.row = this.row + 2;
+        this.column = this.column - 2;
+        move();
+    }
+
     public void jumpTokenLeft() throws QuoriPOOBException {
         this.lastMovements.add(new int[] { this.row, this.column });
         this.column = this.column - 2;

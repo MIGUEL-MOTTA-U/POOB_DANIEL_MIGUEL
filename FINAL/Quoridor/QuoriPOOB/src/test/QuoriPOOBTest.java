@@ -1194,31 +1194,6 @@ public class QuoriPOOBTest {
 
     }
 
-    // @Test En construccion todavia
-    public void shouldBeEquals() throws QuoriPOOBException {
-        QuoriPOOB q1 = QuoriPOOB.getQuoriPOOB();
-        q1.setTwoPlayers();
-        q1.setNormalMode();
-        q1.createPlayerHuman("Daniel", Color.BLUE);
-        q1.createPlayerHuman("Miguel", Color.ORANGE);
-        q1.createBoard(5, null);
-        q1.addWalls(3, 2, 0, 1);
-
-        Board tablero = q1.getBoard();
-        // Player miguel = q1.getCurrentPlayer();
-
-        File copy = new File("./test/guardado.dat");
-        q1.saveFile(copy);
-        q1 = null;
-        QuoriPOOB q2 = QuoriPOOB.openFile(copy);
-        // Va a fallar porque el equals lo que hace es comprobar la direccion en memoria
-        assertEquals(tablero, q2.getBoard());
-        // assertEquals(miguel,q2.getCurrentPlayer());
-
-        assertTrue(null == q1);
-
-    }
-
     // 12/05/2024
     @Test
     public void shouldWin() throws QuoriPOOBException {
@@ -1834,8 +1809,8 @@ public class QuoriPOOBTest {
 
     }
 
-    // @Test
-    public void shouldJumpPlayerDiagonal() throws QuoriPOOBException {
+    @Test
+    public void shouldJumpPlayerDiagonalUPRIGHT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setNormalMode();
@@ -1851,22 +1826,88 @@ public class QuoriPOOBTest {
         q.moveToken("LEFT");
         q.addWallToBoard("NormalWall", 0, 0, "LEFT");
 
-        q.addWallToBoard(null, 0, 0, null);
-        q.moveToken("RIGHT"); // Hacer un test del cubo 3 * 3
-        q.moveToken("LEFT");
+        
+        try {
+            q.moveToken("UPRIGHT");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
+        assertEquals(q.getBoard().getMatrixBoard()[2][0].getClass().getSimpleName(), "Teleporter");
+        assertEquals(q.getBoard().getMatrixBoard()[0][2].getToken().getColor(), Color.BLACK);
+    }
 
-        q.moveToken("LEFT");
-        q.moveToken("UP");
-
+    @Test
+    public void shouldJumpPlayerDiagonalUPLEFT() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.setNormalMode();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        HashMap<String, int[][]> squares = new HashMap<>();
+        int[][] teleporterArray = new int[][] { { 2, 2 } };
+        squares.put("domain.Teleporter", teleporterArray);
+        q.createBoard(3, squares);
+        q.addWalls(3, 1, 0, 0);
+        // Daniel moves
+        q.moveToken("DOWN");
         q.moveToken("RIGHT");
+        q.addWallToBoard("NormalWall", 0, 0, "LEFT");
+
+        
         try {
             q.moveToken("UPLEFT");
         } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getClass().getSimpleName(), "Teleporter");
-        assertEquals(q.getBoard().getMatrixBoard()[3][0].getToken().getColor(), Color.BLACK);
-
+        assertEquals(q.getBoard().getMatrixBoard()[2][2].getClass().getSimpleName(), "Teleporter");
+        assertEquals(q.getBoard().getMatrixBoard()[0][0].getToken().getColor(), Color.BLACK);
     }
-
+    @Test
+    public void shouldJumpPlayerDiagonalDOWNRIGHT() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.setNormalMode();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        HashMap<String, int[][]> squares = new HashMap<>();
+        int[][] teleporterArray = new int[][] { { 0, 0 } };
+        squares.put("domain.Teleporter", teleporterArray);
+        q.createBoard(3, squares);
+        q.addWalls(3, 1, 0, 0);
+        // Daniel moves
+        q.moveToken("LEFT");
+        q.moveToken("UP");
+        q.addWallToBoard("NormalWall", 0, 0, "LEFT");
+        q.addWallToBoard("NormalWall", 0, 0, "UP");
+        
+        try {
+            q.moveToken("DOWNRIGHT");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Daniel"), e.getMessage());
+        }
+        assertEquals(q.getBoard().getMatrixBoard()[0][0].getClass().getSimpleName(), "Teleporter");
+        assertEquals(q.getBoard().getMatrixBoard()[2][2].getToken().getColor(), Color.BLUE);
+    }
+    @Test
+    public void shouldJumpPlayerDiagonalDOWNLEFT() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.setNormalMode();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        HashMap<String, int[][]> squares = new HashMap<>();
+        int[][] teleporterArray = new int[][] { { 0, 2 } };
+        squares.put("domain.Teleporter", teleporterArray);
+        q.createBoard(3, squares);
+        q.addWalls(3, 1, 0, 0);
+        q.moveToken("RIGHT");
+        q.moveToken("UP");
+        try {
+            q.moveToken("DOWNLEFT");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Daniel"), e.getMessage());
+        }
+        assertEquals(q.getBoard().getMatrixBoard()[0][2].getClass().getSimpleName(), "Teleporter");
+        assertEquals(q.getBoard().getMatrixBoard()[2][0].getToken().getColor(), Color.BLUE);
+    }
 }
