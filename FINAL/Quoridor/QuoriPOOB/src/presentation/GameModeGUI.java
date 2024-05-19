@@ -161,18 +161,21 @@ public class GameModeGUI extends JPanel {
     private void prepareActionsButtons() {
         buttonNormalMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.setNormalMode();
                 quoridorGUI.showPlayerInfoGUI();
             }
         });
 
         buttonClockMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.setTimeTrialMode();
                 quoridorGUI.showPlayerInfoGUI();
             }
         });
 
         buttonTimedMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
+                quoridorGUI.setTimedMode();
                 quoridorGUI.showPlayerInfoGUI();
             }
         });

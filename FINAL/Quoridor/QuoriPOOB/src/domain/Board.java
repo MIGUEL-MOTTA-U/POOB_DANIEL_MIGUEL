@@ -51,7 +51,6 @@ public class Board implements Serializable {
 
 	public void addWallToBoard(Wall wall) {
 		this.walls.add(wall);
-		nextTurn();
 	}
 
 	public void delWallFromBoard(Wall wall) {
@@ -91,7 +90,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenDown(Color colorToken) throws QuoriPOOBException {
@@ -127,7 +125,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenLeft(Color colorToken) throws QuoriPOOBException {
@@ -163,7 +160,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenRight(Color colorToken) throws QuoriPOOBException {
@@ -199,7 +195,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenUpLeft(Color colorToken) throws QuoriPOOBException {
@@ -223,7 +218,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenUpRight(Color colorToken) throws QuoriPOOBException {
@@ -247,7 +241,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenDownLeft(Color colorToken) throws QuoriPOOBException {
@@ -271,7 +264,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void moveTokenDownRight(Color colorToken) throws QuoriPOOBException {
@@ -295,7 +287,6 @@ public class Board implements Serializable {
 
 		squaresAct();
 		wallsAct();
-		nextTurn();
 	}
 
 	public void returnTwoMoves(Color colorToken) throws QuoriPOOBException {

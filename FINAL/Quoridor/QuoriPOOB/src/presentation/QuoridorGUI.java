@@ -156,8 +156,10 @@ public class QuoridorGUI extends JFrame {
     public void showBoardGUI() {
         if (boardGUI == null) {
             boardGUI = new BoardGUI(this);
+            this.quoriPOOB.addObserver(boardGUI);
             cardPanel.add(boardGUI, "boardGUI");
         }
+        this.quoriPOOB.startTurn();
         cardLayout.show(cardPanel, "boardGUI");
     }
 
@@ -171,7 +173,7 @@ public class QuoridorGUI extends JFrame {
 
     // Controlador
     public boolean twoPlayers() {
-        return quoriPOOB.twoPlayers();
+        return quoriPOOB.getTwoPlayers();
     }
 
     public void setOnePlayer() {
@@ -180,6 +182,21 @@ public class QuoridorGUI extends JFrame {
 
     public void setTwoPlayers() {
         quoriPOOB.setTwoPlayers();
+    }
+
+    public void setNormalMode() {
+        quoriPOOB.setNormalMode();
+    }
+
+    public void setTimeTrialMode() {
+        quoriPOOB.setTimeTrialMode();
+    }
+
+    public void setTimedMode() {
+        quoriPOOB.setTimedMode();
+    }
+    public void setTime(int time) {
+        quoriPOOB.setTime(time);
     }
 
     public void createBeginnerMachine() throws QuoriPOOBException {
@@ -239,6 +256,10 @@ public class QuoridorGUI extends JFrame {
         return this.quoriPOOB.getColor(name);
     }
 
+    public boolean timeMode() {
+        return this.quoriPOOB.timeMode();
+    }
+
     private void confirmClose() {
         int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
                 "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -249,8 +270,7 @@ public class QuoridorGUI extends JFrame {
     }
 
     private void optionOpen() {
-        File directory = new File("D:\\dadic\\Documentos\\Universidad\\Semestre 5\\POOB\\GitHub\\POOB_DANIEL_MIGUEL\\FINAL\\Quoridor\\QuoriPOOB\\src\\test");
-        JFileChooser chooser = new JFileChooser(directory);
+        JFileChooser chooser = new JFileChooser();
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();

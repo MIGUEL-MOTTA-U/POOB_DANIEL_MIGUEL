@@ -169,6 +169,7 @@ public class SetUpGameGUI extends JPanel {
 
         textBoardSize = createTextField("Board size");
         textTime = createTextField("Time");
+        if (!quoridorGUI.timeMode()) textTime.setEnabled(false);
 
         buttonNext = createButton("Next", QuoridorGUI.BUTTONS_COLOR, Color.WHITE, QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonNext.setBorder(new EmptyBorder(7, 7, 7, 7));
@@ -387,6 +388,8 @@ public class SetUpGameGUI extends JPanel {
                             quoridorGUI.createBoard(size, specialSquares);
                         }
 
+                        setTime();
+
                         int[] numberWalls = getNumberWalls();
 
                         if (numberWalls != null) {
@@ -560,6 +563,18 @@ public class SetUpGameGUI extends JPanel {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void setTime() {
+        if (quoridorGUI.timeMode()) {
+            try {
+                int time = Integer.parseInt(textTime.getText());
+                quoridorGUI.setTime(time);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 }

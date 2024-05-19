@@ -2,6 +2,7 @@ package presentation;
 
 import domain.QuoriPOOBException;
 import domain.Square;
+import domain.TimeObserver;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +13,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardGUI extends JPanel {
+public class BoardGUI extends JPanel implements TimeObserver {
     private static final Color BACKGROUND = new Color(250, 250, 250);
 
     private QuoridorGUI quoridorGUI;
@@ -109,7 +110,8 @@ public class BoardGUI extends JPanel {
         imageStopWatch.setSize(50, 50);
         createImage(imageStopWatch, "assets/stopWatch.png");
 
-        labelTime = new JLabel("2:24");
+        labelTime = new JLabel();
+        if (!quoridorGUI.timeMode()) labelTime.setText("---");
         labelTime.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 20));
 
         container.add(imageStopWatch);
@@ -536,6 +538,18 @@ public class BoardGUI extends JPanel {
                 }
             }
         });
+    }
+
+    @Override
+    public void timeIsUp() {
+        refresh();
+        System.out.println("Finish time");
+    }
+
+    @Override
+    public void updateTime(int time) {
+        String timeString = String.format("%d", time);
+        labelTime.setText(timeString);
     }
 
     private void createImage(JLabel label, String path) {
