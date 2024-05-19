@@ -5,7 +5,13 @@ public class NormalMode extends Mode {
         super(quoridor);
     }
 
+    @Override
     public void startTurn() {
         
+    }
+
+    @Override
+    public void cancelTask() {
+
     }
 }

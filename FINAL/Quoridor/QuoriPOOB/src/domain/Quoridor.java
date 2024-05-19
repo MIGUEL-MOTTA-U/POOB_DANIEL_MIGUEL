@@ -12,7 +12,6 @@ public class Quoridor implements Serializable {
     private Mode mode;
 	private boolean onePlayer;
 	private boolean twoPlayers;
-	private boolean timeMode;
 	private boolean gameOver;
 	private Player winner;
 
@@ -74,7 +73,7 @@ public class Quoridor implements Serializable {
 		if (players.size() != 2)
 			throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
 
-		board = new Board(size, specialSquares);
+		board = new Board(this, size, specialSquares);
 		board.setPlayers(this.players);
 		board.setTokens(this.tokens);
 
@@ -254,7 +253,6 @@ public class Quoridor implements Serializable {
 
     public void nextTurn() throws QuoriPOOBException {
         this.board.nextTurn();
-		this.mode.startTurn();
 		if (this.board.getPlayerPlaying() instanceof Machine) playMachine();
     }
 
@@ -425,6 +423,7 @@ public class Quoridor implements Serializable {
 	private void finishGame(Player player) throws QuoriPOOBException {
 		gameOver = true;
 		winner = player;
+		this.mode.cancelTask();
 		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 

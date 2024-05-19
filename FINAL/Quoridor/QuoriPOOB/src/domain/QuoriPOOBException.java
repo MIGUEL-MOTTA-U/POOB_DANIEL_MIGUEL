@@ -31,8 +31,8 @@ public class QuoriPOOBException extends Exception {
 	public static String TYPE_MACHINE_NULL = "The type of machine has to be defined";
 	public static String MACHINE_ERROR = "The machine made a mistake calculating the path";
 	public static String IMPPOSSIBLE_TO_REACH = "The given start point and finish point of the graph are imppossible to connect by a path.";
-	
-	
+	public static String GAME_OVER = "Time is up.";
+		
 	public QuoriPOOBException(String message) {
 		super(message);
 	}

@@ -1,5 +1,7 @@
 package presentation;
 
+import domain.NormalMode;
+import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
 import domain.TimeObserver;
@@ -251,6 +253,8 @@ public class BoardGUI extends JPanel implements TimeObserver {
             for (int column = 0; column < size; column++) {
                 SquareGUI squareGUI = squaresGUI[row][column];
                 Square square = squares[row][column];
+
+                if (!(square instanceof NormalSquare)) squaresGUI[row][column].setBackground(Color.GRAY);
 
                 if (square.getToken() != null) {
                     squareGUI.setColorToken(square.getToken().getColor());

@@ -1,6 +1,6 @@
 package domain;
 
 public interface TimeObserver {
-    public void timeIsUp();
+    public void timeIsUp() throws QuoriPOOBException;
     public void updateTime(int time);
 }

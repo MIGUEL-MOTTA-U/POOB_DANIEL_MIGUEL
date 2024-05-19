@@ -6,6 +6,7 @@ import java.lang.reflect.Constructor;
 import java.util.*;
 
 public class Board implements Serializable {
+	private Quoridor quoridor;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
 	private LinkedHashMap<Color, Token> tokens;
@@ -14,10 +15,11 @@ public class Board implements Serializable {
 	private Player playerPlaying;
 	private int size;
 
-	public Board(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
+	public Board(Quoridor quoridor, int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
 		if (size <= 1)
 			throw new QuoriPOOBException(QuoriPOOBException.WRONG_SIZE);
 
+		this.quoridor = quoridor;
 		this.size = size;
 		this.matrixBoard = new Square[size][size];
 		this.squares = new ArrayList<>();
@@ -196,7 +198,7 @@ public class Board implements Serializable {
 		squaresAct();
 		wallsAct();
 	}
-	//UPLEFT
+
 	public void moveTokenUpLeft(Color colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
@@ -210,14 +212,16 @@ public class Board implements Serializable {
 		if (token.getRow() <= 0 || token.getColumn() <= 0)
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 
-		if(tokenAhead("UPLEFT", square)){
+		if (tokenAhead("UPLEFT", square)) {
 			if (token.getRow() < 2 || token.getColumn() < 2)
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
 			int row = square.getCoordenates()[0];
 			int column = square.getCoordenates()[1];
-			Square nextSquare = this.matrixBoard[row-1][column -1 ]; 
+			Square nextSquare = this.matrixBoard[row - 1][column - 1];
+
 			if (!square.blockUp(colorToken) & !square.blockLeft(colorToken)
-				& !nextSquare.blockUp(colorToken) & !nextSquare.blockLeft(colorToken)) {
+					& !nextSquare.blockUp(colorToken) & !nextSquare.blockLeft(colorToken)) {
 				token.jumpTokenUpLeft();
 			} else {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
@@ -247,14 +251,17 @@ public class Board implements Serializable {
 
 		if (token.getRow() <= 0 || token.getColumn() >= this.size - 1)
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
-		if(tokenAhead("UPRIGHT", square)){
+
+		if (tokenAhead("UPRIGHT", square)) {
 			if (token.getRow() < 2 || token.getColumn() > this.size - 3)
+
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 			int row = square.getCoordenates()[0];
 			int column = square.getCoordenates()[1];
-			Square nextSquare = this.matrixBoard[row-1][column +1 ]; 
+			Square nextSquare = this.matrixBoard[row - 1][column + 1];
+
 			if (!square.blockUp(colorToken) & !square.blockRight(colorToken)
-				& !nextSquare.blockUp(colorToken) & !nextSquare.blockRight(colorToken)) {
+					& !nextSquare.blockUp(colorToken) & !nextSquare.blockRight(colorToken)) {
 				token.jumpTokenUpRight();
 			} else {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
@@ -267,7 +274,6 @@ public class Board implements Serializable {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
 			}
 		}
-		
 
 		squaresAct();
 		wallsAct();
@@ -286,14 +292,16 @@ public class Board implements Serializable {
 		if (token.getRow() >= this.size - 1 || token.getColumn() <= 0)
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 
-		if(tokenAhead("DOWNLEFT", square)){
+		if (tokenAhead("DOWNLEFT", square)) {
 			if (token.getRow() > this.size - 3 || token.getColumn() < 2)
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
 			int row = square.getCoordenates()[0];
 			int column = square.getCoordenates()[1];
-			Square nextSquare = this.matrixBoard[row+1][column -1 ]; 
+			Square nextSquare = this.matrixBoard[row + 1][column - 1];
+
 			if (!square.blockDown(colorToken) & !square.blockLeft(colorToken)
-				& !nextSquare.blockDown(colorToken) & !nextSquare.blockLeft(colorToken)) {
+					& !nextSquare.blockDown(colorToken) & !nextSquare.blockLeft(colorToken)) {
 				token.jumpTokenDownLeft();
 			} else {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
@@ -323,14 +331,16 @@ public class Board implements Serializable {
 		if (token.getRow() >= this.size - 1 || token.getColumn() >= this.size - 1)
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
 
-		if(tokenAhead("DOWNRIGHT", square)){
+		if (tokenAhead("DOWNRIGHT", square)) {
 			if (token.getRow() > this.size - 3 || token.getColumn() > this.size - 3)
 				throw new QuoriPOOBException(QuoriPOOBException.TOKEN_OUT_OF_RANGE);
+
 			int row = square.getCoordenates()[0];
 			int column = square.getCoordenates()[1];
-			Square nextSquare = this.matrixBoard[row+1][column +1 ]; 
+			Square nextSquare = this.matrixBoard[row + 1][column + 1];
+			
 			if (!square.blockDown(colorToken) & !square.blockRight(colorToken)
-				& !nextSquare.blockDown(colorToken) & !nextSquare.blockRight(colorToken)) {
+					& !nextSquare.blockDown(colorToken) & !nextSquare.blockRight(colorToken)) {
 				token.jumpTokenDownRight();
 			} else {
 				throw new QuoriPOOBException(QuoriPOOBException.FORWARD_WALL);
@@ -370,6 +380,8 @@ public class Board implements Serializable {
 				break;
 			}
 		}
+
+		this.quoridor.startTurn();
 	}
 
 	public Square[][] getMatrixBoard() {
@@ -416,7 +428,7 @@ public class Board implements Serializable {
 		} else {
 			throw new QuoriPOOBException(QuoriPOOBException.MACHINE_ERROR);
 		}
-		
+
 		return res;
 	}
 
@@ -439,7 +451,7 @@ public class Board implements Serializable {
 
 			if (squares.length > Math.pow(this.size, 2))
 				throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMER_SQUARES);
-				
+
 			for (int i = 0; i < squares.length; i++) {
 				int row = squares[i][0];
 				int column = squares[i][1];
@@ -510,19 +522,19 @@ public class Board implements Serializable {
 				nextSquare = this.matrixBoard[row][column + 1];
 				return nextSquare.getToken() != null;
 			case "UPRIGHT":
-				nextSquare = this.matrixBoard[row-1][column + 1 ];
+				nextSquare = this.matrixBoard[row - 1][column + 1];
 				return nextSquare.getToken() != null;
 			case "UPLEFT":
 				nextSquare = this.matrixBoard[row - 1][column - 1];
 				return nextSquare.getToken() != null;
 			case "DOWNRIGHT":
-				nextSquare = this.matrixBoard[row+1][column + 1];
+				nextSquare = this.matrixBoard[row + 1][column + 1];
 				return nextSquare.getToken() != null;
 			case "DOWNLEFT":
-				nextSquare = this.matrixBoard[row + 1][column - 1 ];
-				return nextSquare.getToken()!=null;
-				default:
-					throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
+				nextSquare = this.matrixBoard[row + 1][column - 1];
+				return nextSquare.getToken() != null;
+			default:
+				throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
 		}
 	}
 
