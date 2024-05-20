@@ -40,6 +40,7 @@ public class QuoriPOOBException extends Exception {
 	}
 
 	public static final String GAME_OVER(String winner) {
-        return "GAME OVER the winner is: "+winner;
+		winner = (winner == null) ? "None" : winner;
+        return "GAME OVER the winner is: "+ winner;
     }
 }

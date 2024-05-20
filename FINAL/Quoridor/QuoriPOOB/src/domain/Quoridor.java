@@ -16,12 +16,14 @@ public class Quoridor implements Serializable {
 	private Player winner;
 
 	public Quoridor() {
+		this.board = null;
 		this.players = new LinkedHashMap<>(2);
 		this.tokens = new LinkedHashMap<>(2);
-		this.board = null;
+		this.mode = null;
 		this.onePlayer = false;
 		this.twoPlayers = false;
 		this.gameOver = false;
+		this.winner = null;
 	}
 
 	/**
@@ -96,8 +98,7 @@ public class Quoridor implements Serializable {
 	 *                            parameters.
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
-		if (gameOver)
-			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		checkGameFinish();
 		if (name == null)
 			throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
 		if (color == null)
@@ -134,8 +135,7 @@ public class Quoridor implements Serializable {
 	 *                            there are two players already.
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
-		if (gameOver)
-			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		checkGameFinish();
 		if (type == null)
 			throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
 		if (color == null)
@@ -179,8 +179,7 @@ public class Quoridor implements Serializable {
 	 *                            a Board created, also if the parameters are wrong.
 	 */
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
-		if (gameOver)
-			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		checkGameFinish();
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (gameModeUndefined())
@@ -216,8 +215,7 @@ public class Quoridor implements Serializable {
 	 */
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
 			throws QuoriPOOBException {
-		if (gameOver)
-			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		checkGameFinish();
 
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
@@ -236,8 +234,8 @@ public class Quoridor implements Serializable {
 	 *                            wrong or the action is not possible.
 	 */
 	public void moveToken(String direction) throws QuoriPOOBException {
-		if (gameOver)
-			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+		checkGameFinish();
+		
 		Player player = getCurrentPlayer();
 		player.moveToken(direction);
 
@@ -248,6 +246,12 @@ public class Quoridor implements Serializable {
 		// 	this.moveToken(null);
 
 		nextTurn();
+	}
+
+	public void finishGame() throws QuoriPOOBException {
+		gameOver = true;
+		this.mode.cancelTask();
+		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
 	}
 
     public void nextTurn() throws QuoriPOOBException {
@@ -423,7 +427,7 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		//throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
 	private void playMachine() throws QuoriPOOBException {
@@ -439,6 +443,16 @@ public class Quoridor implements Serializable {
 			finishGame(player);
 
 		nextTurn();
+	}
+
+	private void checkGameFinish() throws QuoriPOOBException {
+		if (gameOver) {
+			if (winner == null) {
+				throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
+			} else {
+				throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+			}
+		}
 	}
 }
 

@@ -38,7 +38,8 @@ public class Timed extends Mode {
 
     @Override
     public void cancelTask() {
-        
+        this.taskPlayer1.cancel();
+        this.taskPlayer2.cancel();
     }
 
     private void setPlayerPlaying() {
@@ -54,6 +55,15 @@ public class Timed extends Mode {
                 this.timePlayer2 = taskPlayer2.getRemainingTime();
                 taskPlayer2.cancel();
             }
+        }
+    }
+
+    @Override
+    public void endTurn() throws QuoriPOOBException {
+        if (timePlayer1 == 0 & timePlayer2 == 0) {
+            this.quoridor.finishGame();
+        } else {
+            super.endTurn();
         }
     }
 }
