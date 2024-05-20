@@ -717,6 +717,7 @@ public class Quopripoobvi {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -754,8 +755,9 @@ public class Quopripoobvi {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
-            q.moveToken("UP");
+            q.moveToken("DOWN");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
@@ -779,8 +781,9 @@ public class Quopripoobvi {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
-            q.moveToken("UP");
+            q.moveToken("DOWN");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());

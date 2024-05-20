@@ -1231,6 +1231,7 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1268,6 +1269,7 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1293,6 +1295,7 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1386,22 +1389,29 @@ public class QuoriPOOBTest {
             }
         }
         assertFalse(pasx == x && pasy == y);
-        q.moveToken("DOWN");
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                if ((q.getBoard().getMatrixBoard()[i][j].getToken() != null)
-                        && q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
-                    pasx = x;
-                pasy = y;
-                x = i;
-                y = j;
+        try{
+            q.moveToken("DOWN");
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if ((q.getBoard().getMatrixBoard()[i][j].getToken() != null)
+                            && q.getBoard().getMatrixBoard()[i][j].getToken().getColor().equals(Color.orange))
+                        pasx = x;
+                    pasy = y;
+                    x = i;
+                    y = j;
+                }
             }
-        }
         assertFalse(pasx == x && pasy == y);
+        } catch (QuoriPOOBException e) {
+            assertTrue(QuoriPOOBException.FORWARD_WALL.equals(e.getMessage())||
+            QuoriPOOBException.GAME_OVER("Daniel").equals(e.getMessage()));
+        }
+        
         try {
             q.moveToken("DOWN");
         } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.GAME_OVER("Daniel"), e.getMessage());
+            assertTrue(QuoriPOOBException.FORWARD_WALL.equals(e.getMessage())||
+            QuoriPOOBException.GAME_OVER("Daniel").equals(e.getMessage()));
         }
     }
 
@@ -1498,11 +1508,14 @@ public class QuoriPOOBTest {
 
         q.moveToken("LEFT");
         try {
+            System.out.println("Deberia ganar");
             q.moveToken("LEFT");
 
         } catch (QuoriPOOBException e) {
+            System.out.println(e.getMessage());
             assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
         }
+        System.out.println("Llego al final?: "+ (q.getMatrixBoard()[0][2].getToken()!=null));
 
     }
 

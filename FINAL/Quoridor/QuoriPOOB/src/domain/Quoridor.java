@@ -238,7 +238,6 @@ public class Quoridor implements Serializable {
 	public void moveToken(String direction) throws QuoriPOOBException {
 		if (gameOver)
 			throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
-
 		Player player = getCurrentPlayer();
 		player.moveToken(direction);
 
@@ -424,7 +423,7 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		//throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
 	private void playMachine() throws QuoriPOOBException {
@@ -436,6 +435,8 @@ public class Quoridor implements Serializable {
         } else {
             player.moveToken(null);
         }
+		if (player.checkWin())
+			finishGame(player);
 
 		nextTurn();
 	}

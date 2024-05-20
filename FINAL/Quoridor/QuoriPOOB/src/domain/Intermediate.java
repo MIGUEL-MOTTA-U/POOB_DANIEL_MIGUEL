@@ -35,7 +35,7 @@ public class Intermediate extends Machine {
             super.moveToken(direction);
         } else {
             System.out.println("Comportamiento EN CONSTRUCCION");
-            // addWallToBoard(direction, 0, 0, direction);
+            // super.addWallToBoard(direction, 0, 0, direction);
             super.moveToken("DOWN");
         }
 
