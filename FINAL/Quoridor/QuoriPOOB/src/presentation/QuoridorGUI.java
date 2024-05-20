@@ -111,6 +111,13 @@ public class QuoridorGUI extends JFrame {
                 confirmClose();
             }
         });
+
+        newItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ev) {
+                restart();
+                showStartGUI();
+            }
+        });
     }
 
     public void showStartGUI() {
@@ -295,6 +302,18 @@ public class QuoridorGUI extends JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+
+    private void restart() {
+        quoriPOOB.resetSingleton();
+        quoriPOOB = QuoriPOOB.getQuoriPOOB();
+        playerTwo = false;
+        startGUI = null;
+        gameModeGUI = null;
+        gameDifficultyGUI = null;
+        playerInfoGUI = null;
+        setUpGameGUI = null;
+        boardGUI = null;
     }
 
     public static void main(String args[]) {
