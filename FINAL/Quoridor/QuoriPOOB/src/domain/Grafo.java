@@ -72,4 +72,31 @@ public class Grafo {
     public HashMap<Integer, Object> getNodes() {
         return nodes;
     }
+
+    public List<List<Integer>> findAllPaths(int start, int end) {
+        List<List<Integer>> allPaths = new ArrayList<>();
+        Stack<Integer> currentPath = new Stack<>();
+        boolean[] visited = new boolean[numNodes];
+
+        currentPath.push(start);
+        findAllPathsUtil(start, end, visited, currentPath, allPaths);
+        return allPaths;
+    }
+
+    private void findAllPathsUtil(int current, int end, boolean[] visited, Stack<Integer> currentPath, List<List<Integer>> allPaths) {
+        visited[current] = true;
+
+        if (current == end) {
+            allPaths.add(new ArrayList<>(currentPath));
+        } else {
+            for (int i = 0; i < numNodes; i++) {
+                if (matrix[current][i] != 0 && !visited[i]) {
+                    currentPath.push(i);
+                    findAllPathsUtil(i, end, visited, currentPath, allPaths);
+                    currentPath.pop();
+                }
+            }
+        }
+        visited[current] = false;
+    }
 }

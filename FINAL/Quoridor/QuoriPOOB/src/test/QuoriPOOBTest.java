@@ -526,7 +526,6 @@ public class QuoriPOOBTest {
         for (int row = 0; row < matrix.length; row++) {
             for (int col = 0; col < matrix.length; col++) {
                 Square square = matrix[row][col];
-                System.out.println(row + " - " + col);
                 if ((col == 4) & (row == 0)) {
                     assertNotNull(square.getToken());
                     assertEquals(q.getColor("Player 1"), square.getToken().getColor());
@@ -1482,14 +1481,7 @@ public class QuoriPOOBTest {
         grafo.addVertex(14, 13, 12);
 
         // Encontrar el camino más corto entre los nodos 0 y 4
-        List<Integer> ruta = grafo.shortestWay(0, 14);
-
-        // Imprimir la ruta más corta
-        System.out.println("Ruta más corta: ");
-        for (int nodo : ruta) {
-            System.out.print(grafo.getNodes().get(nodo) + " -> ");
-        }
-        System.out.println("Fin");
+        grafo.shortestWay(0, 14);
     }
 
     @Test
@@ -1507,16 +1499,14 @@ public class QuoriPOOBTest {
         q.moveToken("RIGHT");
 
         q.moveToken("LEFT");
+        q.moveToken("LEFT");
         try {
-            System.out.println("Deberia ganar");
             q.moveToken("LEFT");
-
+            fail("SHOULD NOT LET PLAYER PLAY AFTER THE MACHINE WON");
         } catch (QuoriPOOBException e) {
-            System.out.println(e.getMessage());
             assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
         }
-        System.out.println("Llego al final?: "+ (q.getMatrixBoard()[0][2].getToken()!=null));
-
+        
     }
 
     @Test
@@ -1922,5 +1912,49 @@ public class QuoriPOOBTest {
         }
         assertEquals(q.getBoard().getMatrixBoard()[0][2].getClass().getSimpleName(), "Teleporter");
         assertEquals(q.getBoard().getMatrixBoard()[2][0].getToken().getColor(), Color.BLUE);
+    }
+
+    @Test
+    public void testFindAllPaths() {
+        Grafo grafo = new Grafo(5);
+        grafo.addVertex(0, 1, 1);
+        grafo.addVertex(0, 4, 1);
+        grafo.addVertex(1, 2, 1);
+        grafo.addVertex(1, 3, 1);
+        grafo.addVertex(1, 4, 1);
+        grafo.addVertex(2, 3, 1);
+        grafo.addVertex(3, 4, 1);
+        List<List<Integer>> allPaths = grafo.findAllPaths(0, 3);
+        List<List<Integer>> expectedPaths = Arrays.asList(
+                Arrays.asList(0, 1, 2, 3),
+                Arrays.asList(0, 1, 3),
+                Arrays.asList(0, 4, 1, 2, 3),
+                Arrays.asList(0, 4, 1, 3),
+                Arrays.asList(0, 1, 4, 3),
+                Arrays.asList(0, 1, 2, 3)
+                );
+        assertEquals(expectedPaths.size(), allPaths.size());
+        assertTrue(allPaths.containsAll(expectedPaths));
+    }
+
+    @Test
+    public void testFindAllPaths2() {
+        Grafo grafo = new Grafo(6);
+        grafo.addVertex(0, 4, 1);
+        grafo.addVertex(0, 1, 1);
+        grafo.addVertex(1, 2, 1);
+        grafo.addVertex(1, 4, 1);
+        grafo.addVertex(2, 3, 1);
+        grafo.addVertex(3, 4, 1);
+        grafo.addVertex(3, 5, 1);
+        List<List<Integer>> allPaths = grafo.findAllPaths(0, 5);
+        List<List<Integer>> expectedPaths = Arrays.asList(
+                Arrays.asList(0, 4, 3, 5),
+                Arrays.asList(0, 4, 1, 2, 3, 5),
+                Arrays.asList(0, 1, 4, 3, 5),
+                Arrays.asList(0, 1, 2, 3, 5)
+                );
+        assertEquals(expectedPaths.size(), allPaths.size());
+        assertTrue(allPaths.containsAll(expectedPaths));
     }
 }

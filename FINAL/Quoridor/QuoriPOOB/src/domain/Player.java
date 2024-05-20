@@ -104,7 +104,7 @@ public abstract class Player implements Serializable {
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
 		if (numberWalls().get(type) <= 0)
 			throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
-
+		
 		Wall wallToPut = null;
 
 		for (Wall w : this.walls) {
@@ -113,11 +113,34 @@ public abstract class Player implements Serializable {
 				break;
 			}
 		}
-
+		// if(blockWay(wallToPut,mapBoard()))
+		// 	throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
 		wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
 
 		delWall(wallToPut);
 	}
+
+	protected boolean blockWay(Wall w, Grafo g){
+		boolean res = true;
+		List<List<Integer>> path = new ArrayList<>();
+		Token playerToken = board.getTokens().get(color);
+		int destiny = playerToken.getDestiny(), size = board.getSize();
+		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
+		// Recorro las casillas de meta
+		for (int i = destiny * size; i < destiny * size + size; i++) {
+			System.out.println("Se va a calcular el camino, puede tardar un rato");
+			path = g.findAllPaths(currentNode, i);
+			System.out.println("Se termino de calcular el camino");
+			// Recorro los caminos a cada salida
+			if (checkDestinySquare((Square) g.getNodes().get(i), destiny)){
+				return false;
+			}
+			System.out.println("Se esta evaluando el nodo: " + i+" y no se ha encontrado un camino viable");
+		}
+		
+		return res;
+	}
+
 
 	protected ArrayList<Square> calculateMyShorestPath() throws QuoriPOOBException {
 		ArrayList<Square> res = new ArrayList<>();
@@ -142,9 +165,6 @@ public abstract class Player implements Serializable {
 		return res;
 	}
 
-	protected boolean isNotBlocked() {
-		return true;
-	}
 
 	public boolean checkWin() {
 		return board.checkWin(color);
@@ -207,7 +227,6 @@ public abstract class Player implements Serializable {
 			for (int j = 0; j < size; j++) {
 				Square box = board.getMatrixBoard()[i][j];
 				graph.addNode(id, box);
-
 				if (true) {// if(notEnemy(i,j)){
 					if (makeConectionLeft(box)) {// No hay ni muro a la izquierda de box, o un borde
 						// if(notEnemy(i,j-1)){// Si no hay un jugador enemigo a la izquierda
