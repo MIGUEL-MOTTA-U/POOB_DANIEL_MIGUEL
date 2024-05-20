@@ -427,13 +427,13 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		//throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
 	private void playMachine() throws QuoriPOOBException {
 		Random random = new Random();
 		Player player = this.board.getPlayerPlaying();
-
+		checkGameFinish();
         if (random.nextBoolean()) {
             player.addWallToBoard(null, 0, 0, null);
         } else {
