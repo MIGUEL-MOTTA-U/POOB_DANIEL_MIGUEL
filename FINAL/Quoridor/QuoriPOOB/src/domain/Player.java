@@ -116,7 +116,9 @@ public abstract class Player implements Serializable {
 		wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
 		Grafo mappedBoard = mapBoard();
 		if(blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, mappedBoard)){
+			System.out.println("INTENTO PONER UN PUENTE EN ("+initialRow+","+initialColumn+") DIRECCION: "+squareSide);
 			wallToPut.delWallFromBoard();
+			wallToPut = null;
 			throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
 		}
 		delWall(wallToPut);
@@ -128,7 +130,7 @@ public abstract class Player implements Serializable {
 		int destiny = playerToken.getDestiny(), size = board.getSize();
 		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
 		// Recorro las casillas de meta
-		for (int i = destiny * size; i < destiny * size + size; i++) {
+		for (int i = destiny * size; i <= destiny * size + size; i++) {
 			try{
 				g.shortestWay(currentNode, i);
 				return false;

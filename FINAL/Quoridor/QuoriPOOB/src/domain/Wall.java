@@ -103,12 +103,16 @@ public abstract class Wall implements Serializable {
 				switch (squareSide.toUpperCase()) {
 					case "UP":
 						board.getMatrixBoard()[i][j].delWallUp();
+						break;
 					case "LEFT":
 						board.getMatrixBoard()[i][j].delWallLeft();
+						break;
 					case "DOWN":
 						board.getMatrixBoard()[i][j].delWallDown();
+						break;
 					case "RIGHT":
 						board.getMatrixBoard()[i][j].delWallRight();
+						break;
 					default:
 				}
 			}
