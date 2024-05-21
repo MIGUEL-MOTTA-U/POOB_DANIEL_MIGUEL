@@ -833,55 +833,7 @@ public class QuoriPOOBTest {
 
     }
 
-    @Test
-    public void shouldPlaceANormalBarrier2() throws QuoriPOOBException {
-        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setTwoPlayers();
-        q.setNormalMode();
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
-        q.addWalls(6, 0, 0, 0);
-        q.addWallToBoard("NormalWall", 2, 2, "DOWN");
 
-        assertTrue(q.getBoard().getMatrixBoard()[2][2].getWallDown() != null);
-        assertEquals(q.getBoard().getMatrixBoard()[2][2].getWallDown(),
-                q.getBoard().getMatrixBoard()[2][3].getWallDown());
-        assertEquals(q.getBoard().getMatrixBoard()[3][2].getWallUp(), q.getBoard().getMatrixBoard()[3][3].getWallUp());
-
-        q.addWallToBoard("NormalWall", 2, 2, "RIGHT");
-        assertTrue(q.getBoard().getMatrixBoard()[2][2].getWallRight() != null);
-        assertEquals(q.getBoard().getMatrixBoard()[2][2].getWallRight(),
-                q.getBoard().getMatrixBoard()[3][2].getWallRight());
-        assertEquals(q.getBoard().getMatrixBoard()[2][3].getWallLeft(),
-                q.getBoard().getMatrixBoard()[3][3].getWallLeft());
-
-    }
-
-    @Test
-    public void shouldPlaceANormalBarrier3() throws QuoriPOOBException {
-        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setTwoPlayers();
-        q.setNormalMode();
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
-        q.addWalls(6, 0, 0, 0);
-        q.addWallToBoard("NormalWall", 2, 2, "DOWN");
-
-        assertTrue(q.getBoard().getMatrixBoard()[2][2].getWallDown() != null);
-        assertEquals(q.getBoard().getMatrixBoard()[2][2].getWallDown(),
-                q.getBoard().getMatrixBoard()[2][3].getWallDown());
-        assertEquals(q.getBoard().getMatrixBoard()[3][2].getWallUp(), q.getBoard().getMatrixBoard()[3][3].getWallUp());
-
-        q.addWallToBoard("NormalWall", 2, 2, "RIGHT");
-        assertTrue(q.getBoard().getMatrixBoard()[2][2].getWallRight() != null);
-        assertEquals(q.getBoard().getMatrixBoard()[2][2].getWallRight(),
-                q.getBoard().getMatrixBoard()[3][2].getWallRight());
-        assertEquals(q.getBoard().getMatrixBoard()[2][3].getWallLeft(),
-                q.getBoard().getMatrixBoard()[3][3].getWallLeft());
-
-    }
 
     @Test
     public void shouldNotPlaceANormalBarrierIfItsNotPossible1() throws QuoriPOOBException {
@@ -1438,12 +1390,12 @@ public class QuoriPOOBTest {
 
         // Agregar aristas con sus pesos
         grafo.addVertex(0, 1, 8);
-        grafo.addVertex(0, 4, 4);
-        grafo.addVertex(0, 3, 5);
+        //grafo.addVertex(0, 4, 4);
+        //grafo.addVertex(0, 3, 5);
 
-        grafo.addVertex(1, 4, 12);
-        grafo.addVertex(1, 5, 4);
-        grafo.addVertex(1, 2, 3);
+        //grafo.addVertex(1, 4, 12);
+        //grafo.addVertex(1, 5, 4);
+        //grafo.addVertex(1, 2, 3);
 
         grafo.addVertex(2, 5, 9);
         grafo.addVertex(2, 6, 11);
@@ -1481,7 +1433,12 @@ public class QuoriPOOBTest {
         grafo.addVertex(14, 13, 12);
 
         // Encontrar el camino más corto entre los nodos 0 y 4
-        grafo.shortestWay(0, 14);
+        try{
+            grafo.shortestWay(0, 12);
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.IMPPOSSIBLE_TO_REACH,e.getMessage());
+        }
+
     }
 
     @Test
@@ -1913,48 +1870,73 @@ public class QuoriPOOBTest {
         assertEquals(q.getBoard().getMatrixBoard()[0][2].getClass().getSimpleName(), "Teleporter");
         assertEquals(q.getBoard().getMatrixBoard()[2][0].getToken().getColor(), Color.BLUE);
     }
-
     @Test
-    public void testFindAllPaths() {
-        Grafo grafo = new Grafo(5);
-        grafo.addVertex(0, 1, 1);
-        grafo.addVertex(0, 4, 1);
-        grafo.addVertex(1, 2, 1);
-        grafo.addVertex(1, 3, 1);
-        grafo.addVertex(1, 4, 1);
-        grafo.addVertex(2, 3, 1);
-        grafo.addVertex(3, 4, 1);
-        List<List<Integer>> allPaths = grafo.findAllPaths(0, 3);
-        List<List<Integer>> expectedPaths = Arrays.asList(
-                Arrays.asList(0, 1, 2, 3),
-                Arrays.asList(0, 1, 3),
-                Arrays.asList(0, 4, 1, 2, 3),
-                Arrays.asList(0, 4, 1, 3),
-                Arrays.asList(0, 1, 4, 3),
-                Arrays.asList(0, 1, 2, 3)
-                );
-        assertEquals(expectedPaths.size(), allPaths.size());
-        assertTrue(allPaths.containsAll(expectedPaths));
+    public void shouldDeleteTemporary() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setTwoPlayers();
+        q.setNormalMode();
+        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createBoard(3, null);
+        q.addWalls(3, 1, 0, 0);
+        // Daniel moves
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                assertNull(q.getMatrixBoard()[i][j].getWallDown());
+                assertNull(q.getMatrixBoard()[i][j].getWallLeft());
+                assertNull(q.getMatrixBoard()[i][j].getWallUp());
+                assertNull(q.getMatrixBoard()[i][j].getWallRight());
+            }
+        }
+        q.addWallToBoard("Temporary", 1, 1, "UP");
+        assertNotNull(q.getMatrixBoard()[0][1].getWallDown());
+        assertNotNull(q.getMatrixBoard()[1][1].getWallUp());
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        q.moveToken("RIGHT");
+        q.moveToken("LEFT");
+        q.moveToken("LEFT");
+        q.moveToken("RIGHT");
+        assertNotNull(q.getMatrixBoard()[0][1].getWallDown());
+        assertNotNull(q.getMatrixBoard()[1][1].getWallUp());
+        q.moveToken("RIGHT");
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                assertNull(q.getMatrixBoard()[i][j].getWallDown());
+                assertNull(q.getMatrixBoard()[i][j].getWallLeft());
+                assertNull(q.getMatrixBoard()[i][j].getWallUp());
+                assertNull(q.getMatrixBoard()[i][j].getWallRight());
+            }
+        }
     }
 
-    @Test
-    public void testFindAllPaths2() {
-        Grafo grafo = new Grafo(6);
-        grafo.addVertex(0, 4, 1);
-        grafo.addVertex(0, 1, 1);
-        grafo.addVertex(1, 2, 1);
-        grafo.addVertex(1, 4, 1);
-        grafo.addVertex(2, 3, 1);
-        grafo.addVertex(3, 4, 1);
-        grafo.addVertex(3, 5, 1);
-        List<List<Integer>> allPaths = grafo.findAllPaths(0, 5);
-        List<List<Integer>> expectedPaths = Arrays.asList(
-                Arrays.asList(0, 4, 3, 5),
-                Arrays.asList(0, 4, 1, 2, 3, 5),
-                Arrays.asList(0, 1, 4, 3, 5),
-                Arrays.asList(0, 1, 2, 3, 5)
-                );
-        assertEquals(expectedPaths.size(), allPaths.size());
-        assertTrue(allPaths.containsAll(expectedPaths));
+    //@Test
+    public void shouldPlayMachine() throws QuoriPOOBException {
+        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
+        q.setOnePlayer();
+        q.setNormalMode();
+        q.createPlayerMachine(Color.GREEN, "domain.Intermediate");
+        q.createPlayerHuman("Player 1", Color.BLUE);
+        q.createBoard(8, null);
+        q.addWalls(9, 0, 0, 0);
+        q.moveToken("RIGHT");
+        q.addWallToBoard("NormalWall", 1, 3, "DOWN");
+        q.addWallToBoard("NormalWall", 1, 1, "DOWN");
+        q.addWallToBoard("NormalWall", 0, 0, "RIGHT");
+        assertNotNull(q.getMatrixBoard()[7][3].getWallUp());
+        assertNotNull(q.getMatrixBoard()[7][4].getWallUp());
+        q.addWallToBoard("NormalWall", 7, 1, "UP");
+        assertNotNull(q.getMatrixBoard()[7][1].getWallUp());
+        assertNotNull(q.getMatrixBoard()[7][2].getWallUp());
+        assertNotNull(q.getMatrixBoard()[7][3].getWallRight());
+        assertNotNull(q.getMatrixBoard()[6][3].getWallRight());
+        q.moveToken("LEFT");
+        assertNotNull(q.getMatrixBoard()[7][1].getWallUp());
+        assertNotNull(q.getMatrixBoard()[7][2].getWallUp());
+        
+        
     }
+
+    
 }

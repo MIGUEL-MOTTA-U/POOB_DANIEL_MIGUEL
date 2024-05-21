@@ -113,31 +113,27 @@ public abstract class Player implements Serializable {
 				break;
 			}
 		}
-		// if(blockWay(wallToPut,mapBoard()))
-		// 	throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
 		wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
-
+		Grafo mappedBoard = mapBoard();
+		if(blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, mappedBoard)){
+			wallToPut.delWallFromBoard();
+			throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
+		}
 		delWall(wallToPut);
 	}
 
 	protected boolean blockWay(Wall w, Grafo g){
 		boolean res = true;
-		List<List<Integer>> path = new ArrayList<>();
 		Token playerToken = board.getTokens().get(color);
 		int destiny = playerToken.getDestiny(), size = board.getSize();
 		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
 		// Recorro las casillas de meta
 		for (int i = destiny * size; i < destiny * size + size; i++) {
-			System.out.println("Se va a calcular el camino, puede tardar un rato");
-			path = g.findAllPaths(currentNode, i);
-			System.out.println("Se termino de calcular el camino");
-			// Recorro los caminos a cada salida
-			if (checkDestinySquare((Square) g.getNodes().get(i), destiny)){
+			try{
+				g.shortestWay(currentNode, i);
 				return false;
-			}
-			System.out.println("Se esta evaluando el nodo: " + i+" y no se ha encontrado un camino viable");
+			} catch(QuoriPOOBException e){}
 		}
-		
 		return res;
 	}
 
@@ -227,52 +223,16 @@ public abstract class Player implements Serializable {
 			for (int j = 0; j < size; j++) {
 				Square box = board.getMatrixBoard()[i][j];
 				graph.addNode(id, box);
-				if (true) {// if(notEnemy(i,j)){
 					if (makeConectionLeft(box)) {// No hay ni muro a la izquierda de box, o un borde
-						// if(notEnemy(i,j-1)){// Si no hay un jugador enemigo a la izquierda
 						graph.addVertex(id, id - 1, 1);
-						// }else if(canJumpTokenLeft(i,j)){// Se tiene que hay un enemigo a la izquierda
-						// //graph.addVertex(id, id - 2, 1);
-						// }
 					}
 					if (makeConectionUp(box)) {
-						// if(notEnemy(i-1,j)){// Si no hay un jugador enemigo arriba
 						graph.addVertex(id, id - size, 1);
-						// } else if(canJumpTokenUp(i,j)){// Se tiene que hay un enemigo arriba, pero lo
-						// puede saltar
-						// //graph.addVertex(id, id-(2*size), 1);
-						// }
 					}
-				}
 				id++;
 			}
 		}
-
 		return graph;
-	}
-
-	private boolean canJumpTokenUp(int i, int j) {
-		Square upSquare = board.getMatrixBoard()[i - 1][j];
-		return makeConectionUp(upSquare);
-	}
-
-	private boolean canJumpTokenLeft(int row, int column) {
-		Square leftBox = board.getMatrixBoard()[row][column - 1];
-		return makeConectionLeft(leftBox);
-	}
-
-	private boolean notEnemy(int row, int column) {
-		// Si no hay nada, si lo puedo conectar
-		// Si esta mi propio token, tambien lo puedo conectar
-		boolean res = false;
-
-		if (board.getMatrixBoard()[row][column].getToken() == null) {
-			res = true;
-		} else if (board.getMatrixBoard()[row][column].getToken().getColor().equals(color)) {
-			res = true;
-		}
-
-		return res;
 	}
 
 	private boolean makeConectionUp(Square box) {

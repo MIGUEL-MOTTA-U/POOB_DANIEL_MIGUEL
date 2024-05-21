@@ -57,6 +57,8 @@ public class LongWall extends Wall {
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+		if (intersectWall(initialRow, initialColumn,squareSide, board))
+			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 	}
 
     @Override

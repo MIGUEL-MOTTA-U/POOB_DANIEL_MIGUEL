@@ -164,6 +164,44 @@ public abstract class Wall implements Serializable {
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+		if (intersectWall(initialRow, initialColumn,squareSide, board))
+			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+	}
+
+	/*
+	 * Check the wall does not intersect other wall
+	 */
+	protected boolean intersectWall(int initialRow, int initialColumn, String squareSide, Board board)
+	throws QuoriPOOBException{
+		boolean res = false;
+		int finalRow = finalRow(initialRow,squareSide);
+		int finalColumn = finalColumn(initialColumn, squareSide);
+		for(int i = initialRow; i <= finalRow;i++){
+			for(int j = initialColumn; j<= finalColumn;j++){
+				switch (squareSide.toUpperCase()) {
+					case "UP":
+						if(initialRow!=0&&j!=finalColumn){
+							res =board.getMatrixBoard()[i][j].getWallRight()!=null&& board.getMatrixBoard()[i][j].getWallRight().equals(board.getMatrixBoard()[i-1][j].getWallRight());
+						}break;
+					case "DOWN":
+						if(initialRow!=board.getSize()-1&&j!=finalColumn){
+							res= board.getMatrixBoard()[i][j].getWallRight()!=null&&board.getMatrixBoard()[i][j].getWallRight().equals(board.getMatrixBoard()[i+1][j].getWallRight());
+						}break;
+					case "LEFT":
+						if(initialColumn!=0&&i!=finalRow){
+							res = board.getMatrixBoard()[i][j].getWallDown()!=null&&board.getMatrixBoard()[i][j].getWallDown().equals(board.getMatrixBoard()[i][j-1].getWallDown());
+						}break;
+					case "RIGHT":
+						if(initialColumn!=board.getSize()-1&&i!=finalRow){
+							res= board.getMatrixBoard()[i][j].getWallDown()!=null&&board.getMatrixBoard()[i][j].getWallDown().equals(board.getMatrixBoard()[i][j+1].getWallDown());
+						}break;
+					default:
+					throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				}
+				if(res) return true;
+			}
+		}
+		return false;
 	}
 
 	/*
