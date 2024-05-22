@@ -1426,11 +1426,15 @@ public class QuoriPOOBTest {
 
         grafo.addVertex(13, 14, 2);
         grafo.addVertex(14, 13, 12);
-
-        // Encontrar el camino más corto entre los nodos 10 y 13 ()
+        List<Integer> path = new ArrayList<>();
+        // Encontrar el camino más corto entre los nodos 5 y 13 ()
         try{
-            grafo.shortestWay(10, 13);
-            System.out.println("POSSIBLE");
+            path = grafo.shortestWay(5, 13);
+            System.out.println(path.size());
+            for(Integer i: path){
+                System.out.print(" --> "+grafo.getNodes().get(i));
+            }
+            System.out.println("\nPOSSIBLE");
         } catch(QuoriPOOBException e){
             assertEquals(QuoriPOOBException.IMPPOSSIBLE_TO_REACH,e.getMessage());
             System.out.println("NO PUDO HACER SHORTEST WAY");
@@ -1438,7 +1442,7 @@ public class QuoriPOOBTest {
 
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1463,7 +1467,7 @@ public class QuoriPOOBTest {
         
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssibleWithWallAhead() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1488,7 +1492,7 @@ public class QuoriPOOBTest {
 
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssibleWithWallLEFT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1511,7 +1515,7 @@ public class QuoriPOOBTest {
 
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssibleWithWallright() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1534,7 +1538,7 @@ public class QuoriPOOBTest {
 
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
@@ -1558,7 +1562,7 @@ public class QuoriPOOBTest {
 
     }
 
-    //@Test
+    @Test
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();

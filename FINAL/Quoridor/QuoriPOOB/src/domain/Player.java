@@ -1,7 +1,6 @@
 package domain;
 
 import java.awt.*;
-import java.awt.geom.FlatteningPathIterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,35 +130,34 @@ public abstract class Player implements Serializable {
 		int destiny = playerToken.getDestiny(), size = board.getSize();
 		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
 		// Recorro las casillas de meta
-		int veces = 0;
 		for (int i = destiny * size; i < destiny * size + size; i++) {
-			veces++;
 				if(g.isConnected(currentNode, i) && checkDestinySquare((Square)g.getNodes().get(i), destiny)) return false;
 		}
 		return res;
 	}
 
 
-	protected ArrayList<Square> calculateMyShorestPath() throws QuoriPOOBException {
-		ArrayList<Square> res = new ArrayList<>();
+	protected ArrayList<Square> calculateMyShorestPath(){
 		Grafo graph = mapBoard();
+		ArrayList<Square> res = new ArrayList<>();
+		List<Integer> minPath = new ArrayList<>(), path = new ArrayList<>();
 		Token playerToken = board.getTokens().get(color);
 		int destiny = playerToken.getDestiny(), size = board.getSize();
-		List<Integer> path = new ArrayList<>();
-		List<Integer> minPath = new ArrayList<>();
 		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
-
 		for (int i = destiny * size; i < destiny * size + size; i++) {
-			path = graph.shortestWay(currentNode, i);
-			if (i == destiny * size || path.size() < minPath.size() &&
+			try{
+				path = graph.shortestWay(currentNode, i);
+			} catch(QuoriPOOBException e){}
+			
+			if(minPath.size() == 0) minPath = path;
+
+			if ((path.size() < minPath.size() && path.size() > 1)&&
 					checkDestinySquare((Square) graph.getNodes().get(i), destiny))
 				minPath = path;
-		} // Cambios en token blocked solamente
-
+		}
 		for (int node : minPath) {
 			res.add((Square) graph.getNodes().get(node));
 		}
-
 		return res;
 	}
 
