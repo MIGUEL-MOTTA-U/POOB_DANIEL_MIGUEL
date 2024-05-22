@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.*;
+import java.awt.geom.FlatteningPathIterator;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -130,11 +131,10 @@ public abstract class Player implements Serializable {
 		int destiny = playerToken.getDestiny(), size = board.getSize();
 		int currentNode = ((playerToken.getRow()) * size) + playerToken.getColumn();
 		// Recorro las casillas de meta
-		for (int i = destiny * size; i <= destiny * size + size; i++) {
-			try{
-				g.shortestWay(currentNode, i);
-				return false;
-			} catch(QuoriPOOBException e){}
+		int veces = 0;
+		for (int i = destiny * size; i < destiny * size + size; i++) {
+			veces++;
+				if(g.isConnected(currentNode, i) && checkDestinySquare((Square)g.getNodes().get(i), destiny)) return false;
 		}
 		return res;
 	}

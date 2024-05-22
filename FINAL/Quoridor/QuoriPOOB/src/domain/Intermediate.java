@@ -22,7 +22,10 @@ public class Intermediate extends Machine {
     private void play(String direction) throws QuoriPOOBException {
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
-
+        System.out.println(machinePath.size());
+        for(Square s: machinePath){
+            System.out.println("COORDENATES: ("+s.getCoordenates()[0]+","+ s.getCoordenates()[1]+")");
+        }
         if (machinePath.size() <= humanPath.size() || walls.size() < 1) {
             direction = getDirection(machinePath.get(1)); // Si toma con indice 0, toma la casilla actual
             super.moveToken(direction);

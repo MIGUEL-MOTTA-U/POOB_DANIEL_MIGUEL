@@ -22,7 +22,25 @@ public class Grafo {
         matrix[nodoB][nodoA] = peso;
     }
 
-    public List<Integer> shortestWay(int nodoA, int nodoB) throws QuoriPOOBException{
+    public boolean isConnected(int nodoA, int nodoB) {
+        boolean[] visited = new boolean[numNodes];
+        dfs(nodoA, visited);
+        return visited[nodoB];
+    }
+    
+    private void dfs(int node, boolean[] visited) {
+        visited[node] = true;
+        for (int i = 0; i < numNodes; i++) {
+            if (!visited[i] && matrix[node][i] != 0) {
+                dfs(i, visited);
+            }
+        }
+    }
+
+    public List<Integer> shortestWay(int nodoA, int nodoB) throws QuoriPOOBException {
+        if (!isConnected(nodoA, nodoB)) {
+            throw new QuoriPOOBException(QuoriPOOBException.IMPPOSSIBLE_TO_REACH);
+        }
         int[] distances = new int[numNodes];
         boolean[] visited = new boolean[numNodes];
         int[] previos = new int[numNodes];
@@ -33,8 +51,6 @@ public class Grafo {
 
         for (int i = 0; i < numNodes - 1; i++) {
             int nodeMin = minDistancia(distances, visited);
-            if(nodeMin == -1 ) throw new QuoriPOOBException(QuoriPOOBException.IMPPOSSIBLE_TO_REACH);
-            visited[nodeMin] = true;
 
             for (int j = 0; j < numNodes; j++) {
                 if (!visited[j] && matrix[nodeMin][j] != 0 && distances[nodeMin] != Integer.MAX_VALUE &&
