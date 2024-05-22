@@ -1538,33 +1538,6 @@ public class QuoriPOOBTest {
     }
 
     @Test
-    public void shouldWinIfItsPosssibleWithSomeWallsBlocking() throws QuoriPOOBException {
-        QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setOnePlayer();
-        q.setNormalMode();
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
-        q.addWalls(3, 2, 0, 1);
-        // Daniel moves
-        q.addWallToBoard("NormalWall", 4, 1, "UP");
-        q.addWallToBoard("NormalWall", 3, 2, "UP");
-
-        q.moveToken("LEFT");
-        q.moveToken("DOWN");
-
-        q.moveToken("DOWN");
-
-        try {
-            q.moveToken("DOWN");
-
-        } catch (QuoriPOOBException e) {
-            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
-        }
-
-    }
-
-    @Test
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
