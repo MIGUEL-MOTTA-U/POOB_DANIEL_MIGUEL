@@ -116,7 +116,6 @@ public abstract class Player implements Serializable {
 		wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
 		Grafo mappedBoard = mapBoard();
 		if(blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, mappedBoard)){
-			System.out.println("INTENTO PONER UN PUENTE EN ("+initialRow+","+initialColumn+") DIRECCION: "+squareSide);
 			wallToPut.delWallFromBoard();
 			wallToPut = null;
 			throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
