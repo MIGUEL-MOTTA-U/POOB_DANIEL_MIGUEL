@@ -42,17 +42,16 @@ public class Quoridor implements Serializable {
 		this.onePlayer = false;
 	}
 
-    public void setNormalMode() {
-        this.mode = new NormalMode(this);
-    }
-
-    public void setTimeTrialMode() {
-        this.mode = new TimeTrial(this);
-    }
-
-    public void setTimedMode() {
-        this.mode = new Timed(this);
-    }
+	public void setMode(String type) throws QuoriPOOBException {
+		try {
+			Class<?> cls = Class.forName(type);
+			Constructor<?> constructor = cls.getDeclaredConstructor(Quoridor.class);
+			constructor.setAccessible(true);
+			this.mode = (Mode) constructor.newInstance(this);
+		} catch (Exception e) {
+			throw new QuoriPOOBException(QuoriPOOBException.MODE_NOT_EXIST);
+		}
+	}
 
 	public void setTime(int time) {
 		this.mode.setTime(time);

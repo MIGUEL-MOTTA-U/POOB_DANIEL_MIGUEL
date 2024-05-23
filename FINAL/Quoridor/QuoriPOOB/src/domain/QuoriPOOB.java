@@ -45,17 +45,9 @@ public class QuoriPOOB implements Serializable {
 		this.quoridor.setTwoPlayers();
 	}
 
-	public void setNormalMode() {
-        this.quoridor.setNormalMode();
-    }
-
-    public void setTimeTrialMode() {
-        this.quoridor.setTimeTrialMode();
-    }
-
-    public void setTimedMode() {
-        this.quoridor.setTimedMode();
-    }
+	public void setMode(String mode) throws QuoriPOOBException {
+		this.quoridor.setMode(mode);
+	}
 
 	public void setTime(int time) {
 		this.quoridor.setTime(time);

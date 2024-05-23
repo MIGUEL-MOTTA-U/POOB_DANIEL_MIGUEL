@@ -2,6 +2,9 @@ package presentation;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import domain.QuoriPOOBException;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -161,22 +164,34 @@ public class GameModeGUI extends JPanel {
     private void prepareActionsButtons() {
         buttonNormalMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.setNormalMode();
-                quoridorGUI.showPlayerInfoGUI();
+                try {
+                    quoridorGUI.setNormalMode();
+                    quoridorGUI.showPlayerInfoGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         buttonClockMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.setTimeTrialMode();
-                quoridorGUI.showPlayerInfoGUI();
+                try {
+                    quoridorGUI.setTimeTrialMode();
+                    quoridorGUI.showPlayerInfoGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
         buttonTimedMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
-                quoridorGUI.setTimedMode();
-                quoridorGUI.showPlayerInfoGUI();
+                try {
+                    quoridorGUI.setTimedMode();
+                    quoridorGUI.showPlayerInfoGUI();
+                } catch (QuoriPOOBException e) {
+                    JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }

@@ -195,16 +195,16 @@ public class QuoridorGUI extends JFrame {
         quoriPOOB.setTwoPlayers();
     }
 
-    public void setNormalMode() {
-        quoriPOOB.setNormalMode();
+    public void setNormalMode() throws QuoriPOOBException {
+        quoriPOOB.setMode("domain.NormalMode");
     }
 
-    public void setTimeTrialMode() {
-        quoriPOOB.setTimeTrialMode();
+    public void setTimeTrialMode() throws QuoriPOOBException {
+        quoriPOOB.setMode("domain.TimeTrial");
     }
 
-    public void setTimedMode() {
-        quoriPOOB.setTimedMode();
+    public void setTimedMode() throws QuoriPOOBException {
+        quoriPOOB.setMode("domain.Timed");
     }
     public void setTime(int time) {
         quoriPOOB.setTime(time);
