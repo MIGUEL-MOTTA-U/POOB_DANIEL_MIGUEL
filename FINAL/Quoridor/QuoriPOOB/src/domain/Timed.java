@@ -62,6 +62,7 @@ public class Timed extends Mode {
     public void endTurn() throws QuoriPOOBException {
         if (timePlayer1 == 0 & timePlayer2 == 0) {
             this.quoridor.finishGame();
+            notifyObservers();
         } else {
             super.endTurn();
         }

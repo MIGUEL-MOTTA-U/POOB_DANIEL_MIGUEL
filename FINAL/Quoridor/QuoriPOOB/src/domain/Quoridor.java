@@ -250,7 +250,6 @@ public class Quoridor implements Serializable {
 	public void finishGame() throws QuoriPOOBException {
 		gameOver = true;
 		this.mode.cancelTask();
-		// throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
 	}
 
     public void nextTurn() throws QuoriPOOBException {
@@ -430,7 +429,7 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		// throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
 	private void playMachine() throws QuoriPOOBException {
