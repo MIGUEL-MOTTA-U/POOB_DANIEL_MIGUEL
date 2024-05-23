@@ -67,6 +67,12 @@ public class BoardGUI extends JPanel implements TimeObserver {
         prepareElements();
         prepareActions();
         setVisible(true);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                setFocusable(true);
+                requestFocusInWindow();
+            }
+        });
     }
 
     private void prepareElements() {
@@ -453,6 +459,7 @@ public class BoardGUI extends JPanel implements TimeObserver {
 
     private void prepareActions() {
         prepareActionButtonsMove();
+        prepareActionKeys();
     }
 
     private void prepareActionButtonsMove() {
@@ -544,6 +551,40 @@ public class BoardGUI extends JPanel implements TimeObserver {
         });
     }
 
+    public void prepareActionKeys() {
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent ev) {
+                handleKeyPress(ev);
+            }
+        });
+    }
+
+    private void handleKeyPress(KeyEvent e) {
+        int keyCode = e.getKeyCode();
+        try {
+            switch (keyCode) {
+                case KeyEvent.VK_UP:
+                    quoridorGUI.moveToken("UP");
+                    break;
+                case KeyEvent.VK_DOWN:
+                    quoridorGUI.moveToken("DOWN");
+                    break;
+                case KeyEvent.VK_LEFT:
+                    quoridorGUI.moveToken("LEFT");
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    quoridorGUI.moveToken("RIGHT");
+                    break;
+                default:
+                    return;
+            }
+            refresh();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
     @Override
     public void timeIsUp() {
         refresh();
@@ -628,5 +669,7 @@ public class BoardGUI extends JPanel implements TimeObserver {
         updateBoard();
         updateNumWalls();
         tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
+        revalidate();
+        repaint();
     }
 }
