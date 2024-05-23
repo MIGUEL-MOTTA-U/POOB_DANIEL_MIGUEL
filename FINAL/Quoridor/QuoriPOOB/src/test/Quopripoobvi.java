@@ -31,7 +31,7 @@ public class Quopripoobvi {
         // First It has to define the players and the walls
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         // Create a board 4*4
@@ -43,7 +43,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 2", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Beginner");
         // Create a board 9*9
@@ -55,7 +55,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         // Create a board 4*4
@@ -69,7 +69,7 @@ public class Quopripoobvi {
     public void shouldNotCreateABoardIfItsNotPossible()throws QuoriPOOBException{
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 2", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Intermediate");
         // Should not let create a board 1*1
@@ -100,7 +100,7 @@ public class Quopripoobvi {
         // First it has to define the walls, and the Board
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         q.createBoard(4, null);
@@ -120,7 +120,7 @@ public class Quopripoobvi {
         
         // Add Barriers (Variety)
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         q.createBoard(4, null);
@@ -140,7 +140,7 @@ public class Quopripoobvi {
 
         // Should not 
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 13", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Beginner");
         // Test
@@ -171,7 +171,7 @@ public class Quopripoobvi {
     public void shouldMoveOrthogonallyAPawn() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -205,7 +205,7 @@ public class Quopripoobvi {
     public void shouldNotMoveOrthogonallyAPawnIfItsNotPossible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -221,7 +221,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -240,7 +240,7 @@ public class Quopripoobvi {
     public void shouldPlaceANormalBarrier() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
 
@@ -273,7 +273,7 @@ public class Quopripoobvi {
     public void shouldNotPlaceANormalBarrierIfItsNotPossible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -288,7 +288,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -303,7 +303,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -329,7 +329,7 @@ public class Quopripoobvi {
     public void shouldNotMoveAPawnOverANonAlliedBarrier() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -350,7 +350,7 @@ public class Quopripoobvi {
     public void shouldMoveAPawnOverAnAlliedBarrier() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -366,7 +366,7 @@ public class Quopripoobvi {
     public void shouldKnowTheBarriersLeftForEachPlayer() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -398,7 +398,7 @@ public class Quopripoobvi {
     public void shouldMeetTemporalBarrierConditions2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -430,7 +430,7 @@ public class Quopripoobvi {
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -461,7 +461,7 @@ public class Quopripoobvi {
     public void shouldBeAbleToConsultAfterWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -508,7 +508,7 @@ public class Quopripoobvi {
     public void shouldNotBlockThePassageOfAPlayer() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(6, null);
@@ -527,7 +527,7 @@ public class Quopripoobvi {
     public void shouldMoveDiagonallyAPawn() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -548,7 +548,7 @@ public class Quopripoobvi {
     public void shouldMeetNormalBarrierConditions() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);
@@ -567,7 +567,7 @@ public class Quopripoobvi {
     public void shouldMeetLongBarrierConditions() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);
@@ -589,7 +589,7 @@ public class Quopripoobvi {
     public void shouldNotMoveDiagonallyAPawnIfItsNotPossible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);
@@ -612,7 +612,7 @@ public class Quopripoobvi {
     public void shouldNotMoveAPawnOverAPawnIfItsNotPossible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);

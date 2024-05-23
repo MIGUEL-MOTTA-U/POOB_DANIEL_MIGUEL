@@ -30,7 +30,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateModeGameUndefined1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         try {
-            q.setNormalMode();
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
         } catch (QuoriPOOBException e) {
@@ -54,7 +54,7 @@ public class QuoriPOOBTest {
     public void shouldCreateOnePlayerMode1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
         assertArrayEquals(new String[] { "Player 1", "Machine" }, q.getNames());
@@ -64,7 +64,7 @@ public class QuoriPOOBTest {
     public void shouldCreateOnePlayerMode2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerMachine(Color.RED, "domain.Advanced");
         q.createPlayerHuman("Player 2", Color.BLUE);
         assertArrayEquals(new String[] { "Machine", "Player 2" }, q.getNames());
@@ -74,7 +74,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateOnePlayerMode1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         try {
             q.createPlayerHuman("Player 1", Color.BLACK);
             q.createPlayerHuman("Player 2", Color.BLUE);
@@ -88,7 +88,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateOnePlayerMode2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         try {
             q.createPlayerMachine(Color.BLUE, "domain.Advanced");
             q.createPlayerMachine(Color.RED, "domain.Beginner");
@@ -102,7 +102,7 @@ public class QuoriPOOBTest {
     public void shouldCreateTwoPlayersMode() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.GREEN);
         assertArrayEquals(new String[] { "Player 1", "Player 2" }, q.getNames());
@@ -112,7 +112,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateTwoPlayersMode1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         try {
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.RED, "domain.Beginner");
@@ -126,7 +126,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateTwoPlayersMode2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         try {
             q.createPlayerMachine(Color.RED, "domain.Beginner");
             q.createPlayerHuman("Player 1", Color.BLUE);
@@ -140,7 +140,7 @@ public class QuoriPOOBTest {
     public void shouldCreatePlayerHuman1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
         assertArrayEquals(new String[] { "Player 1", "Player 2" }, q.getNames());
@@ -150,7 +150,7 @@ public class QuoriPOOBTest {
     public void shouldCreateHuman2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 1", Color.ORANGE);
         assertArrayEquals(new String[] { "Player 1", "Player 1" }, q.getNames());
@@ -160,8 +160,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHuman1() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 2", Color.BLUE);
             fail("SHOULD NOT CREATE TWO PLAYERS WITH THE SAME COLOR");
@@ -174,8 +174,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHuman2() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 1", Color.ORANGE);
             q.createPlayerHuman("Player 3", Color.CYAN);
@@ -189,7 +189,7 @@ public class QuoriPOOBTest {
     public void shouldCreateHumanAndMachine1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
         assertArrayEquals(new String[] { "Player 1", "Machine" }, q.getNames());
@@ -200,7 +200,7 @@ public class QuoriPOOBTest {
     public void shouldCreateHumanAndMachine2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         assertArrayEquals(new String[] { "Player 1", "Machine" }, q.getNames());
@@ -210,7 +210,7 @@ public class QuoriPOOBTest {
     public void shouldCreateHumanAndMachine3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
         assertArrayEquals(new String[] { "Player 1", "Machine" }, q.getNames());
@@ -220,8 +220,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine1() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerMachine(Color.BLUE, "domain.Advanced");
             q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
@@ -234,8 +234,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine2() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerMachine(Color.BLUE, "domain.Intermediate");
             q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
@@ -248,8 +248,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine3() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerMachine(Color.BLUE, "domain.Beginner");
             q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
@@ -262,8 +262,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine4() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerHuman("Player 2", Color.ORANGE);
             q.createPlayerMachine(Color.ORANGE, "domain.Advanced");
@@ -277,8 +277,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine5() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.BLUE, "domain.Advanced");
             fail("SHOULD NOT LET PLAY TWO MACHINES");
@@ -291,8 +291,8 @@ public class QuoriPOOBTest {
     public void shouldNotCreateHumanAndMachine6() {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
         try {
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.RED, "Not machine");
             fail("THIS MACHINE DOESN'T EXIST");
@@ -305,7 +305,7 @@ public class QuoriPOOBTest {
     public void shouldCreateBoard1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -318,7 +318,7 @@ public class QuoriPOOBTest {
     public void shouldCreateBoard2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -331,7 +331,7 @@ public class QuoriPOOBTest {
     public void shouldCreateBoard3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -344,7 +344,7 @@ public class QuoriPOOBTest {
     public void shouldCreateBoard4() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -357,7 +357,7 @@ public class QuoriPOOBTest {
     public void shouldCreateBoard5() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         q.createBoard(4, null);
@@ -368,7 +368,7 @@ public class QuoriPOOBTest {
     public void shouldVerifyCreatedBoard() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -415,7 +415,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateBoard1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -433,7 +433,7 @@ public class QuoriPOOBTest {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         try {
             q.setOnePlayer();
-            q.setNormalMode();
+            q.setMode("domain.NormalMode");
             q.createPlayerHuman("Player 1", Color.BLUE);
             q.createPlayerMachine(Color.GREEN, "domain.Advanced");
             HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -449,7 +449,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateBoard3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -466,7 +466,7 @@ public class QuoriPOOBTest {
     public void shouldNotCreateBoard4() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         HashMap<String, int[][]> specialQuares = new HashMap<>();
         specialQuares.put("domain.Irregular", new int[][] { { 0, 0 } });
@@ -482,7 +482,7 @@ public class QuoriPOOBTest {
     public void shouldCreateTokensOnTheBoard1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.RED);
 
@@ -510,7 +510,7 @@ public class QuoriPOOBTest {
     public void shouldCreateTokensOnTheBoard2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
 
@@ -543,7 +543,7 @@ public class QuoriPOOBTest {
     public void shouldAddWalls1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -556,7 +556,7 @@ public class QuoriPOOBTest {
     public void shouldAddWalls2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -569,7 +569,7 @@ public class QuoriPOOBTest {
     public void shouldNotAddWalls1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -586,7 +586,7 @@ public class QuoriPOOBTest {
     public void shouldNotAddWalls2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -604,7 +604,7 @@ public class QuoriPOOBTest {
     public void shouldNotAddWalls3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
         HashMap<String, int[][]> specialQuares = new HashMap<>();
@@ -622,7 +622,7 @@ public class QuoriPOOBTest {
     public void shouldNotAddWallsToBoard1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
 
@@ -643,7 +643,7 @@ public class QuoriPOOBTest {
         // luego de agregarlos.
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
 
@@ -664,7 +664,7 @@ public class QuoriPOOBTest {
     public void shouldCheckAddWallsToBoard() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
 
@@ -709,7 +709,7 @@ public class QuoriPOOBTest {
     public void shouldMoveOrthogonallyAPawn1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -722,7 +722,7 @@ public class QuoriPOOBTest {
     public void shouldMoveOrthogonallyAPawn2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -740,7 +740,7 @@ public class QuoriPOOBTest {
     public void shouldMoveOrthogonallyAPawn3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -775,7 +775,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveOrthogonallyAPawn1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -793,7 +793,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveOrthogonallyAPawn2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, null);
@@ -812,7 +812,7 @@ public class QuoriPOOBTest {
     public void shouldPlaceANormalBarrier1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -839,7 +839,7 @@ public class QuoriPOOBTest {
     public void shouldNotPlaceANormalBarrierIfItsNotPossible1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -857,7 +857,7 @@ public class QuoriPOOBTest {
     public void shouldNotPlaceANormalBarrierIfItsNotPossible2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -875,7 +875,7 @@ public class QuoriPOOBTest {
     public void shouldNotPlaceANormalBarrierIfItsNotPossible3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -901,7 +901,7 @@ public class QuoriPOOBTest {
     public void shouldMoveAPawnOverAPawn1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);
@@ -917,7 +917,7 @@ public class QuoriPOOBTest {
     public void shouldMoveAPawnOverAPawn2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, null);
@@ -935,7 +935,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveAPawnOverANonAlliedBarrier() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -956,7 +956,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveAPawnOverANonAlliedBarrier2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -977,7 +977,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveAPawnOverANonAlliedBarrier3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -998,7 +998,7 @@ public class QuoriPOOBTest {
     public void shouldNotMoveAPawnOverANonAlliedBarrier4() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1019,7 +1019,7 @@ public class QuoriPOOBTest {
     public void shouldMoveAPawnOverAnAlliedBarrier() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1035,7 +1035,7 @@ public class QuoriPOOBTest {
     public void shouldMoveAPawnOverAnAlliedBarrier2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1051,7 +1051,7 @@ public class QuoriPOOBTest {
     public void shouldMeetTemporalBarrierConditions1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1083,7 +1083,7 @@ public class QuoriPOOBTest {
     public void shouldMeetTemporalBarrierConditions2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1117,7 +1117,7 @@ public class QuoriPOOBTest {
     public void shouldKnowTheBarriersLeftForEachPlayer() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1150,7 +1150,7 @@ public class QuoriPOOBTest {
     public void shouldWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1172,7 +1172,7 @@ public class QuoriPOOBTest {
     public void shouldNotLetPlayAfterWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1210,7 +1210,7 @@ public class QuoriPOOBTest {
     public void shouldBeAbleToConsultAfterWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1236,7 +1236,7 @@ public class QuoriPOOBTest {
     public void shouldBeAbleToSaveAfterWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1269,7 +1269,7 @@ public class QuoriPOOBTest {
     public void shouldResetQuoriPOOB() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1298,7 +1298,7 @@ public class QuoriPOOBTest {
     public void shouldNotWinIfWallAhead() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
         q.createBoard(5, null);
@@ -1320,7 +1320,7 @@ public class QuoriPOOBTest {
     public void shouldPlayWithMachineChangingPosition() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
         q.createBoard(5, null);
@@ -1446,7 +1446,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssible() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1471,7 +1471,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithWallAhead() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1496,7 +1496,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithWallLEFT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1519,7 +1519,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithWallright() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1542,7 +1542,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer1() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1566,7 +1566,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer2() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1594,7 +1594,7 @@ public class QuoriPOOBTest {
     public void shouldWinIfItsPosssibleWithSomeWallsBlockingOtherPlayer3() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createBoard(5, null);
@@ -1626,9 +1626,9 @@ public class QuoriPOOBTest {
     @Test
     public void shouldAddSpecialSquares() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1649,7 +1649,7 @@ public class QuoriPOOBTest {
     public void shouldNotJumpTheSpecialSquareIfOutOfRange() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1681,7 +1681,7 @@ public class QuoriPOOBTest {
     public void shouldAddDoubleTurnSquare() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1714,7 +1714,7 @@ public class QuoriPOOBTest {
     public void shouldJumpReturnSquare() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Daniel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1747,7 +1747,7 @@ public class QuoriPOOBTest {
     public void shouldJumpPlayerDiagonalUPRIGHT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1774,7 +1774,7 @@ public class QuoriPOOBTest {
     public void shouldJumpPlayerDiagonalUPLEFT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1800,7 +1800,7 @@ public class QuoriPOOBTest {
     public void shouldJumpPlayerDiagonalDOWNRIGHT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1826,7 +1826,7 @@ public class QuoriPOOBTest {
     public void shouldJumpPlayerDiagonalDOWNLEFT() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         HashMap<String, int[][]> squares = new HashMap<>();
@@ -1848,7 +1848,7 @@ public class QuoriPOOBTest {
     public void shouldDeleteTemporary() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(3, null);
@@ -1889,7 +1889,7 @@ public class QuoriPOOBTest {
     public void shouldPlayMachine() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
-        q.setNormalMode();
+        q.setMode("domain.NormalMode");
         q.createPlayerMachine(Color.GREEN, "domain.Intermediate");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createBoard(8, null);
