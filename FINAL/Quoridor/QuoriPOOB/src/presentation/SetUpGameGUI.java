@@ -26,8 +26,6 @@ public class SetUpGameGUI extends JPanel {
     private JLabel labelDescription;
     private JPanel panelSquares;
     private JLabel labelSquareTitle;
-    private JTextField textNormalSquares;
-    private JButton buttonPositionNormal;
     private JTextField textTeleporterSquares;
     private JButton buttonPositionTeleporter;
     private JTextField textReturnSquares;
@@ -125,14 +123,10 @@ public class SetUpGameGUI extends JPanel {
         labelSquareTitle = new JLabel("Squares");
         labelSquareTitle.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 15));
 
-        textNormalSquares = createTextField("Number of normal squares");
         textTeleporterSquares = createTextField("Number of teleporter squares");
         textReturnSquares = createTextField("Number of return squares");
         textDoubleTurnSquares = createTextField("Number of double turn squares");
 
-        buttonPositionNormal = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
-                QuoridorGUI.BUTTONS_COLOR_HOVER);
-        buttonPositionNormal.setBorder(new EmptyBorder(5, 5, 5, 5));
         buttonPositionTeleporter = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
                 QuoridorGUI.BUTTONS_COLOR_HOVER);
         buttonPositionTeleporter.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -144,8 +138,6 @@ public class SetUpGameGUI extends JPanel {
         buttonPositionDoubleTurn.setBorder(new EmptyBorder(5, 5, 5, 5));
 
         panelSquares.add(prepareElementsTitle(labelSquareTitle));
-        panelSquares.add(Box.createVerticalStrut(10));
-        panelSquares.add(prepareElementsSquare(textNormalSquares, buttonPositionNormal));
         panelSquares.add(Box.createVerticalStrut(10));
         panelSquares.add(prepareElementsSquare(textTeleporterSquares, buttonPositionTeleporter));
         panelSquares.add(Box.createVerticalStrut(10));
@@ -340,9 +332,7 @@ public class SetUpGameGUI extends JPanel {
                 JTextField textField = null;
                 String quantityString = "";
 
-                if (sourceButton == buttonPositionNormal) {
-                    textField = textNormalSquares;
-                } else if (sourceButton == buttonPositionTeleporter) {
+                if (sourceButton == buttonPositionTeleporter) {
                     textField = textTeleporterSquares;
                 } else if (sourceButton == buttonPositionReturn) {
                     textField = textReturnSquares;
@@ -370,7 +360,6 @@ public class SetUpGameGUI extends JPanel {
             }
         };
 
-        buttonPositionNormal.addActionListener(positionButtonListener);
         buttonPositionTeleporter.addActionListener(positionButtonListener);
         buttonPositionReturn.addActionListener(positionButtonListener);
         buttonPositionDoubleTurn.addActionListener(positionButtonListener);
@@ -437,9 +426,7 @@ public class SetUpGameGUI extends JPanel {
     }
 
     private String getTypeFromButton(JButton button) {
-        if (button == buttonPositionNormal) {
-            return "NormalSquare";
-        } else if (button == buttonPositionTeleporter) {
+        if (button == buttonPositionTeleporter) {
             return "Teleporter";
         } else if (button == buttonPositionReturn) {
             return "Return";

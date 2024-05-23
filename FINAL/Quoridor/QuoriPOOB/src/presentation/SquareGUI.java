@@ -46,7 +46,6 @@ public class SquareGUI extends JPanel {
         this.colorBorderDown = Color.BLACK;
         this.colorBorderRight = Color.BLACK;
         prepareElements();
-        prepareActions();
     }
 
     private void prepareElements() {
@@ -102,6 +101,7 @@ public class SquareGUI extends JPanel {
         button.setPreferredSize(new Dimension(width, height));
 
         createMouseListener(button);
+        createActionListener(button);
 
         return button;
     }
@@ -119,13 +119,6 @@ public class SquareGUI extends JPanel {
                 setCursor(Cursor.getDefaultCursor());
             }
         });
-    }
-
-    private void prepareActions() {
-        createActionListener(buttonWallUp);
-        createActionListener(buttonWallLeft);
-        createActionListener(buttonWallDown);
-        createActionListener(buttonWallRight);
     }
 
     private void createActionListener(JButton button) {
@@ -183,53 +176,53 @@ public class SquareGUI extends JPanel {
     public void setWallUp(Color color) {
         setBorder(paintBorder(buttonWallUp, color));
         this.colorBorderUp = color;
-        removeButtonMouseListeners(buttonWallUp);
+        remove(buttonWallUp);
     }
 
     public void setWallLeft(Color color) {
         setBorder(paintBorder(buttonWallLeft, color));
         this.colorBorderLeft = color;
-        removeButtonMouseListeners(buttonWallLeft);
+        remove(buttonWallLeft);
     }
 
     public void setWallDown(Color color) {
         setBorder(paintBorder(buttonWallDown, color));
         this.colorBorderDown = color;
-        removeButtonMouseListeners(buttonWallDown);
+        remove(buttonWallDown);
     }
 
     public void setWallRight(Color color) {
         setBorder(paintBorder(buttonWallRight, color));
         this.colorBorderRight = color;
-        removeButtonMouseListeners(buttonWallRight);
+        remove(buttonWallRight);
     }
 
     public void delWallUp() {
         setBorder(paintBorder(buttonWallUp, Color.BLACK));
         this.colorBorderUp = Color.BLACK;
-        createMouseListener(buttonWallUp);
-        createActionListener(buttonWallUp);
+        buttonWallUp = createButton(getWidth(), 10);
+        add(buttonWallUp, BorderLayout.NORTH);
     }
 
     public void delWallLeft() {
         setBorder(paintBorder(buttonWallLeft, Color.BLACK));
         this.colorBorderLeft = Color.BLACK;
-        createMouseListener(buttonWallLeft);
-        createActionListener(buttonWallLeft);
+        buttonWallLeft = createButton(10, getHeight());
+        add(buttonWallLeft, BorderLayout.WEST);
     }
 
     public void delWallDown() {
         setBorder(paintBorder(buttonWallDown, Color.BLACK));
         this.colorBorderDown = Color.BLACK;
-        createMouseListener(buttonWallDown);
-        createActionListener(buttonWallDown);
+        buttonWallDown = createButton(getWidth(), 10);
+        add(buttonWallDown, BorderLayout.SOUTH);
     }
 
     public void delWallRight() {
         setBorder(paintBorder(buttonWallRight, Color.BLACK));
         this.colorBorderRight = Color.BLACK;
-        createMouseListener(buttonWallRight);
-        createActionListener(buttonWallRight);
+        buttonWallRight = createButton(10, getHeight());
+        add(buttonWallRight, BorderLayout.EAST);
     }
 
     private boolean addWall(String type, JButton button) {
@@ -266,11 +259,11 @@ public class SquareGUI extends JPanel {
         Border borderUp = createMatteBorder(button == buttonWallUp ? color : colorBorderUp, 1, 0, 0, 0);
         Border borderLeft = createMatteBorder(button == buttonWallLeft ? color : colorBorderLeft, 0, 1, 0, 0);
         Border borderDown = createMatteBorder(button == buttonWallDown ? color : colorBorderDown, 0, 0, 1, 0);
-        Border borderRight = createMatteBorder(button != buttonWallUp && button != buttonWallLeft && button != buttonWallDown ? color : colorBorderRight, 0, 0, 0, 1);
+        Border borderRight = createMatteBorder(button == buttonWallRight ? color : colorBorderRight, 0, 0, 0, 1);
     
-        return BorderFactory.createCompoundBorder(
-                BorderFactory.createCompoundBorder(borderUp, borderDown),
-                BorderFactory.createCompoundBorder(borderLeft, borderRight));
+        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderLeft);
+        Border bottomRight = BorderFactory.createCompoundBorder(borderDown, borderRight);
+        return BorderFactory.createCompoundBorder(topLeft, bottomRight);
     }
 
     private Border defaultBorder() {
@@ -279,19 +272,13 @@ public class SquareGUI extends JPanel {
         Border borderDown = createMatteBorder(colorBorderDown, 0, 0, 1, 0);
         Border borderRight = createMatteBorder(colorBorderRight, 0, 0, 0, 1);
     
-        return BorderFactory.createCompoundBorder(
-                BorderFactory.createCompoundBorder(borderUp, borderDown),
-                BorderFactory.createCompoundBorder(borderLeft, borderRight));
+        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderLeft);
+        Border bottomRight = BorderFactory.createCompoundBorder(borderDown, borderRight);
+        return BorderFactory.createCompoundBorder(topLeft, bottomRight);
     }
     
     private Border createMatteBorder(Color color, int top, int left, int bottom, int right) {
         return BorderFactory.createMatteBorder(top, left, bottom, right, color);
-    }
-
-    private void removeButtonMouseListeners(JButton button) {
-        for (MouseListener listener : button.getMouseListeners()) {
-            button.removeMouseListener(listener);
-        }
     }
 
     @Override

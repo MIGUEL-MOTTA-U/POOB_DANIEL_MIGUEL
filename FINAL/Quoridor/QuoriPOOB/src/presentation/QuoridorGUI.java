@@ -170,6 +170,10 @@ public class QuoridorGUI extends JFrame {
         cardLayout.show(cardPanel, "boardGUI");
     }
 
+    public void restartPlayerInfoGUI() {
+        playerInfoGUI = null;
+    }
+
     public void setPlayerTwo() {
         this.playerTwo = true;
     }

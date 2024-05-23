@@ -57,7 +57,8 @@ public class PlayerInfoGUI extends JPanel {
         imageGame.setSize(50, 50);
         createImage(imageGame, "assets/Logo.png");
 
-        labelTitle = new JLabel("Player info");
+        String numPlayer = (!quoridorGUI.getPlayerTwo()) ? "1" : "2";
+        labelTitle = new JLabel("Player " + numPlayer + " info");
         labelTitle.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 25));
 
         labelDescription = new JLabel("Enter you data");
@@ -171,7 +172,7 @@ public class PlayerInfoGUI extends JPanel {
                         quoridorGUI.createPlayerHuman(textName.getText(), playerColor);
                         if (quoridorGUI.twoPlayers() & !quoridorGUI.getPlayerTwo()) {
                             quoridorGUI.setPlayerTwo();
-                            restart();
+                            quoridorGUI.restartPlayerInfoGUI();
                             quoridorGUI.showPlayerInfoGUI();
                         } else {
                             quoridorGUI.showSetUpGameGUI();
@@ -210,10 +211,5 @@ public class PlayerInfoGUI extends JPanel {
         }
 
         return empty;
-    }
-
-    private void restart() {
-        textName.setText("Name");
-        playerColor = null;
     }
 }

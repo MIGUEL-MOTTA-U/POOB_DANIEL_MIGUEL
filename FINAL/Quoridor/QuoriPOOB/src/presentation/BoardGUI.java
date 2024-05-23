@@ -1,6 +1,5 @@
 package presentation;
 
-import domain.NormalMode;
 import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
@@ -268,6 +267,7 @@ public class BoardGUI extends JPanel implements TimeObserver {
         }
 
         repaint();
+        validate();
     }
 
     private void paintWalls(SquareGUI squareGUI, Square square) {
