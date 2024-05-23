@@ -5,9 +5,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 
-public class VictoryScreen extends JPanel {
+public class DefeatScreen extends JPanel {
     private BoardGUI boardGUI;
-    private String winner;
 
     //Message
     private JPanel panelMessage;
@@ -22,9 +21,8 @@ public class VictoryScreen extends JPanel {
     private JButton buttonNew;
     private JButton buttonExit;
 
-    public VictoryScreen(BoardGUI boardGUI, String winner) {
+    public DefeatScreen(BoardGUI boardGUI) {
         this.boardGUI = boardGUI;
-        this.winner = winner;
         prepareElements();
         prepareAction();
         setVisible(true);
@@ -49,7 +47,7 @@ public class VictoryScreen extends JPanel {
     private void prepareElementsMessage(JPanel content) {
         panelMessage = new JPanel();
 
-        labelMessage = new JLabel("¡Congratulations! " + winner + " has won the game");
+        labelMessage = new JLabel("Game over. Nobody has won the game");
         labelMessage.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 20));
 
         panelMessage.add(labelMessage);
@@ -60,8 +58,8 @@ public class VictoryScreen extends JPanel {
         panelImage = new JPanel();
 
         labelImage = new JLabel();
-        labelImage.setSize(250, 200);
-        createImage(labelImage, "assets/Ronaldo.jpg");
+        labelImage.setSize(250, 170);
+        createImage(labelImage, "assets/Ronaldo 2.jpeg");
 
         panelImage.add(labelImage);
 

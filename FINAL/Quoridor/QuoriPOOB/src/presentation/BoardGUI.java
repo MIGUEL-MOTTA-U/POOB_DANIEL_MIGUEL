@@ -614,6 +614,10 @@ public class BoardGUI extends JPanel implements TimeObserver {
 
     @Override
     public void timeIsUp() {
+        System.out.println(this.quoridorGUI.getGameOver());
+        if (this.quoridorGUI.getGameOver()) {
+            showDefeatScreen();
+        }
         refresh();
     }
 
@@ -702,7 +706,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
         if (this.quoridorGUI.getGameOver()) {
             showVictoryScreen();
         }
-        System.out.println(this.quoridorGUI.getGameOver());
     }
 
     private void showVictoryScreen() {
@@ -710,5 +713,12 @@ public class BoardGUI extends JPanel implements TimeObserver {
         containerBoard.remove(panelBoard);
         containerBoard.setLayout(new GridBagLayout());
         containerBoard.add(victoryScreen);
+    }
+
+    private void showDefeatScreen() {
+        DefeatScreen defeatScreen = new DefeatScreen(this);
+        containerBoard.remove(panelBoard);
+        containerBoard.setLayout(new GridBagLayout());
+        containerBoard.add(defeatScreen);
     }
 }
