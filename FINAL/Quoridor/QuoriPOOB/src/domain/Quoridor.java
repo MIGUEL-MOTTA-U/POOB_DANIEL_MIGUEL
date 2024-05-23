@@ -250,7 +250,7 @@ public class Quoridor implements Serializable {
 	public void finishGame() throws QuoriPOOBException {
 		gameOver = true;
 		this.mode.cancelTask();
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
+		// throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
 	}
 
     public void nextTurn() throws QuoriPOOBException {
@@ -359,6 +359,10 @@ public class Quoridor implements Serializable {
 		return board;
 	}
 
+	public boolean getGameOver() {
+		return this.gameOver;
+	}
+
 	/*
 	 * Verify if there is a player with the same color
 	 */
@@ -426,7 +430,7 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		// throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
 	private void playMachine() throws QuoriPOOBException {

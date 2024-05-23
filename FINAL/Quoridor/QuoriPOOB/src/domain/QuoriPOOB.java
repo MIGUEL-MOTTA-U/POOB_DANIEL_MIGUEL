@@ -222,6 +222,10 @@ public class QuoriPOOB implements Serializable {
 		return this.quoridor.getCurrentPlayer();
 	}
 
+	public boolean getGameOver() {
+		return this.quoridor.getGameOver();
+	}
+
 	/**
 	 * Save the game in a file
 	 * 

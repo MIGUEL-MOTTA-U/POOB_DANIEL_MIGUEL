@@ -170,6 +170,27 @@ public class QuoridorGUI extends JFrame {
         cardLayout.show(cardPanel, "boardGUI");
     }
 
+    public void confirmClose() {
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
+                "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+        if (option == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    public void restart() {
+        quoriPOOB.resetSingleton();
+        quoriPOOB = QuoriPOOB.getQuoriPOOB();
+        playerTwo = false;
+        startGUI = null;
+        gameModeGUI = null;
+        gameDifficultyGUI = null;
+        playerInfoGUI = null;
+        setUpGameGUI = null;
+        boardGUI = null;
+    }
+
     public void restartPlayerInfoGUI() {
         playerInfoGUI = null;
     }
@@ -271,13 +292,12 @@ public class QuoridorGUI extends JFrame {
         return this.quoriPOOB.timeMode();
     }
 
-    private void confirmClose() {
-        int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
-                "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+    public boolean getGameOver() {
+        return this.quoriPOOB.getGameOver();
+    }
 
-        if (option == JOptionPane.YES_OPTION) {
-            System.exit(0);
-        }
+    public Player getWinner() {
+        return this.quoriPOOB.getWinner();
     }
 
     private void optionOpen() {
@@ -306,18 +326,6 @@ public class QuoridorGUI extends JFrame {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }
-
-    private void restart() {
-        quoriPOOB.resetSingleton();
-        quoriPOOB = QuoriPOOB.getQuoriPOOB();
-        playerTwo = false;
-        startGUI = null;
-        gameModeGUI = null;
-        gameDifficultyGUI = null;
-        playerInfoGUI = null;
-        setUpGameGUI = null;
-        boardGUI = null;
     }
 
     public static void main(String args[]) {
