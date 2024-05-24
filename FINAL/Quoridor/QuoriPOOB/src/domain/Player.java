@@ -115,7 +115,7 @@ public abstract class Player implements Serializable {
 		}
 		wallToPut.addWallToBoard(initialRow, initialColumn, squareSide, this.board);
 		Grafo mappedBoard = mapBoard();
-		if(blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, mappedBoard)){
+		if(blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, getOtherPlayer().mapBoard())){
 			wallToPut.delWallFromBoard();
 			wallToPut = null;
 			throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
@@ -235,11 +235,11 @@ public abstract class Player implements Serializable {
 	}
 
 	private boolean makeConectionUp(Square box) {
-		return box.getCoordenates()[0] != 0 && box.getWallUp() == null;
+		return box.getCoordenates()[0] != 0 && (box.getWallUp() == null||!box.getWallUp().blockToken(this.color));
 	}
 
 	private boolean makeConectionLeft(Square box) {
-		return box.getCoordenates()[1] != 0 && box.getWallLeft() == null;
+		return box.getCoordenates()[1] != 0 && (box.getWallLeft() == null ||!box.getWallLeft().blockToken(this.color));
 	}
 
 }
