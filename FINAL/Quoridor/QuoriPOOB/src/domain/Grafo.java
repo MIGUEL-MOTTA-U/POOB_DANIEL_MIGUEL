@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Grafo {
+public class Grafo implements Serializable{
     private int numNodes;
     private int[][] matrix;
     private HashMap<Integer, Object> nodes;
