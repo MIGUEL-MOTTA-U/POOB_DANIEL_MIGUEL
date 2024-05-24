@@ -471,9 +471,8 @@ public class Quopripoobvi {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
-        q.moveToken("UP");
         try {
-            q.moveToken("DOWN");
+            q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
@@ -538,8 +537,13 @@ public class Quopripoobvi {
         q.moveToken("DOWN");
         q.moveToken("LEFT");
         q.addWallToBoard("NormalWall", 0, 0, "LEFT");
-        q.moveToken("UPRIGHT");
         
+        try{
+            q.moveToken("UPRIGHT");
+            fail("SHOLD JUMP AND WIN");
+        } catch(QuoriPOOBException e){
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
         assertEquals(q.getBoard().getMatrixBoard()[2][0].getClass().getSimpleName(), "Teleporter");
         assertEquals(q.getBoard().getMatrixBoard()[0][2].getToken().getColor(), Color.BLACK);
     }

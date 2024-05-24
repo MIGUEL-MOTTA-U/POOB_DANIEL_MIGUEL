@@ -1182,7 +1182,12 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
-        q.moveToken("UP");
+        try {
+            q.moveToken("UP");
+            fail("SHOULD WIN");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1220,7 +1225,12 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
-        q.moveToken("UP");
+        try {
+            q.moveToken("UP");
+            fail("SHOULD WIN");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1246,7 +1256,12 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
-        q.moveToken("UP");
+        try {
+            q.moveToken("UP");
+            fail("SHOULD WIN");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
+        }
         try {
             q.moveToken("UP");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
@@ -1426,18 +1441,11 @@ public class QuoriPOOBTest {
 
         grafo.addVertex(13, 14, 2);
         grafo.addVertex(14, 13, 12);
-        List<Integer> path = new ArrayList<>();
         // Encontrar el camino más corto entre los nodos 5 y 13 ()
         try{
-            path = grafo.shortestWay(5, 13);
-            System.out.println(path.size());
-            for(Integer i: path){
-                System.out.print(" --> "+grafo.getNodes().get(i));
-            }
-            System.out.println("\nPOSSIBLE");
+            grafo.shortestWay(5, 13);
         } catch(QuoriPOOBException e){
             assertEquals(QuoriPOOBException.IMPPOSSIBLE_TO_REACH,e.getMessage());
-            System.out.println("NO PUDO HACER SHORTEST WAY");
         }
 
     }
@@ -1457,7 +1465,12 @@ public class QuoriPOOBTest {
         q.moveToken("RIGHT");
 
         q.moveToken("LEFT");
-        q.moveToken("LEFT");
+        try {
+            q.moveToken("LEFT");
+            fail("SHOULD WIN");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
         try {
             q.moveToken("LEFT");
             fail("SHOULD NOT LET PLAYER PLAY AFTER THE MACHINE WON");
@@ -1578,11 +1591,14 @@ public class QuoriPOOBTest {
         q.addWallToBoard("NormalWall", 1, 3, "RIGHT");
 
         q.moveToken("RIGHT");
-        q.moveToken("LEFT");
-
+        try {
+            q.moveToken("LEFT");
+            fail("SHOULD WIN");
+        } catch (QuoriPOOBException e) {
+            assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
+        }
         try {
             q.moveToken("RIGHT");
-
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
         }
