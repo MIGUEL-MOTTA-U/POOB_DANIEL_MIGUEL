@@ -1462,9 +1462,9 @@ public class QuoriPOOBTest {
         // Daniel moves
         q.moveToken("LEFT");
 
-        q.moveToken("RIGHT");
-
         q.moveToken("LEFT");
+
+        q.moveToken("RIGHT");
         try {
             q.moveToken("LEFT");
             fail("SHOULD WIN");

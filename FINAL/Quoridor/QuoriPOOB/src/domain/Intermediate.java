@@ -23,11 +23,19 @@ public class Intermediate extends Machine {
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
         if (machinePath.size() <= humanPath.size() || walls.size() < 1) {
-            direction = getDirection(machinePath.get(1)); // Si toma con indice 0, toma la casilla actual
+            try{
+                direction = getDirection(machinePath.get(1));
+            } catch (Exception e){
+                direction = getDirection(lastSquare());
+            }
             super.moveToken(direction);
         } else {
             if(!putWall(humanPath)){
-                direction = getDirection(machinePath.get(1));
+                try{
+                    direction = getDirection(machinePath.get(1));
+                } catch (Exception e){
+                    direction = getDirection(lastSquare());
+                }
                 super.moveToken(direction);
             }
         }

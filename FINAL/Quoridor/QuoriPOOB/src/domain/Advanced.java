@@ -23,7 +23,11 @@ public class Advanced extends Machine {
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
         if(walls.size() < 1||!putWall(humanPath)){
-            direction = getDirection(machinePath.get(1));
+            try{
+                direction = getDirection(machinePath.get(1));
+            } catch (Exception e){
+                direction = getDirection(lastSquare());
+            }
             super.moveToken(direction);
         }
     }

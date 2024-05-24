@@ -13,6 +13,10 @@ public class Token implements Serializable {
     private int destiny;
     private ArrayList<int[]> lastMovements;
 
+    public ArrayList<int[]> getLastMovements() {
+        return lastMovements;
+    }
+
     public Token(Color color) {
         this.color = color;
         lastMovements = new ArrayList<>();
