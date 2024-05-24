@@ -25,18 +25,18 @@ public class Intermediate extends Machine {
         if (machinePath.size() <= humanPath.size() || walls.size() < 1) {
             try{
                 direction = getDirection(machinePath.get(1));
+                super.moveToken(direction);
             } catch (Exception e){
-                direction = getDirection(lastSquare());
+                alternativeMove();
             }
-            super.moveToken(direction);
         } else {
             if(!putWall(humanPath)){
                 try{
                     direction = getDirection(machinePath.get(1));
+                    super.moveToken(direction);
                 } catch (Exception e){
-                    direction = getDirection(lastSquare());
+                    alternativeMove();
                 }
-                super.moveToken(direction);
             }
         }
 
@@ -81,7 +81,5 @@ public class Intermediate extends Machine {
         }
         return res;
     }
-    private String getDirection(Square square) throws QuoriPOOBException {
-        return board.getDirection(color, square);
-    }
+    
 }

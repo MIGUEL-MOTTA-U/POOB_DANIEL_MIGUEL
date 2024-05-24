@@ -25,10 +25,10 @@ public class Advanced extends Machine {
         if(walls.size() < 1||!putWall(humanPath)){
             try{
                 direction = getDirection(machinePath.get(1));
+                super.moveToken(direction);
             } catch (Exception e){
-                direction = getDirection(lastSquare());
+                alternativeMove();
             }
-            super.moveToken(direction);
         }
     }
 
@@ -70,8 +70,5 @@ public class Advanced extends Machine {
             res = (coordenatesSquare[0]-coordenatesNext[0]>0)?"UP":"DOWN";
         }
         return res;
-    }
-    private String getDirection(Square square) throws QuoriPOOBException {
-        return board.getDirection(color, square);
     }
 }

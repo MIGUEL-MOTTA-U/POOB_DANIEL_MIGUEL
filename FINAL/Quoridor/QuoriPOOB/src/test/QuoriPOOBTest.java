@@ -1517,10 +1517,10 @@ public class QuoriPOOBTest {
         // Daniel moves
         q.addWallToBoard("NormalWall", 3, 2, "RIGHT");
         q.moveToken("RIGHT");
-        q.moveToken("DOWN");
+        q.moveToken("LEFT");
 
         try {
-            q.moveToken("DOWN");
+            q.moveToken("RIGHT");
 
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());
@@ -1540,10 +1540,10 @@ public class QuoriPOOBTest {
         // Daniel moves
         q.addWallToBoard("Allied", 3, 2, "RIGHT");
         q.moveToken("RIGHT");
-        q.moveToken("DOWN");
+        q.moveToken("LEFT");
 
         try {
-            q.moveToken("DOWN");
+            q.moveToken("RIGHT");
 
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Machine"), e.getMessage());

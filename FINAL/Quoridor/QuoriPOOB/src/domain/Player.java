@@ -222,18 +222,16 @@ public abstract class Player implements Serializable {
 			for (int j = 0; j < size; j++) {
 				Square box = board.getMatrixBoard()[i][j];
 				graph.addNode(id, box);
-					if(box.getToken()==null||box.getToken().getColor().equals(this.color)){
-						if (makeConectionLeft(box)) {// No hay ni muro a la izquierda de box, o un borde
-							graph.addVertex(id, id - 1, 1);
-						} else if(makeJumpLeft(box)){
-							graph.addVertex(id, id - 2, 1);
-						}
-						if (makeConectionUp(box)) {
-							graph.addVertex(id, id - size, 1);
-						} else if(makeJumpUp(box)){
-							graph.addVertex(id, id - 2*size, 1);
-						}
-					}
+				if (makeConectionLeft(box)) {// No hay ni muro a la izquierda de box, o un borde
+					graph.addVertex(id, id - 1, 1);
+				} else if(makeJumpLeft(box)){
+					graph.addVertex(id, id - 2, 1);
+				}
+				if (makeConectionUp(box)) {
+					graph.addVertex(id, id - size, 1);
+				} else if(makeJumpUp(box)){
+					graph.addVertex(id, id - 2*size, 1);
+				}
 				id++;
 			}
 		}
@@ -259,28 +257,14 @@ public abstract class Player implements Serializable {
 	}
 
 	private boolean makeConectionUp(Square box) {
-		int row =box.getCoordenates()[0],column = box.getCoordenates()[1];
+		int row =box.getCoordenates()[0];
 		return (row != 0) && 
-		(board.getMatrixBoard()[row-1][column].getToken()==null||
-		(board.getMatrixBoard()[row-1][column].getToken().getColor().equals(this.color))||
-		row>1 && board.getMatrixBoard()[row-2][column].getToken()==null) &&
 		(box.getWallUp() == null||!box.getWallUp().blockToken(this.color));
 	}
 
 	private boolean makeConectionLeft(Square box) {
-		int row =box.getCoordenates()[0],column = box.getCoordenates()[1];
+		int column = box.getCoordenates()[1];
 		return (column!= 0)&&
-		(board.getMatrixBoard()[row][column-1].getToken()==null||
-		(board.getMatrixBoard()[row][column-1].getToken().getColor().equals(this.color)||
-		column>1 &&board.getMatrixBoard()[row][column-2].getToken()==null)) && 
 		(box.getWallLeft() == null ||!box.getWallLeft().blockToken(this.color));
 	}
-
-	protected Square lastSquare(){
-		int lastAdded = board.getTokens().get(color).getLastMovements().size() - 1;
-		int[] lastCoordenates = board.getTokens().get(color).getLastMovements().get(lastAdded);
-		int row = lastCoordenates[0], column = lastCoordenates[1];
-		return board.getMatrixBoard()[row][column];
-	}
-
 }

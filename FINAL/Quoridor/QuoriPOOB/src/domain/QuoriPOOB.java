@@ -235,7 +235,7 @@ public class QuoriPOOB implements Serializable {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
 			out.writeObject("QuoriPOOB storage\n");
-			out.writeObject(this);
+			out.writeObject(quoriPOOBSingleton);
 			out.close();
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo",
