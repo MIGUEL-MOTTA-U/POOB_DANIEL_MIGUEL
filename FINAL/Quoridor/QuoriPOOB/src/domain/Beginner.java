@@ -71,7 +71,7 @@ public class Beginner extends Machine {
                 possibilities.remove(option);
             }
         }
-        
+
         if (possibilities.size() == 0 && !moved)
             throw new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
     }

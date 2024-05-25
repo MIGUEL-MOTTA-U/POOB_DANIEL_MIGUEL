@@ -22,53 +22,59 @@ public class Advanced extends Machine {
     private void play(String direction) throws QuoriPOOBException {
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
-        if(walls.size() < 1||!putWall(humanPath)){
-            try{
+
+        if (walls.size() < 1 || !putWall(humanPath)) {
+            try {
                 direction = getDirection(machinePath.get(1));
                 super.moveToken(direction);
-            } catch (Exception e){
+            } catch (Exception e) {
                 alternativeMove();
             }
         }
     }
 
-    private boolean putWall(ArrayList<Square> squares){
+    private boolean putWall(ArrayList<Square> squares) {
         int initialRow, initialColumn;
         String side;
-        for(int i= 0; i < squares.size() -1; i++){
-            side = getWallSide(squares.get(i), squares.get(i+1));
-            
+
+        for (int i = 0; i < squares.size() - 1; i++) {
+            side = getWallSide(squares.get(i), squares.get(i + 1));
             initialRow = squares.get(i).getCoordenates()[0];
             initialColumn = squares.get(i).getCoordenates()[1];
             String type = walls.get(0).getClass().getSimpleName();
-            try{
+
+            try {
                 super.addWallToBoard(type, initialRow, initialColumn, side);
                 return true;
-            } catch (QuoriPOOBException e){
-                try{
-                    if(side.equals("UP") || side.equals("DOWN")){
-                        initialColumn -=1;
+            } catch (QuoriPOOBException e) {
+                try {
+                    if (side.equals("UP") || side.equals("DOWN")) {
+                        initialColumn -= 1;
                     } else {
-                        initialRow-=1;
+                        initialRow -= 1;
                     }
+
                     super.addWallToBoard(type, initialRow, initialColumn, side);
                     return true;
-                } catch (QuoriPOOBException q){}
+                } catch (QuoriPOOBException q) {
+                }
             }
         }
+
         return false;
     }
 
-
-    private String getWallSide(Square square, Square nextSquare){
+    private String getWallSide(Square square, Square nextSquare) {
         String res;
         int[] coordenatesSquare = square.getCoordenates();
         int[] coordenatesNext = nextSquare.getCoordenates();
-        if(coordenatesSquare[0]==coordenatesNext[0]){
-            res = (coordenatesSquare[1]-coordenatesNext[1]>0)?"LEFT":"RIGHT";
+
+        if (coordenatesSquare[0] == coordenatesNext[0]) {
+            res = (coordenatesSquare[1] - coordenatesNext[1] > 0) ? "LEFT" : "RIGHT";
         } else {
-            res = (coordenatesSquare[0]-coordenatesNext[0]>0)?"UP":"DOWN";
+            res = (coordenatesSquare[0] - coordenatesNext[0] > 0) ? "UP" : "DOWN";
         }
+        
         return res;
     }
 }
