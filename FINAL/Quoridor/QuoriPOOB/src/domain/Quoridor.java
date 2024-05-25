@@ -1,11 +1,17 @@
 package domain;
 
 import java.util.*;
+import java.util.List;
+import java.util.concurrent.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 public class Quoridor implements Serializable {
+	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+	private List<GameModeListener> listeners = new ArrayList<>();
+
+
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
@@ -219,9 +225,6 @@ public class Quoridor implements Serializable {
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 
-		// if (this.onePlayer)
-		// 	moveToken(null);
-
 		nextTurn();
 	}
 
@@ -241,9 +244,6 @@ public class Quoridor implements Serializable {
 		if (player.checkWin())
 			finishGame(player);
 
-		// if (getCurrentPlayer() instanceof Machine)
-		// 	this.moveToken(null);
-
 		nextTurn();
 	}
 
@@ -254,15 +254,19 @@ public class Quoridor implements Serializable {
 
     public void nextTurn() throws QuoriPOOBException {
         this.board.nextTurn();
-		if (this.board.getPlayerPlaying() instanceof Machine) playMachine();
+		if (this.board.getPlayerPlaying() instanceof Machine) startPlayMachine();
     }
 
 	public void startTurn() {
 		this.mode.startTurn();
 	}
 
-	public void addObserver(TimeObserver observer) {
+	public void addObserverToMode(TimeObserver observer) {
 		this.mode.addObserver(observer);
+	}
+
+	public void addObserver(GameModeListener observer) {
+		listeners.add(observer);
 	}
 
 	/**
@@ -429,22 +433,34 @@ public class Quoridor implements Serializable {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
+		notifyListeners();
 		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
-	private void playMachine() throws QuoriPOOBException {
-		Random random = new Random();
-		Player player = this.board.getPlayerPlaying();
-		checkGameFinish();
-        if (random.nextBoolean()) {
-            player.addWallToBoard(null, 0, 0, null);
-        } else {
-            player.moveToken(null);
-        }
-		if (player.checkWin())
-			finishGame(player);
+	public void startPlayMachine() {
+		executorService.schedule(this::playMachine, 2, TimeUnit.SECONDS);
+	}
+	
+	private void playMachine() {
+		try {
+			Random random = new Random();
+			Player player = this.board.getPlayerPlaying();
+			checkGameFinish();
 
-		nextTurn();
+			if (random.nextBoolean()) {
+				player.addWallToBoard(null, 0, 0, null);
+			} else {
+				player.moveToken(null);
+			}
+			
+			if (player.checkWin())
+				finishGame(player);
+		
+			nextTurn();
+			notifyListeners();
+		} catch (QuoriPOOBException e) {
+
+		}
 	}
 
 	private void checkGameFinish() throws QuoriPOOBException {
@@ -454,6 +470,13 @@ public class Quoridor implements Serializable {
 			} else {
 				throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
 			}
+		}
+	}
+
+	private void notifyListeners() {
+		for (GameModeListener listener : listeners) {
+			listener.onGameModeUpdated();
+			listener.checkGameFinished();
 		}
 	}
 }

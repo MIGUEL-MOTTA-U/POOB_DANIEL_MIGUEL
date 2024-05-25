@@ -163,7 +163,8 @@ public class QuoridorGUI extends JFrame {
     public void showBoardGUI() {
         if (boardGUI == null) {
             boardGUI = new BoardGUI(this);
-            this.quoriPOOB.addObserver(boardGUI);
+            this.quoriPOOB.addObserverToMode(boardGUI);
+            this.quoriPOOB.addObserverToQuoridor(boardGUI);
             cardPanel.add(boardGUI, "boardGUI");
         }
         this.quoriPOOB.startTurn();

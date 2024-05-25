@@ -142,7 +142,11 @@ public class QuoriPOOB implements Serializable {
 		this.quoridor.startTurn();
 	}
 
-	public void addObserver(TimeObserver observer) {
+	public void addObserverToMode(TimeObserver observer) {
+		this.quoridor.addObserverToMode(observer);
+	}
+
+	public void addObserverToQuoridor(GameModeListener observer) {
 		this.quoridor.addObserver(observer);
 	}
 

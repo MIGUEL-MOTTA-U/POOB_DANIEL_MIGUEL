@@ -1,5 +1,6 @@
 package presentation;
 
+import domain.GameModeListener;
 import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
@@ -14,7 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardGUI extends JPanel implements TimeObserver {
+public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
     private static final Color BACKGROUND = new Color(250, 250, 250);
 
     private QuoridorGUI quoridorGUI;
@@ -474,7 +475,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("UP");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -486,7 +486,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("LEFT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -498,7 +497,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("DOWN");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -510,7 +508,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("RIGHT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -522,7 +519,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("DOWNLEFT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -534,18 +530,17 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("UPLEFT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
         buttonRightDown.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
                 try {
                     quoridorGUI.moveToken("DOWNRIGHT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -557,7 +552,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
                     quoridorGUI.moveToken("UPRIGHT");
                     refresh();
                 } catch (QuoriPOOBException ex) {
-                    checkGameFinish();
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -594,7 +588,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
             }
             refresh();
         } catch (QuoriPOOBException ex) {
-            checkGameFinish();
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
@@ -610,7 +603,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
 
     @Override
     public void timeIsUp() {
-        System.out.println(this.quoridorGUI.getGameOver());
         if (this.quoridorGUI.getGameOver()) {
             showDefeatScreen();
         }
@@ -621,6 +613,22 @@ public class BoardGUI extends JPanel implements TimeObserver {
     public void updateTime(int time) {
         String timeString = String.format("%d", time);
         labelTime.setText(timeString);
+    }
+
+    @Override
+    public void onGameModeUpdated() {
+        refresh();
+    }
+
+    @Override
+    public void checkGameFinished() {
+        if (quoridorGUI.getGameOver()) {
+            if (quoridorGUI.getWinner() != null) {
+                showVictoryScreen();
+            } else {
+                showDefeatScreen();
+            }
+        }
     }
 
     private void createImage(JLabel label, String path) {
@@ -715,16 +723,6 @@ public class BoardGUI extends JPanel implements TimeObserver {
             containerBoard.setLayout(new GridBagLayout());
             containerBoard.add(defeatScreen);
             refresh();
-        }
-    }
-
-    private void checkGameFinish() {
-        if (quoridorGUI.getGameOver()) {
-            if (quoridorGUI.getWinner() != null) {
-                showVictoryScreen();
-            } else {
-                showDefeatScreen();
-            }
         }
     }
 }
