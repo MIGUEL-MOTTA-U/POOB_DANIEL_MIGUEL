@@ -21,6 +21,7 @@ public class QuoridorGUI extends JFrame {
     public static final String FONT_TEXT = "Candara";
 
     private QuoriPOOB quoriPOOB = QuoriPOOB.getQuoriPOOB();
+    private Persistence persistence = new Persistence();
     private boolean playerTwo = false;
 
     // CardLayout
@@ -307,7 +308,7 @@ public class QuoridorGUI extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-                quoriPOOB = QuoriPOOB.openFile(file);
+                quoriPOOB = Persistence.openFile(file);
                 boardGUI = null;
                 showBoardGUI();
             } catch (Exception e) {
@@ -322,7 +323,7 @@ public class QuoridorGUI extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-                quoriPOOB.saveFile(file);
+                persistence.saveFile(file);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }

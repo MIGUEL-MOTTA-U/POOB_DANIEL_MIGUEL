@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.*;
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
@@ -20,6 +19,10 @@ public class QuoriPOOB implements Serializable {
 			quoriPOOBSingleton = new QuoriPOOB();
 		}
 		return quoriPOOBSingleton;
+	}
+
+	public static void setQuoriPOOB(QuoriPOOB quoriPOOB) {
+		quoriPOOBSingleton = quoriPOOB;
 	}
 
 	private Object readResolve() {
@@ -228,43 +231,5 @@ public class QuoriPOOB implements Serializable {
 
 	public boolean getGameOver() {
 		return this.quoridor.getGameOver();
-	}
-
-	/**
-	 * Save the game in a file
-	 * 
-	 * @param file the file to save
-	 */
-	public void saveFile(File file) {
-		try {
-			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
-			out.writeObject(quoridor);
-			out.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al guardar el archivo",
-					JOptionPane.ERROR_MESSAGE);
-		}
-	}
-
-	/**
-	 * Open a file given by the user
-	 * 
-	 * @param file the file to open
-	 * @return the garden saved in the file
-	 * @throws QuoriPOOBException
-	 */
-	public static QuoriPOOB openFile(File file) throws QuoriPOOBException {
-		QuoriPOOB quoriPOOB = null;
-
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-			quoriPOOB = (QuoriPOOB) in.readObject();
-			in.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
-		}
-
-		quoriPOOBSingleton = quoriPOOB;
-		return quoriPOOB;
 	}
 }

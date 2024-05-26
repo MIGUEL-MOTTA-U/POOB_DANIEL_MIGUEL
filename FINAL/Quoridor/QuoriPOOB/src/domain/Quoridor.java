@@ -6,6 +6,7 @@ import java.util.concurrent.*;
 import java.awt.*;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
+
 /**
  * This class represents a Quoridor game.
  * It implements the Serializable interface.
