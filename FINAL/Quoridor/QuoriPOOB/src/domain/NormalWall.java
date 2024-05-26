@@ -5,8 +5,9 @@ import java.awt.Color;
 /**
  * This wall's subclass has the same behaviors that a normal wall.
  * 
- * @author Daniel Diaz && Miguel Motta
- * @version (a version number or a date)
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2023
  */
 public class NormalWall extends Wall {
     /**
@@ -23,6 +24,5 @@ public class NormalWall extends Wall {
      */
     @Override
     public void act() {
-
     }
 }

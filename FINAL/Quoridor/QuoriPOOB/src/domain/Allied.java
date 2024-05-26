@@ -6,7 +6,7 @@ import java.awt.Color;
  * This wall's subclass has the same behaviors that a normal wall, except it
  * allows to pass to the player who put the wall.
  * 
- * @author Daniel Diaz && Miguel Motta
+ * @author Daniel Diaz and Miguel Motta
  * @version 1.0
  * @since 25-05-2024
  */
