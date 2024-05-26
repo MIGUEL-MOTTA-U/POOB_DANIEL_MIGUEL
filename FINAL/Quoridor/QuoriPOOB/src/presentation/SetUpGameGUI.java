@@ -1,7 +1,6 @@
 package presentation;
 
 import domain.QuoriPOOBException;
-import domain.Teleporter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -9,7 +8,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.util.*;
-import java.util.List;
 
 public class SetUpGameGUI extends JPanel {
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
@@ -17,6 +15,8 @@ public class SetUpGameGUI extends JPanel {
     private static final String TELEPORTER_SQUARES_MSG = "Number of teleporter squares";
     private static final String RETURN_SQUARES_MSG = "Number of return squares";
     private static final String DOUBLE_TURN_SQUARES_MSG = "Number of double turn squares";
+    private static final String INVALID_NUMBER_MSG = "You must enter a valid number";
+    private static final String INVALID_NUMBER = "Invalid number";
 
     private QuoridorGUI quoridorGUI;
     private ArrayList<JTextField[]> normalPositions;
@@ -129,9 +129,9 @@ public class SetUpGameGUI extends JPanel {
         labelSquareTitle = new JLabel("Squares");
         labelSquareTitle.setFont(new Font(QuoridorGUI.FONT_SUBTITLE, Font.BOLD, 15));
 
-        textTeleporterSquares = createTextField("Number of teleporter squares");
-        textReturnSquares = createTextField("Number of return squares");
-        textDoubleTurnSquares = createTextField("Number of double turn squares");
+        textTeleporterSquares = createTextField(TELEPORTER_SQUARES_MSG);
+        textReturnSquares = createTextField(RETURN_SQUARES_MSG);
+        textDoubleTurnSquares = createTextField(DOUBLE_TURN_SQUARES_MSG);
 
         buttonPositionTeleporter = createButton("Positions", QuoridorGUI.BUTTONS_COLOR, Color.WHITE,
                 QuoridorGUI.BUTTONS_COLOR_HOVER);
@@ -359,12 +359,10 @@ public class SetUpGameGUI extends JPanel {
                         String type = getTypeFromButton(sourceButton);
                         specialSquares.put("domain." + type, null);
                     } else {
-                        JOptionPane.showMessageDialog(null, "You must enter a positive number", "Invalid number",
-                                JOptionPane.ERROR_MESSAGE);
+                        showError("You must enter a positive number", INVALID_NUMBER);
                     }
                 } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
-                            JOptionPane.ERROR_MESSAGE);
+                    showError(INVALID_NUMBER_MSG, INVALID_NUMBER);
                 }
             }
         };
@@ -395,10 +393,9 @@ public class SetUpGameGUI extends JPanel {
                             quoridorGUI.showBoardGUI();
                         }
                     } catch (NumberFormatException e) {
-                        JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
-                                JOptionPane.ERROR_MESSAGE);
+                        showError(INVALID_NUMBER_MSG, INVALID_NUMBER);
                     } catch (QuoriPOOBException e) {
-                        JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        showError(e.getMessage(), "Error");
                     }
                 }
 
@@ -446,10 +443,6 @@ public class SetUpGameGUI extends JPanel {
 
     private boolean isSpecialSquareInfoEmpty(JTextField textField, String defaultText, ArrayList<JTextField[]> positions) {
         return !textField.getText().equals(defaultText) && !textField.getText().equals("0") && positions.isEmpty();
-    }
-
-    private void showMessage(String message, String title) {
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     private String getTypeFromButton(JButton button) {
@@ -536,8 +529,7 @@ public class SetUpGameGUI extends JPanel {
                     default:
                         break;
                 }
-                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
-                        JOptionPane.ERROR_MESSAGE);
+                showError(INVALID_NUMBER_MSG, INVALID_NUMBER);
             }
         }
 
@@ -554,8 +546,7 @@ public class SetUpGameGUI extends JPanel {
             
             return numberWalls;
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
-                    JOptionPane.ERROR_MESSAGE);
+            showError(INVALID_NUMBER_MSG, INVALID_NUMBER);
         }
 
         return null;
@@ -586,9 +577,16 @@ public class SetUpGameGUI extends JPanel {
                 int time = Integer.parseInt(textTime.getText());
                 quoridorGUI.setTime(time);
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "You must enter a valid number", "Invalid number",
-                        JOptionPane.ERROR_MESSAGE);
+                showError(INVALID_NUMBER_MSG, INVALID_NUMBER);
             }
         }
+    }
+
+    private void showMessage(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showError(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
 }
