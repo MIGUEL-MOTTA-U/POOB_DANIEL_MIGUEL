@@ -3,8 +3,9 @@ package domain;
 /**
  * This square's subclass has the same behaviors that a normal square.
  * 
- * @author Daniel Diaz && Miguel Motta
- * @version (a version number or a date)
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2023
  */
 public class NormalSquare extends Square {
     /**

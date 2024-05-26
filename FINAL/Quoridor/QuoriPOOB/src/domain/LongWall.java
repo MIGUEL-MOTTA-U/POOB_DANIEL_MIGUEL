@@ -1,11 +1,23 @@
 package domain;
 
 import java.awt.Color;
-
+/**
+ * This wall's subclass has the same behaviors that a normal wall, except it
+ * has a length of 3 squares.
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2023
+ */
 public class LongWall extends Wall {
     private int middleRow;
     private int middleColumn;
 
+	/**
+	 * Constructor of Long Wall
+	 * 
+	 * @param color the color of the wall
+	 */
     public LongWall(Color color) {
         super(color);
     }
@@ -23,7 +35,6 @@ public class LongWall extends Wall {
 	public void addWallToBoard(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		validate(initialRow, initialColumn, squareSide, board);
-
 		this.initialRow = initialRow;
 		this.initialColumn = initialColumn;
 		this.middleRow = middleRow(initialRow, squareSide);
@@ -32,12 +43,10 @@ public class LongWall extends Wall {
 		this.finalColumn = finalColumn(initialColumn, squareSide);
 		this.squareSide = squareSide;
 		this.board = board;
-
 		setWallInSquare(initialRow, initialColumn);
         setWallInSquare(middleRow, middleColumn);
 		setWallInSquare(finalRow, finalColumn);
 		setWallInNeighborSquares();
-
 		board.addWallToBoard(this);
 	}
 
@@ -100,7 +109,7 @@ public class LongWall extends Wall {
 	}
 
     @Override
-    	/*
+    /*
 	 * Check if the wall is in the range of the board
 	 */
 	protected boolean outRange(int initialRow, int initialColumn, String squareSide, Board board)
@@ -209,9 +218,10 @@ public class LongWall extends Wall {
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 		}
 	}
-
+	/*
+	 * There is not a special behaviour in Long Wall
+	 */
     @Override
     public void act() {
-
     }
 }
