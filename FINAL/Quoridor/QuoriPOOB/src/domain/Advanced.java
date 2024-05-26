@@ -2,23 +2,46 @@ package domain;
 
 import java.awt.Color;
 import java.util.ArrayList;
-
+/**
+ * This class extends the Machine class, evaluates the shortest path, and first seeks to 
+ * obstruct the opponent's path. When there are no more bridges, it advances."
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class Advanced extends Machine {
     public Advanced(String name, Color color) {
         super(name, color);
     }
 
     @Override
+    /**
+     * This method takes the order to move the Token
+     * and gives the order to tha Advanced machine to play.
+     * 
+     * @throws QuoriPOOBException if it is not possible to for the machine.
+     */
     protected void moveToken(String direction) throws QuoriPOOBException {
         play(direction);
     }
 
     @Override
+    /**
+     * This method takes the order to add a wall to board 
+     * and gives the order to tha Advanced machine to play.
+     * 
+     * @throws QuoriPOOBException if it is not possible to for the machine.
+     */
     protected void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
             throws QuoriPOOBException {
         play(null);
     }
 
+    /*
+     * Calculates the next action to do for the token 
+     * maybe jump of put a wall.
+     */
     private void play(String direction) throws QuoriPOOBException {
         ArrayList<Square> machinePath = calculateMyShorestPath();
         ArrayList<Square> humanPath = getOtherPlayer().calculateMyShorestPath();
@@ -33,6 +56,9 @@ public class Advanced extends Machine {
         }
     }
 
+    /*
+     * Puts a wall in a given path if it is possible.
+     */
     private boolean putWall(ArrayList<Square> squares) {
         int initialRow, initialColumn;
         String side;
@@ -42,7 +68,6 @@ public class Advanced extends Machine {
             initialRow = squares.get(i).getCoordenates()[0];
             initialColumn = squares.get(i).getCoordenates()[1];
             String type = walls.get(0).getClass().getSimpleName();
-
             try {
                 super.addWallToBoard(type, initialRow, initialColumn, side);
                 return true;
@@ -53,22 +78,22 @@ public class Advanced extends Machine {
                     } else {
                         initialRow -= 1;
                     }
-
                     super.addWallToBoard(type, initialRow, initialColumn, side);
                     return true;
                 } catch (QuoriPOOBException q) {
                 }
             }
         }
-
         return false;
     }
 
+    /*
+     * Returns the side of the given square to put a wall
+     */
     private String getWallSide(Square square, Square nextSquare) {
         String res;
         int[] coordenatesSquare = square.getCoordenates();
         int[] coordenatesNext = nextSquare.getCoordenates();
-
         if (coordenatesSquare[0] == coordenatesNext[0]) {
             res = (coordenatesSquare[1] - coordenatesNext[1] > 0) ? "LEFT" : "RIGHT";
         } else {

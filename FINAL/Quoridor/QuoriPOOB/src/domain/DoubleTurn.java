@@ -5,7 +5,8 @@ package domain;
  * steals a turn
  * 
  * @author Daniel Diaz && Miguel Motta
- * @version (a version number or a date)
+ * @version 1.0
+ * @since 25-05-2023
  */
 public class DoubleTurn extends Square {
     /**
@@ -29,7 +30,6 @@ public class DoubleTurn extends Square {
     public void act() throws QuoriPOOBException {
         if (this.board == null)
             throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
-
         this.board.nextTurn();
     }
 }
