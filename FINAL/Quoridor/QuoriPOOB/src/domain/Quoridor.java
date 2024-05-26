@@ -16,7 +16,7 @@ import java.lang.reflect.Constructor;
  * @since 25-05-2023
  */
 public class Quoridor implements Serializable {
-	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+	// private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	private List<GameModeListener> listeners = new ArrayList<>();
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
@@ -490,7 +490,8 @@ public class Quoridor implements Serializable {
 	 * This method starts the action of the machine to play with a delay of 2 seconds
 	 */
 	public void startPlayMachine() {
-		executorService.schedule(this::playMachine, 1, TimeUnit.SECONDS);
+		// executorService.schedule(this::playMachine, 1, TimeUnit.SECONDS);
+		playMachine();
 	}
 	
 	/*
