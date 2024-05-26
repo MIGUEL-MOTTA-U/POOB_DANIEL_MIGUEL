@@ -1,13 +1,19 @@
 package presentation;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.net.URL;
 
 public class VictoryScreen extends JPanel {
     private BoardGUI boardGUI;
     private String winner;
+    private Clip clip;
 
     //Message
     private JPanel panelMessage;
@@ -28,6 +34,7 @@ public class VictoryScreen extends JPanel {
         prepareElements();
         prepareAction();
         setVisible(true);
+        playSound();
     }
 
     private void prepareElements() {
@@ -134,6 +141,22 @@ public class VictoryScreen extends JPanel {
                     img.getImage().getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH)));
             label.setHorizontalAlignment(SwingConstants.CENTER);
             label.setVerticalAlignment(SwingConstants.CENTER);
+        }
+    }
+
+    private void playSound() {
+        try {
+            File soundFile = new File("presentation\\assets\\victory sound.wav");
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            if (clip != null) {
+                clip.setFramePosition(0);
+                clip.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

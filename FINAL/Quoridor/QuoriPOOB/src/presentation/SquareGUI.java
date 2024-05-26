@@ -261,8 +261,8 @@ public class SquareGUI extends JPanel {
         Border borderDown = createMatteBorder(button == buttonWallDown ? color : colorBorderDown, 0, 0, 1, 0);
         Border borderRight = createMatteBorder(button == buttonWallRight ? color : colorBorderRight, 0, 0, 0, 1);
     
-        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderLeft);
-        Border bottomRight = BorderFactory.createCompoundBorder(borderDown, borderRight);
+        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderDown);
+        Border bottomRight = BorderFactory.createCompoundBorder(borderLeft, borderRight);
         return BorderFactory.createCompoundBorder(topLeft, bottomRight);
     }
 
@@ -272,8 +272,8 @@ public class SquareGUI extends JPanel {
         Border borderDown = createMatteBorder(colorBorderDown, 0, 0, 1, 0);
         Border borderRight = createMatteBorder(colorBorderRight, 0, 0, 0, 1);
     
-        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderLeft);
-        Border bottomRight = BorderFactory.createCompoundBorder(borderDown, borderRight);
+        Border topLeft = BorderFactory.createCompoundBorder(borderUp, borderDown);
+        Border bottomRight = BorderFactory.createCompoundBorder(borderLeft, borderRight);
         return BorderFactory.createCompoundBorder(topLeft, bottomRight);
     }
     
