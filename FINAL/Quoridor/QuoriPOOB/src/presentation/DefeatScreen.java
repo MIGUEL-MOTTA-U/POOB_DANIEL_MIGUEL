@@ -53,7 +53,7 @@ public class DefeatScreen extends JPanel {
     private void prepareElementsMessage(JPanel content) {
         panelMessage = new JPanel();
 
-        labelMessage = new JLabel("Game over. Nobody has won the game");
+        labelMessage = new JLabel("Game over. Better luck next time");
         labelMessage.setFont(new Font(QuoridorGUI.FONT_TITLE, Font.BOLD, 20));
 
         panelMessage.add(labelMessage);

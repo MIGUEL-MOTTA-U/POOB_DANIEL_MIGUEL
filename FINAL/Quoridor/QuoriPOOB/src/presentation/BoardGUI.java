@@ -624,7 +624,11 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
     public void checkGameFinished() {
         if (quoridorGUI.getGameOver()) {
             if (quoridorGUI.getWinner() != null) {
-                showVictoryScreen();
+                if (quoridorGUI.getWinner().getName().equals("Machine")) {
+                    showDefeatScreen(); 
+                } else {
+                    showVictoryScreen();
+                }
             } else {
                 showDefeatScreen();
             }
