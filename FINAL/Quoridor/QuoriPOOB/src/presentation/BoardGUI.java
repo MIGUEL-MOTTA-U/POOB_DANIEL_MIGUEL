@@ -1,10 +1,9 @@
 package presentation;
 
-import domain.DoubleTurn;
 import domain.GameModeListener;
+import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
-import domain.Teleporter;
 import domain.TimeObserver;
 
 import javax.swing.*;
@@ -18,6 +17,7 @@ import java.util.Map;
 
 public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
     private static final Color BACKGROUND = new Color(250, 250, 250);
+    private static final Color BACKGROUND_SPECIAL_SQUARES = new Color(240, 240, 240);
 
     private QuoridorGUI quoridorGUI;
     private SquareGUI[][] squaresGUI;
@@ -266,11 +266,7 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
                 SquareGUI squareGUI = squaresGUI[row][column];
                 Square square = squares[row][column];
 
-                if (square instanceof DoubleTurn) {
-                    squaresGUI[row][column].setBackground(Color.GRAY);
-                } else if (square instanceof Teleporter) {
-                    squaresGUI[row][column].setBackground(Color.LIGHT_GRAY);
-                }
+                if (!(square instanceof NormalSquare)) squaresGUI[row][column].paintBackgroung(BACKGROUND_SPECIAL_SQUARES);
 
                 if (square.getToken() != null) {
                     squareGUI.setColorToken(square.getToken().getColor());
@@ -713,6 +709,8 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
         updateBoard();
         updateNumWalls();
         tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
+        validate();
+        repaint();
     }
 
     private void showVictoryScreen() {

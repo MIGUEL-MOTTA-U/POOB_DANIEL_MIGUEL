@@ -225,6 +225,14 @@ public class SquareGUI extends JPanel {
         add(buttonWallRight, BorderLayout.EAST);
     }
 
+    public void paintBackgroung(Color color) {
+        setBackground(color);
+        buttonWallUp.setBackground(color);
+        buttonWallLeft.setBackground(color);
+        buttonWallDown.setBackground(color);
+        buttonWallRight.setBackground(color);
+    }
+
     private boolean addWall(String type, JButton button) {
         String squareSide;
         boolean wallAdded = true;

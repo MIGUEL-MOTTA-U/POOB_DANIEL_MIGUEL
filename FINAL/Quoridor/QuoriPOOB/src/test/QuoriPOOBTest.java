@@ -13,7 +13,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class QuoriPOOBTest {
+    private HashMap<String, int[][]> noSpecialSquares;
+
     public QuoriPOOBTest() {
+        noSpecialSquares = new HashMap<>();
+        noSpecialSquares.put("domain.Return", null);
+        noSpecialSquares.put("domain.DoubleTurn", null);
+        noSpecialSquares.put("domain.Teleporter", null);
     }
 
     @Before
@@ -360,7 +366,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerMachine(Color.GREEN, "domain.Advanced");
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
         assertEquals(4, q.getBoard().getMatrixBoard().length);
     }
 
@@ -485,8 +491,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.RED);
-
-        q.createBoard(17, null);
+        q.createBoard(17, noSpecialSquares);
 
         Square[][] matrix = q.getBoard().getMatrixBoard();
 
@@ -625,8 +630,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
-
-        q.createBoard(10, null);
+        q.createBoard(10, noSpecialSquares);
         q.addWalls(1, 4, 2, 4);
         try {
             q.addWallToBoard("Wrong Type", 0, 0, "UP");
@@ -645,8 +649,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
-
-        q.createBoard(10, null);
+        q.createBoard(10, noSpecialSquares);
         q.addWalls(1, 4, 2, 4);
         Player firstPlayer = q.getCurrentPlayer();
         // Tiene 1 normal, 4 temporales, 2 largos y 4 aliados
@@ -666,8 +669,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Player 1", Color.BLUE);
         q.createPlayerHuman("Player 2", Color.ORANGE);
-
-        q.createBoard(10, null);
+        q.createBoard(10, noSpecialSquares);
         q.addWalls(1, 4, 2, 4);
 
         q.addWallToBoard("Temporary", 0, 0, "UP");
@@ -711,7 +713,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
         assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
         q.moveToken("LEFT");
         assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
@@ -724,7 +726,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
         assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
         q.moveToken("LEFT");
         assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
@@ -742,7 +744,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
 
         // Token Daniel
         assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
@@ -777,7 +779,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
         q.moveToken("LEFT");
         try {
             q.moveToken("DOWN");
@@ -795,7 +797,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(4, null);
+        q.createBoard(4, noSpecialSquares);
         q.moveToken("LEFT");
         q.moveToken("LEFT");
         try {
@@ -814,7 +816,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
 
@@ -841,7 +843,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
         try {
@@ -859,7 +861,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
         try {
@@ -877,7 +879,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
         try {
@@ -903,7 +905,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.moveToken("DOWN");
         Token miguelToken = q.getBoard().getMatrixBoard()[4][2].getToken();
         q.moveToken("UP");
@@ -919,7 +921,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.moveToken("LEFT");
         Token miguelToken = q.getBoard().getMatrixBoard()[4][2].getToken();
         q.moveToken("UP");
@@ -937,7 +939,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
         q.moveToken("DOWN");
@@ -958,7 +960,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
         q.moveToken("DOWN");
@@ -979,7 +981,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
         q.moveToken("DOWN");
@@ -1000,7 +1002,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
         q.moveToken("DOWN");
@@ -1021,7 +1023,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Allied", 1, 2, "UP");
@@ -1037,7 +1039,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Allied", 0, 2, "RIGHT");
@@ -1053,7 +1055,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
         q.moveToken("UP");
@@ -1085,7 +1087,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
         q.addWallToBoard("Temporary", 3, 2, "RIGHT");
@@ -1119,7 +1121,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Allied", 0, 2, "RIGHT");
         q.addWallToBoard("Allied", 0, 1, "RIGHT");
@@ -1152,7 +1154,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1174,7 +1176,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1217,7 +1219,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1248,7 +1250,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1286,7 +1288,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1315,7 +1317,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("DOWN");
         q.moveToken("UP");
@@ -1337,7 +1339,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Beginner");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         int pasx = 4, pasy = 2;
@@ -1456,7 +1458,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         q.moveToken("LEFT");
@@ -1490,7 +1492,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         q.addWallToBoard("NormalWall", 4, 2, "UP");
@@ -1515,7 +1517,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         q.addWallToBoard("NormalWall", 3, 2, "RIGHT");
@@ -1538,7 +1540,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         q.addWallToBoard("Allied", 3, 2, "RIGHT");
@@ -1561,7 +1563,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         // Daniel moves
         q.addWallToBoard("NormalWall", 1, 2, "UP");
@@ -1585,7 +1587,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerMachine(Color.ORANGE, "domain.Intermediate");
         q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createBoard(5, null);
+        q.createBoard(5, noSpecialSquares);
         q.addWalls(4, 1, 0, 1);
         q.moveToken("LEFT");
         // Daniel moves
@@ -1840,7 +1842,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createBoard(3, null);
+        q.createBoard(3, noSpecialSquares);
         q.addWalls(3, 1, 0, 0);
         // Daniel moves
         for(int i = 0; i < 3; i++){
@@ -1881,7 +1883,7 @@ public class QuoriPOOBTest {
         q.setMode("domain.NormalMode");
         q.createPlayerMachine(Color.GREEN, "domain.Intermediate");
         q.createPlayerHuman("Player 1", Color.BLUE);
-        q.createBoard(8, null);
+        q.createBoard(8, noSpecialSquares);
         q.addWalls(9, 0, 0, 0);
         q.moveToken("RIGHT");
         q.addWallToBoard("NormalWall", 1, 3, "DOWN");
