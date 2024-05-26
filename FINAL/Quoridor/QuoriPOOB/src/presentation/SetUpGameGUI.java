@@ -1,6 +1,7 @@
 package presentation;
 
 import domain.QuoriPOOBException;
+import domain.Teleporter;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,9 +9,14 @@ import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
 import java.util.*;
+import java.util.List;
 
 public class SetUpGameGUI extends JPanel {
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
+    private static final String BOARD_SIZE_MSG = "Board size";
+    private static final String TELEPORTER_SQUARES_MSG = "Number of teleporter squares";
+    private static final String RETURN_SQUARES_MSG = "Number of return squares";
+    private static final String DOUBLE_TURN_SQUARES_MSG = "Number of double turn squares";
 
     private QuoridorGUI quoridorGUI;
     private ArrayList<JTextField[]> normalPositions;
@@ -347,8 +353,11 @@ public class SetUpGameGUI extends JPanel {
                 try {
                     int quantity = getQuantity(quantityString);
 
-                    if (quantity > 0) {
+                    if (quantity >= 0) {
                         showPositionsDialog(quantity, sourceButton);
+                    }else if (quantity == 0) {
+                        String type = getTypeFromButton(sourceButton);
+                        specialSquares.put("domain." + type, null);
                     } else {
                         JOptionPane.showMessageDialog(null, "You must enter a positive number", "Invalid number",
                                 JOptionPane.ERROR_MESSAGE);
@@ -416,13 +425,31 @@ public class SetUpGameGUI extends JPanel {
     private boolean emptyInfo() {
         boolean empty = false;
 
-        if (textBoardSize.getText().equals("Board size")) {
-            JOptionPane.showMessageDialog(null, "You must enter the size of the board", "Board size not entered",
-                    JOptionPane.INFORMATION_MESSAGE);
+        if (textBoardSize.getText().equals(BOARD_SIZE_MSG)) {
+            showMessage("You must enter the size of the board", "Board size not entered");
+            empty = true;
+        }
+
+        if (isSpecialSquareInfoEmpty(textTeleporterSquares, TELEPORTER_SQUARES_MSG, teleporterPositions)) {
+            showMessage("You must enter the positions of the teleporter squares", "Positions not entered");
+            empty = true;
+        } else if (isSpecialSquareInfoEmpty(textReturnSquares, RETURN_SQUARES_MSG, returnPositions)) {
+            showMessage("You must enter the positions of the return squares", "Positions not entered");
+            empty = true;
+        } else if (isSpecialSquareInfoEmpty(textDoubleTurnSquares, DOUBLE_TURN_SQUARES_MSG, doubleTurnPositions)) {
+            showMessage("You must enter the positions of the double turn squares", "Positions not entered");
             empty = true;
         }
 
         return empty;
+    }
+
+    private boolean isSpecialSquareInfoEmpty(JTextField textField, String defaultText, ArrayList<JTextField[]> positions) {
+        return !textField.getText().equals(defaultText) && !textField.getText().equals("0") && positions.isEmpty();
+    }
+
+    private void showMessage(String message, String title) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     private String getTypeFromButton(JButton button) {

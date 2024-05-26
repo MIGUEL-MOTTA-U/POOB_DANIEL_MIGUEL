@@ -1,9 +1,10 @@
 package presentation;
 
+import domain.DoubleTurn;
 import domain.GameModeListener;
-import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
+import domain.Teleporter;
 import domain.TimeObserver;
 
 import javax.swing.*;
@@ -265,7 +266,11 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
                 SquareGUI squareGUI = squaresGUI[row][column];
                 Square square = squares[row][column];
 
-                if (!(square instanceof NormalSquare)) squaresGUI[row][column].setBackground(Color.GRAY);
+                if (square instanceof DoubleTurn) {
+                    squaresGUI[row][column].setBackground(Color.GRAY);
+                } else if (square instanceof Teleporter) {
+                    squaresGUI[row][column].setBackground(Color.LIGHT_GRAY);
+                }
 
                 if (square.getToken() != null) {
                     squareGUI.setColorToken(square.getToken().getColor());
