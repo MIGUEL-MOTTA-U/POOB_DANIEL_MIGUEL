@@ -489,8 +489,9 @@ public class Quoridor implements Serializable {
 	 * This method starts the action of the machine to play with a delay of 2 seconds
 	 */
 	public void startPlayMachine() {
-		executorService.schedule(this::playMachine, 2, TimeUnit.SECONDS);
+		executorService.schedule(this::playMachine, 1, TimeUnit.SECONDS);
 	}
+	
 	/*
 	 * The order for the machine to play
 	 */
