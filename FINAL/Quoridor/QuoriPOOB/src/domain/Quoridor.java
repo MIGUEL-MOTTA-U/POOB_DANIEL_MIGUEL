@@ -15,7 +15,7 @@ import java.lang.reflect.Constructor;
  */
 public class Quoridor {
 	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-	private List<GameModeListener> listeners = new ArrayList<>();
+	private List<GameModeObserver> listeners = new ArrayList<>();
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
@@ -333,7 +333,7 @@ public class Quoridor {
 	 * 
 	 * @param observer the observer to add
 	 */
-	public void addObserver(GameModeListener observer) {
+	public void addObserver(GameModeObserver observer) {
 		listeners.add(observer);
 	}
 
@@ -684,7 +684,7 @@ public class Quoridor {
 	 * For the listeners observers of quoridor, it updates their status
 	 */
 	private void notifyListeners() {
-		for (GameModeListener listener : listeners) {
+		for (GameModeObserver listener : listeners) {
 			listener.onGameModeUpdated();
 			listener.checkGameFinished();
 		}

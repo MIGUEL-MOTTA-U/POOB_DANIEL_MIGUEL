@@ -176,7 +176,7 @@ public class QuoriPOOB implements Serializable {
 	 * 
 	 * @param observer the observer to add
 	 */
-	public void addObserverToQuoridor(GameModeListener observer) {
+	public void addObserverToQuoridor(GameModeObserver observer) {
 		this.quoridor.addObserver(observer);
 	}
 

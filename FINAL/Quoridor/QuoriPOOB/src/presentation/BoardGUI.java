@@ -1,6 +1,6 @@
 package presentation;
 
-import domain.GameModeListener;
+import domain.GameModeObserver;
 import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
+public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
     private static final Color BACKGROUND = new Color(250, 250, 250);
     private static final Color BACKGROUND_SPECIAL_SQUARES = new Color(220, 220, 220);
 
