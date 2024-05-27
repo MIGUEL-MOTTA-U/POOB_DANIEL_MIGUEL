@@ -4,37 +4,36 @@ import java.util.*;
 import java.awt.*;
 import java.io.*;
 
+/**
+ * This class is the controller between the domain and the presentation.
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class QuoriPOOB implements Serializable {
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private Quoridor quoridor;
 	private Persistence persistence;
 
+	/**
+	 * Constructor of QuoriPOOB
+	 */
 	private QuoriPOOB() {
 		this.quoridor = new Quoridor();
 	}
 
+	/**
+	 * Get the singleton of the class
+	 * 
+	 * @return
+	 */
 	public static QuoriPOOB getQuoriPOOB() {
 		if (quoriPOOBSingleton == null) {
 			quoriPOOBSingleton = new QuoriPOOB();
 		}
 		return quoriPOOBSingleton;
-	}
-
-	public Quoridor getQuoridor() {
-		return this.quoridor;
-	}
-
-	public static void setQuoriPOOB(QuoriPOOB quoriPOOB) {
-		quoriPOOBSingleton = quoriPOOB;
-	}
-
-	public void setQuoridor(Quoridor quoridor) {
-		this.quoridor = quoridor;
-	}
-
-	public void setPersistence() {
-		this.persistence = new Persistence();
 	}
 
 	/**
@@ -51,10 +50,21 @@ public class QuoriPOOB implements Serializable {
 		this.quoridor.setTwoPlayers();
 	}
 
+	/**
+	 * Set the mode of the game
+	 * 
+	 * @param mode the mode type of the game
+	 * @throws QuoriPOOBException
+	 */
 	public void setMode(String mode) throws QuoriPOOBException {
 		this.quoridor.setMode(mode);
 	}
 
+	/**
+	 * Set the time of the game mode
+	 * 
+	 * @param time the time that the players have to play
+	 */
 	public void setTime(int time) {
 		this.quoridor.setTime(time);
 	}
@@ -144,32 +154,49 @@ public class QuoriPOOB implements Serializable {
 		this.quoridor.moveToken(direction);
 	}
 
+	/**
+	 * Start player's turn to play
+	 */
 	public void startTurn() {
 		this.quoridor.startTurn();
 	}
 
+	/**
+	 * Add an observer to mode
+	 * 
+	 * @param observer the observer to add
+	 */
 	public void addObserverToMode(TimeObserver observer) {
 		this.quoridor.addObserverToMode(observer);
 	}
 
+	/**
+	 * Add an observer to quoridor
+	 * 
+	 * @param observer the observer to add
+	 */
 	public void addObserverToQuoridor(GameModeListener observer) {
 		this.quoridor.addObserver(observer);
 	}
 
+	/**
+	 * Return if the mode is time mode
+	 * 
+	 * @return TRUE, if the game mode is a time mode. FALSE, otherwise
+	 */
+	public boolean timeMode() {
+		return this.quoridor.timeMode();
+	}
+
+	/**
+	 * Reset the singleton
+	 */
 	public void resetSingleton() {
 		if (quoriPOOBSingleton != null) {
 			this.quoridor = null;
 		}
-		
+
 		quoriPOOBSingleton = null;
-	}
-
-	public boolean getTwoPlayers() {
-		return this.quoridor.getTwoPlayers();
-	}
-
-	public boolean timeMode() {
-		return this.quoridor.timeMode();
 	}
 
 	/**
@@ -181,6 +208,11 @@ public class QuoriPOOB implements Serializable {
 		return this.quoridor.getNames();
 	}
 
+	/**
+	 * Return the number of each type of wall the players have.
+	 * 
+	 * @return the number of walls with their respective quantity
+	 */
 	public HashMap<Color, HashMap<String, Integer>> numberWalls() {
 		return this.quoridor.numberWalls();
 	}
@@ -197,10 +229,20 @@ public class QuoriPOOB implements Serializable {
 		return this.quoridor.getColor(name);
 	}
 
+	/**
+	 * Return the matrix board
+	 * 
+	 * @return the matrix taht respresents the board
+	 */
 	public Square[][] getMatrixBoard() {
 		return this.quoridor.getMatrixBoard();
 	}
 
+	/**
+	 * Return the size of the board
+	 * 
+	 * @return the board size
+	 */
 	public int getSize() {
 		return this.quoridor.getSize();
 	}
@@ -232,14 +274,65 @@ public class QuoriPOOB implements Serializable {
 		return this.quoridor.getCurrentPlayer();
 	}
 
+	/**
+	 * Return if the game is over
+	 * 
+	 * @return TRUE, if the game is over. FALSE, otherwise
+	 */
 	public boolean getGameOver() {
 		return this.quoridor.getGameOver();
 	}
 
+	/**
+	 * Return if the game have two human players
+	 * 
+	 * @return True, if two human player are playing. FALSE, otherwise
+	 */
+	public boolean getTwoPlayers() {
+		return this.quoridor.getTwoPlayers();
+	}
+
+	/**
+	 * Return the quoridor
+	 * 
+	 * @return the quoridor
+	 */
+	public Quoridor getQuoridor() {
+		return this.quoridor;
+	}
+
+	/**
+	 * Set the new quoridor
+	 * 
+	 * @param quoridor the new quoridor
+	 */
+	public void setQuoridor(Quoridor quoridor) {
+		this.quoridor = quoridor;
+	}
+
+	/**
+	 * set the persistence of the game
+	 */
+	public void setPersistence() {
+		this.persistence = new Persistence();
+	}
+
+	/**
+	 * Save the game in a file
+	 * 
+	 * @param file the file where the game is saved
+	 */
 	public void saveFile(File file) {
 		this.persistence.saveFile(file);
 	}
 
+	/**
+	 * Load a saved game
+	 * 
+	 * @param file the file where the game is saved
+	 * @return the saved game
+	 * @throws QuoriPOOBException
+	 */
 	public static Quoridor openFile(File file) throws QuoriPOOBException {
 		return Persistence.openFile(file);
 	}

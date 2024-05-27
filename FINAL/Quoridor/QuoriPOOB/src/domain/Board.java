@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.*;
+
 /**
  * A board class that represents the object displayed in the interface and the environment in which the game is played
  * 
