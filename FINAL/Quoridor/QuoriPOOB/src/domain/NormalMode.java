@@ -1,4 +1,5 @@
 package domain;
+
 /**
  * This Mode's subclass has the behavior of a normal mode,
  * with no time conditions
@@ -22,7 +23,7 @@ public class NormalMode extends Mode {
      */
     @Override
     public void startTurn() {
-        
+
     }
 
     /**

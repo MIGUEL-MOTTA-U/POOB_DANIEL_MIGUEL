@@ -36,6 +36,11 @@ public abstract class Mode implements Serializable {
         this.timeLimit = time;
     }
 
+    /**
+     * return the time mode
+     * 
+     * @return the time mode
+     */
     public int[] getTime() {
         int[] time = new int[1];
         time[0] = this.timeLimit;
@@ -87,7 +92,7 @@ public abstract class Mode implements Serializable {
      * Defines the behavior when a turn starts.
      */
     public abstract void startTurn();
-    
+
     /**
      * Abstract method to be implemented by concrete subclasses.
      * Defines the behavior when a task is canceled.
