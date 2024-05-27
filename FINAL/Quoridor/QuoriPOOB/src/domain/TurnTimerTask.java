@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.TimerTask;
 import javax.swing.JOptionPane;
 
@@ -11,7 +10,7 @@ import javax.swing.JOptionPane;
  * @version 1.0
  * @since 25-05-2024
  */
-public class TurnTimerTask extends TimerTask implements Serializable {
+public class TurnTimerTask extends TimerTask {
     private Mode mode;
     private int remainingTime;
 
