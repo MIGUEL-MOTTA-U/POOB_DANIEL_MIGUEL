@@ -15,7 +15,7 @@ import java.lang.reflect.Constructor;
  */
 public class Quoridor {
 	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-	private List<GameModeObserver> listeners = new ArrayList<>();
+	private List<GameModeObserver> observers = new ArrayList<>();
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
@@ -334,7 +334,7 @@ public class Quoridor {
 	 * @param observer the observer to add
 	 */
 	public void addObserver(GameModeObserver observer) {
-		listeners.add(observer);
+		observers.add(observer);
 	}
 
 	/**
@@ -632,7 +632,7 @@ public class Quoridor {
 		gameOver = true;
 		winner = player;
 		this.mode.cancelTask();
-		notifyListeners();
+		notifyObservers();
 		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
@@ -662,7 +662,7 @@ public class Quoridor {
 				finishGame(player);
 				
 			nextTurn();
-			notifyListeners();
+			notifyObservers();
 		} catch (QuoriPOOBException e) {
 		}
 	}
@@ -683,10 +683,10 @@ public class Quoridor {
 	/*
 	 * For the listeners observers of quoridor, it updates their status
 	 */
-	private void notifyListeners() {
-		for (GameModeObserver listener : listeners) {
-			listener.onGameModeUpdated();
-			listener.checkGameFinished();
+	private void notifyObservers() {
+		for (GameModeObserver observer : observers) {
+			observer.onGameModeUpdated();
+			observer.checkGameFinished();
 		}
 	}
 }
