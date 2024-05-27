@@ -9,9 +9,15 @@ import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-
 import javax.swing.JOptionPane;
 
+/**
+ * this class is the persistence of the game
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class Persistence {
 	Quoridor quoridor;
 
