@@ -77,7 +77,20 @@ public class Board implements Serializable {
 	 */
 	public void setPlayers(LinkedHashMap<Color, Player> players) {
 		this.players = players;
-		this.playerPlaying = this.players.entrySet().iterator().next().getValue();
+
+		Iterator<Map.Entry<Color, Player>> iterador = players.entrySet().iterator();
+		Map.Entry<Color, Player> secondPlayer = null;
+
+		if (iterador.hasNext()) {
+			iterador.next();
+			if (iterador.hasNext()) {
+				secondPlayer = iterador.next();
+			}
+		}
+
+		if (secondPlayer != null) {
+			this.playerPlaying = secondPlayer.getValue();
+		}
 	}
 
 	/**
