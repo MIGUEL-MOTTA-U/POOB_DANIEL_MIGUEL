@@ -21,6 +21,16 @@ public class Timed extends Mode {
         this.timePlayer2 = time;
     }
 
+    public void setTimePlayers(int timePlayer1, int timePlayer2, boolean playerOnePlaying) {
+        this.timePlayer1 = timePlayer1;
+        this.timePlayer2 = timePlayer2;
+        this.playerOnePlaying = playerOnePlaying;
+    }
+
+    public boolean getPlayerOnePlaying() {
+        return this.playerOnePlaying;
+    }
+
     @Override
     public int[] getTime() {
         int[] time = new int[3];

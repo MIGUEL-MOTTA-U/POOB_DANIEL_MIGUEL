@@ -13,10 +13,6 @@ public class Token implements Serializable {
     private int destiny;
     private ArrayList<int[]> lastMovements;
 
-    public ArrayList<int[]> getLastMovements() {
-        return lastMovements;
-    }
-
     public Token(Color color) {
         this.color = color;
         lastMovements = new ArrayList<>();
@@ -164,12 +160,22 @@ public class Token implements Serializable {
         return this.square;
     }
 
+    public ArrayList<int[]> getLastMovements() {
+        return lastMovements;
+    }
+
     public void setBoard(Board board) {
         this.board = board;
     }
 
     public void setSquare(Square square) {
         this.square = square;
+    }
+
+    public void setPosition(int row, int col) throws QuoriPOOBException {
+        this.row = row;
+        this.column = col;
+        move();
     }
 
     public void setInitialRow(int initialRow, int lastRow) {
@@ -179,6 +185,10 @@ public class Token implements Serializable {
 
     public void setInitialColumn(int initialColumn) {
         this.column = initialColumn;
+    }
+
+    public void setLastMovements(ArrayList<int[]> lastMoves) {
+        this.lastMovements = lastMoves;
     }
 
     private void move() throws QuoriPOOBException {

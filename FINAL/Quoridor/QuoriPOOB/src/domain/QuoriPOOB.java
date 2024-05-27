@@ -8,6 +8,7 @@ public class QuoriPOOB implements Serializable {
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private Quoridor quoridor;
+	private Persistence persistence;
 
 	private QuoriPOOB() {
 		this.quoridor = new Quoridor();
@@ -20,12 +21,21 @@ public class QuoriPOOB implements Serializable {
 		return quoriPOOBSingleton;
 	}
 
+	public Quoridor getQuoridor() {
+		return this.quoridor;
+	}
+
 	public static void setQuoriPOOB(QuoriPOOB quoriPOOB) {
 		quoriPOOBSingleton = quoriPOOB;
 	}
 
-	public Quoridor getQuoridor() {
-		return this.quoridor;
+	public void setQuoridor(Quoridor quoridor) {
+		this.quoridor = quoridor;
+		this.persistence = new Persistence();
+	}
+
+	public void setPersistence() {
+		this.persistence = new Persistence();
 	}
 
 	/**
@@ -225,5 +235,13 @@ public class QuoriPOOB implements Serializable {
 
 	public boolean getGameOver() {
 		return this.quoridor.getGameOver();
+	}
+
+	public void saveFile(File file) {
+		this.persistence.saveFile(file);
+	}
+
+	public static Quoridor openFile(File file) throws QuoriPOOBException {
+		return Persistence.openFile(file);
 	}
 }

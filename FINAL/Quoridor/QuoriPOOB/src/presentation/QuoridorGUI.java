@@ -20,9 +20,8 @@ public class QuoridorGUI extends JFrame {
     public static final String FONT_SUBTITLE = "Bahnschrift";
     public static final String FONT_TEXT = "Candara";
 
-    private QuoriPOOB quoriPOOB = QuoriPOOB.getQuoriPOOB();
-    private Persistence persistence = new Persistence();
-    private boolean playerTwo = false;
+    private QuoriPOOB quoriPOOB;
+    private boolean playerTwo;
 
     // CardLayout
     private CardLayout cardLayout;
@@ -45,6 +44,9 @@ public class QuoridorGUI extends JFrame {
     private BoardGUI boardGUI;
 
     private QuoridorGUI() {
+        this.quoriPOOB = QuoriPOOB.getQuoriPOOB();
+        this.quoriPOOB.setPersistence();
+        this.playerTwo = false;
         prepareElements();
         prepareActions();
     }
@@ -308,11 +310,12 @@ public class QuoridorGUI extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-                quoriPOOB = Persistence.openFile(file);
+                Quoridor quoridor = QuoriPOOB.openFile(file);
+                quoriPOOB.setQuoridor(quoridor);
                 boardGUI = null;
                 showBoardGUI();
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error loading the game", JOptionPane.ERROR_MESSAGE);
             }
         }
     }
@@ -323,9 +326,9 @@ public class QuoridorGUI extends JFrame {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
             try {
-                persistence.saveFile(file);
+                quoriPOOB.saveFile(file);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error saving the game", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

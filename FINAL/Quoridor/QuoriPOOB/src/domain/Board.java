@@ -576,6 +576,17 @@ public class Board implements Serializable {
 		return res;
 	}
 
+	public void setSquare(Square square, int row, int col) {
+		this.matrixBoard[row][col] = square;
+	}
+
+	public void setPlayerPlaying(Color color) throws QuoriPOOBException {
+		if (!this.players.containsKey(color)) 
+			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+
+		this.playerPlaying = this.players.get(color);
+	}
+
 	/*
 	 * Creates normal squares in the reamaining spaces
 	 */

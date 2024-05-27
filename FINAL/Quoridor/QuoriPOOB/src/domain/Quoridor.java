@@ -216,6 +216,22 @@ public class Quoridor implements Serializable {
 		}
 	}
 
+	public void addWallsPlayer(Color color, int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+		checkGameFinish();
+		if (modeUndefined())
+			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+		if (gameModeUndefined())
+			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0)
+			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+		if (!this.players.containsKey(color)) {
+			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+		}
+
+		Player player = this.players.get(color);
+		player.addWalls(normal, temporary, longWall, allied);
+	}
+
 	/**
 	 * Add a wall to the board by the given parameters.
 	 * 
@@ -408,6 +424,25 @@ public class Quoridor implements Serializable {
 		return this.gameOver;
 	}
 
+	public Token getToken(Color color) throws QuoriPOOBException {
+		if (!this.tokens.containsKey(color)) 
+			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+
+		return this.tokens.get(color);
+	}
+
+	public Player getPlayer(Color color) throws QuoriPOOBException {
+		if (!this.players.containsKey(color)) 
+			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+
+		return this.players.get(color);
+	}
+
+	public ArrayList<int[]> getTokenLastMovements(Color color) throws QuoriPOOBException {
+		Token token = getToken(color);
+        return token.getLastMovements();
+    }
+
 	public int[] getTime() {
 		return this.mode.getTime();
 	}
@@ -431,6 +466,15 @@ public class Quoridor implements Serializable {
 
 	public LinkedHashMap<Color, Token> getTokens() {
 		return this.tokens;
+	}
+
+	public void setGameOver(boolean bool) {
+		this.gameOver = bool;
+	}
+
+	public void setWinner(Color color) throws QuoriPOOBException {
+		Player player = getPlayer(color);
+		this.winner = player;
 	}
 
 	/*

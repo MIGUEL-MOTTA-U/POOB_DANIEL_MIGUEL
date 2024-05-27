@@ -1,18 +1,23 @@
 package domain;
 
 import java.awt.Color;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
+import java.io.FileReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import javax.swing.JOptionPane;
 
 public class Persistence {
-	Quoridor quoridor = QuoriPOOB.getQuoriPOOB().getQuoridor();
+	Quoridor quoridor;
+
+	public Persistence() {
+		this.quoridor = QuoriPOOB.getQuoriPOOB().getQuoridor();
+	}
 
     /**
 	 * Save the game in a file
@@ -32,37 +37,8 @@ public class Persistence {
 			writeInfo(pw);
             pw.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error saving the game", JOptionPane.ERROR_MESSAGE);
 		}
-	}
-
-		/**
-	 * Open a file given by the user
-	 * 
-	 * @param file the file to open
-	 * @return the garden saved in the file
-	 * @throws QuoriPOOBException
-	 */
-	public static QuoriPOOB openFile(File file) throws QuoriPOOBException {
-		QuoriPOOB quoriPOOB = null;
-
-		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-			quoriPOOB = (QuoriPOOB) in.readObject();
-			quoriPOOB.setMode("domain." + (String) in.readObject());
-			quoriPOOB.setTime((int) in.readObject());
-			// if (quoriPOOB.getMode().equals("Timed")) {
-			// 	int timePlayer1 = (int) in.readObject();
-			// 	int timePlayer2 = (int) in.readObject();
-			// 	quoriPOOB.setTimePlayers(timePlayer1, timePlayer2);
-			// }
-			in.close();
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Error al abrir el archivo", JOptionPane.ERROR_MESSAGE);
-		}
-
-		QuoriPOOB.setQuoriPOOB(quoriPOOB);
-		return QuoriPOOB.getQuoriPOOB();
 	}
 
 	private void writeMode(PrintWriter pw) {
@@ -73,8 +49,7 @@ public class Persistence {
 		pw.println(mode.getTime()[0]);
 
 		if (mode.getClass().getSimpleName().equals("Timed")) {
-			mode = (Timed) mode;
-			pw.println(mode.getTime()[1] + " " + mode.getTime()[2]);
+			pw.println(mode.getTime()[1] + " " + mode.getTime()[2] + " " + ((Timed)mode).getPlayerOnePlaying());
 		}
 	}
 
@@ -83,7 +58,8 @@ public class Persistence {
 		
 		pw.println("Players:");
 		for (Player player : players.values()) {
-			pw.println(player.getColor() + " " + player.getName());
+			String type = player.getClass().getSimpleName();
+			pw.println(type + " " + player.getColor() + " " + player.getName());
 			pw.println("NormalWalls: "+ player.numberWalls().get("NormalWall"));
 			pw.println("Temporary: "+ player.numberWalls().get("Temporary"));
 			pw.println("LongWall: "+ player.numberWalls().get("LongWall"));
@@ -101,14 +77,7 @@ public class Persistence {
 			for (int col = 0; col < matrixBoard.length; col++) {
 				Square square = matrixBoard[row][col];
 				String type = square.getClass().getSimpleName();
-				// boolean wallUp = (square.getWallUp() != null) ? true : false;
-				// boolean wallLeft = (square.getWallLeft() != null) ? true : false;
-				// boolean wallDown = (square.getWallDown() != null) ? true : false;
-				// boolean wallRight = (square.getWallRight() != null) ? true : false;
-				// boolean token = (square.getToken() != null) ? true : false;
-
-				// pw.println(type + " " + row + " " + col + " " + wallUp + " " + wallLeft + " " + wallDown + " " + wallRight + " " + token);
-				pw.println(type + " " + row + " " + col);
+		      	pw.println(type + " " + row + " " + col);
 			}
 		}
 	}
@@ -119,6 +88,7 @@ public class Persistence {
 		pw.println("Tokens:");
 		for (Token token : tokens.values()) {
 			pw.println(token.getColor() + " " + token.getRow() + " " + token.getColumn());
+			pw.println(token.getLastMovements().size());
 			for (int[] position : token.getLastMovements()) {
 				pw.println(position[0] + " " + position[1]);
 			}
@@ -128,6 +98,8 @@ public class Persistence {
 	private void writeBoardWalls(PrintWriter pw) {
 		ArrayList<Wall> walls = quoridor.getBoard().getWalls();
 
+		pw.println("Board walls:");
+		pw.println(walls.size());
 		for (Wall wall : walls) {
 			String type = wall.getClass().getSimpleName();
 			int row = wall.getInicialRow();
@@ -152,5 +124,256 @@ public class Persistence {
 				pw.println("null");
 			}
 		}
+	}
+
+	/**
+	 * Open a file given by the user
+	 * 
+	 * @param file the file to open
+	 * @return the garden saved in the file
+	 * @throws QuoriPOOBException
+	 */
+	public static Quoridor openFile(File file) throws QuoriPOOBException {
+		Quoridor quoridor = new Quoridor();
+
+		try {
+			BufferedReader bIn = new BufferedReader(new FileReader(file));
+			readNumberPlayers(bIn, quoridor);
+			readMode(bIn, quoridor);
+			readPlayers(bIn, quoridor);
+			readBoard(bIn, quoridor);
+			readTokens(bIn, quoridor);
+			readBoardWalls(bIn, quoridor);
+			readInfo(bIn, quoridor);
+            bIn.close();
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error opening the game", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return quoridor;
+	}
+
+	private static void readNumberPlayers(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			boolean twoPlayers = Boolean.parseBoolean(bIn.readLine());
+			if (twoPlayers) {
+				quoridor.setTwoPlayers();
+			} else {
+				quoridor.setOnePlayer();
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading number players", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readMode(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			String type = "domain." + bIn.readLine();
+			quoridor.setMode(type);
+			int time = Integer.parseInt(bIn.readLine());
+			quoridor.setTime(time);
+
+			if (type.equals("domain.Timed")) {
+				String[] info = bIn.readLine().split(" ");
+				int time1 = Integer.parseInt(info[0]);
+				int time2 = Integer.parseInt(info[1]);
+				boolean playerOnePlaying = Boolean.parseBoolean(info[2]);
+
+				((Timed)quoridor.getMode()).setTimePlayers(time2, time1, playerOnePlaying);
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading mode", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readPlayers(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			
+			for (int i = 0; i < 2; i++) {
+				String[] info = bIn.readLine().split(" ");
+				String type = "domain." + info[0];
+				Color color = parseColor(info[1]);
+				
+				if (type.equals("domain.Human")) {
+					quoridor.createPlayerHuman(info[2], color);
+				} else {
+					quoridor.createPlayerMachine(color, type);
+				}
+
+				int normal = Integer.parseInt(bIn.readLine().split(": ")[1]);
+				int temporary = Integer.parseInt(bIn.readLine().split(": ")[1]);
+				int longWalls = Integer.parseInt(bIn.readLine().split(": ")[1]);
+				int allied = Integer.parseInt(bIn.readLine().split(": ")[1]);
+
+				quoridor.addWallsPlayer(color, normal, temporary, longWalls, allied);
+			}
+			
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading players", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readBoard(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			int size = Integer.parseInt(bIn.readLine());
+			quoridor.createBoard(size, null);
+
+			for (int i = 0; i < size; i++) {
+				for (int j = 0; j < size; j++) {
+					String[] info = bIn.readLine().split(" ");
+					String type = "domain." + info[0];
+					int row = Integer.parseInt(info[1]);
+					int col = Integer.parseInt(info[2]);
+
+					Square square = createSquare(type, row, col, quoridor.getBoard());
+					quoridor.getBoard().setSquare(square, row, col);
+				}
+			}
+
+			quoridor.getBoard().setPlayers(quoridor.getPlayers());
+			quoridor.getBoard().setTokens(quoridor.getTokens());
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading board", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readTokens(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+
+			for (int i = 0; i < 2; i++) {
+				String[] info = bIn.readLine().split(" ");
+				Color color = parseColor(info[0]);
+				int row = Integer.parseInt(info[1]);
+				int col = Integer.parseInt(info[2]);
+
+				quoridor.getToken(color).setPosition(row, col);
+
+				ArrayList<int[]> lastMovements = new ArrayList<>();
+				int numberMovements = Integer.parseInt(bIn.readLine());
+
+				for (int j = 0; j < numberMovements; j++) {
+					info = bIn.readLine().split(" ");
+					row = Integer.parseInt(info[0]);
+					col = Integer.parseInt(info[1]);
+					int[] position = {row, col};
+
+					lastMovements.add(position);
+				}
+
+				quoridor.getToken(color).setLastMovements(lastMovements);
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading tokens", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readBoardWalls(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			int numberWalls = Integer.parseInt(bIn.readLine());
+
+			for (int i = 0; i < numberWalls; i++) {
+				String[] info = bIn.readLine().split(" ");
+				String type = "domain." + info[0];
+				Color color = parseColor(info[1]);
+				int row = Integer.parseInt(info[2]);
+				int col = Integer.parseInt(info[3]);
+
+				Wall wall = createWall(type, color);
+				wall.addWallToBoard(row, col, info[4], quoridor.getBoard());
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading board walls", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static void readInfo(BufferedReader bIn, Quoridor quoridor) {
+		try {
+			bIn.readLine();
+			Color color = parseColor(bIn.readLine());
+			quoridor.getBoard().setPlayerPlaying(color);
+
+			bIn.readLine();
+			boolean gameOver = Boolean.parseBoolean(bIn.readLine());
+
+			if (!gameOver) {
+				quoridor.setGameOver(gameOver);
+			} else {
+				bIn.readLine();
+				if (quoridor.getWinner() != null) {
+					color = parseColor(bIn.readLine());
+					quoridor.setWinner(color);
+				}
+			}
+		} catch (Exception e) {
+			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading the information game", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+
+	private static Color parseColor(String colorString) {
+        colorString = colorString.replace("java.awt.Color[", "").replace("]", "");
+        String[] components = colorString.split(",");
+        int r = 0, g = 0, b = 0;
+
+        for (String component : components) {
+            String[] keyValue = component.split("=");
+            String key = keyValue[0].trim();
+            int value = Integer.parseInt(keyValue[1].trim());
+
+            switch (key) {
+                case "r":
+                    r = value;
+                    break;
+                case "g":
+                    g = value;
+                    break;
+                case "b":
+                    b = value;
+                    break;
+            }
+        }
+
+        return new Color(r, g, b);
+    }
+
+	/*
+	 * Creates an square by the given type in the given coordenates
+	 */
+	private static Square createSquare(String type, int row, int column, Board board) throws QuoriPOOBException {
+		Square square = null;
+
+		try {
+			Class<?> cls = Class.forName(type);
+			Constructor<?> constructor = cls.getDeclaredConstructor(int.class, int.class, Board.class);
+			constructor.setAccessible(true);
+			square = (Square) constructor.newInstance(row, column, board);
+		} catch (Exception e) {
+			throw new QuoriPOOBException(QuoriPOOBException.SQUARE_NOT_EXIST);
+		}
+
+		return square;
+	}
+
+	/*
+	 * Creates a wall for the player by the given type
+	 */
+	private static Wall createWall(String type, Color color) throws QuoriPOOBException {
+		Wall wall = null;
+
+		try {
+			Class<?> cls = Class.forName(type);
+			Constructor<?> constructor = cls.getDeclaredConstructor(Color.class);
+			constructor.setAccessible(true);
+			wall = (Wall) constructor.newInstance(color);
+		} catch (Exception e) {
+			throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+		}
+
+		return wall;
 	}
 }
