@@ -1,7 +1,6 @@
 package domain;
 
 import java.awt.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.reflect.Constructor;
@@ -15,7 +14,7 @@ import java.util.List;
  * @version 1.0
  * @since 25-05-2023
  */
-public abstract class Player implements Serializable {
+public abstract class Player {
 	protected String name;
 	protected Color color;
 	protected String time;

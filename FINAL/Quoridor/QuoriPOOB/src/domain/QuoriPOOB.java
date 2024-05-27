@@ -11,7 +11,7 @@ import java.io.*;
  * @version 1.0
  * @since 25-05-2024
  */
-public class QuoriPOOB implements Serializable {
+public class QuoriPOOB {
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private Quoridor quoridor;

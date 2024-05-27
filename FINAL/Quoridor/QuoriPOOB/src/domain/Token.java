@@ -1,10 +1,9 @@
 package domain;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Token implements Serializable {
+public class Token {
     private Board board;
     private Square square;
     private Color color;

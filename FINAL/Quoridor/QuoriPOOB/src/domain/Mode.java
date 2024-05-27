@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,7 @@ import java.util.List;
  * @version 1.0
  * @since 25-05-2023
  */
-public abstract class Mode implements Serializable {
+public abstract class Mode {
     protected List<TimeObserver> observers;
     protected Quoridor quoridor;
     protected int timeLimit;

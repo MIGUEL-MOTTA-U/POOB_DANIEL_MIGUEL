@@ -1,6 +1,5 @@
 package domain;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -17,7 +16,7 @@ import java.util.*;
  * @since 2024-05-25
  */
 
-public class Grafo implements Serializable {
+public class Grafo {
     private int numNodes;
     private int[][] matrix;
     private HashMap<Integer, Object> nodes;

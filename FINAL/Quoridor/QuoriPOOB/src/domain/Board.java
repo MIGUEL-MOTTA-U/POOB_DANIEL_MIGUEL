@@ -1,7 +1,6 @@
 package domain;
 
 import java.awt.Color;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
@@ -13,7 +12,7 @@ import java.util.*;
  * @version 1.0
  * @since 25-05-2024
  */
-public class Board implements Serializable {
+public class Board {
 	private Quoridor quoridor;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
