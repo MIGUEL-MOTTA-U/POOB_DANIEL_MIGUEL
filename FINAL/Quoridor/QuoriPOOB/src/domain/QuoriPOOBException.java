@@ -1,5 +1,12 @@
 package domain;
 
+/**
+ * The exceptions for the game
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class QuoriPOOBException extends Exception {
 	public static String TOKEN_OUT_OF_RANGE = "The token can not move out of the board";
 	public static String WALL_OUT_OF_RANGE = "The wall can not be placed out of the board";
@@ -34,14 +41,25 @@ public class QuoriPOOBException extends Exception {
 	public static String IMPPOSSIBLE_TO_REACH = "The given start point and finish point of the graph are imppossible to connect by a path.";
 	public static String GAME_OVER = "Time is up.";
 	public static String BLOCK_THE_WAY = "It cannot block the way of the token";
-		
 
+	/**
+	 * Constructor of QuoriPOOBException
+	 * 
+	 * @param message the error message
+	 */
 	public QuoriPOOBException(String message) {
 		super(message);
 	}
 
+	/**
+	 * The message when the game is over
+	 * 
+	 * @param winner the game winner
+	 * @return
+	 */
 	public static final String GAME_OVER(String winner) {
 		winner = (winner == null) ? "None" : winner;
-        return "GAME OVER the winner is: "+ winner;
-    }
+
+		return "GAME OVER the winner is: " + winner;
+	}
 }
