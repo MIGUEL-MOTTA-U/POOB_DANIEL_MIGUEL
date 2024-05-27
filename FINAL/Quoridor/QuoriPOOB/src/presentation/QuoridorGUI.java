@@ -186,6 +186,7 @@ public class QuoridorGUI extends JFrame {
     public void restart() {
         quoriPOOB.resetSingleton();
         quoriPOOB = QuoriPOOB.getQuoriPOOB();
+        quoriPOOB.setPersistence();
         playerTwo = false;
         startGUI = null;
         gameModeGUI = null;
@@ -305,7 +306,8 @@ public class QuoridorGUI extends JFrame {
     }
 
     private void optionOpen() {
-        JFileChooser chooser = new JFileChooser();
+        String currentDirectory = System.getProperty("user.dir");
+        JFileChooser chooser = new JFileChooser(currentDirectory);
         int returnVal = chooser.showOpenDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();
@@ -321,7 +323,8 @@ public class QuoridorGUI extends JFrame {
     }
 
     private void optionSave() {
-        JFileChooser chooser = new JFileChooser();
+        String currentDirectory = System.getProperty("user.dir");
+        JFileChooser chooser = new JFileChooser(currentDirectory);      
         int returnVal = chooser.showSaveDialog(this);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File file = chooser.getSelectedFile();

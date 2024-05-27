@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class BoardGUI extends JPanel implements TimeObserver, GameModeListener {
     private static final Color BACKGROUND = new Color(250, 250, 250);
-    private static final Color BACKGROUND_SPECIAL_SQUARES = new Color(240, 240, 240);
+    private static final Color BACKGROUND_SPECIAL_SQUARES = new Color(220, 220, 220);
 
     private QuoridorGUI quoridorGUI;
     private SquareGUI[][] squaresGUI;

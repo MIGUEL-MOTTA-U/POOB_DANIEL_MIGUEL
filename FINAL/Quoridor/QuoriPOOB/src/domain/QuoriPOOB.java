@@ -31,7 +31,6 @@ public class QuoriPOOB implements Serializable {
 
 	public void setQuoridor(Quoridor quoridor) {
 		this.quoridor = quoridor;
-		this.persistence = new Persistence();
 	}
 
 	public void setPersistence() {

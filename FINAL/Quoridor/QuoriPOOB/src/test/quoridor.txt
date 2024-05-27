@@ -1,19 +1,19 @@
 Two players:
-false
+true
 Mode:
-NormalMode
-0
+TimeTrial
+20
 Players:
-Beginner java.awt.Color[r=255,g=0,b=0] Machine
+Human java.awt.Color[r=0,g=102,b=153] Daniel
 NormalWalls: 4
-Temporary: 0
-LongWall: 0
-Allied: 0
-Human java.awt.Color[r=0,g=0,b=255] Daniel
-NormalWalls: 10
-Temporary: 0
-LongWall: 0
-Allied: 0
+Temporary: 2
+LongWall: 2
+Allied: 2
+Human java.awt.Color[r=51,g=102,b=0] Miguel
+NormalWalls: 3
+Temporary: 1
+LongWall: 2
+Allied: 2
 Board:
 9
 NormalSquare 0 0
@@ -26,7 +26,7 @@ NormalSquare 0 6
 NormalSquare 0 7
 NormalSquare 0 8
 NormalSquare 1 0
-NormalSquare 1 1
+Teleporter 1 1
 NormalSquare 1 2
 NormalSquare 1 3
 NormalSquare 1 4
@@ -56,7 +56,7 @@ NormalSquare 4 0
 NormalSquare 4 1
 NormalSquare 4 2
 NormalSquare 4 3
-NormalSquare 4 4
+DoubleTurn 4 4
 NormalSquare 4 5
 NormalSquare 4 6
 NormalSquare 4 7
@@ -86,7 +86,7 @@ NormalSquare 7 3
 NormalSquare 7 4
 NormalSquare 7 5
 NormalSquare 7 6
-NormalSquare 7 7
+Return 7 7
 NormalSquare 7 8
 NormalSquare 8 0
 NormalSquare 8 1
@@ -98,41 +98,33 @@ NormalSquare 8 6
 NormalSquare 8 7
 NormalSquare 8 8
 Tokens:
-java.awt.Color[r=255,g=0,b=0] 1 2
-7
-0 4
-0 3
+java.awt.Color[r=0,g=102,b=153] 1 2
+11
 0 4
 0 3
 0 2
 0 3
 0 2
-java.awt.Color[r=0,g=0,b=255] 0 1
-13
-8 4
-7 4
-6 4
-5 4
-5 3
-5 2
-4 2
-3 2
-3 3
-2 3
-1 3
-1 2
+0 1
 1 1
+2 1
+2 0
+1 0
+1 1
+java.awt.Color[r=51,g=102,b=0] 6 7
+7
+8 4
+8 5
+8 6
+8 6
+7 6
+6 6
+6 6
 Board walls:
-6
-NormalWall java.awt.Color[r=255,g=0,b=0] 2 6 LEFT
-NormalWall java.awt.Color[r=255,g=0,b=0] 0 5 LEFT
-NormalWall java.awt.Color[r=255,g=0,b=0] 3 6 UP
-NormalWall java.awt.Color[r=255,g=0,b=0] 4 3 LEFT
-NormalWall java.awt.Color[r=255,g=0,b=0] 6 0 DOWN
-NormalWall java.awt.Color[r=255,g=0,b=0] 3 0 LEFT
+2
+NormalWall java.awt.Color[r=51,g=102,b=0] 2 1 UP
+Temporary java.awt.Color[r=51,g=102,b=0] 0 1 RIGHT
 Player playing:
-java.awt.Color[r=0,g=0,b=255]
+java.awt.Color[r=51,g=102,b=0]
 Game over:
-true
-Winner
-java.awt.Color[r=0,g=0,b=255]
+false
