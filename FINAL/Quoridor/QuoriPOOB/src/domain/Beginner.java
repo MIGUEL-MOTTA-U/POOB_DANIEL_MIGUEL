@@ -4,14 +4,20 @@ import java.awt.Color;
 import java.util.*;
 
 /**
- * his class extends the Machine class and exhibits random behavior, 
+ * his class extends the Machine class and exhibits random behavior,
  * in which it will either place a wall or advance randomly
- *  
+ * 
  * @author Daniel Diaz and Miguel Motta
  * @version 1.0
  * @since 25-05-2024
  */
 public class Beginner extends Machine {
+    /**
+     * comstructor of Beginner
+     * 
+     * @param name  the player name
+     * @param color the player color
+     */
     public Beginner(String name, Color color) {
         super(name, color);
     }
@@ -29,7 +35,7 @@ public class Beginner extends Machine {
 
     @Override
     /**
-     * This method takes the order to add a wall to board 
+     * This method takes the order to add a wall to board
      * and gives the order to tha Advanced machine to play.
      * 
      * @throws QuoriPOOBException if it is not possible to for the machine.
@@ -89,8 +95,10 @@ public class Beginner extends Machine {
         int option;
         boolean moved = false;
         Random random = new Random();
+
         while (possibilities.size() > 0 && !moved) {
             option = random.nextInt(possibilities.size());
+
             try {
                 super.moveToken(possibilities.get(option));
                 moved = true;
@@ -98,6 +106,7 @@ public class Beginner extends Machine {
                 possibilities.remove(option);
             }
         }
+
         if (possibilities.size() == 0 && !moved)
             throw new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
     }

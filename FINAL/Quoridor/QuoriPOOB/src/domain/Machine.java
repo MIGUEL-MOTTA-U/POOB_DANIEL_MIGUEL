@@ -3,8 +3,10 @@ package domain;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+
 /**
- * This players's subclass has the same behaviors that a normal player, except it
+ * This players's subclass has the same behaviors that a normal player, except
+ * it
  * calculates a determinated strategy to play against the player
  * 
  * @author Daniel Diaz and Miguel Motta
@@ -15,7 +17,7 @@ public abstract class Machine extends Player {
     /**
      * Constructor of Machine
      * 
-     * @param name the name of the machine
+     * @param name  the name of the machine
      * @param color the color of the machine
      */
     public Machine(String name, Color color) {
@@ -29,6 +31,7 @@ public abstract class Machine extends Player {
         int lastAdded = board.getTokens().get(color).getLastMovements().size() - 1;
         int[] lastCoordenates = board.getTokens().get(color).getLastMovements().get(lastAdded);
         int row = lastCoordenates[0], column = lastCoordenates[1];
+
         return board.getMatrixBoard()[row][column];
     }
 
@@ -40,11 +43,12 @@ public abstract class Machine extends Player {
     }
 
     /*
-     * This method ensures that if a special case arises, 
+     * This method ensures that if a special case arises,
      * the machine can move in the appropriate direction
      */
     protected void alternativeMove() {
         String direction;
+
         try {
             direction = getDirection(lastSquare());
             super.moveToken(direction);
@@ -52,7 +56,7 @@ public abstract class Machine extends Player {
             ArrayList<String> directions = new ArrayList<>(Arrays.asList("UP", "DOWN", "RIGHT", "LEFT"));
             boolean moved = false;
             int i = 0;
-            
+
             while (!moved) {
                 try {
                     super.moveToken(directions.get(i));
