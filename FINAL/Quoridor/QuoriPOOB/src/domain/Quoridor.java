@@ -4,24 +4,22 @@ import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
 import java.awt.*;
-import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 /**
  * This class represents a Quoridor game.
- * It implements the Serializable interface.
  * 
  * @author Daniel Diaz and Miguel Motta
  * @version 1.0
  * @since 25-05-2023
  */
-public class Quoridor implements Serializable {
-	// private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+public class Quoridor {
+	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	private List<GameModeListener> listeners = new ArrayList<>();
 	private Board board;
 	private LinkedHashMap<Color, Player> players;
 	private LinkedHashMap<Color, Token> tokens;
-    private Mode mode;
+	private Mode mode;
 	private boolean onePlayer;
 	private boolean twoPlayers;
 	private boolean gameOver;
@@ -60,7 +58,7 @@ public class Quoridor implements Serializable {
 	/**
 	 * Assign the mode of play according to the given type
 	 * 
-	 * @param type of mode
+	 * @param type the tyoe mode
 	 * @throws QuoriPOOBException if it is not implemented the mode
 	 */
 	public void setMode(String type) throws QuoriPOOBException {
@@ -75,9 +73,9 @@ public class Quoridor implements Serializable {
 	}
 
 	/**
-	 * Assign the time to the game mode-
+	 * Assign the time to the game mode
 	 * 
-	 * @param time of the mode
+	 * @param time the time mode
 	 */
 	public void setTime(int time) {
 		this.mode.setTime(time);
@@ -216,7 +214,20 @@ public class Quoridor implements Serializable {
 		}
 	}
 
-	public void addWallsPlayer(Color color, int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
+	/**
+	 * Add the given number of walls to a player.
+	 * 
+	 * @param color     The color of the player
+	 * @param normal    The given number of normal Walls.
+	 * @param temporary The given number of temporary Walls.
+	 * @param longWall  The given number of long Walls.
+	 * @param allied    The given number of allied Walls.
+	 * @throws QuoriPOOBException Throws an Exception in case there is an attempt to
+	 *                            add the Walls and there are not players created or
+	 *                            a Board created, also if the parameters are wrong.
+	 */
+	public void addWallsPlayer(Color color, int normal, int temporary, int longWall, int allied)
+			throws QuoriPOOBException {
 		checkGameFinish();
 		if (modeUndefined())
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
@@ -282,12 +293,14 @@ public class Quoridor implements Serializable {
 	/**
 	 * Set the next player to play (or machine)
 	 * 
-	 * @throws QuoriPOOBException if it is not possible to assign next turn to the other player
+	 * @throws QuoriPOOBException if it is not possible to assign next turn to the
+	 *                            other player
 	 */
-    public void nextTurn() throws QuoriPOOBException {
-        this.board.nextTurn();
-		if (this.board.getPlayerPlaying() instanceof Machine) startPlayMachine();
-    }
+	public void nextTurn() throws QuoriPOOBException {
+		this.board.nextTurn();
+		if (this.board.getPlayerPlaying() instanceof Machine)
+			startPlayMachine();
+	}
 
 	/**
 	 * Start the turn of the player
@@ -298,7 +311,8 @@ public class Quoridor implements Serializable {
 
 	/**
 	 * Add the observer of the respective mode
-	 * @param observer of the game mode
+	 * 
+	 * @param observer the observer to add
 	 */
 	public void addObserverToMode(TimeObserver observer) {
 		this.mode.addObserver(observer);
@@ -307,7 +321,7 @@ public class Quoridor implements Serializable {
 	/**
 	 * Add the Observer of quoridor
 	 * 
-	 * @param observer of quoridor
+	 * @param observer the observer to add
 	 */
 	public void addObserver(GameModeListener observer) {
 		listeners.add(observer);
@@ -363,6 +377,7 @@ public class Quoridor implements Serializable {
 
 	/**
 	 * Returns the matrix of the board
+	 * 
 	 * @return Square matrix board
 	 */
 	public Square[][] getMatrixBoard() {
@@ -374,9 +389,9 @@ public class Quoridor implements Serializable {
 	 * 
 	 * @return true if is human vs human, false otherwise
 	 */
-    public boolean getTwoPlayers() {
-        return this.twoPlayers;
-    }
+	public boolean getTwoPlayers() {
+		return this.twoPlayers;
+	}
 
 	/**
 	 * Return the time mode of the game, true if is normal
@@ -388,14 +403,14 @@ public class Quoridor implements Serializable {
 		return !(this.mode instanceof NormalMode);
 	}
 
-    /**
-     * The winner player
-     * 
-     * @return the winner player
-     */
-    public Player getWinner() {
-        return winner;
-    }
+	/**
+	 * The winner player
+	 * 
+	 * @return the winner player
+	 */
+	public Player getWinner() {
+		return winner;
+	}
 
 	/**
 	 * The size of the board
@@ -424,25 +439,51 @@ public class Quoridor implements Serializable {
 		return this.gameOver;
 	}
 
+	/**
+	 * Return a token by the given color
+	 * 
+	 * @param color the token color
+	 * @return the token
+	 * @throws QuoriPOOBException
+	 */
 	public Token getToken(Color color) throws QuoriPOOBException {
-		if (!this.tokens.containsKey(color)) 
+		if (!this.tokens.containsKey(color))
 			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 
 		return this.tokens.get(color);
 	}
 
+	/**
+	 * Return a player by the given color
+	 * 
+	 * @param color the player color
+	 * @return the player
+	 * @throws QuoriPOOBException
+	 */
 	public Player getPlayer(Color color) throws QuoriPOOBException {
-		if (!this.players.containsKey(color)) 
+		if (!this.players.containsKey(color))
 			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 
 		return this.players.get(color);
 	}
 
+	/**
+	 * Return the last movements of the token
+	 * 
+	 * @param color the token color
+	 * @return the last positions of the token
+	 * @throws QuoriPOOBException
+	 */
 	public ArrayList<int[]> getTokenLastMovements(Color color) throws QuoriPOOBException {
 		Token token = getToken(color);
-        return token.getLastMovements();
-    }
+		return token.getLastMovements();
+	}
 
+	/**
+	 * Get the time of the game
+	 * 
+	 * @return the time mode
+	 */
 	public int[] getTime() {
 		return this.mode.getTime();
 	}
@@ -456,22 +497,48 @@ public class Quoridor implements Serializable {
 		return board;
 	}
 
+	/**
+	 * Return the game mode
+	 * 
+	 * @return the game mode
+	 */
 	public Mode getMode() {
 		return this.mode;
 	}
 
+	/**
+	 * Return the game players
+	 * 
+	 * @return the game players
+	 */
 	public LinkedHashMap<Color, Player> getPlayers() {
 		return this.players;
 	}
 
+	/**
+	 * Return the game tokens
+	 * 
+	 * @return the game tokens
+	 */
 	public LinkedHashMap<Color, Token> getTokens() {
 		return this.tokens;
 	}
 
+	/**
+	 * Set if the game is over
+	 * 
+	 * @param bool TRUE, if the game is over. FALSE, otherwise
+	 */
 	public void setGameOver(boolean bool) {
 		this.gameOver = bool;
 	}
 
+	/**
+	 * Set the winner of the game
+	 * 
+	 * @param color the color of the game winner
+	 * @throws QuoriPOOBException
+	 */
 	public void setWinner(Color color) throws QuoriPOOBException {
 		Player player = getPlayer(color);
 		this.winner = player;
@@ -546,14 +613,13 @@ public class Quoridor implements Serializable {
 		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
 	}
 
-	/**
-	 * This method starts the action of the machine to play with a delay of 2 seconds
+	/*
+	 * This method starts the action of the machine to play with a delay of 1 second
 	 */
-	public void startPlayMachine() {
-		// executorService.schedule(this::playMachine, 1, TimeUnit.SECONDS);
-		playMachine();
+	private void startPlayMachine() {
+		executorService.schedule(this::playMachine, 1, TimeUnit.SECONDS);
 	}
-	
+
 	/*
 	 * The order for the machine to play
 	 */
@@ -567,7 +633,7 @@ public class Quoridor implements Serializable {
 			} else {
 				player.moveToken(null);
 			}
-			
+
 			if (player.checkWin())
 				finishGame(player);
 			nextTurn();
@@ -599,4 +665,3 @@ public class Quoridor implements Serializable {
 		}
 	}
 }
-
