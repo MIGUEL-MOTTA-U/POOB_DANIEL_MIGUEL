@@ -65,6 +65,7 @@ public abstract class Wall implements Serializable {
 
 		this.board.delWallFromBoard(this);
 		delWallFromBoardMatrix();
+
 		this.initialColumn = 0;
 		this.initialRow = 0;
 		this.finalRow = 0;
@@ -83,18 +84,38 @@ public abstract class Wall implements Serializable {
 		return true;
 	}
 
+	/**
+	 * Return the wall color
+	 * 
+	 * @return the wall color
+	 */
 	public Color getColor() {
 		return this.color;
 	}
 
+	/**
+	 * Return the inicial row of the wall
+	 * 
+	 * @return the inicial row of the wall
+	 */
 	public int getInicialRow() {
 		return this.initialRow;
 	}
 
+	/**
+	 * Return the inicial column of the wall
+	 * 
+	 * @return the inicial column of the wall
+	 */
 	public int getInicialColumn() {
 		return this.initialColumn;
 	}
 
+	/**
+	 * Return the side of the square where the wall is located
+	 * 
+	 * @return the side where the wall is located
+	 */
 	public String getSquareSide() {
 		return this.squareSide;
 	}
@@ -170,7 +191,8 @@ public abstract class Wall implements Serializable {
 	/*
 	 * Check if the wall can be placed in the position desired by the player
 	 */
-	protected void validate(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
+	protected void validate(int initialRow, int initialColumn, String squareSide, Board board)
+			throws QuoriPOOBException {
 		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0
 				|| initialColumn < 0)
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
@@ -180,7 +202,7 @@ public abstract class Wall implements Serializable {
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (intersectWall(initialRow, initialColumn,squareSide, board))
+		if (intersectWall(initialRow, initialColumn, squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 	}
 
@@ -188,35 +210,47 @@ public abstract class Wall implements Serializable {
 	 * Check the wall does not intersect other wall
 	 */
 	protected boolean intersectWall(int initialRow, int initialColumn, String squareSide, Board board)
-	throws QuoriPOOBException{
+			throws QuoriPOOBException {
 		boolean res = false;
-		int finalRow = finalRow(initialRow,squareSide);
+		int finalRow = finalRow(initialRow, squareSide);
 		int finalColumn = finalColumn(initialColumn, squareSide);
-		for(int i = initialRow; i <= finalRow;i++){
-			for(int j = initialColumn; j<= finalColumn;j++){
+
+		for (int i = initialRow; i <= finalRow; i++) {
+			for (int j = initialColumn; j <= finalColumn; j++) {
 				switch (squareSide.toUpperCase()) {
 					case "UP":
-						if(initialRow!=0&&j!=finalColumn){
-							res =board.getMatrixBoard()[i][j].getWallRight()!=null&& board.getMatrixBoard()[i][j].getWallRight().equals(board.getMatrixBoard()[i-1][j].getWallRight());
-						}break;
+						if (initialRow != 0 && j != finalColumn) {
+							res = board.getMatrixBoard()[i][j].getWallRight() != null && board.getMatrixBoard()[i][j]
+									.getWallRight().equals(board.getMatrixBoard()[i - 1][j].getWallRight());
+						}
+						break;
 					case "DOWN":
-						if(initialRow!=board.getSize()-1&&j!=finalColumn){
-							res= board.getMatrixBoard()[i][j].getWallRight()!=null&&board.getMatrixBoard()[i][j].getWallRight().equals(board.getMatrixBoard()[i+1][j].getWallRight());
-						}break;
+						if (initialRow != board.getSize() - 1 && j != finalColumn) {
+							res = board.getMatrixBoard()[i][j].getWallRight() != null && board.getMatrixBoard()[i][j]
+									.getWallRight().equals(board.getMatrixBoard()[i + 1][j].getWallRight());
+						}
+						break;
 					case "LEFT":
-						if(initialColumn!=0&&i!=finalRow){
-							res = board.getMatrixBoard()[i][j].getWallDown()!=null&&board.getMatrixBoard()[i][j].getWallDown().equals(board.getMatrixBoard()[i][j-1].getWallDown());
-						}break;
+						if (initialColumn != 0 && i != finalRow) {
+							res = board.getMatrixBoard()[i][j].getWallDown() != null && board.getMatrixBoard()[i][j]
+									.getWallDown().equals(board.getMatrixBoard()[i][j - 1].getWallDown());
+						}
+						break;
 					case "RIGHT":
-						if(initialColumn!=board.getSize()-1&&i!=finalRow){
-							res= board.getMatrixBoard()[i][j].getWallDown()!=null&&board.getMatrixBoard()[i][j].getWallDown().equals(board.getMatrixBoard()[i][j+1].getWallDown());
-						}break;
+						if (initialColumn != board.getSize() - 1 && i != finalRow) {
+							res = board.getMatrixBoard()[i][j].getWallDown() != null && board.getMatrixBoard()[i][j]
+									.getWallDown().equals(board.getMatrixBoard()[i][j + 1].getWallDown());
+						}
+						break;
 					default:
-					throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+						throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 				}
-				if(res) return true;
+
+				if (res)
+					return true;
 			}
 		}
+		
 		return false;
 	}
 
@@ -289,7 +323,7 @@ public abstract class Wall implements Serializable {
 	protected void setWallInNeighborSquares() throws QuoriPOOBException {
 		Square initialSquare;
 		Square finalSquare;
-		
+
 		switch (this.squareSide.toUpperCase()) {
 			case "UP":
 				if (this.initialRow > 0) {

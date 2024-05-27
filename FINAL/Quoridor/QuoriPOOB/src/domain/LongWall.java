@@ -1,6 +1,7 @@
 package domain;
 
 import java.awt.Color;
+
 /**
  * This wall's subclass has the same behaviors that a normal wall, except it
  * has a length of 3 squares.
@@ -10,20 +11,20 @@ import java.awt.Color;
  * @since 25-05-2023
  */
 public class LongWall extends Wall {
-    private int middleRow;
-    private int middleColumn;
+	private int middleRow;
+	private int middleColumn;
 
 	/**
 	 * Constructor of Long Wall
 	 * 
 	 * @param color the color of the wall
 	 */
-    public LongWall(Color color) {
-        super(color);
-    }
+	public LongWall(Color color) {
+		super(color);
+	}
 
-    @Override
-    /**
+	@Override
+	/**
 	 * Add the wall to the board
 	 * 
 	 * @param initialRow    the row where the wall begins
@@ -35,6 +36,7 @@ public class LongWall extends Wall {
 	public void addWallToBoard(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		validate(initialRow, initialColumn, squareSide, board);
+
 		this.initialRow = initialRow;
 		this.initialColumn = initialColumn;
 		this.middleRow = middleRow(initialRow, squareSide);
@@ -43,18 +45,21 @@ public class LongWall extends Wall {
 		this.finalColumn = finalColumn(initialColumn, squareSide);
 		this.squareSide = squareSide;
 		this.board = board;
+
 		setWallInSquare(initialRow, initialColumn);
-        setWallInSquare(middleRow, middleColumn);
+		setWallInSquare(middleRow, middleColumn);
 		setWallInSquare(finalRow, finalColumn);
 		setWallInNeighborSquares();
+
 		board.addWallToBoard(this);
 	}
 
-    @Override
-    /*
+	@Override
+	/*
 	 * Check if the wall can be placed in the position desired by the player
 	 */
-	protected void validate(int initialRow, int initialColumn, String squareSide, Board board) throws QuoriPOOBException {
+	protected void validate(int initialRow, int initialColumn, String squareSide, Board board)
+			throws QuoriPOOBException {
 		if (initialRow > board.getSize() - 2 || initialColumn > board.getSize() - 2 || initialRow < 0
 				|| initialColumn < 0)
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
@@ -66,12 +71,12 @@ public class LongWall extends Wall {
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (intersectWall(initialRow, initialColumn,squareSide, board))
+		if (intersectWall(initialRow, initialColumn, squareSide, board))
 			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
 	}
 
-    @Override
-    /*
+	@Override
+	/*
 	 * Calculate the final row of the wall
 	 */
 	protected int finalRow(int initialRow, String squareSide) throws QuoriPOOBException {
@@ -89,7 +94,7 @@ public class LongWall extends Wall {
 		}
 	}
 
-    @Override
+	@Override
 	/*
 	 * Calculate the final column of the wall
 	 */
@@ -108,8 +113,8 @@ public class LongWall extends Wall {
 		}
 	}
 
-    @Override
-    /*
+	@Override
+	/*
 	 * Check if the wall is in the range of the board
 	 */
 	protected boolean outRange(int initialRow, int initialColumn, String squareSide, Board board)
@@ -128,24 +133,24 @@ public class LongWall extends Wall {
 		}
 	}
 
-    @Override
-    /*
+	@Override
+	/*
 	 * Set the wall in the neighbor walls
 	 */
 	protected void setWallInNeighborSquares() throws QuoriPOOBException {
 		Square initialSquare;
-        Square middleSquare;
+		Square middleSquare;
 		Square finalSquare;
-		
+
 		switch (this.squareSide.toUpperCase()) {
 			case "UP":
 				if (this.initialRow > 0) {
 					initialSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn);
 					middleSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn + 1);
-                    finalSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn + 2);
+					finalSquare = this.board.getSquare(this.initialRow - 1, this.initialColumn + 2);
 					initialSquare.addWallDown(this);
 					middleSquare.addWallDown(this);
-                    finalSquare.addWallDown(this);
+					finalSquare.addWallDown(this);
 				}
 				break;
 			case "LEFT":
@@ -165,7 +170,7 @@ public class LongWall extends Wall {
 					finalSquare = this.board.getSquare(this.initialRow + 1, this.initialColumn + 2);
 					initialSquare.addWallUp(this);
 					middleSquare.addWallUp(this);
-                    finalSquare.addWallUp(this);
+					finalSquare.addWallUp(this);
 				}
 				break;
 			case "RIGHT":
@@ -183,7 +188,7 @@ public class LongWall extends Wall {
 		}
 	}
 
-    /*
+	/*
 	 * Calculate the final row of the wall
 	 */
 	private int middleRow(int initialRow, String squareSide) throws QuoriPOOBException {
@@ -218,10 +223,11 @@ public class LongWall extends Wall {
 				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
 		}
 	}
+
 	/*
 	 * There is not a special behaviour in Long Wall
 	 */
-    @Override
-    public void act() {
-    }
+	@Override
+	public void act() {
+	}
 }

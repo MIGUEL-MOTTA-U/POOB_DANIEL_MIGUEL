@@ -12,20 +12,20 @@ import java.awt.Color;
  */
 public class Allied extends Wall {
     /**
-	 * Constructor for objects of class TemporaryWall
-	 * 
-	 * @param color the color of the wall
-	 */
+     * Constructor for objects of class TemporaryWall
+     * 
+     * @param color the color of the wall
+     */
     public Allied(Color color) {
         super(color);
     }
 
     /**
-	 * Check if the wall is blocking the way to the token
-	 * 
-	 * @param token the token to pass
-	 * @return TRUE, if the token and wall are of the same color. FALSE, otherwise
-	 */
+     * Check if the wall is blocking the way to the token
+     * 
+     * @param token the token to pass
+     * @return TRUE, if the token and wall are of the same color. FALSE, otherwise
+     */
     @Override
     public boolean blockToken(Color token) {
         return (token.equals(this.color)) ? false : true;
