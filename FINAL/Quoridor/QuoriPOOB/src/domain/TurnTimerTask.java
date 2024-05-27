@@ -49,6 +49,7 @@ public class TurnTimerTask extends TimerTask implements Serializable {
             }
         } catch (QuoriPOOBException e) {
             JOptionPane.showConfirmDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Log.record(e);
         }
     }
 }

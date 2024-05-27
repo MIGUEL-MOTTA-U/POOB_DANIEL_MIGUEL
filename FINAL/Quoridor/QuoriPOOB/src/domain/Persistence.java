@@ -47,6 +47,7 @@ public class Persistence {
             pw.close();
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error saving the game", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -175,6 +176,7 @@ public class Persistence {
             bIn.close();
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error opening the game", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 
 		return quoridor;
@@ -194,6 +196,7 @@ public class Persistence {
 			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading number players", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -218,6 +221,7 @@ public class Persistence {
 			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading mode", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -249,6 +253,7 @@ public class Persistence {
 			
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading players", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -277,6 +282,7 @@ public class Persistence {
 			quoridor.getBoard().setTokens(quoridor.getTokens());
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading board", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -311,6 +317,7 @@ public class Persistence {
 			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading tokens", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -334,6 +341,7 @@ public class Persistence {
 			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading board walls", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 
@@ -360,6 +368,7 @@ public class Persistence {
 			}
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error loading the information game", JOptionPane.ERROR_MESSAGE);
+			Log.record(e);
 		}
 	}
 

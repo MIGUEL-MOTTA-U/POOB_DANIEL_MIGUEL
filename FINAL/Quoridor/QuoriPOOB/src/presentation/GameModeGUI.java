@@ -1,5 +1,5 @@
 package presentation;
-
+import domain.Log;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -169,6 +169,7 @@ public class GameModeGUI extends JPanel {
                     quoridorGUI.showPlayerInfoGUI();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    Log.record(e);
                 }
             }
         });
@@ -180,6 +181,7 @@ public class GameModeGUI extends JPanel {
                     quoridorGUI.showPlayerInfoGUI();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    Log.record(e);
                 }
             }
         });
@@ -191,6 +193,7 @@ public class GameModeGUI extends JPanel {
                     quoridorGUI.showPlayerInfoGUI();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    Log.record(e);
                 }
             }
         });

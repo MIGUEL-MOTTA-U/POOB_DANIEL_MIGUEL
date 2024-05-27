@@ -1,5 +1,6 @@
 package presentation;
 
+import domain.Log;
 import domain.QuoriPOOBException;
 
 import java.awt.*;
@@ -258,6 +259,7 @@ public class SquareGUI extends JPanel {
         } catch (QuoriPOOBException e) {
             wallAdded = false;
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            Log.record(e);
         }
 
         return wallAdded;
