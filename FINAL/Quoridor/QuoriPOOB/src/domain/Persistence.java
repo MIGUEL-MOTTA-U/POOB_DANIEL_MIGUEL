@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 public class Persistence {
 	Quoridor quoridor;
 
+	/**
+     * Constructor of Persistence
+     */
 	public Persistence() {
 		this.quoridor = QuoriPOOB.getQuoriPOOB().getQuoridor();
 	}
@@ -41,6 +44,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game mode information to the file
+	 */
 	private void writeMode(PrintWriter pw) {
 		Mode mode = quoridor.getMode();
 
@@ -53,6 +59,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game players information to the file
+	 */
 	private void writePlayers(PrintWriter pw) {
 		LinkedHashMap<Color, Player> players = quoridor.getPlayers();
 		
@@ -67,6 +76,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game board information to the file
+	 */
 	private void writeBoard(PrintWriter pw) {
 		Board board = quoridor.getBoard();
 		Square[][] matrixBoard = board.getMatrixBoard();
@@ -82,6 +94,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game tokens information to the file
+	 */
 	private void writeTokens(PrintWriter pw) {
 		LinkedHashMap<Color, Token> tokens = quoridor.getTokens();
 
@@ -95,6 +110,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game walls board information to the file
+	 */
 	private void writeBoardWalls(PrintWriter pw) {
 		ArrayList<Wall> walls = quoridor.getBoard().getWalls();
 
@@ -110,6 +128,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Write the game extra information to the file
+	 */
 	private void writeInfo(PrintWriter pw) {
 		pw.println("Player playing:");
 		pw.println(quoridor.getCurrentPlayer().getColor());
@@ -153,6 +174,9 @@ public class Persistence {
 		return quoridor;
 	}
 
+	/*
+	 * Create the game number players
+	 */
 	private static void readNumberPlayers(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -167,6 +191,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game mode
+	 */
 	private static void readMode(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -188,6 +215,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game players
+	 */
 	private static void readPlayers(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -216,6 +246,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game board
+	 */
 	private static void readBoard(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -241,6 +274,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game tokens
+	 */
 	private static void readTokens(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -272,6 +308,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game walls board
+	 */
 	private static void readBoardWalls(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -292,6 +331,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Create the game extra information
+	 */
 	private static void readInfo(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
@@ -315,6 +357,9 @@ public class Persistence {
 		}
 	}
 
+	/*
+	 * Convert a string into a color
+	 */
 	private static Color parseColor(String colorString) {
         colorString = colorString.replace("java.awt.Color[", "").replace("]", "");
         String[] components = colorString.split(",");
