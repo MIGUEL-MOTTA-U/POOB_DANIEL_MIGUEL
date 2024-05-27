@@ -1260,7 +1260,7 @@ public class QuoriPOOBTest {
         q.moveToken("DOWN");
         
 
-        File copy = new File("./quoridor.txt");
+        File copy = new File("./test/quoridor.txt");
         
         q.saveFile(copy);
         q.resetSingleton();

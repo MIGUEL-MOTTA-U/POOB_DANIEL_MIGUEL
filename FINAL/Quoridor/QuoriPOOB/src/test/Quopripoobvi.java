@@ -178,33 +178,33 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE);
         q.createBoard(4, noSpecialSquares);
 
         // Token Daniel
-        assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
         q.moveToken("LEFT");
-        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
+
+        // Token Miguel
+        assertTrue(q.getBoard().getSquare(0, 1).getToken() != null);
+        q.moveToken("RIGHT");
+        assertTrue(q.getBoard().getSquare(0, 2).getToken() != null);
         assertTrue(q.getBoard().getSquare(0, 1).getToken() == null);
 
-        // Token Miguel
-        assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
-        q.moveToken("RIGHT");
-        assertTrue(q.getBoard().getSquare(3, 2).getToken() != null);
-        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
-
         // Token Daniel
-        assertTrue(q.getBoard().getSquare(0, 0).getToken() != null);
-        q.moveToken("DOWN");
-        assertTrue(q.getBoard().getSquare(1, 0).getToken() != null);
-        assertTrue(q.getBoard().getSquare(0, 0).getToken() == null);
+        assertTrue(q.getBoard().getSquare(3, 0).getToken() != null);
+        q.moveToken("UP");
+        assertTrue(q.getBoard().getSquare(2, 0).getToken() != null);
+        assertTrue(q.getBoard().getSquare(3, 0).getToken() == null);
 
         // Token Miguel
-        assertTrue(q.getBoard().getSquare(3, 2).getToken() != null);
-        q.moveToken("UP");
-        assertTrue(q.getBoard().getSquare(2, 2).getToken() != null);
-        assertTrue(q.getBoard().getSquare(3, 1).getToken() == null);
+        assertTrue(q.getBoard().getSquare(0, 2).getToken() != null);
+        q.moveToken("DOWN");
+        assertTrue(q.getBoard().getSquare(1, 2).getToken() != null);
+        assertTrue(q.getBoard().getSquare(0, 2).getToken() == null);
     }
 
     @Test
@@ -215,15 +215,13 @@ public class Quopripoobvi {
         q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(4, noSpecialSquares);
-        q.moveToken("LEFT");
         try {
             q.moveToken("DOWN");
+            fail("SHOULD NOT MOVE OUT OF THE BOARD");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
         }
-        // Check the position of the Token is the same
         assertTrue(q.getBoard().getSquare(3, 1).getToken() != null);
-        // Reset QuoriPOOB
         q.resetSingleton();
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
@@ -235,6 +233,7 @@ public class Quopripoobvi {
         q.moveToken("LEFT");
         try {
             q.moveToken("LEFT");
+            fail("SHOULD NOT MOVE OUT OF THE BOARD");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.TOKEN_OUT_OF_RANGE, e.getMessage());
         }
@@ -341,8 +340,9 @@ public class Quopripoobvi {
         q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
-        q.moveToken("DOWN");
         q.addWallToBoard("NormalWall", 1, 2, "DOWN");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
             q.moveToken("DOWN");
             fail("SHOULD NOT JUMP A NONE ALLIED BARRIER");
@@ -362,9 +362,9 @@ public class Quopripoobvi {
         q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 2, 0, 1);
-        q.addWallToBoard("Allied", 1, 2, "UP");
-        q.moveToken("UP");
+        q.addWallToBoard("Allied", 2, 2, "UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         assertEquals(danielToken, q.getBoard().getMatrixBoard()[1][2].getToken());
     }
 
@@ -411,8 +411,8 @@ public class Quopripoobvi {
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
         q.addWallToBoard("Temporary", 3, 2, "RIGHT");
-        q.moveToken("DOWN");
         q.moveToken("UP");
+        q.moveToken("DOWN");
         q.moveToken("UP");
 
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight() != null);
@@ -442,8 +442,8 @@ public class Quopripoobvi {
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
-        q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         q.moveToken("DOWN");
 
         assertTrue(q.getBoard().getMatrixBoard()[0][2].getWallRight() != null);
@@ -468,17 +468,17 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
         q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE);
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
-        q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
+        q.moveToken("UP");
         try {
-            q.moveToken("UP");
+            q.moveToken("DOWN");
             fail("SHOULD NOT BE ABLE TO PLAY AFTER IT IS OVER");
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
@@ -503,7 +503,7 @@ public class Quopripoobvi {
         } catch (QuoriPOOBException e) {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
-        assertArrayEquals(new String[] { "Daniel", "Miguel" }, q.getNames());
+        assertArrayEquals(new String[] { "Miguel", "Daniel" }, q.getNames());
         assertEquals(Color.ORANGE, q.getColor("Miguel"));
         assertEquals(Color.BLUE, q.getColor("Daniel"));
     }
@@ -540,10 +540,10 @@ public class Quopripoobvi {
         squares.put("domain.Teleporter", teleporterArray);
         q.createBoard(3, squares);
         q.addWalls(3, 1, 0, 0);
-        q.moveToken("DOWN");
         q.moveToken("LEFT");
+        q.moveToken("DOWN");
         q.addWallToBoard("NormalWall", 0, 0, "LEFT");
-        
+        q.addWallToBoard("NormalWall", 0, 2, "RIGHT");
         try{
             q.moveToken("UPRIGHT");
             fail("SHOLD JUMP AND WIN");
@@ -563,8 +563,9 @@ public class Quopripoobvi {
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
-        q.moveToken("DOWN");
         q.addWallToBoard("NormalWall", 1, 2, "DOWN");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
         try{
             q.moveToken("DOWN");
             fail();
@@ -582,8 +583,9 @@ public class Quopripoobvi {
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, noSpecialSquares);
         q.addWalls(0, 0, 6, 0);
-        q.moveToken("DOWN");
         q.addWallToBoard("LongWall", 1, 2, "DOWN");
+        q.moveToken("DOWN");
+        q.moveToken("UP");
         try{
             q.moveToken("DOWN");
             fail("SHOULD NOT LET PASS BY A LONG WALL");
@@ -627,13 +629,13 @@ public class Quopripoobvi {
         q.createPlayerHuman("Miguel", Color.BLACK);
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
-        q.moveToken("DOWN");
         q.moveToken("UP");
         q.moveToken("DOWN");
         q.addWallToBoard("NormalWall", 3, 2, "DOWN");
+        q.moveToken("DOWN");
         try{
             q.moveToken("DOWN");
-            fail("SHOULD NOT LET JUMP DIAGONAL IF NOT ON TELEPORTER");
+            fail("SHOULD NOT JUMP A TOKEN OVER OTHER TOKEN IF IT IS NOT POSSIBLE");
         } catch(QuoriPOOBException e ){
             assertEquals(QuoriPOOBException.FORWARD_WALL, e.getMessage());
         }
