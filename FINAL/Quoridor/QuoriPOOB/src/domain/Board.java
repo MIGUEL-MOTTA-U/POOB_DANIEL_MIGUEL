@@ -542,6 +542,10 @@ public class Board implements Serializable {
 		return res;
 	}
 
+	public ArrayList<Wall> getWalls() {
+		return this.walls;
+	}
+
 	/**
 	 * Returns the direction to put the square if it is possible
 	 * 

@@ -87,6 +87,18 @@ public abstract class Wall implements Serializable {
 		return this.color;
 	}
 
+	public int getInicialRow() {
+		return this.initialRow;
+	}
+
+	public int getInicialColumn() {
+		return this.initialColumn;
+	}
+
+	public String getSquareSide() {
+		return this.squareSide;
+	}
+
 	/**
 	 * Its the behavior of the wall
 	 * 

@@ -36,6 +36,13 @@ public abstract class Mode implements Serializable {
         this.timeLimit = time;
     }
 
+    public int[] getTime() {
+        int[] time = new int[1];
+        time[0] = this.timeLimit;
+
+        return time;
+    }
+
     /**
      * Adds a TimeObserver to the list of observers.
      *

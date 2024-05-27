@@ -22,6 +22,16 @@ public class Timed extends Mode {
     }
 
     @Override
+    public int[] getTime() {
+        int[] time = new int[3];
+        time[0] = this.timeLimit;
+        time[1] = this.timePlayer1;
+        time[2] = this.timePlayer2;
+
+        return time;
+    }
+
+    @Override
     public void startTurn() {
         setPlayerPlaying();
         Timer timer = new Timer();

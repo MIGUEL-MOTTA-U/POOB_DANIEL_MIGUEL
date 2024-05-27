@@ -5,7 +5,6 @@ import java.awt.*;
 import java.io.*;
 
 public class QuoriPOOB implements Serializable {
-	private static final long serialVersionUID = 1L;
 	private static QuoriPOOB quoriPOOBSingleton;
 
 	private Quoridor quoridor;
@@ -25,14 +24,9 @@ public class QuoriPOOB implements Serializable {
 		quoriPOOBSingleton = quoriPOOB;
 	}
 
-	private Object readResolve() {
-        quoriPOOBSingleton = this;
-        return quoriPOOBSingleton;
-    }
-
-    private Object writeReplace() {
-        return this;
-    }
+	public Quoridor getQuoridor() {
+		return this.quoridor;
+	}
 
 	/**
 	 * Set the game mode to one player

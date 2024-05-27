@@ -399,7 +399,20 @@ public class Quoridor implements Serializable {
 		return board.getPlayerPlaying();
 	}
 
-    /**
+	/**
+	 * Return true if the game is over, false otherwise
+	 * 
+	 * @return game is over
+	 */
+	public boolean getGameOver() {
+		return this.gameOver;
+	}
+
+	public int[] getTime() {
+		return this.mode.getTime();
+	}
+
+	/**
 	 * Returns the board
 	 * 
 	 * @return the board of QuoriPOOB
@@ -408,13 +421,16 @@ public class Quoridor implements Serializable {
 		return board;
 	}
 
-	/**
-	 * Return true if the game is over, false otherwise
-	 * 
-	 * @return game is over
-	 */
-	public boolean getGameOver() {
-		return this.gameOver;
+	public Mode getMode() {
+		return this.mode;
+	}
+
+	public LinkedHashMap<Color, Player> getPlayers() {
+		return this.players;
+	}
+
+	public LinkedHashMap<Color, Token> getTokens() {
+		return this.tokens;
 	}
 
 	/*
