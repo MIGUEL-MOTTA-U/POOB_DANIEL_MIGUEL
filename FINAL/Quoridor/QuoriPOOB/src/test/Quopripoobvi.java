@@ -394,8 +394,8 @@ public class Quopripoobvi {
         miguelWalls.put("Allied", 0);
         playersNumberWalls.put(Color.ORANGE, miguelWalls);
 
-        q.moveToken("DOWN");
         q.addWallToBoard("Temporary", 3, 3, "UP");
+        q.moveToken("DOWN");
         assertEquals(playersNumberWalls, q.numberWalls());
 
     }
