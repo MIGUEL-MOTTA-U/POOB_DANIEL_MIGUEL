@@ -2,19 +2,22 @@ package domain;
 
 import java.io.Serializable;
 import java.util.*;
+
 /**
  * The Grafo class represents an undirected weighted graph.
- * It provides methods for adding nodes and edges, checking connectivity between nodes,
+ * It provides methods for adding nodes and edges, checking connectivity between
+ * nodes,
  * and finding the shortest path between two nodes using Dijkstra's algorithm.
  *
- * This class implements the Serializable interface, allowing instances to be serialized and deserialized.
+ * This class implements the Serializable interface, allowing instances to be
+ * serialized and deserialized.
  *
  * @author Daniel Diaz and Miguel Motta
  * @version 1.0
  * @since 2024-05-25
  */
 
-public class Grafo implements Serializable{
+public class Grafo implements Serializable {
     private int numNodes;
     private int[][] matrix;
     private HashMap<Integer, Object> nodes;
@@ -62,24 +65,13 @@ public class Grafo implements Serializable{
     public boolean isConnected(int nodoA, int nodoB) {
         boolean[] visited = new boolean[numNodes];
         dfs(nodoA, visited);
+
         return visited[nodoB];
-    }
-    
-    /*
-     * Performs a depth-first search (DFS) traversal starting from the specified node.
-     *
-     */
-    private void dfs(int node, boolean[] visited) {
-        visited[node] = true;
-        for (int i = 0; i < numNodes; i++) {
-            if (!visited[i] && matrix[node][i] != 0) {
-                dfs(i, visited);
-            }
-        }
     }
 
     /**
-     * Finds the shortest path between two nodes in the graph using Dijkstra's algorithm.
+     * Finds the shortest path between two nodes in the graph using Dijkstra's
+     * algorithm.
      *
      * @param nodoA the id of the starting node
      * @param nodoB the id of the destination node
@@ -90,44 +82,55 @@ public class Grafo implements Serializable{
         if (!isConnected(nodoA, nodoB)) {
             throw new QuoriPOOBException(QuoriPOOBException.IMPPOSSIBLE_TO_REACH);
         }
+
         int[] distances = new int[numNodes];
         boolean[] visited = new boolean[numNodes];
         int[] previos = new int[numNodes];
         Arrays.fill(distances, Integer.MAX_VALUE);
         Arrays.fill(previos, -1);
         distances[nodoA] = 0;
+
         for (int i = 0; i < numNodes; i++) {
             int nodeMin = minDistancia(distances, visited);
+
             if (nodeMin == -1) {
                 break; // Todos los nodos han sido visitados
             }
+
             visited[nodeMin] = true;
+
             for (int j = 0; j < numNodes; j++) {
-                if (!visited[j] && matrix[nodeMin][j] != 0 && distances[nodeMin] != Integer.MAX_VALUE && distances[nodeMin] + matrix[nodeMin][j] < distances[j]) {
+                if (!visited[j] && matrix[nodeMin][j] != 0 && distances[nodeMin] != Integer.MAX_VALUE
+                        && distances[nodeMin] + matrix[nodeMin][j] < distances[j]) {
                     distances[j] = distances[nodeMin] + matrix[nodeMin][j];
                     previos[j] = nodeMin;
                 }
             }
         }
+
         List<Integer> way = new ArrayList<>();
         int currentNode = nodoB;
+
         while (currentNode != -1) {
             way.add(currentNode);
             currentNode = previos[currentNode];
         }
+
         Collections.reverse(way);
         return way;
     }
-    
+
     private int minDistancia(int[] distances, boolean[] visited) {
         int minVal = Integer.MAX_VALUE;
         int minIndex = -1;
+
         for (int i = 0; i < numNodes; i++) {
             if (!visited[i] && distances[i] <= minVal) {
                 minVal = distances[i];
                 minIndex = i;
             }
         }
+
         return minIndex;
     }
 
@@ -138,5 +141,20 @@ public class Grafo implements Serializable{
      */
     public HashMap<Integer, Object> getNodes() {
         return nodes;
+    }
+
+    /*
+     * Performs a depth-first search (DFS) traversal starting from the specified
+     * node.
+     *
+     */
+    private void dfs(int node, boolean[] visited) {
+        visited[node] = true;
+
+        for (int i = 0; i < numNodes; i++) {
+            if (!visited[i] && matrix[node][i] != 0) {
+                dfs(i, visited);
+            }
+        }
     }
 }
