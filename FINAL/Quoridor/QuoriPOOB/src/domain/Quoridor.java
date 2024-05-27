@@ -97,12 +97,15 @@ public class Quoridor {
 			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
 		if (players.size() != 2)
 			throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
+
 		board = new Board(this, size, specialSquares);
 		board.setPlayers(this.players);
 		board.setTokens(this.tokens);
+
 		for (Player p : players.values()) {
 			p.setBoard(board);
 		}
+
 		for (Token token : this.tokens.values()) {
 			token.setBoard(board);
 		}
@@ -135,6 +138,7 @@ public class Quoridor {
 		}
 		if (samePlayerColor(color))
 			throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+
 		Human player = new Human(name, color);
 		this.players.put(color, player);
 		Token token = new Token(color);
@@ -170,6 +174,7 @@ public class Quoridor {
 		}
 		if (samePlayerColor(color))
 			throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+
 		try {
 			Class<?> cls = Class.forName(type);
 			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
@@ -209,6 +214,7 @@ public class Quoridor {
 		int numberWalls = normal + temporary + longWall + allied;
 		if (numberWalls != this.board.getSize() + 1)
 			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+
 		for (Player player : this.players.values()) {
 			player.addWalls(normal, temporary, longWall, allied);
 		}
@@ -259,6 +265,7 @@ public class Quoridor {
 	public void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
 			throws QuoriPOOBException {
 		checkGameFinish();
+
 		Player player = getCurrentPlayer();
 		player.addWallToBoard(type, initialRow, initialColumn, squareSide);
 		nextTurn();
@@ -273,8 +280,10 @@ public class Quoridor {
 	 */
 	public void moveToken(String direction) throws QuoriPOOBException {
 		checkGameFinish();
+
 		Player player = getCurrentPlayer();
 		player.moveToken(direction);
+
 		if (player.checkWin())
 			finishGame(player);
 		nextTurn();
@@ -298,6 +307,7 @@ public class Quoridor {
 	 */
 	public void nextTurn() throws QuoriPOOBException {
 		this.board.nextTurn();
+
 		if (this.board.getPlayerPlaying() instanceof Machine)
 			startPlayMachine();
 	}
@@ -335,10 +345,12 @@ public class Quoridor {
 	public String[] getNames() {
 		String[] names = new String[2];
 		int i = 0;
+
 		for (Player player : players.values()) {
 			names[i] = player.getName();
 			i++;
 		}
+
 		return names;
 	}
 
@@ -349,9 +361,11 @@ public class Quoridor {
 	 */
 	public HashMap<Color, HashMap<String, Integer>> numberWalls() {
 		HashMap<Color, HashMap<String, Integer>> res = new HashMap<>();
+
 		for (Player p : players.values()) {
 			res.put(p.getColor(), p.numberWalls());
 		}
+
 		return res;
 	}
 
@@ -365,13 +379,16 @@ public class Quoridor {
 	 */
 	public Color getColor(String name) throws QuoriPOOBException {
 		Color color = null;
+
 		for (Player player : players.values()) {
 			if (player.getName().equals(name)) {
 				color = player.getColor();
 			}
 		}
+
 		if (color == null)
 			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+
 		return color;
 	}
 
@@ -549,12 +566,14 @@ public class Quoridor {
 	 */
 	private boolean samePlayerColor(Color color) {
 		boolean sameColor = false;
+
 		for (Player player : this.players.values()) {
 			if (player.getColor().equals(color)) {
 				sameColor = true;
 				break;
 			}
 		}
+
 		return sameColor;
 	}
 
@@ -563,12 +582,14 @@ public class Quoridor {
 	 */
 	private boolean machinePlayerExist() {
 		boolean exist = false;
+
 		for (Player player : this.players.values()) {
 			if (player instanceof Machine) {
 				exist = true;
 				break;
 			}
 		}
+
 		return exist;
 	}
 
@@ -577,12 +598,14 @@ public class Quoridor {
 	 */
 	private boolean humanPlayerExist() {
 		boolean exist = false;
+
 		for (Player player : this.players.values()) {
 			if (player instanceof Human) {
 				exist = true;
 				break;
 			}
 		}
+
 		return exist;
 	}
 
@@ -628,6 +651,7 @@ public class Quoridor {
 			Random random = new Random();
 			Player player = this.board.getPlayerPlaying();
 			checkGameFinish();
+
 			if (random.nextBoolean()) {
 				player.addWallToBoard(null, 0, 0, null);
 			} else {
@@ -636,6 +660,7 @@ public class Quoridor {
 
 			if (player.checkWin())
 				finishGame(player);
+				
 			nextTurn();
 			notifyListeners();
 		} catch (QuoriPOOBException e) {

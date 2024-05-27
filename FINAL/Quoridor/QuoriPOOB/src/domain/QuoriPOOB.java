@@ -33,6 +33,7 @@ public class QuoriPOOB implements Serializable {
 		if (quoriPOOBSingleton == null) {
 			quoriPOOBSingleton = new QuoriPOOB();
 		}
+		
 		return quoriPOOBSingleton;
 	}
 
