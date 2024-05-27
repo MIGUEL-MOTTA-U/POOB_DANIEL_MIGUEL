@@ -216,6 +216,7 @@ public abstract class Square implements Serializable {
      */
     public boolean blockDiagonalMovements() {
         boolean res = true;
+
         return res;
     }
 

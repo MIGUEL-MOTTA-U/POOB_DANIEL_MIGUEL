@@ -83,6 +83,11 @@ public class Teleporter extends Square {
         return false;
     }
 
+    /**
+     * Its the behavior of the square.
+     * 
+     * @throws QuoriPOOBException
+     */
     @Override
     public void act() throws QuoriPOOBException {
 
