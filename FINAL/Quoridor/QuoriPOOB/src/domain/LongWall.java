@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * This wall's subclass has the same behaviors that a normal wall, except it
  * has a length of 3 squares.
@@ -19,7 +17,7 @@ public class LongWall extends Wall {
 	 * 
 	 * @param color the color of the wall
 	 */
-	public LongWall(Color color) {
+	public LongWall(String color) {
 		super(color);
 	}
 

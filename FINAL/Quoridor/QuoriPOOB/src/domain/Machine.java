@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -20,7 +19,7 @@ public abstract class Machine extends Player {
      * @param name  the name of the machine
      * @param color the color of the machine
      */
-    public Machine(String name, Color color) {
+    public Machine(String name, String color) {
         super(name, color);
     }
 

@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +18,7 @@ public class Advanced extends Machine {
      * @param name  the player name
      * @param color the player color
      */
-    public Advanced(String name, Color color) {
+    public Advanced(String name, String color) {
         super(name, color);
     }
 

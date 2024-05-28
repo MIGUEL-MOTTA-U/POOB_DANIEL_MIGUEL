@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class Player {
 	protected String name;
-	protected Color color;
+	protected String color;
 	protected String time;
 	protected Board board;
 	protected ArrayList<Wall> walls;
@@ -27,7 +27,7 @@ public abstract class Player {
 	 * @param name  The name of the player.
 	 * @param color The color assigned to the player.
 	 */
-	public Player(String name, Color color) {
+	public Player(String name, String color) {
 		this.color = color;
 		this.name = name;
 		this.walls = new ArrayList<>();
@@ -251,7 +251,7 @@ public abstract class Player {
 	 * 
 	 * @return color
 	 */
-	public Color getColor() {
+	public String getColor() {
 		return color;
 	}
 
@@ -291,7 +291,7 @@ public abstract class Player {
 
 		try {
 			Class<?> cls = Class.forName(type);
-			Constructor<?> constructor = cls.getDeclaredConstructor(Color.class);
+			Constructor<?> constructor = cls.getDeclaredConstructor(String.class);
 			constructor.setAccessible(true);
 			wall = (Wall) constructor.newInstance(this.color);
 		} catch (Exception e) {

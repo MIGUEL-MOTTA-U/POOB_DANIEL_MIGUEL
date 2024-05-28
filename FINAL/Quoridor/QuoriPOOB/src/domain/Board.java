@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Color;
 import java.lang.reflect.Constructor;
 import java.util.*;
 
@@ -16,8 +15,8 @@ public class Board {
 	private Quoridor quoridor;
 	private ArrayList<Square> squares;
 	private ArrayList<Wall> walls;
-	private LinkedHashMap<Color, Token> tokens;
-	private LinkedHashMap<Color, Player> players;
+	private LinkedHashMap<String, Token> tokens;
+	private LinkedHashMap<String, Player> players;
 	private Square[][] matrixBoard;
 	private Player playerPlaying;
 	private int size;
@@ -58,7 +57,7 @@ public class Board {
 	 * 
 	 * @return the tokens of the board in a LinkedList
 	 */
-	public LinkedHashMap<Color, Token> getTokens() {
+	public LinkedHashMap<String, Token> getTokens() {
 		return tokens;
 	}
 
@@ -68,7 +67,7 @@ public class Board {
 	 * @param colorPlayer the color of the player
 	 * @return true if the player won, false otherwise.
 	 */
-	public boolean checkWin(Color colorPlayer) {
+	public boolean checkWin(String colorPlayer) {
 		Token tokenPlayer = tokens.get(colorPlayer);
 
 		return tokenPlayer.checkWin();
@@ -79,11 +78,11 @@ public class Board {
 	 * 
 	 * @param players players to assign to the board
 	 */
-	public void setPlayers(LinkedHashMap<Color, Player> players) {
+	public void setPlayers(LinkedHashMap<String, Player> players) {
 		this.players = players;
 
-		Iterator<Map.Entry<Color, Player>> iterador = players.entrySet().iterator();
-		Map.Entry<Color, Player> secondPlayer = null;
+		Iterator<Map.Entry<String, Player>> iterador = players.entrySet().iterator();
+		Map.Entry<String, Player> secondPlayer = null;
 
 		if (iterador.hasNext()) {
 			iterador.next();
@@ -103,7 +102,7 @@ public class Board {
 	 * @param tokens the tokens to add to the board
 	 * @throws QuoriPOOBException if it is not possible to add to the board
 	 */
-	public void setTokens(LinkedHashMap<Color, Token> tokens) throws QuoriPOOBException {
+	public void setTokens(LinkedHashMap<String, Token> tokens) throws QuoriPOOBException {
 		this.tokens = tokens;
 		setTokensToBoard();
 	}
@@ -132,7 +131,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenUp(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenUp(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e =  new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -186,7 +185,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenDown(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenDown(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e =  new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -240,7 +239,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenLeft(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenLeft(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e =  new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -293,7 +292,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenRight(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenRight(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -345,7 +344,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenUpLeft(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenUpLeft(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -406,7 +405,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenUpRight(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenUpRight(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -467,7 +466,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenDownLeft(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenDownLeft(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -528,7 +527,7 @@ public class Board {
 	 * @param colorToken the color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public void moveTokenDownRight(Color colorToken) throws QuoriPOOBException {
+	public void moveTokenDownRight(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -589,7 +588,7 @@ public class Board {
 	 * @param colorToken color of the token to move
 	 * @throws QuoriPOOBException if it is not possible to return
 	 */
-	public void returnTwoMoves(Color colorToken) throws QuoriPOOBException {
+	public void returnTwoMoves(String colorToken) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(colorToken)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -692,7 +691,7 @@ public class Board {
 	 * @return the direction to move the token
 	 * @throws QuoriPOOBException if it is not possible to move the token
 	 */
-	public String getDirection(Color colour, Square square) throws QuoriPOOBException {
+	public String getDirection(String colour, Square square) throws QuoriPOOBException {
 		Token token = tokens.get(colour);
 		int row = token.getRow();
 		int column = token.getColumn();
@@ -733,7 +732,7 @@ public class Board {
 	 * @param color the player color
 	 * @throws QuoriPOOBException
 	 */
-	public void setPlayerPlaying(Color color) throws QuoriPOOBException {
+	public void setPlayerPlaying(String color) throws QuoriPOOBException {
 		if (!this.players.containsKey(color)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 			Log.record(e);

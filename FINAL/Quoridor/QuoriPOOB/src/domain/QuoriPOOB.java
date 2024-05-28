@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.*;
-import java.awt.*;
 import java.io.*;
 
 /**
@@ -92,7 +91,7 @@ public class QuoriPOOB {
 	 *                            than two players, or create a player with wrong
 	 *                            parameters.
 	 */
-	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+	public void createPlayerHuman(String name, String color) throws QuoriPOOBException {
 		this.quoridor.createPlayerHuman(name, color);
 	}
 
@@ -107,7 +106,7 @@ public class QuoriPOOB {
 	 *                            wrong, or
 	 *                            there are two players already.
 	 */
-	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+	public void createPlayerMachine(String color, String type) throws QuoriPOOBException {
 		this.quoridor.createPlayerMachine(color, type);
 	}
 
@@ -214,7 +213,7 @@ public class QuoriPOOB {
 	 * 
 	 * @return the number of walls with their respective quantity
 	 */
-	public HashMap<Color, HashMap<String, Integer>> numberWalls() {
+	public HashMap<String, HashMap<String, Integer>> numberWalls() {
 		return this.quoridor.numberWalls();
 	}
 
@@ -226,7 +225,7 @@ public class QuoriPOOB {
 	 * @throws QuoriPOOBException Throws an exception in case the parameters are
 	 *                            wrong or the action is not possible.
 	 */
-	public Color getColor(String name) throws QuoriPOOBException {
+	public String getColor(String name) throws QuoriPOOBException {
 		return this.quoridor.getColor(name);
 	}
 

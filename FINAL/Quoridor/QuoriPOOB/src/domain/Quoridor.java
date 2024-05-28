@@ -3,7 +3,6 @@ package domain;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.*;
-import java.awt.*;
 import java.lang.reflect.Constructor;
 
 /**
@@ -17,8 +16,8 @@ public class Quoridor {
 	private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 	private List<GameModeObserver> observers = new ArrayList<>();
 	private Board board;
-	private LinkedHashMap<Color, Player> players;
-	private LinkedHashMap<Color, Token> tokens;
+	private LinkedHashMap<String, Player> players;
+	private LinkedHashMap<String, Token> tokens;
 	private Mode mode;
 	private boolean onePlayer;
 	private boolean twoPlayers;
@@ -131,7 +130,7 @@ public class Quoridor {
 	 *                            than two players, or create a player with wrong
 	 *                            parameters.
 	 */
-	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+	public void createPlayerHuman(String name, String color) throws QuoriPOOBException {
 		checkGameFinish();
 		if (name == null){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
@@ -188,7 +187,7 @@ public class Quoridor {
 	 *                            wrong, or
 	 *                            there are two players already.
 	 */
-	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
+	public void createPlayerMachine(String color, String type) throws QuoriPOOBException {
 		checkGameFinish();
 		if (type == null){
 			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
@@ -230,7 +229,7 @@ public class Quoridor {
 
 		try {
 			Class<?> cls = Class.forName(type);
-			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, Color.class);
+			Constructor<?> constructor = cls.getDeclaredConstructor(String.class, String.class);
 			constructor.setAccessible(true);
 			Machine machine = (Machine) constructor.newInstance("Machine", color);
 			this.players.put(color, machine);
@@ -305,7 +304,7 @@ public class Quoridor {
 	 *                            add the Walls and there are not players created or
 	 *                            a Board created, also if the parameters are wrong.
 	 */
-	public void addWallsPlayer(Color color, int normal, int temporary, int longWall, int allied)
+	public void addWallsPlayer(String color, int normal, int temporary, int longWall, int allied)
 			throws QuoriPOOBException {
 		checkGameFinish();
 		if (modeUndefined()){
@@ -443,8 +442,8 @@ public class Quoridor {
 	 * 
 	 * @return the number of walls
 	 */
-	public HashMap<Color, HashMap<String, Integer>> numberWalls() {
-		HashMap<Color, HashMap<String, Integer>> res = new HashMap<>();
+	public HashMap<String, HashMap<String, Integer>> numberWalls() {
+		HashMap<String, HashMap<String, Integer>> res = new HashMap<>();
 
 		for (Player p : players.values()) {
 			res.put(p.getColor(), p.numberWalls());
@@ -461,8 +460,8 @@ public class Quoridor {
 	 * @throws QuoriPOOBException Throws an exception in case the parameters are
 	 *                            wrong or the action is not possible.
 	 */
-	public Color getColor(String name) throws QuoriPOOBException {
-		Color color = null;
+	public String getColor(String name) throws QuoriPOOBException {
+		String color = null;
 
 		for (Player player : players.values()) {
 			if (player.getName().equals(name)) {
@@ -475,6 +474,7 @@ public class Quoridor {
 			Log.record(e);
 			throw e;
 		}
+
 		return color;
 	}
 
@@ -549,7 +549,7 @@ public class Quoridor {
 	 * @return the token
 	 * @throws QuoriPOOBException
 	 */
-	public Token getToken(Color color) throws QuoriPOOBException {
+	public Token getToken(String color) throws QuoriPOOBException {
 		if (!this.tokens.containsKey(color)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
 			Log.record(e);
@@ -565,7 +565,7 @@ public class Quoridor {
 	 * @return the player
 	 * @throws QuoriPOOBException
 	 */
-	public Player getPlayer(Color color) throws QuoriPOOBException {
+	public Player getPlayer(String color) throws QuoriPOOBException {
 		if (!this.players.containsKey(color)){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
 			Log.record(e);
@@ -581,7 +581,7 @@ public class Quoridor {
 	 * @return the last positions of the token
 	 * @throws QuoriPOOBException
 	 */
-	public ArrayList<int[]> getTokenLastMovements(Color color) throws QuoriPOOBException {
+	public ArrayList<int[]> getTokenLastMovements(String color) throws QuoriPOOBException {
 		Token token = getToken(color);
 		return token.getLastMovements();
 	}
@@ -618,7 +618,7 @@ public class Quoridor {
 	 * 
 	 * @return the game players
 	 */
-	public LinkedHashMap<Color, Player> getPlayers() {
+	public LinkedHashMap<String, Player> getPlayers() {
 		return this.players;
 	}
 
@@ -627,7 +627,7 @@ public class Quoridor {
 	 * 
 	 * @return the game tokens
 	 */
-	public LinkedHashMap<Color, Token> getTokens() {
+	public LinkedHashMap<String, Token> getTokens() {
 		return this.tokens;
 	}
 
@@ -646,7 +646,7 @@ public class Quoridor {
 	 * @param color the color of the game winner
 	 * @throws QuoriPOOBException
 	 */
-	public void setWinner(Color color) throws QuoriPOOBException {
+	public void setWinner(String color) throws QuoriPOOBException {
 		Player player = getPlayer(color);
 		this.winner = player;
 	}
@@ -654,7 +654,7 @@ public class Quoridor {
 	/*
 	 * Verify if there is a player with the same color
 	 */
-	private boolean samePlayerColor(Color color) {
+	private boolean samePlayerColor(String color) {
 		boolean sameColor = false;
 
 		for (Player player : this.players.values()) {

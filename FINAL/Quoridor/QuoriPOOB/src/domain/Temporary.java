@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * This wall's subclass has the same behaviors that a normal wall, except it
  * after 4 turns, the wall is removed form the board
@@ -17,7 +15,7 @@ public class Temporary extends Wall {
      * 
      * @param color the color of the wall
      */
-    public Temporary(Color color) {
+    public Temporary(String color) {
         super(color);
         this.turn = 0;
     }

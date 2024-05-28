@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * This square's subclass has the same behaviors that a normal square, except it
  * allows the token to move around regardless of walls (including diagonal
@@ -31,7 +29,7 @@ public class Teleporter extends Square {
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise;
      */
     @Override
-    public boolean blockUp(Color token) {
+    public boolean blockUp(String token) {
         return false;
     }
 
@@ -44,7 +42,7 @@ public class Teleporter extends Square {
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise;
      */
     @Override
-    public boolean blockLeft(Color token) {
+    public boolean blockLeft(String token) {
         return false;
     }
 
@@ -56,7 +54,7 @@ public class Teleporter extends Square {
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise;
      */
     @Override
-    public boolean blockDown(Color token) {
+    public boolean blockDown(String token) {
         return false;
     }
 
@@ -69,7 +67,7 @@ public class Teleporter extends Square {
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise;
      */
     @Override
-    public boolean blockRight(Color token) {
+    public boolean blockRight(String token) {
         return false;
     }
 

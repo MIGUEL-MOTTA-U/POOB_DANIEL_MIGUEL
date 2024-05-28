@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -70,7 +69,7 @@ public class Persistence {
 	 * Write the game players information to the file
 	 */
 	private void writePlayers(PrintWriter pw) {
-		LinkedHashMap<Color, Player> players = quoridor.getPlayers();
+		LinkedHashMap<String, Player> players = quoridor.getPlayers();
 		
 		pw.println("Players:");
 		for (Player player : players.values()) {
@@ -105,7 +104,7 @@ public class Persistence {
 	 * Write the game tokens information to the file
 	 */
 	private void writeTokens(PrintWriter pw) {
-		LinkedHashMap<Color, Token> tokens = quoridor.getTokens();
+		LinkedHashMap<String, Token> tokens = quoridor.getTokens();
 
 		pw.println("Tokens:");
 		for (Token token : tokens.values()) {
@@ -235,7 +234,7 @@ public class Persistence {
 			for (int i = 0; i < 2; i++) {
 				String[] info = bIn.readLine().split(" ");
 				String type = "domain." + info[0];
-				Color color = parseColor(info[1]);
+				String color = info[1];
 				
 				if (type.equals("domain.Human")) {
 					quoridor.createPlayerHuman(info[2], color);
@@ -295,7 +294,7 @@ public class Persistence {
 
 			for (int i = 0; i < 2; i++) {
 				String[] info = bIn.readLine().split(" ");
-				Color color = parseColor(info[0]);
+				String color = info[0];
 				int row = Integer.parseInt(info[1]);
 				int col = Integer.parseInt(info[2]);
 
@@ -332,7 +331,7 @@ public class Persistence {
 			for (int i = 0; i < numberWalls; i++) {
 				String[] info = bIn.readLine().split(" ");
 				String type = "domain." + info[0];
-				Color color = parseColor(info[1]);
+				String color = info[1];
 				int row = Integer.parseInt(info[2]);
 				int col = Integer.parseInt(info[3]);
 
@@ -351,7 +350,7 @@ public class Persistence {
 	private static void readInfo(BufferedReader bIn, Quoridor quoridor) {
 		try {
 			bIn.readLine();
-			Color color = parseColor(bIn.readLine());
+			String color = bIn.readLine();
 			quoridor.getBoard().setPlayerPlaying(color);
 
 			bIn.readLine();
@@ -362,7 +361,7 @@ public class Persistence {
 			} else {
 				bIn.readLine();
 				if (quoridor.getWinner() != null) {
-					color = parseColor(bIn.readLine());
+					color = bIn.readLine();
 					quoridor.setWinner(color);
 				}
 			}
@@ -371,35 +370,6 @@ public class Persistence {
 			Log.record(e);
 		}
 	}
-
-	/*
-	 * Convert a string into a color
-	 */
-	private static Color parseColor(String colorString) {
-        colorString = colorString.replace("java.awt.Color[", "").replace("]", "");
-        String[] components = colorString.split(",");
-        int r = 0, g = 0, b = 0;
-
-        for (String component : components) {
-            String[] keyValue = component.split("=");
-            String key = keyValue[0].trim();
-            int value = Integer.parseInt(keyValue[1].trim());
-
-            switch (key) {
-                case "r":
-                    r = value;
-                    break;
-                case "g":
-                    g = value;
-                    break;
-                case "b":
-                    b = value;
-                    break;
-            }
-        }
-
-        return new Color(r, g, b);
-    }
 
 	/*
 	 * Creates an square by the given type in the given coordenates
@@ -424,12 +394,12 @@ public class Persistence {
 	/*
 	 * Creates a wall for the player by the given type
 	 */
-	private static Wall createWall(String type, Color color) throws QuoriPOOBException {
+	private static Wall createWall(String type, String color) throws QuoriPOOBException {
 		Wall wall = null;
 
 		try {
 			Class<?> cls = Class.forName(type);
-			Constructor<?> constructor = cls.getDeclaredConstructor(Color.class);
+			Constructor<?> constructor = cls.getDeclaredConstructor(String.class);
 			constructor.setAccessible(true);
 			wall = (Wall) constructor.newInstance(color);
 		} catch (Exception e) {

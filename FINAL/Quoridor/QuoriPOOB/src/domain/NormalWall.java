@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * This wall's subclass has the same behaviors that a normal wall.
  * 
@@ -15,7 +13,7 @@ public class NormalWall extends Wall {
      * 
      * @param color the color of the wall
      */
-    public NormalWall(Color color) {
+    public NormalWall(String color) {
         super(color);
     }
 

@@ -108,7 +108,7 @@ public class SquareGUI extends JPanel {
     private void createMouseListener(JButton button) {
         button.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent ev) {
-                Color color = quoridorGUI.getPlayerPlaying().getColor();
+                Color color = parseColor(quoridorGUI.getPlayerPlaying().getColor());
                 setBorder(paintBorder(button, color));
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
@@ -303,5 +303,34 @@ public class SquareGUI extends JPanel {
             g.setColor(this.colorToken);
             g.fillOval(circleX, circleY, circleRadius * 2, circleRadius * 2);
         }
+    }
+
+    /*
+	 * Convert a string into a color
+	 */
+	private static Color parseColor(String colorString) {
+        colorString = colorString.replace("java.awt.Color[", "").replace("]", "");
+        String[] components = colorString.split(",");
+        int r = 0, g = 0, b = 0;
+
+        for (String component : components) {
+            String[] keyValue = component.split("=");
+            String key = keyValue[0].trim();
+            int value = Integer.parseInt(keyValue[1].trim());
+
+            switch (key) {
+                case "r":
+                    r = value;
+                    break;
+                case "g":
+                    g = value;
+                    break;
+                case "b":
+                    b = value;
+                    break;
+            }
+        }
+
+        return new Color(r, g, b);
     }
 }

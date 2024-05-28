@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * Create a square.
  * 
@@ -153,7 +151,7 @@ public abstract class Square {
      * @param token the token to pass
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise
      */
-    public boolean blockUp(Color token) {
+    public boolean blockUp(String token) {
         boolean block = false;
 
         if (this.wallUp != null) {
@@ -170,7 +168,7 @@ public abstract class Square {
      * @param token the token to pass
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise
      */
-    public boolean blockLeft(Color token) {
+    public boolean blockLeft(String token) {
         boolean block = false;
 
         if (this.wallLeft != null) {
@@ -187,7 +185,7 @@ public abstract class Square {
      * @param token the token to pass
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise
      */
-    public boolean blockDown(Color token) {
+    public boolean blockDown(String token) {
         boolean block = false;
 
         if (this.wallDown != null) {
@@ -204,7 +202,7 @@ public abstract class Square {
      * @param token the token to pass
      * @return TRUE, if the there is a wall blocking the tocken. FALSE, otherwise
      */
-    public boolean blockRight(Color token) {
+    public boolean blockRight(String token) {
         boolean block = false;
 
         if (this.wallRight != null) {

@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Color;
 import java.util.*;
 
 /**
@@ -18,7 +17,7 @@ public class Beginner extends Machine {
      * @param name  the player name
      * @param color the player color
      */
-    public Beginner(String name, Color color) {
+    public Beginner(String name, String color) {
         super(name, color);
     }
 

@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * Create a wall.
  * 
@@ -10,7 +8,7 @@ import java.awt.Color;
  */
 public abstract class Wall {
 	protected Board board;
-	protected Color color;
+	protected String color;
 	protected int initialRow;
 	protected int initialColumn;
 	protected int finalRow;
@@ -22,7 +20,7 @@ public abstract class Wall {
 	 * 
 	 * @param color the color of the wall
 	 */
-	public Wall(Color color) {
+	public Wall(String color) {
 		this.color = color;
 	}
 
@@ -81,7 +79,7 @@ public abstract class Wall {
 	 * @param token the token to pass
 	 * @return TRUE, if the wall block the tocken. FALSE, otherwise
 	 */
-	public boolean blockToken(Color token) {
+	public boolean blockToken(String token) {
 		return true;
 	}
 
@@ -90,7 +88,7 @@ public abstract class Wall {
 	 * 
 	 * @return the wall color
 	 */
-	public Color getColor() {
+	public String getColor() {
 		return this.color;
 	}
 

@@ -237,18 +237,18 @@ public class QuoridorGUI extends JFrame {
     }
 
     public void createBeginnerMachine() throws QuoriPOOBException {
-        quoriPOOB.createPlayerMachine(Color.RED, "domain.Beginner");
+        quoriPOOB.createPlayerMachine(Color.RED.toString(), "domain.Beginner");
     }
 
     public void createIntermediateMachine() throws QuoriPOOBException {
-        quoriPOOB.createPlayerMachine(Color.RED, "domain.Intermediate");
+        quoriPOOB.createPlayerMachine(Color.RED.toString(), "domain.Intermediate");
     }
 
     public void createAdvancedMachine() throws QuoriPOOBException {
-        quoriPOOB.createPlayerMachine(Color.RED, "domain.Advanced");
+        quoriPOOB.createPlayerMachine(Color.RED.toString(), "domain.Advanced");
     }
 
-    public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
+    public void createPlayerHuman(String name, String color) throws QuoriPOOBException {
         quoriPOOB.createPlayerHuman(name, color);
     }
 
@@ -285,11 +285,11 @@ public class QuoridorGUI extends JFrame {
         return this.quoriPOOB.getNames();
     }
 
-    public HashMap<Color, HashMap<String, Integer>> getReaminingWalls() {
+    public HashMap<String, HashMap<String, Integer>> getReaminingWalls() {
         return this.quoriPOOB.numberWalls();
     }
 
-    public Color getColorPlayer(String name) throws QuoriPOOBException {
+    public String getColorPlayer(String name) throws QuoriPOOBException {
         return this.quoriPOOB.getColor(name);
     }
 
@@ -338,6 +338,7 @@ public class QuoridorGUI extends JFrame {
 
     public static void main(String args[]) {
         QuoridorGUI gui = new QuoridorGUI();
+        System.out.println(Color.RED.toString());
         gui.setVisible(true);
     }
 }

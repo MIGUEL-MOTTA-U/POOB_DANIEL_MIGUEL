@@ -1,18 +1,17 @@
 package domain;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 public class Token {
     private Board board;
     private Square square;
-    private Color color;
+    private String color;
     private int row;
     private int column;
     private int destiny;
     private ArrayList<int[]> lastMovements;
 
-    public Token(Color color) {
+    public Token(String color) {
         this.color = color;
         lastMovements = new ArrayList<>();
     }
@@ -153,7 +152,7 @@ public class Token {
         return this.column;
     }
 
-    public Color getColor() {
+    public String getColor() {
         return this.color;
     }
 

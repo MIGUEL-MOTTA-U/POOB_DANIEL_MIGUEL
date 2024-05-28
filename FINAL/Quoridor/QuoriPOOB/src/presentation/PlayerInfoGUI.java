@@ -169,7 +169,7 @@ public class PlayerInfoGUI extends JPanel {
             public void actionPerformed(ActionEvent ev) {
                 if (!emptyInfo()) {
                     try {
-                        quoridorGUI.createPlayerHuman(textName.getText(), playerColor);
+                        quoridorGUI.createPlayerHuman(textName.getText(), playerColor.toString());
                         if (quoridorGUI.twoPlayers() & !quoridorGUI.getPlayerTwo()) {
                             quoridorGUI.setPlayerTwo();
                             quoridorGUI.restartPlayerInfoGUI();

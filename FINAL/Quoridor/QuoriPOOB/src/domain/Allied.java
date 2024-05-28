@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.Color;
-
 /**
  * This wall's subclass has the same behaviors that a normal wall, except it
  * allows to pass to the player who put the wall.
@@ -16,7 +14,7 @@ public class Allied extends Wall {
      * 
      * @param color the color of the wall
      */
-    public Allied(Color color) {
+    public Allied(String color) {
         super(color);
     }
 
@@ -27,7 +25,7 @@ public class Allied extends Wall {
      * @return TRUE, if the token and wall are of the same color. FALSE, otherwise
      */
     @Override
-    public boolean blockToken(Color token) {
+    public boolean blockToken(String token) {
         return (token.equals(this.color)) ? false : true;
     }
 

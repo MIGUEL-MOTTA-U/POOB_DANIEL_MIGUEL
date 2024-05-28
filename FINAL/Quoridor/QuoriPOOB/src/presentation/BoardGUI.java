@@ -149,7 +149,7 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         panelRightUp.setBackground(Color.WHITE);
         JPanel panelLeft = new JPanel(new GridBagLayout());
         panelLeft.setBackground(Color.WHITE);
-        tokenPlaying = new CirclePanel(this.quoridorGUI.getPlayerPlaying().getColor());
+        tokenPlaying = new CirclePanel(parseColor(this.quoridorGUI.getPlayerPlaying().getColor()));
         JPanel panelRight = new JPanel(new GridBagLayout());
         panelRight.setBackground(Color.WHITE);
         JPanel panelLeftDown = new JPanel(new GridBagLayout());
@@ -269,7 +269,7 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                 if (!(square instanceof NormalSquare)) squaresGUI[row][column].paintBackgroung(BACKGROUND_SPECIAL_SQUARES);
 
                 if (square.getToken() != null) {
-                    squareGUI.setColorToken(square.getToken().getColor());
+                    squareGUI.setColorToken(parseColor(square.getToken().getColor()));
                     squareGUI.drawToken();
                 } else {
                     squareGUI.eraseToken();
@@ -286,22 +286,22 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
     private void paintWalls(SquareGUI squareGUI, Square square) {
         if (square.getWallUp() != null) {
             if (!squareGUI.getWallUp()) {
-                squareGUI.setWallUp(square.getWallUp().getColor());
+                squareGUI.setWallUp(parseColor(square.getWallUp().getColor()));
                 squareGUI.setWallUp(true);
             }
         } else if (square.getWallLeft() != null) {
             if (!squareGUI.getWallLeft()) {
-                squareGUI.setWallLeft(square.getWallLeft().getColor());
+                squareGUI.setWallLeft(parseColor(square.getWallLeft().getColor()));
                 squareGUI.setWallLeft(true);
             }
         } else if (square.getWallDown() != null) {
             if (!squareGUI.getWallDown()) {
-                squareGUI.setWallDown(square.getWallDown().getColor());
+                squareGUI.setWallDown(parseColor(square.getWallDown().getColor()));
                 squareGUI.setWallDown(true);
             }
         } else if (square.getWallRight() != null) {
             if (!squareGUI.getWallRight()) {
-                squareGUI.setWallRight(square.getWallRight().getColor());
+                squareGUI.setWallRight(parseColor(square.getWallRight().getColor()));
                 squareGUI.setWallRight(true);
             }
         } else {
@@ -650,11 +650,11 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
 
     private HashMap<String, Integer> getRemainingWalls(String namePlayer) {
         try {
-            Color colorPlayer = this.quoridorGUI.getColorPlayer(namePlayer);
-            HashMap<Color, HashMap<String, Integer>> numberWalls = this.quoridorGUI.getReaminingWalls();
+            String colorPlayer = this.quoridorGUI.getColorPlayer(namePlayer);
+            HashMap<String, HashMap<String, Integer>> numberWalls = this.quoridorGUI.getReaminingWalls();
 
-            for (Map.Entry<Color, HashMap<String, Integer>> entry : numberWalls.entrySet()) {
-                Color color = entry.getKey();
+            for (Map.Entry<String, HashMap<String, Integer>> entry : numberWalls.entrySet()) {
+                String color = entry.getKey();
                 if (color.equals(colorPlayer)) {
                     return entry.getValue();
                 }
@@ -697,7 +697,7 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         Color color = null;
 
         try {
-            color = this.quoridorGUI.getColorPlayer(name);
+            color = parseColor(this.quoridorGUI.getColorPlayer(name));
         } catch (QuoriPOOBException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -708,7 +708,7 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
     public void refresh() {
         updateBoard();
         updateNumWalls();
-        tokenPlaying.setCircleColor(this.quoridorGUI.getPlayerPlaying().getColor());
+        tokenPlaying.setCircleColor(parseColor(this.quoridorGUI.getPlayerPlaying().getColor()));
         validate();
         repaint();
     }
@@ -731,5 +731,34 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
             containerBoard.add(defeatScreen);
             refresh();
         }
+    }
+
+    /*
+	 * Convert a string into a color
+	 */
+	private static Color parseColor(String colorString) {
+        colorString = colorString.replace("java.awt.Color[", "").replace("]", "");
+        String[] components = colorString.split(",");
+        int r = 0, g = 0, b = 0;
+
+        for (String component : components) {
+            String[] keyValue = component.split("=");
+            String key = keyValue[0].trim();
+            int value = Integer.parseInt(keyValue[1].trim());
+
+            switch (key) {
+                case "r":
+                    r = value;
+                    break;
+                case "g":
+                    g = value;
+                    break;
+                case "b":
+                    b = value;
+                    break;
+            }
+        }
+
+        return new Color(r, g, b);
     }
 }

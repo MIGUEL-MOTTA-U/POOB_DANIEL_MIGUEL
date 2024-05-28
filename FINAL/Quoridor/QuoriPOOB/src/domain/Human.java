@@ -1,7 +1,5 @@
 package domain;
 
-import java.awt.*;
-
 /**
  * The Human class represents a human player in a game.
  * It extends the Player class and provides implementations for moving tokens
@@ -18,7 +16,7 @@ public class Human extends Player {
      * @param name  the player name
      * @param color the player color
      */
-    public Human(String name, Color color) {
+    public Human(String name, String color) {
         super(name, color);
     }
 

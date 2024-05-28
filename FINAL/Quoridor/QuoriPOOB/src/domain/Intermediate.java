@@ -1,6 +1,5 @@
 package domain;
 
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
@@ -22,7 +21,7 @@ public class Intermediate extends Machine {
      * @param name  the name of the Machine
      * @param color the color of the Machine
      */
-    public Intermediate(String name, Color color) {
+    public Intermediate(String name, String color) {
         super(name, color);
     }
 
