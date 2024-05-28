@@ -374,10 +374,8 @@ public class Quoridor {
 
 	/**
 	 * Finish the game when is over
-	 * 
-	 * @throws QuoriPOOBException if is not possible to cancel the task
 	 */
-	public void finishGame() throws QuoriPOOBException {
+	public void finishGame() {
 		gameOver = true;
 		this.mode.cancelTask();
 	}

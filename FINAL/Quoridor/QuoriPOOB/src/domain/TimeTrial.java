@@ -20,6 +20,7 @@ public class TimeTrial extends Mode {
     @Override
     public void cancelTask() {
         this.task.cancel();
+        timer.cancel();
     }
 
     /**
@@ -29,8 +30,11 @@ public class TimeTrial extends Mode {
     public void startTurn() {
         if (task != null)
             task.cancel();
+        if (timer != null)
+            timer.cancel();
+
         task = new TurnTimerTask(this, timeLimit);
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.scheduleAtFixedRate(task, 0, 1000);
     }
 }

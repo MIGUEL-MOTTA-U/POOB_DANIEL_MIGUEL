@@ -193,6 +193,7 @@ public class QuoriPOOB {
 	 */
 	public void resetSingleton() {
 		if (quoriPOOBSingleton != null) {
+			this.quoridor.finishGame();
 			this.quoridor = null;
 		}
 

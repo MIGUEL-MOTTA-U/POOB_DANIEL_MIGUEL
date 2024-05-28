@@ -74,7 +74,7 @@ public class Timed extends Mode {
     @Override
     public void startTurn() {
         setPlayerPlaying();
-        Timer timer = new Timer();
+        timer = new Timer();
 
         if (playerOnePlaying) {
             taskPlayer1 = new TurnTimerTask(this, timePlayer1);
@@ -93,6 +93,7 @@ public class Timed extends Mode {
     public void cancelTask() {
         this.taskPlayer1.cancel();
         this.taskPlayer2.cancel();
+        timer.cancel();
     }
 
     /**
@@ -127,5 +128,8 @@ public class Timed extends Mode {
                 taskPlayer2.cancel();
             }
         }
+
+        if (timer != null)
+            timer.cancel();
     }
 }

@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
 
 /**
  * An abstract class representing a game mode in Quoridor.
@@ -15,6 +16,7 @@ public abstract class Mode {
     protected List<TimeObserver> observers;
     protected Quoridor quoridor;
     protected int timeLimit;
+    protected Timer timer;
 
     /**
      * Constructor for the Mode class.
