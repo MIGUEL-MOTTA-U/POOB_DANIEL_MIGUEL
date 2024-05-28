@@ -1,7 +1,6 @@
 package presentation;
 
 import domain.GameModeObserver;
-import domain.Log;
 import domain.NormalSquare;
 import domain.QuoriPOOBException;
 import domain.Square;
@@ -478,7 +477,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -490,7 +488,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -502,7 +499,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -514,7 +510,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -526,7 +521,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -538,7 +532,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -550,7 +543,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -562,7 +554,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
                     refresh();
                 } catch (QuoriPOOBException e) {
                     JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    Log.record(e);
                 }
             }
         });
@@ -599,7 +590,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
             refresh();
         } catch (QuoriPOOBException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            Log.record(e);
         }
     }
 
@@ -671,7 +661,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
             }
         } catch (QuoriPOOBException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            Log.record(e);
         }
 
         return null;
@@ -711,7 +700,6 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
             color = this.quoridorGUI.getColorPlayer(name);
         } catch (QuoriPOOBException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            Log.record(e);
         }
 
         return color;

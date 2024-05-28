@@ -318,7 +318,6 @@ public class QuoridorGUI extends JFrame {
                 showBoardGUI();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error loading the game", JOptionPane.ERROR_MESSAGE);
-                Log.record(e);
             }
         }
     }

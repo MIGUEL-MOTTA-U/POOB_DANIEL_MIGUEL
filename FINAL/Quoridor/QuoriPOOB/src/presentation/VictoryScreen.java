@@ -5,8 +5,6 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 
-import domain.Log;
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -158,7 +156,6 @@ public class VictoryScreen extends JPanel {
                 clip.start();
             }
         } catch (Exception e) {
-            Log.record(e);
         }
     }
 }
