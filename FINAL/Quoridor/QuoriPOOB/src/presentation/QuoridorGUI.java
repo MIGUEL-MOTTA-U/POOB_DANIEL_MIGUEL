@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  * This class communicates with the controller and contains the game's JFrame.

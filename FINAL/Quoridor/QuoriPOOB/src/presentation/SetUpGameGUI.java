@@ -9,6 +9,13 @@ import java.awt.event.*;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Create the screen where the player configurates the game
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class SetUpGameGUI extends JPanel {
     public static final Dimension PREFERRED_DIMENSION = new Dimension(250, 30);
     private static final String BOARD_SIZE_MSG = "Board size";
@@ -51,6 +58,9 @@ public class SetUpGameGUI extends JPanel {
     private JTextField textAlliedWalls;
     private JButton buttonNext;
 
+    /**
+     * Constructor of BoardGUI
+     */
     public SetUpGameGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         normalPositions = new ArrayList<>();
@@ -63,6 +73,9 @@ public class SetUpGameGUI extends JPanel {
         setVisible(true);
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel container = new JPanel();
 
@@ -76,6 +89,9 @@ public class SetUpGameGUI extends JPanel {
         add(container);
     }
 
+    /*
+     * Create the squares configuration elements
+     */
     private void prepareElementsWest(JPanel content) {
         panelWest = new JPanel();
         panelWest.setBackground(Color.WHITE);
@@ -97,6 +113,9 @@ public class SetUpGameGUI extends JPanel {
         content.add(panelWest, BorderLayout.WEST);
     }
 
+    /*
+     * Create the title elements
+     */
     private JPanel prepareElementsWestHeader() {
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -121,6 +140,9 @@ public class SetUpGameGUI extends JPanel {
         return container;
     }
 
+    /*
+     * Create the squares configuration elements
+     */
     private JPanel prepareElementsSquares() {
         panelSquares = new JPanel();
         panelSquares.setLayout(new BoxLayout(panelSquares, BoxLayout.Y_AXIS));
@@ -154,6 +176,9 @@ public class SetUpGameGUI extends JPanel {
         return panelSquares;
     }
 
+    /*
+     * Create the board and walls configuration elements
+     */
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel();
         panelEast.setBackground(Color.WHITE);
@@ -186,6 +211,9 @@ public class SetUpGameGUI extends JPanel {
         content.add(panelEast, BorderLayout.EAST);
     }
 
+    /*
+     * Create the walls configuration elements
+     */
     private JPanel prepareElementsWalls() {
         panelWalls = new JPanel();
         panelWalls.setLayout(new BoxLayout(panelWalls, BoxLayout.Y_AXIS));
@@ -212,6 +240,9 @@ public class SetUpGameGUI extends JPanel {
         return panelWalls;
     }
 
+    /*
+     * Create the squares configuration elements
+     */
     private JPanel prepareElementsSquare(JTextField textField, JButton button) {
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.X_AXIS));
@@ -224,6 +255,9 @@ public class SetUpGameGUI extends JPanel {
         return container;
     }
 
+    /*
+     * Create the title elements
+     */
     private JPanel prepareElementsTitle(JLabel label) {
         JPanel container = new JPanel(new BorderLayout());
         container.setBackground(Color.WHITE);
@@ -233,6 +267,9 @@ public class SetUpGameGUI extends JPanel {
         return container;
     }
 
+    /*
+     * Create the squares positions configuration elements
+     */
     private void showPositionsDialog(int quantity, JButton button) {
         String type = getTypeFromButton(button);
         clearSquares(type);
@@ -261,6 +298,9 @@ public class SetUpGameGUI extends JPanel {
         } while (!success);
     }
 
+    /*
+     * Create the squares positions configuration elements
+     */
     private JPanel createPositionsDialog(String type) {
         JPanel container = new JPanel(new FlowLayout(FlowLayout.CENTER));
 
@@ -283,6 +323,9 @@ public class SetUpGameGUI extends JPanel {
         return container;
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -304,6 +347,9 @@ public class SetUpGameGUI extends JPanel {
         return button;
     }
 
+    /*
+     * Create a text field
+     */
     private JTextField createTextField(String text) {
         JTextField textField = new JTextField(text);
         textField.setPreferredSize(PREFERRED_DIMENSION);
@@ -327,10 +373,16 @@ public class SetUpGameGUI extends JPanel {
         return textField;
     }
 
+    /*
+     * Creates the actions
+     */
     private void prepareActions() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the buttons actions
+     */
     private void prepareActionsButtons() {
         ActionListener positionButtonListener = new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -403,6 +455,9 @@ public class SetUpGameGUI extends JPanel {
         });
     }
 
+    /*
+     * Create a image
+     */
     private void createImage(JLabel label, String path) {
         URL url = getClass().getResource(path);
 
@@ -415,10 +470,16 @@ public class SetUpGameGUI extends JPanel {
         }
     }
 
+    /*
+     * Convert a string to int
+     */
     private int getQuantity(String text) throws NumberFormatException {
         return Integer.parseInt(text);
     }
 
+    /*
+     * Verify if the game configuration is incomplete
+     */
     private boolean emptyInfo() {
         boolean empty = false;
 
@@ -441,10 +502,16 @@ public class SetUpGameGUI extends JPanel {
         return empty;
     }
 
+    /*
+     * Verify if the game configuration is incomplete
+     */
     private boolean isSpecialSquareInfoEmpty(JTextField textField, String defaultText, ArrayList<JTextField[]> positions) {
         return !textField.getText().equals(defaultText) && !textField.getText().equals("0") && positions.isEmpty();
     }
 
+    /*
+     * Get the square type from the button
+     */
     private String getTypeFromButton(JButton button) {
         if (button == buttonPositionTeleporter) {
             return "Teleporter";
@@ -457,6 +524,9 @@ public class SetUpGameGUI extends JPanel {
         }
     }
 
+    /*
+     * Add the squares positions
+     */
     private void addPositions(String type, JTextField row, JTextField column) {
         JTextField[] textPositions = new JTextField[2];
         textPositions[0] = row;
@@ -480,6 +550,9 @@ public class SetUpGameGUI extends JPanel {
         }
     }
 
+    /*
+     * Create special squares
+     */
     private int[][] createSpecialSquares(String type) {
         ArrayList<JTextField[]> positions = null;
 
@@ -536,6 +609,9 @@ public class SetUpGameGUI extends JPanel {
         return null;
     }
 
+    /*
+     * Get the number walls
+     */
     public int[] getNumberWalls() {
         try {
             int[] numberWalls = new int[4];
@@ -552,6 +628,9 @@ public class SetUpGameGUI extends JPanel {
         return null;
     }
 
+    /*
+     * Clear the square positions
+     */
     private void clearSquares(String type) {
         switch (type) {
             case "NormalSquare":
@@ -571,6 +650,9 @@ public class SetUpGameGUI extends JPanel {
         }
     }
 
+    /*
+     * Set the game time
+     */
     private void setTime() {
         if (quoridorGUI.timeMode()) {
             try {
@@ -582,10 +664,16 @@ public class SetUpGameGUI extends JPanel {
         }
     }
 
+    /*
+     * Show a message
+     */
     private void showMessage(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /*
+     * Show a error message
+     */
     private void showError(String message, String title) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
