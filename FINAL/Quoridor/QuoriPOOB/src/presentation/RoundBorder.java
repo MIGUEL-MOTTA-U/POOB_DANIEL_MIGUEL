@@ -3,17 +3,30 @@ package presentation;
 import javax.swing.border.AbstractBorder;
 import java.awt.*;
 
+/**
+ * Create a panel with round border
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class RoundBorder extends AbstractBorder {
     private final Color borderColor;
     private final Color backgroundColor;
     private final int radius;
 
+    /**
+     * Constructor of RoundBorder
+     */
     public RoundBorder(Color borderColor, Color backgroundColor, int radius) {
         this.borderColor = borderColor;
         this.backgroundColor = backgroundColor;
         this.radius = radius;
     }
 
+    /*
+     * Paint the round border
+     */
     @Override
     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
         super.paintBorder(c, g, x, y, width, height);
@@ -31,11 +44,17 @@ public class RoundBorder extends AbstractBorder {
         g2.dispose();
     }
 
+    /*
+     * Get the border insets
+     */
     @Override
     public Insets getBorderInsets(Component c) {
         return new Insets(radius, radius, radius, radius);
     }
 
+    /*
+     * Get the border insets
+     */
     @Override
     public Insets getBorderInsets(Component c, Insets insets) {
         insets.left = insets.top = insets.right = insets.bottom = radius;

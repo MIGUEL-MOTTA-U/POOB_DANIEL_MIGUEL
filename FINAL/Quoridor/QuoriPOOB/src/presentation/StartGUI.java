@@ -5,6 +5,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Create the screen where the player decides how many players will the game have
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class StartGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
@@ -19,6 +26,9 @@ public class StartGUI extends JPanel {
     private JButton buttonTwoPlayers;
     private JButton buttonExit;
 
+    /**
+     * Constructor of StartGUI
+     */
     public StartGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
@@ -26,6 +36,9 @@ public class StartGUI extends JPanel {
         setVisible(true);
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel container = new JPanel();
 
@@ -39,6 +52,9 @@ public class StartGUI extends JPanel {
         add(container);
     }
 
+    /*
+     * Create the title elements
+     */
     private void prepareElementsTitle(JPanel content) {
         panelTitle = new JPanel();
         panelTitle.setLayout(new BoxLayout(panelTitle, BoxLayout.Y_AXIS));
@@ -59,6 +75,9 @@ public class StartGUI extends JPanel {
         content.add(panelTitle);
     }
 
+    /*
+     * Create the buttons
+     */
     private void prepareElementsButtons(JPanel content) {
         panelButtons = new JPanel();
         panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.Y_AXIS));
@@ -87,6 +106,9 @@ public class StartGUI extends JPanel {
         content.add(panelButtons);
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -111,10 +133,16 @@ public class StartGUI extends JPanel {
         return button;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareActions() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonOnePlayer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -137,6 +165,9 @@ public class StartGUI extends JPanel {
         });
     }
 
+    /*
+     * Close the game
+     */
     private void confirmClose() {
         int option = JOptionPane.showConfirmDialog(this, "Are you sure do you want to get out of the game?",
                 "Close Window", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);

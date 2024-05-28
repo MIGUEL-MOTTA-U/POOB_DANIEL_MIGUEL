@@ -7,6 +7,13 @@ import domain.QuoriPOOBException;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Create the screen where the player decides the game mode
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class GameModeGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
@@ -29,6 +36,9 @@ public class GameModeGUI extends JPanel {
     private JButton buttonTimedMode;
     private JLabel labelTimedModeDescription;
 
+    /**
+     * Constructor of BoardGUI
+     */
     public GameModeGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
@@ -36,6 +46,9 @@ public class GameModeGUI extends JPanel {
         setVisible(true);
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel container = new JPanel();
 
@@ -54,6 +67,9 @@ public class GameModeGUI extends JPanel {
         add(container);
     }
 
+    /*
+     * Create the title elements
+     */
     private void prepareElementsTitle(JPanel content) {
         panelTitle = new JPanel();
         panelTitle.setLayout(new BoxLayout(panelTitle, BoxLayout.Y_AXIS));
@@ -69,6 +85,9 @@ public class GameModeGUI extends JPanel {
         content.add(panelTitle);
     }
 
+    /*
+     * Create the normal mode elements
+     */
     private void prepareElementsNormalMode(JPanel content) {
         panelNormalMode = new JPanel();
         panelNormalMode.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
@@ -87,6 +106,9 @@ public class GameModeGUI extends JPanel {
         content.add(panelNormalMode);
     }
 
+    /*
+     * Create the clock mode elements
+     */
     private void prepareElementsClockMode(JPanel content) {
         panelClockMode = new JPanel();
         panelClockMode.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
@@ -106,6 +128,9 @@ public class GameModeGUI extends JPanel {
         content.add(panelClockMode);
     }
 
+    /*
+     * Create the timed mode elements
+     */
     private void prepareElementsTimedMode(JPanel content) {
         panelTimedMode = new JPanel();
         panelTimedMode.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
@@ -124,6 +149,9 @@ public class GameModeGUI extends JPanel {
         content.add(panelTimedMode);
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setOpaque(false);
@@ -156,10 +184,16 @@ public class GameModeGUI extends JPanel {
         return label;
     }
 
+    /*
+     * Create a label
+     */
     private void prepareActions() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonNormalMode.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {

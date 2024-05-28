@@ -7,6 +7,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Create the screen where the player decides which type of machine will play
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class GameDifficultyGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
 
@@ -29,6 +36,9 @@ public class GameDifficultyGUI extends JPanel {
     private JButton buttonAdvanced;
     private JLabel labelAdvancedDescription;
 
+    /**
+     * Constructor of DefeatScreen
+     */
     public GameDifficultyGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
@@ -36,6 +46,9 @@ public class GameDifficultyGUI extends JPanel {
         setVisible(true);
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel container = new JPanel();
 
@@ -54,6 +67,9 @@ public class GameDifficultyGUI extends JPanel {
         add(container);
     }
 
+    /*
+     * Create the title elements
+     */
     private void prepareElementsTitle(JPanel content) {
         panelTitle = new JPanel();
         panelTitle.setLayout(new BoxLayout(panelTitle, BoxLayout.Y_AXIS));
@@ -69,6 +85,9 @@ public class GameDifficultyGUI extends JPanel {
         content.add(panelTitle);
     }
 
+    /*
+     * Create the beginner machine elements
+     */
     private void prepareElementsBeginner(JPanel content) {
         panelBegginer = new JPanel();
         panelBegginer.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
@@ -87,6 +106,9 @@ public class GameDifficultyGUI extends JPanel {
         content.add(panelBegginer);
     }
 
+    /*
+     * Create the intermediate machine elements
+     */
     private void prepareElementsIntermediate(JPanel content) {
         panelIntermediate = new JPanel();
         panelIntermediate
@@ -107,6 +129,9 @@ public class GameDifficultyGUI extends JPanel {
         content.add(panelIntermediate);
     }
 
+    /*
+     * Create the advanced machine elements
+     */
     private void prepareElementsAdvanced(JPanel content) {
         panelAdvanced = new JPanel();
         panelAdvanced.setBorder(new RoundBorder(QuoridorGUI.COLOR_BORDER_PANEL, QuoridorGUI.DEFAULT_BACKGROUND, 10));
@@ -126,6 +151,9 @@ public class GameDifficultyGUI extends JPanel {
         content.add(panelAdvanced);
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text) {
         JButton button = new JButton(text);
         button.setOpaque(false);
@@ -150,6 +178,9 @@ public class GameDifficultyGUI extends JPanel {
         return button;
     }
 
+    /*
+     * Create a label
+     */
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setBorder(new EmptyBorder(0, 10, 10, 13));
@@ -158,10 +189,16 @@ public class GameDifficultyGUI extends JPanel {
         return label;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareActions() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonBeginner.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
