@@ -7,7 +7,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
-
+/**
+ * Create the player information of walls, name and color section
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class PlayerInfoGUI extends JPanel {
     private QuoridorGUI quoridorGUI;
     private Color playerColor;
@@ -24,6 +30,9 @@ public class PlayerInfoGUI extends JPanel {
     private JButton buttonColor;
     private JButton buttonNext;
 
+    /**
+     * Constructor of PlayerInfoGUI
+     */
     public PlayerInfoGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         prepareElements();
@@ -31,6 +40,9 @@ public class PlayerInfoGUI extends JPanel {
         setVisible(true);
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel container = new JPanel();
 
@@ -44,6 +56,9 @@ public class PlayerInfoGUI extends JPanel {
         add(container);
     }
 
+    /*
+     * Create the west elements
+     */
     private void prepareElementsWest(JPanel content) {
         panelWest = new JPanel();
         panelWest.setBackground(Color.WHITE);
@@ -75,6 +90,9 @@ public class PlayerInfoGUI extends JPanel {
         content.add(panelWest, BorderLayout.WEST);
     }
 
+    /*
+     * Create the East elements
+     */
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel();
         panelEast.setBackground(Color.WHITE);
@@ -111,6 +129,9 @@ public class PlayerInfoGUI extends JPanel {
         content.add(panelEast, BorderLayout.EAST);
     }
 
+    /*
+     * Creates a button
+     */
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -132,6 +153,9 @@ public class PlayerInfoGUI extends JPanel {
         return button;
     }
 
+    /*
+     * Create space to place messages
+     */
     private JTextField createTextField(String text) {
         JTextField textField = new JTextField(text);
         textField.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -154,10 +178,16 @@ public class PlayerInfoGUI extends JPanel {
         return textField;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareActions() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonColor.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -185,6 +215,9 @@ public class PlayerInfoGUI extends JPanel {
         });
     }
 
+    /*
+     * Create the image
+     */
     private void createImage(JLabel label, String path) {
         URL url = getClass().getResource(path);
         
@@ -197,6 +230,9 @@ public class PlayerInfoGUI extends JPanel {
         }
     }
 
+    /*
+     * Create the alert of empty information for the player info section
+     */
     private boolean emptyInfo() {
         boolean empty = false;
 
