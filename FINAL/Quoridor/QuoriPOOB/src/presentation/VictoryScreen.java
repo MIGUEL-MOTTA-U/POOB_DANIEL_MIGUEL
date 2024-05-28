@@ -10,6 +10,13 @@ import java.awt.event.*;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * Create the victory screen
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class VictoryScreen extends JPanel {
     private BoardGUI boardGUI;
     private String winner;
@@ -28,6 +35,9 @@ public class VictoryScreen extends JPanel {
     private JButton buttonNew;
     private JButton buttonExit;
 
+    /**
+     * Constructor of VictoryScreen
+     */
     public VictoryScreen(BoardGUI boardGUI, String winner) {
         this.boardGUI = boardGUI;
         this.winner = winner;
@@ -37,6 +47,9 @@ public class VictoryScreen extends JPanel {
         playSound();
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel content = new JPanel();
         
@@ -53,6 +66,9 @@ public class VictoryScreen extends JPanel {
         add(content);
     }
 
+    /*
+     * Create the message elements
+     */
     private void prepareElementsMessage(JPanel content) {
         panelMessage = new JPanel();
 
@@ -63,6 +79,9 @@ public class VictoryScreen extends JPanel {
         content.add(panelMessage);
     }
 
+    /*
+     * Create the image defeat
+     */
     private void prepareElementsImage(JPanel content) {
         panelImage = new JPanel();
 
@@ -75,6 +94,9 @@ public class VictoryScreen extends JPanel {
         content.add(panelImage);
     }
 
+    /*
+     * Create the buttons
+     */
     private void prepareElementsButtons(JPanel content) {
         JPanel container = new JPanel();
 
@@ -92,6 +114,9 @@ public class VictoryScreen extends JPanel {
         content.add(container);
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -114,10 +139,16 @@ public class VictoryScreen extends JPanel {
         return button;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareAction() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonNew.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -132,6 +163,9 @@ public class VictoryScreen extends JPanel {
         });
     }
 
+    /*
+     * Create a image
+     */
     private void createImage(JLabel label, String path) {
         URL url = getClass().getResource(path);
         
@@ -144,6 +178,9 @@ public class VictoryScreen extends JPanel {
         }
     }
 
+    /*
+     * Play the victory sound
+     */
     private void playSound() {
         try {
             File soundFile = new File("presentation\\assets\\victory sound.wav");

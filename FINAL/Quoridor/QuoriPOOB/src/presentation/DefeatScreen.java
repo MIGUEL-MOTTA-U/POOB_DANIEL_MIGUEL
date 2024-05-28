@@ -10,6 +10,13 @@ import java.awt.event.*;
 import java.io.File;
 import java.net.URL;
 
+/**
+ * Create the defeat screen
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class DefeatScreen extends JPanel {
     private BoardGUI boardGUI;
     private Clip clip;
@@ -27,6 +34,9 @@ public class DefeatScreen extends JPanel {
     private JButton buttonNew;
     private JButton buttonExit;
 
+    /**
+     * Constructor of DefeatScreen
+     */
     public DefeatScreen(BoardGUI boardGUI) {
         this.boardGUI = boardGUI;
         prepareElements();
@@ -35,6 +45,9 @@ public class DefeatScreen extends JPanel {
         playSound();
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         JPanel content = new JPanel();
         
@@ -51,6 +64,9 @@ public class DefeatScreen extends JPanel {
         add(content);
     }
 
+    /*
+     * Create the message elements
+     */
     private void prepareElementsMessage(JPanel content) {
         panelMessage = new JPanel();
 
@@ -61,6 +77,9 @@ public class DefeatScreen extends JPanel {
         content.add(panelMessage);
     }
 
+    /*
+     * Create the image defeat
+     */
     private void prepareElementsImage(JPanel content) {
         panelImage = new JPanel();
 
@@ -73,6 +92,9 @@ public class DefeatScreen extends JPanel {
         content.add(panelImage);
     }
 
+    /*
+     * Create the buttons
+     */
     private void prepareElementsButtons(JPanel content) {
         JPanel container = new JPanel();
 
@@ -90,6 +112,9 @@ public class DefeatScreen extends JPanel {
         content.add(container);
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -112,10 +137,16 @@ public class DefeatScreen extends JPanel {
         return button;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareAction() {
         prepareActionsButtons();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionsButtons() {
         buttonNew.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -130,6 +161,9 @@ public class DefeatScreen extends JPanel {
         });
     }
 
+    /*
+     * Create a image
+     */
     private void createImage(JLabel label, String path) {
         URL url = getClass().getResource(path);
         
@@ -142,6 +176,9 @@ public class DefeatScreen extends JPanel {
         }
     }
 
+    /*
+     * Play the defeat sound
+     */
     private void playSound() {
         try {
             File soundFile = new File("presentation\\assets\\game over sound.wav");

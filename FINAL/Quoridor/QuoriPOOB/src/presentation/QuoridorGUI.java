@@ -8,6 +8,13 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.HashMap;
 
+/**
+ * This class communicates with the controller and contains the game's JFrame.
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class QuoridorGUI extends JFrame {
     public static final int PREFERRED_WIDTH = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() * 0.6);
     public static final int PREFERRED_HEIGHT = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() * 0.7);

@@ -5,7 +5,7 @@ TimeTrial
 10
 Players:
 Beginner java.awt.Color[r=255,g=0,b=0] Machine
-NormalWalls: 2
+NormalWalls: 0
 Temporary: 0
 LongWall: 0
 Allied: 0
@@ -98,8 +98,8 @@ NormalSquare 8 6
 NormalSquare 8 7
 NormalSquare 8 8
 Tokens:
-java.awt.Color[r=255,g=0,b=0] 3 6
-9
+java.awt.Color[r=255,g=0,b=0] 2 8
+22
 0 4
 0 3
 1 3
@@ -109,8 +109,21 @@ java.awt.Color[r=255,g=0,b=0] 3 6
 3 3
 3 4
 3 5
-java.awt.Color[r=153,g=204,b=255] 1 3
-11
+3 6
+3 7
+3 6
+2 6
+3 6
+3 5
+3 6
+2 6
+2 7
+2 6
+3 6
+2 6
+2 7
+java.awt.Color[r=153,g=204,b=255] 7 8
+29
 8 4
 7 4
 6 4
@@ -122,8 +135,26 @@ java.awt.Color[r=153,g=204,b=255] 1 3
 2 3
 2 5
 2 4
+1 3
+1 2
+1 1
+1 0
+1 1
+1 2
+1 3
+1 4
+1 5
+2 5
+2 4
+3 5
+3 6
+3 7
+3 8
+4 8
+5 8
+6 8
 Board walls:
-13
+15
 NormalWall java.awt.Color[r=255,g=0,b=0] 2 0 UP
 NormalWall java.awt.Color[r=255,g=0,b=0] 1 8 RIGHT
 NormalWall java.awt.Color[r=255,g=0,b=0] 8 5 UP
@@ -137,6 +168,8 @@ NormalWall java.awt.Color[r=255,g=0,b=0] 5 2 RIGHT
 NormalWall java.awt.Color[r=153,g=204,b=255] 4 2 UP
 NormalWall java.awt.Color[r=153,g=204,b=255] 4 0 UP
 NormalWall java.awt.Color[r=255,g=0,b=0] 0 7 LEFT
+NormalWall java.awt.Color[r=255,g=0,b=0] 3 2 LEFT
+NormalWall java.awt.Color[r=255,g=0,b=0] 1 6 LEFT
 Player playing:
 java.awt.Color[r=153,g=204,b=255]
 Game over:

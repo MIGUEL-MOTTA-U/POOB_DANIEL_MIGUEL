@@ -15,6 +15,13 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class contains the board, along with the information and actions of the game.
+ * 
+ * @author Daniel Diaz and Miguel Motta
+ * @version 1.0
+ * @since 25-05-2024
+ */
 public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
     private static final Color BACKGROUND = new Color(250, 250, 250);
     private static final Color BACKGROUND_SPECIAL_SQUARES = new Color(220, 220, 220);
@@ -67,6 +74,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
     private JLabel labelLongWallsPlayer2;
     private JLabel labelAlliedWallsPlayer2;
 
+    /**
+     * Constructor of BoardGUI
+     */
     public BoardGUI(QuoridorGUI quoridorGUI) {
         this.quoridorGUI = quoridorGUI;
         this.victoryScreen = null;
@@ -82,6 +92,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         });
     }
 
+    /*
+     * Create all the elements
+     */
     private void prepareElements() {
         setLayout(new BorderLayout());
 
@@ -94,6 +107,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         add(content);
     }
 
+    /*
+     * Create the time and moves elements
+     */
     private void prepareElementsEast(JPanel content) {
         panelEast = new JPanel(new GridBagLayout());
         panelEast.setBackground(BACKGROUND);
@@ -111,6 +127,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         content.add(panelEast, BorderLayout.EAST);
     }
 
+    /*
+     * Create the time elements
+     */
     private JPanel prepareElementsTime() {
         panelTime = new JPanel(new GridBagLayout());
         panelTime.setBackground(BACKGROUND);
@@ -136,6 +155,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return panelTime;
     }
 
+    /*
+     * Create the moves elements
+     */
     private JPanel prepareElementsMove() {
         panelMoves = new JPanel(new GridLayout(3, 3));
         panelMoves.setBackground(BACKGROUND);
@@ -231,6 +253,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return panelMoves;
     }
 
+    /*
+     * Create the board elements
+     */
     private JPanel prepareElementsBoard() {
         containerBoard = new JPanel(new BorderLayout());
         containerBoard.setBackground(BACKGROUND);
@@ -257,6 +282,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return containerBoard;
     }
 
+    /*
+     * Update the board view
+     */
     private void updateBoard() {
         Square[][] squares = quoridorGUI.getBoardMatrix();
         int size = quoridorGUI.getBoardSize();
@@ -283,6 +311,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         validate();
     }
 
+    /*
+     * Paint the walls on the board
+     */
     private void paintWalls(SquareGUI squareGUI, Square square) {
         if (square.getWallUp() != null) {
             if (!squareGUI.getWallUp()) {
@@ -309,6 +340,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /*
+     * Erase the walls from the board
+     */
     private void eraseWalls(SquareGUI squareGUI, Square square) {
         if (squareGUI.getWallUp()) {
             squareGUI.delWallUp();
@@ -325,6 +359,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /*
+     * Create the information elements
+     */
     private void prepareElementsSouth(JPanel content) {
         panelSouth = new JPanel(new BorderLayout());
         panelSouth.setBackground(BACKGROUND);
@@ -341,6 +378,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         content.add(panelSouth, BorderLayout.SOUTH);
     }
 
+    /*
+     *  Create the information elements of player 1
+     */
     private JPanel prepareElementsPlayer1() {
         JPanel container = new JPanel(new GridBagLayout());
         container.setBackground(Color.WHITE);
@@ -374,6 +414,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return container;
     }
 
+    /*
+     * Create the information elements of player 2
+     */
     private JPanel prepareElementsPlayer2() {
         JPanel container = new JPanel(new GridBagLayout());
         container.setBackground(Color.WHITE);
@@ -407,6 +450,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return container;
     }
 
+    /*
+     * Create the name player elements
+     */
     private JPanel prepareElemetsNamePlayer(JLabel playerName, JLabel playerWalls) {
         JPanel content = new JPanel();
         content.setBackground(Color.WHITE);
@@ -418,6 +464,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return content;
     }
 
+    /*
+     * create the walls information elements
+     */
     private JPanel prepareElementsWallsPlayer(JLabel normal, JLabel temporary, JLabel longW, JLabel allied) {
         JPanel content = new JPanel();
         content.setBackground(Color.WHITE);
@@ -434,6 +483,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return content;
     }
 
+    /*
+     * Create a button
+     */
     private JButton createButton(String text, Color background, Color foreGround, Color hover) {
         JButton button = new JButton(text);
         button.setFocusPainted(false);
@@ -457,6 +509,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return button;
     }
 
+    /*
+     * Create a label
+     */
     private JLabel createLabel(String text) {
         JLabel label = new JLabel(text);
         label.setFont(new Font(QuoridorGUI.FONT_TEXT, Font.PLAIN, 10));
@@ -464,11 +519,17 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return label;
     }
 
+    /*
+     * Create the actions
+     */
     private void prepareActions() {
         prepareActionButtonsMove();
         prepareActionKeys();
     }
 
+    /*
+     * Create the button actions
+     */
     private void prepareActionButtonsMove() {
         buttonUp.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ev) {
@@ -559,6 +620,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         });
     }
 
+    /*
+     * Create the keyboard actions
+     */
     private void prepareActionKeys() {
         addKeyListener(new KeyAdapter() {
             @Override
@@ -568,6 +632,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         });
     }
 
+    /*
+     * Create the keyboard actions
+     */
     private void handleKeyPress(KeyEvent ev) {
         int keyCode = ev.getKeyCode();
         try {
@@ -593,34 +660,53 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /**
+     * Create a new game
+     */
     public void newGame() {
         this.quoridorGUI.restart();
         this.quoridorGUI.showStartGUI();
     }
 
+    /**
+     * Exit the game
+     */
     public void exit() {
         this.quoridorGUI.confirmClose();
     }
 
+    /**
+     * It is the behavior when the game time is over
+     */
     @Override
     public void timeIsUp() {
         if (this.quoridorGUI.getGameOver()) {
             showDefeatScreen();
         }
+
         refresh();
     }
 
+    /**
+     * Update the player time remaining
+     */
     @Override
     public void updateTime(int time) {
         String timeString = String.format("%d", time);
         labelTime.setText(timeString);
     }
 
+    /**
+     * It is the behavior when a player finishes his turn
+     */
     @Override
     public void onGameModeUpdated() {
         refresh();
     }
 
+    /**
+     * check if the game is over
+     */
     @Override
     public void checkGameFinished() {
         if (quoridorGUI.getGameOver()) {
@@ -636,6 +722,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /*
+     * Create an image
+     */
     private void createImage(JLabel label, String path) {
         URL url = getClass().getResource(path);
         
@@ -648,6 +737,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /*
+     * Get the remaining walls of the player
+     */
     private HashMap<String, Integer> getRemainingWalls(String namePlayer) {
         try {
             String colorPlayer = this.quoridorGUI.getColorPlayer(namePlayer);
@@ -666,6 +758,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return null;
     }
 
+    /*
+     * Get the total walls of a player
+     */
     private int getTotalRemainingWalls(String namePlayer) {
         HashMap<String, Integer> numWalls = getRemainingWalls(namePlayer);
         int total = 0;
@@ -677,6 +772,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return total;
     }
 
+    /*
+     * Update the number walls of each player
+     */
     private void updateNumWalls() {
         String namePlayer1 = this.quoridorGUI.getNames()[0];
         String namePlayer2 = this.quoridorGUI.getNames()[1];
@@ -693,6 +791,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         labelAlliedWallsPlayer2.setText("Allied: " + getRemainingWalls(namePlayer2).get("Allied"));
     }
 
+    /*
+     * Get the color player
+     */
     private Color getColorPlayer(String name) {
         Color color = null;
 
@@ -705,6 +806,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         return color;
     }
 
+    /**
+     * Update the game information and the game view
+     */
     public void refresh() {
         updateBoard();
         updateNumWalls();
@@ -713,6 +817,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         repaint();
     }
 
+    /*
+     * Show the victory screen
+     */
     private void showVictoryScreen() {
         if (victoryScreen == null) {
             victoryScreen = new VictoryScreen(this, this.quoridorGUI.getWinner().getName());
@@ -723,6 +830,9 @@ public class BoardGUI extends JPanel implements TimeObserver, GameModeObserver {
         }
     }
 
+    /*
+     * Show the defeat screen
+     */
     private void showDefeatScreen() {
         if (defeatScreen == null) {
             defeatScreen = new DefeatScreen(this);
