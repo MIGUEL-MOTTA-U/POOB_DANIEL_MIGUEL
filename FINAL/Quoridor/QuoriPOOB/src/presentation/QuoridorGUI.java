@@ -343,7 +343,6 @@ public class QuoridorGUI extends JFrame {
 
     public static void main(String args[]) {
         QuoridorGUI gui = new QuoridorGUI();
-        System.out.println(Color.RED.toString());
         gui.setVisible(true);
     }
 }
