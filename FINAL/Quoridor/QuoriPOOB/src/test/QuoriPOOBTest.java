@@ -1247,7 +1247,6 @@ public class QuoriPOOBTest {
     @Test
     public void shouldBeAbleToSaveAfterWin() throws QuoriPOOBException {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
-        q.setPersistence();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
         q.createPlayerHuman("Daniel", Color.BLUE.toString());
@@ -1267,7 +1266,6 @@ public class QuoriPOOBTest {
         q = null;
         assertEquals(q, null);
         q = QuoriPOOB.getQuoriPOOB();
-        q.setPersistence();
         q.setQuoridor(QuoriPOOB.openFile(copy));
         assertArrayEquals(new String[] { "Daniel", "Miguel" }, q.getNames());
         assertEquals(Color.ORANGE.toString(), q.getColor("Miguel"));

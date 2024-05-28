@@ -12,9 +12,7 @@ import java.io.*;
  */
 public class QuoriPOOB {
 	private static QuoriPOOB quoriPOOBSingleton;
-
 	private Quoridor quoridor;
-	private Persistence persistence;
 
 	/**
 	 * Constructor of QuoriPOOB
@@ -312,19 +310,12 @@ public class QuoriPOOB {
 	}
 
 	/**
-	 * set the persistence of the game
-	 */
-	public void setPersistence() {
-		this.persistence = new Persistence();
-	}
-
-	/**
 	 * Save the game in a file
 	 * 
 	 * @param file the file where the game is saved
 	 */
 	public void saveFile(File file) {
-		this.persistence.saveFile(file);
+		Persistence.saveFile(file, this.quoridor);
 	}
 
 	/**

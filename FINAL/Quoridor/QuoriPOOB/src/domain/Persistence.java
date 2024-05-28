@@ -18,31 +18,22 @@ import javax.swing.JOptionPane;
  * @since 25-05-2024
  */
 public class Persistence {
-	Quoridor quoridor;
-
-	/**
-     * Constructor of Persistence
-     */
-	public Persistence() {
-		this.quoridor = QuoriPOOB.getQuoriPOOB().getQuoridor();
-	}
-
     /**
 	 * Save the game in a file
 	 * 
 	 * @param file the file to save
 	 */
-	public void saveFile(File file) {
+	public static void saveFile(File file, Quoridor quoridor) {
 		try {
 			PrintWriter pw = new PrintWriter(new FileOutputStream(file));
 			pw.println("Two players:");
 			pw.println(quoridor.getTwoPlayers());
-			writeMode(pw);
-			writePlayers(pw);
-			writeBoard(pw);
-			writeTokens(pw);
-			writeBoardWalls(pw);
-			writeInfo(pw);
+			writeMode(pw, quoridor);
+			writePlayers(pw, quoridor);
+			writeBoard(pw, quoridor);
+			writeTokens(pw, quoridor);
+			writeBoardWalls(pw, quoridor);
+			writeInfo(pw, quoridor);
             pw.close();
 		} catch (Exception e) {
 			JOptionPane.showConfirmDialog(null, e.getMessage(), "Error saving the game", JOptionPane.ERROR_MESSAGE);
@@ -53,7 +44,7 @@ public class Persistence {
 	/*
 	 * Write the game mode information to the file
 	 */
-	private void writeMode(PrintWriter pw) {
+	private static void writeMode(PrintWriter pw, Quoridor quoridor) {
 		Mode mode = quoridor.getMode();
 
 		pw.println("Mode:");
@@ -68,7 +59,7 @@ public class Persistence {
 	/*
 	 * Write the game players information to the file
 	 */
-	private void writePlayers(PrintWriter pw) {
+	private static void writePlayers(PrintWriter pw, Quoridor quoridor) {
 		LinkedHashMap<String, Player> players = quoridor.getPlayers();
 		
 		pw.println("Players:");
@@ -85,7 +76,7 @@ public class Persistence {
 	/*
 	 * Write the game board information to the file
 	 */
-	private void writeBoard(PrintWriter pw) {
+	private static void writeBoard(PrintWriter pw, Quoridor quoridor) {
 		Board board = quoridor.getBoard();
 		Square[][] matrixBoard = board.getMatrixBoard();
 
@@ -103,7 +94,7 @@ public class Persistence {
 	/*
 	 * Write the game tokens information to the file
 	 */
-	private void writeTokens(PrintWriter pw) {
+	private static void writeTokens(PrintWriter pw, Quoridor quoridor) {
 		LinkedHashMap<String, Token> tokens = quoridor.getTokens();
 
 		pw.println("Tokens:");
@@ -119,7 +110,7 @@ public class Persistence {
 	/*
 	 * Write the game walls board information to the file
 	 */
-	private void writeBoardWalls(PrintWriter pw) {
+	private static void writeBoardWalls(PrintWriter pw, Quoridor quoridor) {
 		ArrayList<Wall> walls = quoridor.getBoard().getWalls();
 
 		pw.println("Board walls:");
@@ -137,7 +128,7 @@ public class Persistence {
 	/*
 	 * Write the game extra information to the file
 	 */
-	private void writeInfo(PrintWriter pw) {
+	private static void writeInfo(PrintWriter pw, Quoridor quoridor) {
 		pw.println("Player playing:");
 		pw.println(quoridor.getCurrentPlayer().getColor());
 		pw.println("Game over:");

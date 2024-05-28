@@ -45,7 +45,6 @@ public class QuoridorGUI extends JFrame {
 
     private QuoridorGUI() {
         this.quoriPOOB = QuoriPOOB.getQuoriPOOB();
-        this.quoriPOOB.setPersistence();
         this.playerTwo = false;
         prepareElements();
         prepareActions();
@@ -186,7 +185,6 @@ public class QuoridorGUI extends JFrame {
     public void restart() {
         quoriPOOB.resetSingleton();
         quoriPOOB = QuoriPOOB.getQuoriPOOB();
-        quoriPOOB.setPersistence();
         playerTwo = false;
         startGUI = null;
         gameModeGUI = null;
