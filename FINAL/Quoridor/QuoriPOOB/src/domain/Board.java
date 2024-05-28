@@ -809,22 +809,7 @@ public class Board {
 	 */
 	private void createRandomSpecialSquares() throws QuoriPOOBException {
 		Random random = new Random();
-		boolean createDoubleTurn = random.nextBoolean();
-		boolean createTeleporter = random.nextBoolean();
-
-		if (!createDoubleTurn && !createTeleporter) {
-			return;
-		}
-
-		String[] squaresType;
-
-		if (createDoubleTurn && createTeleporter) {
-			squaresType = new String[] { "domain.DoubleTurn", "domain.Teleporter" };
-		} else if (createDoubleTurn) {
-			squaresType = new String[] { "domain.DoubleTurn" };
-		} else {
-			squaresType = new String[] { "domain.Teleporter" };
-		}
+		String[] squaresType = new String[] { "domain.DoubleTurn", "domain.Teleporter" };
 
 		int totalSpecialSquares = random.nextInt((int) (Math.pow(this.size, 2) / 4));
 

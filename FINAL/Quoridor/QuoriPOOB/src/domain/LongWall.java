@@ -58,7 +58,7 @@ public class LongWall extends Wall {
 	 */
 	protected void validate(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
-		if (initialRow > board.getSize() - 2 || initialColumn > board.getSize() - 2 || initialRow < 0
+		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0
 				|| initialColumn < 0){
 			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
 			Log.record(e);
