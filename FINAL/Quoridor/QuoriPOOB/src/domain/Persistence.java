@@ -413,7 +413,9 @@ public class Persistence {
 			constructor.setAccessible(true);
 			square = (Square) constructor.newInstance(row, column, board);
 		} catch (Exception e) {
-			throw new QuoriPOOBException(QuoriPOOBException.SQUARE_NOT_EXIST);
+			QuoriPOOBException q = new QuoriPOOBException(QuoriPOOBException.SQUARE_NOT_EXIST);
+			Log.record(q);
+				throw q;
 		}
 
 		return square;
@@ -431,7 +433,9 @@ public class Persistence {
 			constructor.setAccessible(true);
 			wall = (Wall) constructor.newInstance(color);
 		} catch (Exception e) {
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			QuoriPOOBException q = new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			Log.record(q);
+			throw q;
 		}
 
 		return wall;

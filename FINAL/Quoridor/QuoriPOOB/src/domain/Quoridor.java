@@ -68,7 +68,9 @@ public class Quoridor {
 			constructor.setAccessible(true);
 			this.mode = (Mode) constructor.newInstance(this);
 		} catch (Exception e) {
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_NOT_EXIST);
+			QuoriPOOBException q = new QuoriPOOBException(QuoriPOOBException.MODE_NOT_EXIST);
+			Log.record(q);
+			throw q;
 		}
 	}
 
@@ -91,12 +93,21 @@ public class Quoridor {
 	 *                            players.
 	 */
 	public void createBoard(int size, HashMap<String, int[][]> specialSquares) throws QuoriPOOBException {
-		if (modeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (gameModeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (players.size() != 2)
-			throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
+		if (modeUndefined()){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;
+		}
+		if (gameModeUndefined()){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;
+		}
+		if (players.size() != 2){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
+			Log.record(e);
+			throw e;
+		}
 
 		board = new Board(this, size, specialSquares);
 		board.setPlayers(this.players);
@@ -122,22 +133,43 @@ public class Quoridor {
 	 */
 	public void createPlayerHuman(String name, Color color) throws QuoriPOOBException {
 		checkGameFinish();
-		if (name == null)
-			throw new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
-		if (color == null)
-			throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
-		if (modeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (gameModeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (this.players.size() >= 2)
-			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
-		if (onePlayer) {
-			if (humanPlayerExist())
-				throw new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+		if (name == null){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.NAME_NULL);
+			Log.record(e);
+			throw e;	
 		}
-		if (samePlayerColor(color))
-			throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+		if (color == null){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
+			Log.record(e);
+			throw e;	
+		}
+		if (modeUndefined()){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (gameModeUndefined()){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (this.players.size() >= 2){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+			Log.record(e);
+			throw e;	
+		}
+		if (onePlayer) {
+			if (humanPlayerExist()){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+				Log.record(e);
+			throw e;	
+			}
+		}
+		if (samePlayerColor(color)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+			Log.record(e);
+			throw e;	
+		}
 
 		Human player = new Human(name, color);
 		this.players.put(color, player);
@@ -158,22 +190,43 @@ public class Quoridor {
 	 */
 	public void createPlayerMachine(Color color, String type) throws QuoriPOOBException {
 		checkGameFinish();
-		if (type == null)
-			throw new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
-		if (color == null)
-			throw new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
-		if (modeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (this.players.size() >= 2)
-			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
-		if (twoPlayers)
-			throw new QuoriPOOBException(QuoriPOOBException.TWO_PLAYER_MODE);
-		if (onePlayer) {
-			if (machinePlayerExist())
-				throw new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+		if (type == null){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.TYPE_MACHINE_NULL);
+			Log.record(e);
+			throw e;	
 		}
-		if (samePlayerColor(color))
-			throw new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+		if (color == null){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.COLOR_NULL);
+			Log.record(e);
+			throw e;	
+		}
+		if (modeUndefined()){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (this.players.size() >= 2){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_PLAYERS);
+			Log.record(e);
+			throw e;	
+		}
+		if (twoPlayers){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.TWO_PLAYER_MODE);
+			Log.record(e);
+			throw e;	
+		}
+		if (onePlayer) {
+			if (machinePlayerExist()){
+				QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.ONE_PLAYER_MODE);
+				Log.record(e);
+			throw e;	
+			}
+		}
+		if (samePlayerColor(color)){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.SAME_PLAYER_COLOR);
+			Log.record(e);
+			throw e;	
+		}
 
 		try {
 			Class<?> cls = Class.forName(type);
@@ -184,7 +237,9 @@ public class Quoridor {
 			Token token = new Token(color);
 			this.tokens.put(color, token);
 		} catch (Exception e) {
-			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			QuoriPOOBException q = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			Log.record(q);
+			throw q;
 		}
 	}
 
@@ -201,19 +256,37 @@ public class Quoridor {
 	 */
 	public void addWalls(int normal, int temporary, int longWall, int allied) throws QuoriPOOBException {
 		checkGameFinish();
-		if (modeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (gameModeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (this.board == null)
-			throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
-		if (players.size() != 2)
-			throw new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
-		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0)
-			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+		if (modeUndefined()){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (gameModeUndefined()){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (this.board == null){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
+			Log.record(e);
+			throw e;	
+		}
+		if (players.size() != 2){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.MISSING_PLAYERS);
+			Log.record(e);
+			throw e;	
+		}
+		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+			Log.record(e);
+			throw e;	
+		}
 		int numberWalls = normal + temporary + longWall + allied;
-		if (numberWalls != this.board.getSize() + 1)
-			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+		if (numberWalls != this.board.getSize() + 1){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+			Log.record(e);
+			throw e;	
+		}
 
 		for (Player player : this.players.values()) {
 			player.addWalls(normal, temporary, longWall, allied);
@@ -235,14 +308,25 @@ public class Quoridor {
 	public void addWallsPlayer(Color color, int normal, int temporary, int longWall, int allied)
 			throws QuoriPOOBException {
 		checkGameFinish();
-		if (modeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (gameModeUndefined())
-			throw new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
-		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0)
-			throw new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+		if (modeUndefined()){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;
+			}
+		if (gameModeUndefined()){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.MODE_UNDEFINED);
+			Log.record(e);
+			throw e;
+			}
+		if (normal < 0 || temporary < 0 || allied < 0 || longWall < 0){
+			QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.WRONG_NUMBER_WALLS);
+			Log.record(e);
+			throw e;
+			}
 		if (!this.players.containsKey(color)) {
-			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			Log.record(e);
+			throw e;
 		}
 
 		Player player = this.players.get(color);
@@ -386,9 +470,11 @@ public class Quoridor {
 			}
 		}
 
-		if (color == null)
-			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
-
+		if (color == null){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			Log.record(e);
+			throw e;
+		}
 		return color;
 	}
 
@@ -464,9 +550,11 @@ public class Quoridor {
 	 * @throws QuoriPOOBException
 	 */
 	public Token getToken(Color color) throws QuoriPOOBException {
-		if (!this.tokens.containsKey(color))
-			throw new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
-
+		if (!this.tokens.containsKey(color)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_NOT_EXIST);
+			Log.record(e);
+			throw e;	
+		}
 		return this.tokens.get(color);
 	}
 
@@ -478,9 +566,11 @@ public class Quoridor {
 	 * @throws QuoriPOOBException
 	 */
 	public Player getPlayer(Color color) throws QuoriPOOBException {
-		if (!this.players.containsKey(color))
-			throw new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
-
+		if (!this.players.containsKey(color)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.PLAYER_NOT_EXIST);
+			Log.record(e);
+			throw e;
+		}
 		return this.players.get(color);
 	}
 
@@ -633,7 +723,9 @@ public class Quoridor {
 		winner = player;
 		this.mode.cancelTask();
 		notifyObservers();
-		throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.GAME_OVER(player.getName()));
+		Log.record(e);
+		throw e;
 	}
 
 	/*
@@ -673,9 +765,13 @@ public class Quoridor {
 	private void checkGameFinish() throws QuoriPOOBException {
 		if (gameOver) {
 			if (winner == null) {
-				throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.GAME_OVER(null));
+				Log.record(e);
+				throw e;
 			} else {
-				throw new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.GAME_OVER(winner.getName()));
+				Log.record(e);
+				throw e;
 			}
 		}
 	}

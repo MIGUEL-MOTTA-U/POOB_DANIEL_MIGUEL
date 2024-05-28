@@ -59,9 +59,11 @@ public abstract class Wall {
 	 * @throws QuoriPOOBException
 	 */
 	public void delWallFromBoard() throws QuoriPOOBException {
-		if (this.board == null)
-			throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
-
+		if (this.board == null){
+			QuoriPOOBException e =  new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
+			Log.record(e);
+			throw e;
+		}
 		this.board.delWallFromBoard(this);
 		delWallFromBoardMatrix();
 
@@ -165,7 +167,9 @@ public abstract class Wall {
 			case "RIGHT":
 				return ++initialRow;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -183,7 +187,9 @@ public abstract class Wall {
 			case "RIGHT":
 				return initialColumn;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e= new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -193,16 +199,31 @@ public abstract class Wall {
 	protected void validate(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		if (initialRow > board.getSize() - 1 || initialColumn > board.getSize() - 1 || initialRow < 0
-				|| initialColumn < 0)
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
-		if (outRange(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
-		if (wallInSquare(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (intersectWall(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+				|| initialColumn < 0){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
+					Log.record(e);
+			throw e;
+		}
+		if (outRange(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
+			Log.record(e);
+			throw e;
+		}
+		if (wallInSquare(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+			throw e;
+		}
+		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+			throw e;
+		}
+		if (intersectWall(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+			throw e;
+		}
 	}
 
 	/*
@@ -242,7 +263,9 @@ public abstract class Wall {
 						}
 						break;
 					default:
-						throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+						QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+						Log.record(e);
+						throw e;
 				}
 
 				if (res)
@@ -268,7 +291,9 @@ public abstract class Wall {
 			case "RIGHT":
 				return initialRow >= (board.getSize() - 1);
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -288,7 +313,9 @@ public abstract class Wall {
 			case "RIGHT":
 				return square.getWallRight() != null;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -312,7 +339,9 @@ public abstract class Wall {
 				square.addWallRight(this);
 				break;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -357,7 +386,9 @@ public abstract class Wall {
 				}
 				break;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 }

@@ -61,18 +61,36 @@ public class LongWall extends Wall {
 	protected void validate(int initialRow, int initialColumn, String squareSide, Board board)
 			throws QuoriPOOBException {
 		if (initialRow > board.getSize() - 2 || initialColumn > board.getSize() - 2 || initialRow < 0
-				|| initialColumn < 0)
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
-		if (outRange(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
-		if (wallInSquare(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (wallInSquare(middleRow(initialRow, squareSide), middleColumn(initialColumn, squareSide), squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
-		if (intersectWall(initialRow, initialColumn, squareSide, board))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+				|| initialColumn < 0){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
+			Log.record(e);
+				throw e;
+			}
+		if (outRange(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_OUT_OF_RANGE);
+			Log.record(e);
+				throw e;
+			}
+		if (wallInSquare(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+				throw e;
+			}
+		if (wallInSquare(middleRow(initialRow, squareSide), middleColumn(initialColumn, squareSide), squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+				throw e;
+			}
+		if (wallInSquare(finalRow(initialRow, squareSide), finalColumn(initialColumn, squareSide), squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+				throw e;
+			}
+		if (intersectWall(initialRow, initialColumn, squareSide, board)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_IN_SQUARE);
+			Log.record(e);
+				throw e;
+			}
 	}
 
 	@Override
@@ -90,7 +108,9 @@ public class LongWall extends Wall {
 			case "RIGHT":
 				return initialRow += 2;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -109,7 +129,9 @@ public class LongWall extends Wall {
 			case "RIGHT":
 				return initialColumn;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -129,7 +151,9 @@ public class LongWall extends Wall {
 			case "RIGHT":
 				return initialRow >= (board.getSize() - 2);
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -184,7 +208,9 @@ public class LongWall extends Wall {
 				}
 				break;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -202,7 +228,9 @@ public class LongWall extends Wall {
 			case "RIGHT":
 				return ++initialRow;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -220,7 +248,9 @@ public class LongWall extends Wall {
 			case "RIGHT":
 				return initialColumn;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_SIDE_NOT_EXIST);
+				Log.record(e);
+				throw e;
 		}
 	}
 

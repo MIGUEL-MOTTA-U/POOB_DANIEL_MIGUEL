@@ -27,8 +27,11 @@ public abstract class Square {
      * @throws QuoriPOOBException
      */
     public Square(int row, int column, Board board) throws QuoriPOOBException {
-        if (row > board.getSize() || column > board.getSize() || row < 0 || column < 0)
-            throw new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
+        if (row > board.getSize() || column > board.getSize() || row < 0 || column < 0){
+            QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.SQUARE_OUT_OF_RANGE);
+            Log.record(e);
+            throw e;
+        }
 
         this.row = row;
         this.column = column;
@@ -47,8 +50,11 @@ public abstract class Square {
      * @throws QuoriPOOBException
      */
     public void setToken(Token token) throws QuoriPOOBException {
-        if (this.token != null)
-            throw new QuoriPOOBException(QuoriPOOBException.TOKEN_IN_SQUARE);
+        if (this.token != null){
+            QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.TOKEN_IN_SQUARE);
+            Log.record(e);
+            throw e;
+        }
 
         this.token = token;
     }

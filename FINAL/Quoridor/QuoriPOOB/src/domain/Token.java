@@ -126,9 +126,11 @@ public class Token {
     }
 
     public void returnTwoMoves() throws QuoriPOOBException {
-        if (this.lastMovements.size() <= 2)
-            throw new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
-
+        if (this.lastMovements.size() <= 2){
+            QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
+            Log.record(e);
+			throw e;
+        }
         int size = this.lastMovements.size();
         this.lastMovements.remove(size - 1);
         // this.lastMovements.remove(size - 2);

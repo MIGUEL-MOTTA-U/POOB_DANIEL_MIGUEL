@@ -107,7 +107,11 @@ public class Beginner extends Machine {
             }
         }
 
-        if (possibilities.size() == 0 && !moved)
-            throw new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
+        if (possibilities.size() == 0 && !moved){
+            QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.RETURN_MOVES_NOT_POSSIBLE);
+            Log.record(e);
+            throw e;
+        }
+            
     }
 }

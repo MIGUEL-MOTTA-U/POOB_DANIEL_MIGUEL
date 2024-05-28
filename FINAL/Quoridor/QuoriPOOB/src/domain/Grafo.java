@@ -79,7 +79,9 @@ public class Grafo {
      */
     public List<Integer> shortestWay(int nodoA, int nodoB) throws QuoriPOOBException {
         if (!isConnected(nodoA, nodoB)) {
-            throw new QuoriPOOBException(QuoriPOOBException.IMPPOSSIBLE_TO_REACH);
+            QuoriPOOBException e=  new QuoriPOOBException(QuoriPOOBException.IMPPOSSIBLE_TO_REACH);
+            Log.record(e);
+				throw e;
         }
 
         int[] distances = new int[numNodes];

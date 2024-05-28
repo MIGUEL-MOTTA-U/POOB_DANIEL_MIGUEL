@@ -28,8 +28,11 @@ public class DoubleTurn extends Square {
      */
     @Override
     public void act() throws QuoriPOOBException {
-        if (this.board == null)
-            throw new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
+        if (this.board == null){
+            QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.BOARD_UNDEFINED);
+            Log.record(e);
+            throw e;
+            }
 
         this.board.nextTurn();
     }

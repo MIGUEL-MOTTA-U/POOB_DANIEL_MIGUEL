@@ -130,7 +130,9 @@ public abstract class Player {
 				board.moveTokenDownRight(this.color);
 				break;
 			default:
-				throw new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
+				QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WRONG_TOKEN_DIRECTION);
+				Log.record(e);
+				throw e;
 		}
 	}
 
@@ -140,10 +142,16 @@ public abstract class Player {
 	 */
 	protected void addWallToBoard(String type, int initialRow, int initialColumn, String squareSide)
 			throws QuoriPOOBException {
-		if (!numberWalls().containsKey(type))
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
-		if (numberWalls().get(type) <= 0)
-			throw new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
+		if (!numberWalls().containsKey(type)){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			Log.record(e);
+			throw e;
+		}
+		if (numberWalls().get(type) <= 0){
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.INSUFFICIENT_WALLS);
+			Log.record(e);
+			throw e;
+		}
 
 		Wall wallToPut = null;
 
@@ -160,7 +168,9 @@ public abstract class Player {
 		if (blockWay(wallToPut, mappedBoard) || getOtherPlayer().blockWay(wallToPut, getOtherPlayer().mapBoard())) {
 			wallToPut.delWallFromBoard();
 			wallToPut = null;
-			throw new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
+			QuoriPOOBException e = new QuoriPOOBException(QuoriPOOBException.BLOCK_THE_WAY);
+			Log.record(e);
+			throw e;
 		}
 
 		delWall(wallToPut);
@@ -285,7 +295,9 @@ public abstract class Player {
 			constructor.setAccessible(true);
 			wall = (Wall) constructor.newInstance(this.color);
 		} catch (Exception e) {
-			throw new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			QuoriPOOBException q = new QuoriPOOBException(QuoriPOOBException.WALL_NOT_EXIST);
+			Log.record(q);
+			throw q;
 		}
 
 		return wall;
