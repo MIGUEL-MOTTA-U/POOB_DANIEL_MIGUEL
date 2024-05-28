@@ -377,7 +377,7 @@ public class Quoridor {
 	 */
 	public void finishGame() {
 		gameOver = true;
-		this.mode.cancelTask();
+		if (this.mode != null) this.mode.cancelTask();
 	}
 
 	/**

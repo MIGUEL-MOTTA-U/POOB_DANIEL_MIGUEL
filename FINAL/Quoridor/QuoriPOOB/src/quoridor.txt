@@ -1,0 +1,58 @@
+Two players:
+true
+Mode:
+NormalMode
+0
+Players:
+Human java.awt.Color[r=0,g=0,b=255] Daniel
+NormalWalls: 3
+Temporary: 2
+LongWall: 0
+Allied: 1
+Human java.awt.Color[r=255,g=200,b=0] Miguel
+NormalWalls: 3
+Temporary: 2
+LongWall: 0
+Allied: 1
+Board:
+5
+NormalSquare 0 0
+NormalSquare 0 1
+NormalSquare 0 2
+NormalSquare 0 3
+NormalSquare 0 4
+NormalSquare 1 0
+NormalSquare 1 1
+NormalSquare 1 2
+NormalSquare 1 3
+NormalSquare 1 4
+NormalSquare 2 0
+NormalSquare 2 1
+NormalSquare 2 2
+NormalSquare 2 3
+NormalSquare 2 4
+NormalSquare 3 0
+NormalSquare 3 1
+NormalSquare 3 2
+NormalSquare 3 3
+NormalSquare 3 4
+NormalSquare 4 0
+NormalSquare 4 1
+NormalSquare 4 2
+NormalSquare 4 3
+NormalSquare 4 4
+Tokens:
+java.awt.Color[r=0,g=0,b=255] 3 2
+2
+0 2
+1 2
+java.awt.Color[r=255,g=200,b=0] 2 2
+2
+4 2
+3 2
+Board walls:
+0
+Player playing:
+java.awt.Color[r=255,g=200,b=0]
+Game over:
+false

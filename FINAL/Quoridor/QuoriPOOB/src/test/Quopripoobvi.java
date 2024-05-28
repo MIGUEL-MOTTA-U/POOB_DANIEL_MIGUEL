@@ -38,8 +38,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 1", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Advanced");
+        q.createPlayerHuman("Player 1", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Advanced");
         // Create a board 4*4
         q.createBoard(4, noSpecialSquares);
         // Check the size
@@ -50,8 +50,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 2", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Beginner");
+        q.createPlayerHuman("Player 2", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Beginner");
         // Create a board 9*9
         q.createBoard(9, noSpecialSquares);
         // Check the size
@@ -62,8 +62,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 1", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Advanced");
+        q.createPlayerHuman("Player 1", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Advanced");
         // Create a board 4*4
         q.createBoard(2, noSpecialSquares);
         // Check the size
@@ -76,8 +76,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 2", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Intermediate");
+        q.createPlayerHuman("Player 2", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Intermediate");
         // Should not let create a board 1*1
         try{
             q.createBoard(1, noSpecialSquares);
@@ -107,8 +107,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 1", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Advanced");
+        q.createPlayerHuman("Player 1", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Advanced");
         q.createBoard(4, noSpecialSquares);
         // Add the barriers to players, the total of barriers is always n + 1: 4 + 1 = 5
         q.addWalls(0, 0, 0, 5);
@@ -127,8 +127,8 @@ public class Quopripoobvi {
         // Add Barriers (Variety)
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 1", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Advanced");
+        q.createPlayerHuman("Player 1", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Advanced");
         q.createBoard(4, noSpecialSquares);
         // Add the barriers to players, the total of barriers is always n + 1: 4 + 1 = 5
         q.addWalls(2, 1, 1, 1);
@@ -147,8 +147,8 @@ public class Quopripoobvi {
         // Should not 
         q.setOnePlayer();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Player 13", Color.BLUE);
-        q.createPlayerMachine(Color.GREEN, "domain.Beginner");
+        q.createPlayerHuman("Player 13", Color.BLUE.toString());
+        q.createPlayerMachine(Color.GREEN.toString(), "domain.Beginner");
         // Test
         try {
             q.addWalls(1, 2, 1, 1);
@@ -178,8 +178,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Miguel", Color.BLACK);
-        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
         q.createBoard(4, noSpecialSquares);
 
         // Token Daniel
@@ -212,8 +212,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(4, noSpecialSquares);
         try {
             q.moveToken("DOWN");
@@ -226,8 +226,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(4, noSpecialSquares);
         q.moveToken("LEFT");
         q.moveToken("LEFT");
@@ -246,8 +246,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
 
         q.createBoard(10, noSpecialSquares);
         q.addWalls(1, 4, 2, 4);
@@ -279,8 +279,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
@@ -294,8 +294,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
@@ -309,8 +309,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 2, 2, "UP");
@@ -335,8 +335,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 3, 0, 0);
@@ -357,8 +357,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         Token danielToken = q.getBoard().getMatrixBoard()[0][2].getToken();
         q.addWalls(3, 2, 0, 1);
@@ -373,26 +373,26 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Allied", 0, 2, "RIGHT");
         q.addWallToBoard("Allied", 0, 1, "RIGHT");
         HashMap<String, Integer> danielWalls = new HashMap<>();
         HashMap<String, Integer> miguelWalls = new HashMap<>();
-        HashMap<Color, HashMap<String, Integer>> playersNumberWalls = new HashMap<>();
+        HashMap<String, HashMap<String, Integer>> playersNumberWalls = new HashMap<>();
 
         danielWalls.put("NormalWall", 3);
         danielWalls.put("Temporary", 2);
         danielWalls.put("LongWall", 0);
         danielWalls.put("Allied", 0);
-        playersNumberWalls.put(Color.BLUE, danielWalls);
+        playersNumberWalls.put(Color.BLUE.toString(), danielWalls);
         miguelWalls.put("NormalWall", 3);
         miguelWalls.put("Temporary", 1);
         miguelWalls.put("LongWall", 0);
         miguelWalls.put("Allied", 0);
-        playersNumberWalls.put(Color.ORANGE, miguelWalls);
+        playersNumberWalls.put(Color.ORANGE.toString(), miguelWalls);
 
         q.addWallToBoard("Temporary", 3, 3, "UP");
         q.moveToken("DOWN");
@@ -405,8 +405,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
@@ -437,8 +437,8 @@ public class Quopripoobvi {
         q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.addWallToBoard("Temporary", 0, 2, "RIGHT");
@@ -468,8 +468,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Miguel", Color.ORANGE);
-        q.createPlayerHuman("Daniel", Color.BLUE);
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(3, 2, 0, 1);
         q.moveToken("UP");
@@ -504,8 +504,8 @@ public class Quopripoobvi {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
         assertArrayEquals(new String[] { "Miguel", "Daniel" }, q.getNames());
-        assertEquals(Color.ORANGE, q.getColor("Miguel"));
-        assertEquals(Color.BLUE, q.getColor("Daniel"));
+        assertEquals(Color.ORANGE.toString(), q.getColor("Miguel"));
+        assertEquals(Color.BLUE.toString(), q.getColor("Daniel"));
     }
 
 
@@ -514,8 +514,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.ORANGE);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.ORANGE.toString());
         q.createBoard(6, noSpecialSquares);
         q.addWalls(4, 2, 0, 1);
         q.addWallToBoard("NormalWall", 0, 0, "DOWN");
@@ -533,8 +533,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         HashMap<String, int[][]> squares = new HashMap<>();
         int[][] teleporterArray = new int[][] { { 2, 0 } };
         squares.put("domain.Teleporter", teleporterArray);
@@ -551,7 +551,7 @@ public class Quopripoobvi {
             assertEquals(QuoriPOOBException.GAME_OVER("Miguel"), e.getMessage());
         }
         assertEquals(q.getBoard().getMatrixBoard()[2][0].getClass().getSimpleName(), "Teleporter");
-        assertEquals(q.getBoard().getMatrixBoard()[0][2].getToken().getColor(), Color.BLACK);
+        assertEquals(q.getBoard().getMatrixBoard()[0][2].getToken().getColor(), Color.BLACK.toString());
     }
 
     @Test
@@ -559,8 +559,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.addWallToBoard("NormalWall", 1, 2, "DOWN");
@@ -579,8 +579,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(0, 0, 6, 0);
         q.addWallToBoard("LongWall", 1, 2, "DOWN");
@@ -602,8 +602,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(0, 0, 6, 0);
         try{
@@ -625,8 +625,8 @@ public class Quopripoobvi {
         QuoriPOOB q = QuoriPOOB.getQuoriPOOB();
         q.setTwoPlayers();
         q.setMode("domain.NormalMode");
-        q.createPlayerHuman("Daniel", Color.BLUE);
-        q.createPlayerHuman("Miguel", Color.BLACK);
+        q.createPlayerHuman("Daniel", Color.BLUE.toString());
+        q.createPlayerHuman("Miguel", Color.BLACK.toString());
         q.createBoard(5, noSpecialSquares);
         q.addWalls(6, 0, 0, 0);
         q.moveToken("UP");
