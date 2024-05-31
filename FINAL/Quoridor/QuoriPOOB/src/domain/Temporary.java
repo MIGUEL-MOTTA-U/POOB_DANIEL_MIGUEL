@@ -21,6 +21,23 @@ public class Temporary extends Wall {
     }
 
     /**
+     * Return the number of turns the wall has been on the board
+     * 
+     * 
+     * @return the wall turns
+     */
+    public int getTurns() {
+        return this.turn;
+    }
+
+    /**
+     * Set the number of turns the wall has been on the board.
+     */
+    public void setTurns(int turns) {
+        this.turn = turns;
+    }
+
+    /**
      * Its the behavior of the wall.
      */
     @Override

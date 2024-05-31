@@ -121,7 +121,12 @@ public class Persistence {
 			int col = wall.getInicialColumn();
 			String squareSide = wall.getSquareSide();
 
-			pw.println(type + " " + wall.getColor() + " " + row + " " + col + " " + squareSide);
+			if (wall instanceof Temporary) {
+				int turns = ((Temporary)wall).getTurns();
+				pw.println(type + " " + wall.getColor() + " " + row + " " + col + " " + squareSide + " " + turns);
+			} else {
+				pw.println(type + " " + wall.getColor() + " " + row + " " + col + " " + squareSide);
+			}
 		}
 	}
 
@@ -327,6 +332,12 @@ public class Persistence {
 				int col = Integer.parseInt(info[3]);
 
 				Wall wall = createWall(type, color);
+
+				if (wall instanceof Temporary) {
+					int turns = Integer.parseInt(info[5]);
+					((Temporary)wall).setTurns(turns);
+				}
+
 				wall.addWallToBoard(row, col, info[4], quoridor.getBoard());
 			}
 		} catch (Exception e) {
