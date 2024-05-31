@@ -142,7 +142,7 @@ public class GameDifficultyGUI extends JPanel {
 
         buttonAdvanced = createButton("Advanced");
         labelAdvancedDescription = createLabel(
-                "Include an advanced strategy, to be defined according to your creativity.");
+                "The machine will block the player's path until it runs out of bridge.");
 
         container.add(buttonAdvanced);
         container.add(labelAdvancedDescription);
